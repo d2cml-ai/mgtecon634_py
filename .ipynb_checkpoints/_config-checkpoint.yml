@@ -1,0 +1,99 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: MGTECON 634 at Stanford (R scripts)
+author: Phd Susan Athey
+logo: figs/logo.jpg
+description: This tutorial will introduce key concepts in machine learning-based causal inference. This tutorial is used in the MGTECON 634 at Stanford. Scripts were translated into Python.
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_admonition
+    - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution
+
+
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: force
+  timeout: 2400
+  
+
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_edit_page_button: true
+  use_repository_button: true
+  use_issues_button: true
+
+
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/d2cml-ai/mgtecon634_python  # Online location of your book
+  path_to_book: _build/jupyter_execute/  # Optional path to your book, relative to the repository root
+  branch: master  # Which branch of the repository should be used when creating links (optional)
+
+
+  
+# Launch button settings
+launch_buttons:
+ binder             : false
+ binderhub          : false
+ binderhub_url      : off
+ jupyterhub         : false
+ thebe              : false
+ colab              : false
+
+
+# Launch button settings
+launch_buttons:
+  notebook_interface: classic #jupyterlab
+  binderhub_url: https://mybinder.org
+  colab_url: https://colab.research.google.com
+  thebe: true
+
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_engine                : "pdflatex"
+  use_jupyterbook_latex       : true
+  latex_documents:
+    targetname: MGTECON_634_python.tex
+
+
+
+# Interact link settings
+notebook_interface            : "notebook"
+
+
+
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib
+
+sphinx:
+  config:
+    html_show_copyright: false
+    latex_toplevel_sectioning: 'section'
+#    latex_show_urls: 'footnote'
+    latex_elements.papersize: a4paper
+    latex_elements.pointsize: 12pt
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+    
+
+google_analytics:
+  mytrackingcode: UA-205698170-1
+  
+  
