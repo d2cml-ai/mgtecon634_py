@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Policy Learning I - Binary Treatment &#8212; MGTECON 634 at Stanford (R scripts)</title>
+    <title>6. Policy Learning I - Binary Treatment &#8212; MGTECON 634 at Stanford (Python scripts)</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,6 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="5. Policy Evaluation I - Binary Treatment" href="5_policy_evaluation_1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -83,7 +84,7 @@ const thebe_selector_output = ".output, .cell_output"
       <img src="../_static/logo.jpg" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (R scripts)</h1>
+      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -103,25 +104,35 @@ const thebe_selector_output = ".output, .cell_output"
   Topics
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="1_introduction_1.html">
    1. Introduction
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="2_introduction_to_machine_learning.html">
+   2. Introduction to Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="3_average_treatment_effect_1.html">
-   2. ATE I: Binary treatment
+   3. ATE I: Binary treatment
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="4_heterogeneous_treatment_effect_1.html">
-   3. HTE I: Binary treatment
+   4. HTE I: Binary treatment
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="5_policy_evaluation_1.html">
-   4. Policy Evaluation I - Binary Treatment
+   5. Policy Evaluation I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   6. Policy Learning I - Binary Treatment
   </a>
  </li>
 </ul>
@@ -165,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/notebooks/6_Policy_Learning_1.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/notebooks/6_policy_learning_1.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -185,10 +196,10 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/6_Policy_Learning_1.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/6_policy_learning_1.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/6_Policy_Learning_1.ipynb"><button
+        <a class="edit-button" href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/6_policy_learning_1.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -208,7 +219,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/6_Policy_Learning_1.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/6_policy_learning_1.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -216,7 +227,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/6_Policy_Learning_1.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/6_policy_learning_1.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -240,32 +251,32 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#non-parametric-policies">
-   Non-parametric policies
+   6.1. Non-parametric policies
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#parametric-policies">
-   Parametric policies
+   6.2. Parametric policies
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#case-study">
-   Case study
+   6.3. Case study
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#topics-1-subgroups-using-learned-policy">
-   Topics 1: Subgroups using learned policy
+   6.4. Topics 1: Subgroups using learned policy
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#topics-2-learning-with-uncertain-costs">
-   Topics 2: Learning with uncertain costs
+   6.5. Topics 2: Learning with uncertain costs
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#further-reading">
-   Further reading
+   6.6. Further reading
   </a>
  </li>
 </ul>
@@ -290,32 +301,32 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#non-parametric-policies">
-   Non-parametric policies
+   6.1. Non-parametric policies
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#parametric-policies">
-   Parametric policies
+   6.2. Parametric policies
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#case-study">
-   Case study
+   6.3. Case study
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#topics-1-subgroups-using-learned-policy">
-   Topics 1: Subgroups using learned policy
+   6.4. Topics 1: Subgroups using learned policy
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#topics-2-learning-with-uncertain-costs">
-   Topics 2: Learning with uncertain costs
+   6.5. Topics 2: Learning with uncertain costs
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#further-reading">
-   Further reading
+   6.6. Further reading
   </a>
  </li>
 </ul>
@@ -328,7 +339,7 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="policy-learning-i-binary-treatment">
-<h1>Policy Learning I - Binary Treatment<a class="headerlink" href="#policy-learning-i-binary-treatment" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">6. </span>Policy Learning I - Binary Treatment<a class="headerlink" href="#policy-learning-i-binary-treatment" title="Permalink to this headline">¶</a></h1>
 <p><font color="#fa8072">Note: this chapter is in ‘beta’ version and may be edited in the near future.</font></p>
 <p>A few chapters ago, we learned how to estimate the average effect of a binary treatment (ATE), that is, the value of treating everyone in a population versus treating no one. Once that was established, we asked whether certain subgroups could react differently to the treatment, as we learned how to estimate such heterogeneous treatment effects (HTE). Then, in the previous chapter, we learned how to aggregate these heterogeneous effects to estimate the average outcome that would be attained if treatment assignment were to follow a particular rule, that is, if we were to treat only individuals with certain observable characteristics (policy evaluation). In this chapter, we will learn how to search the space of available treatment rules to approximately <em>maximize</em> the average outcome across the population. That is, we will answer questions of the type: “<em>who</em> should be treated?” We’ll call this problem <strong>policy learning</strong>.</p>
 <p>We’ll make a distinction between parametric and non-parametric policies, just as we did with predictive models. Parametric policies are simpler and depend only on a fixed number of parameters, whereas nonparametric policies can increase in complexity with the data. As we’ll discuss below, there will be situations in which one or the other will be more appropriate.</p>
@@ -373,7 +384,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_15228</span><span class="o">/</span><span class="mf">2945750771.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_15908</span><span class="o">/</span><span class="mf">2945750771.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="kn">from</span> <span class="nn">econml.policy</span> <span class="kn">import</span> <span class="n">PolicyForest</span><span class="p">,</span> <span class="n">PolicyTree</span>
 <span class="g g-Whitespace">     </span><span class="mi">28</span> <span class="c1">## Users function</span>
 <span class="ne">---&gt; </span><span class="mi">29</span> <span class="kn">from</span> <span class="nn">main</span> <span class="kn">import</span> <span class="o">*</span>
@@ -435,28 +446,28 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="non-parametric-policies">
-<h2>Non-parametric policies<a class="headerlink" href="#non-parametric-policies" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.1. </span>Non-parametric policies<a class="headerlink" href="#non-parametric-policies" title="Permalink to this headline">¶</a></h2>
 <p>In the HTE chapter we define the conditional average treatment effect (CATE) function</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ab190440-bc77-40c5-b69a-f0c55a34bc53">
-<span class="eqno">()<a class="headerlink" href="#equation-ab190440-bc77-40c5-b69a-f0c55a34bc53" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{cate}
+<div class="amsmath math notranslate nohighlight" id="equation-419fb80a-b95c-4673-bf4d-9947a672970c">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-419fb80a-b95c-4673-bf4d-9947a672970c" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{cate}
   \tag{4.1}
   \tau(x) := \mathop{\mathrm{E}}[Y_i(1) - Y_i(0) | X_i = x],
 \end{equation}\]</div>
 <p>that is, the average effect of a binary treatment conditional on observable charateristics. If we knew \eqref{cate}, then a natural policy would be to assigns individuals to treatment their CATE is positive,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-84cf0ddb-ed29-4d53-857d-1b6f86d99ec4">
-<span class="eqno">()<a class="headerlink" href="#equation-84cf0ddb-ed29-4d53-857d-1b6f86d99ec4" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-f98bd11e-6283-43ab-a3d8-4e16781cc914">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-f98bd11e-6283-43ab-a3d8-4e16781cc914" title="Permalink to this equation">¶</a></span>\[\begin{equation}
   \tag{6.1}
   \pi^{*} = \mathbb{I}\{\tau(x) \geq 0\}.
 \end{equation}\]</div>
 <p>More generally, if treating that individual costs a known amount <span class="math notranslate nohighlight">\(c(x)\)</span>,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b7764b28-73be-4c74-860d-612875035d65">
-<span class="eqno">()<a class="headerlink" href="#equation-b7764b28-73be-4c74-860d-612875035d65" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-574776b6-bcee-44b9-9a75-f8ebcde929db">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-574776b6-bcee-44b9-9a75-f8ebcde929db" title="Permalink to this equation">¶</a></span>\[\begin{equation}
   \tag{6.1}
   \pi^{*} = \mathbb{I}\{\tau(x) \geq c(x)\}.
 \end{equation}\]</div>
 <p>Of course, we don’t know \eqref{cate}. However, we can obtain an estimate <span class="math notranslate nohighlight">\(\widehat{\tau}(\cdot)\)</span> using any flexible (i.e., non-parametric) method as we learned in the HTE chapter, and then obtain a policy estimate</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2545ff28-34cc-4ad3-ac98-3b3583ac55c7">
-<span class="eqno">()<a class="headerlink" href="#equation-2545ff28-34cc-4ad3-ac98-3b3583ac55c7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b7c178a2-1007-4802-aab5-eddbde64b527">
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-b7c178a2-1007-4802-aab5-eddbde64b527" title="Permalink to this equation">¶</a></span>\[\begin{equation}
   \hat{\pi}(x) = \mathbb{I}\{ \widehat{\tau}(x) \geq 0\},
 \end{equation}\]</div>
 <p>replacing the zero threshold by some appropriate cost function if needed.</p>
@@ -687,27 +698,27 @@ Std.Error: 0.008382189838270512
 <p>A technical note. It’s easy to get confused and try to “estimate” a nonparametric policy using AIPW scores, as in “<span class="math notranslate nohighlight">\(\hat{\pi}(X_i) = \mathbb{I}\{ \widehat{\Gamma}_{i,1} \geq  \widehat{\Gamma}_{i,0} \}\)</span>”. <em>This is incorrect</em>. AIPW scores are very noisy and should never be used “pointwise” like this. They should be used as part of an average (as above), or some other form of aggregation (as we’ll see in the next section).</p>
 </div>
 <div class="section" id="parametric-policies">
-<h2>Parametric policies<a class="headerlink" href="#parametric-policies" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.2. </span>Parametric policies<a class="headerlink" href="#parametric-policies" title="Permalink to this headline">¶</a></h2>
 <p>In many settings, there are good reasons to constrain the policy to belong to a smaller function class <span class="math notranslate nohighlight">\(\pi\)</span>. The set <span class="math notranslate nohighlight">\(\pi\)</span> may contain only policies that, for example, are transparent and easy to explain to stakeholders, or that are easily implemented in the field. It may also be the case that the set of available policies <span class="math notranslate nohighlight">\(\pi\)</span> encodes other desirability criteria, such as satisfying certain budget constraints or depending only on a subset of observable characteristics.</p>
 <p>Estimating such a policy from data is finding an approximate solution to the following constrained maximization problem,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2aefcf5d-a7e2-4ac0-aad4-06cfc9a7da0b">
-<span class="eqno">()<a class="headerlink" href="#equation-2aefcf5d-a7e2-4ac0-aad4-06cfc9a7da0b" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{param-pi-oracle}
+<div class="amsmath math notranslate nohighlight" id="equation-afb9aceb-d30e-43e5-8035-50c2b398df6b">
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-afb9aceb-d30e-43e5-8035-50c2b398df6b" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{param-pi-oracle}
   \tag{6.2}
   \pi^{*} = \arg\max_{\pi \in \Pi} \mathop{\mathrm{E}}[Y(\pi(X_i))].
 \end{equation}\]</div>
 <p>Following [Athey and Wager (2020, Econometrica)], we will use the following em\pirical counterpart of \eqref{param-pi-oracle},</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4b6877b9-9abc-4ba9-9c79-939ce076aeb5">
-<span class="eqno">()<a class="headerlink" href="#equation-4b6877b9-9abc-4ba9-9c79-939ce076aeb5" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{param-pi-problem} \tag{6.3}
+<div class="amsmath math notranslate nohighlight" id="equation-8ac479c3-9581-4b0c-8953-251bd37a2c9c">
+<span class="eqno">(6.6)<a class="headerlink" href="#equation-8ac479c3-9581-4b0c-8953-251bd37a2c9c" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{param-pi-problem} \tag{6.3}
   \hat{\pi} = \arg\min_{\pi \in \Pi} \frac{1}{n} \sum_{i=1}^{n} \widehat{\Gamma}_{i,\pi(X_i)}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\widehat{\Gamma}_{i,\pi(X_i)}\)</span> are AIPW scores as defined in the previous chapter. As reminder,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-98448816-b663-48f1-81f4-9018f5456321">
-<span class="eqno">()<a class="headerlink" href="#equation-98448816-b663-48f1-81f4-9018f5456321" title="Permalink to this equation">¶</a></span>\[\begin{equation} 
+<div class="amsmath math notranslate nohighlight" id="equation-a879056c-b70a-4701-aa94-ec6569f7b48d">
+<span class="eqno">(6.7)<a class="headerlink" href="#equation-a879056c-b70a-4701-aa94-ec6569f7b48d" title="Permalink to this equation">¶</a></span>\[\begin{equation} 
   \widehat{\Gamma}_{i,\pi(X_i)} = \pi(X_i)\widehat{\Gamma}_{i,1} + (1 - \pi(X_i))\widehat{\Gamma}_{i,0},
 \end{equation}\]</div>
 <p>where</p>
-<div class="amsmath math notranslate nohighlight" id="equation-973df22e-ac9d-4eaf-b295-e811666afb66">
-<span class="eqno">()<a class="headerlink" href="#equation-973df22e-ac9d-4eaf-b295-e811666afb66" title="Permalink to this equation">¶</a></span>\[\begin{align} \label{aipw}
+<div class="amsmath math notranslate nohighlight" id="equation-dca2a86a-a137-4008-8b4b-ec63a47cc55b">
+<span class="eqno">(6.8)<a class="headerlink" href="#equation-dca2a86a-a137-4008-8b4b-ec63a47cc55b" title="Permalink to this equation">¶</a></span>\[\begin{align} \label{aipw}
     \tag{3.10}
     \widehat{\Gamma}_{i,1} 
     &amp;= \hat{\mu}^{-i}(X_i, 1) + \frac{W_i}{\hat{e}^{-i}(X_i)} \left(Y_i -\hat{\mu}^{-i}(X_i, 1)\right), \\
@@ -779,7 +790,7 @@ Std.Error: 0.008382189838270512
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_Policy_Learning_1_21_0.png" src="../_images/6_Policy_Learning_1_21_0.png" />
+<img alt="../_images/6_policy_learning_1_21_0.png" src="../_images/6_policy_learning_1_21_0.png" />
 </div>
 </div>
 <p>Note how the treatment rule is rather transparent, in that whether or not each individual is treated depends only on a couple of if-statements. This can be very attractive in settings in which it’s important to explain the policy to stakeholders, or reason about its consequences in terms of fairness (e.g., is it okay that these particular subgroups get the treatment?), manipulability (e.g., will individuals lie about their observable characteristics to get a better outcome?), and so on.</p>
@@ -834,7 +845,7 @@ Std.Error: 0.012235419944597562
 <p>[Possible edit here: talk about cross-validation?]</p>
 </div>
 <div class="section" id="case-study">
-<h2>Case study<a class="headerlink" href="#case-study" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.3. </span>Case study<a class="headerlink" href="#case-study" title="Permalink to this headline">¶</a></h2>
 <p>Let’s apply the methods above to our <code class="docutils literal notranslate"><span class="pre">welfare</span></code> dataset, as used in previous chapters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -929,7 +940,7 @@ Std.Error: 0.012235419944597562
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_Policy_Learning_1_30_0.png" src="../_images/6_Policy_Learning_1_30_0.png" />
+<img alt="../_images/6_policy_learning_1_30_0.png" src="../_images/6_policy_learning_1_30_0.png" />
 </div>
 </div>
 <p>Estimating the value of the learned policy. Note in the code below that we must subtract the cost of treatment.</p>
@@ -1022,10 +1033,10 @@ Std.Error [AIPW]: 0.003870420536734973
 </div>
 </div>
 <div class="section" id="topics-1-subgroups-using-learned-policy">
-<h2>Topics 1: Subgroups using learned policy<a class="headerlink" href="#topics-1-subgroups-using-learned-policy" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.4. </span>Topics 1: Subgroups using learned policy<a class="headerlink" href="#topics-1-subgroups-using-learned-policy" title="Permalink to this headline">¶</a></h2>
 <p>The learned policy naturally induces interesting subgroups for which we expect the treatment effect to be different. With appropriate sample splitting, we can test that treatment effect is indeed different across “regions” defined by assignment under the learned policy,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3e5405f0-ec6a-4708-8458-7e75afca69c1">
-<span class="eqno">()<a class="headerlink" href="#equation-3e5405f0-ec6a-4708-8458-7e75afca69c1" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-eb281843-ad0f-4911-989c-9cbcf9f2dbb8">
+<span class="eqno">(6.9)<a class="headerlink" href="#equation-eb281843-ad0f-4911-989c-9cbcf9f2dbb8" title="Permalink to this equation">¶</a></span>\[\begin{equation}
   H_0: \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \hat{\pi}(X_i) = 1] = \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \hat{\pi}(X_i) = 0].
 \end{equation}\]</div>
 <div class="cell docutils container">
@@ -1158,8 +1169,8 @@ Std.Error [AIPW]: 0.003870420536734973
 </div></div></div>
 </div>
 <p>If we learned a tree policy using the <code class="docutils literal notranslate"><span class="pre">policytree</span></code>, we can test whether treatment effects are different across leaves.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a65a7717-9b9a-4786-9672-72abb3d34111">
-<span class="eqno">()<a class="headerlink" href="#equation-a65a7717-9b9a-4786-9672-72abb3d34111" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6e70f764-071f-4467-b362-d48fba08b46b">
+<span class="eqno">(6.10)<a class="headerlink" href="#equation-6e70f764-071f-4467-b362-d48fba08b46b" title="Permalink to this equation">¶</a></span>\[\begin{equation}
   H_0: \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \text{Leaf} = 1] = \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \text{Leaf} = \ell] \qquad \text{for }\ell \geq 2
 \end{equation}\]</div>
 <div class="cell docutils container">
@@ -1292,8 +1303,8 @@ Std.Error [AIPW]: 0.003870420536734973
 </div></div></div>
 </div>
 <p>Finally, as we have done in previous chapters, we can check how covariate averages vary across subgroups. This time, the subgroups are defined by treatment assignment under the learned policy.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-948760d4-8726-45ae-a2c3-ea5ea87198b6">
-<span class="eqno">()<a class="headerlink" href="#equation-948760d4-8726-45ae-a2c3-ea5ea87198b6" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2d042b93-5d1d-421a-8582-2f6dc177412a">
+<span class="eqno">(6.11)<a class="headerlink" href="#equation-2d042b93-5d1d-421a-8582-2f6dc177412a" title="Permalink to this equation">¶</a></span>\[\begin{equation}
   H_0: \mathop{\mathrm{E}}[X_{ij} | \hat{\pi}(X_i) = 1] = \mathop{\mathrm{E}}[X_{ij} | \hat{\pi}(X_i) = 0] \qquad \text{for each covariate }j
 \end{equation}\]</div>
 <div class="cell docutils container">
@@ -1349,12 +1360,12 @@ Std.Error [AIPW]: 0.003870420536734973
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Average covariate values within each leaf&#39;)
 </pre></div>
 </div>
-<img alt="../_images/6_Policy_Learning_1_43_1.png" src="../_images/6_Policy_Learning_1_43_1.png" />
+<img alt="../_images/6_policy_learning_1_43_1.png" src="../_images/6_policy_learning_1_43_1.png" />
 </div>
 </div>
 </div>
 <div class="section" id="topics-2-learning-with-uncertain-costs">
-<h2>Topics 2: Learning with uncertain costs<a class="headerlink" href="#topics-2-learning-with-uncertain-costs" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.5. </span>Topics 2: Learning with uncertain costs<a class="headerlink" href="#topics-2-learning-with-uncertain-costs" title="Permalink to this headline">¶</a></h2>
 <p>In the previous section, treatment costs were known and (just for simplicity of exposition) fixed across covariate values. However, there are situations in which costs are unknown and must be learned from the data as well. In such situations, we may interested only in policies that do not exceed a certain budget  in expectation.</p>
 <p>Here, we follow <a class="reference external" href="https://arxiv.org/abs/2103.11066">Sun, Du, Wager (2021)</a> for how to deal with this issue. Their formulation is as follows. In potential outcome notation, each observation can be described by the tuple <span class="math notranslate nohighlight">\((X_i, Y_i(0), Y_i(1), C_i(0), C_i(1))\)</span>, where the new pair <span class="math notranslate nohighlight">\((C_i(0), C_i(1))\)</span> represents costs that would be realized if individuals were assigned to control or treatment. Of course, in the data we only observe the tuple <span class="math notranslate nohighlight">\((X_i, W_i, Y_i, C_i)\)</span>, where <span class="math notranslate nohighlight">\(C_i \equiv C_i(W_i)\)</span>. We are interested in approximating the policy <span class="math notranslate nohighlight">\(\pi_B^*\)</span> that maximizes the gain from treating relative to not treating anyone while kee\ping the average relative cost bounded by some known budget <span class="math notranslate nohighlight">\(B\)</span>,</p>
 <div class="math notranslate nohighlight">
@@ -1480,18 +1491,18 @@ Std.Error [AIPW]: 0.003870420536734973
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_Policy_Learning_1_48_0.png" src="../_images/6_Policy_Learning_1_48_0.png" />
+<img alt="../_images/6_policy_learning_1_48_0.png" src="../_images/6_policy_learning_1_48_0.png" />
 </div>
 </div>
 <p>To read this graph, we consider a point on the horizontal axis, representing a possible (normalized) budget constraint. At that point, whichever policy is higher is more cost-effective.</p>
 <p>As the authors note, we can also estimate (6.4) in a second way. First, they note that, under overlap and the following extended unconfoudedness assumption</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b5383806-3581-47d7-9abd-adbc77dde4e7">
-<span class="eqno">()<a class="headerlink" href="#equation-b5383806-3581-47d7-9abd-adbc77dde4e7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-340bbdb9-20c5-4a3b-9317-102d5240481c">
+<span class="eqno">(6.12)<a class="headerlink" href="#equation-340bbdb9-20c5-4a3b-9317-102d5240481c" title="Permalink to this equation">¶</a></span>\[\begin{equation}
   \{Y_i(0), Y_i(1), C_i(1), C_i(0) \perp W_i | X_i \},
 \end{equation}\]</div>
 <p>we can rewrite (6.4) as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cba477ba-97be-4907-9ab5-9025d88a93c8">
-<span class="eqno">()<a class="headerlink" href="#equation-cba477ba-97be-4907-9ab5-9025d88a93c8" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{rho-iv} \tag{6.5}
+<div class="amsmath math notranslate nohighlight" id="equation-91b8ac60-9dc3-4d46-939d-5eb7031076f5">
+<span class="eqno">(6.13)<a class="headerlink" href="#equation-91b8ac60-9dc3-4d46-939d-5eb7031076f5" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{rho-iv} \tag{6.5}
   \rho(x) := 
     \frac{\text{Cov}[Y_i, W_i | X_i = x]}
          {\text{Cov}[C_i, W_i | X_i = x]}.
@@ -1529,7 +1540,7 @@ Std.Error [AIPW]: 0.003870420536734973
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_Policy_Learning_1_51_0.png" src="../_images/6_Policy_Learning_1_51_0.png" />
+<img alt="../_images/6_policy_learning_1_51_0.png" src="../_images/6_policy_learning_1_51_0.png" />
 </div>
 </div>
 <p>In this example, both the “direct ratio” and the solution based on instrumental forests have similar performance. This isn’t always the case. When the ratio <span class="math notranslate nohighlight">\(\rho(x)\)</span> is simpler relative to <span class="math notranslate nohighlight">\(\tau(x)\)</span> and <span class="math notranslate nohighlight">\(\gamma(x)\)</span>, the solution based on instrumental forests may perform better since it is estimating <span class="math notranslate nohighlight">\(\rho(x)\)</span> directly, where the “direct ratio” solution needs to estimate the more complicated objects <span class="math notranslate nohighlight">\(\tau(x)\)</span> and <span class="math notranslate nohighlight">\(\gamma(x)\)</span> separately. At a high level, we should expect <span class="math notranslate nohighlight">\(\rho(x)\)</span> to be relatively simpler when there is a strong relationship between <span class="math notranslate nohighlight">\(\tau(x)\)</span> and <span class="math notranslate nohighlight">\(\gamma(x)\)</span>. Here, our simulated costs seem to be somewhat related to CATE (see the plot below), but perhaps not strongly enough to make the instrumental forest solution noticeably better than the one based on ratios.</p>
@@ -1546,7 +1557,7 @@ Std.Error [AIPW]: 0.003870420536734973
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Esimated CATE (normalized)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/6_Policy_Learning_1_53_1.png" src="../_images/6_Policy_Learning_1_53_1.png" />
+<img alt="../_images/6_policy_learning_1_53_1.png" src="../_images/6_policy_learning_1_53_1.png" />
 </div>
 </div>
 <p>The different policies can be compared by the area between the curves they trace and the 45-degree line, with higher values indicating better policies.</p>
@@ -1606,7 +1617,7 @@ Std.Error [AIPW]: 0.003870420536734973
 </div>
 </div>
 <div class="section" id="further-reading">
-<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.6. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <p>The presentation of parametric policies was largely based on Athey and Wager (Econometrica, 2021). A slightly more accessible version of some of the material in the published version can be found in an earlier <a class="reference external" href="https://arxiv.org/abs/1702.02896v1">ArXiv version</a> of the same paper. Policy comparisons via cost curves can also be found in <a class="reference external" href="https://arxiv.org/pdf/1905.05389.pdf">Imai and Li (2019)</a>.</p>
 </div>
 </div>
@@ -1635,7 +1646,14 @@ Std.Error [AIPW]: 0.003870420536734973
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="5_policy_evaluation_1.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">5. </span>Policy Evaluation I - Binary Treatment</p>
+        </div>
+    </a>
 </div>
             
         </div>

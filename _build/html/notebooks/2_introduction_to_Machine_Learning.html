@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction to Machine Learning &#8212; MGTECON 634 at Stanford (R scripts)</title>
+    <title>2. Introduction to Machine Learning &#8212; MGTECON 634 at Stanford (Python scripts)</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,6 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. ATE I: Binary treatment" href="3_average_treatment_effect_1.html" />
+    <link rel="prev" title="1. Introduction" href="1_introduction_1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -83,7 +85,7 @@ const thebe_selector_output = ".output, .cell_output"
       <img src="../_static/logo.jpg" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (R scripts)</h1>
+      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -103,25 +105,35 @@ const thebe_selector_output = ".output, .cell_output"
   Topics
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="1_introduction_1.html">
    1. Introduction
   </a>
  </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Introduction to Machine Learning
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="3_average_treatment_effect_1.html">
-   2. ATE I: Binary treatment
+   3. ATE I: Binary treatment
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="4_heterogeneous_treatment_effect_1.html">
-   3. HTE I: Binary treatment
+   4. HTE I: Binary treatment
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="5_policy_evaluation_1.html">
-   4. Policy Evaluation I - Binary Treatment
+   5. Policy Evaluation I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_policy_learning_1.html">
+   6. Policy Learning I - Binary Treatment
   </a>
  </li>
 </ul>
@@ -165,7 +177,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/notebooks/2_introduction_to_Machine_Learning.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/notebooks/2_introduction_to_machine_learning.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -185,10 +197,10 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/2_introduction_to_Machine_Learning.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/2_introduction_to_machine_learning.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/2_introduction_to_Machine_Learning.ipynb"><button
+        <a class="edit-button" href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/2_introduction_to_machine_learning.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -208,7 +220,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/2_introduction_to_Machine_Learning.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/2_introduction_to_machine_learning.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -216,7 +228,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/2_introduction_to_Machine_Learning.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/2_introduction_to_machine_learning.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -240,34 +252,34 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#key-concepts">
-   Key concepts
+   2.1. Key concepts
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#common-machine-learning-algorithms">
-   Common machine learning algorithms
+   2.2. Common machine learning algorithms
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#generalized-linear-models">
-     Generalized linear models
+     2.2.1. Generalized linear models
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#decision-tree">
-     Decision Tree
+     2.2.2. Decision Tree
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#forest">
-     Forest
+     2.2.3. Forest
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#further-reading">
-   Further reading
+   2.3. Further reading
   </a>
  </li>
 </ul>
@@ -292,34 +304,34 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#key-concepts">
-   Key concepts
+   2.1. Key concepts
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#common-machine-learning-algorithms">
-   Common machine learning algorithms
+   2.2. Common machine learning algorithms
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#generalized-linear-models">
-     Generalized linear models
+     2.2.1. Generalized linear models
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#decision-tree">
-     Decision Tree
+     2.2.2. Decision Tree
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#forest">
-     Forest
+     2.2.3. Forest
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#further-reading">
-   Further reading
+   2.3. Further reading
   </a>
  </li>
 </ul>
@@ -332,7 +344,7 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-machine-learning">
-<h1>Introduction to Machine Learning<a class="headerlink" href="#introduction-to-machine-learning" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">2. </span>Introduction to Machine Learning<a class="headerlink" href="#introduction-to-machine-learning" title="Permalink to this headline">¶</a></h1>
 <p>In this chapter, we’ll briefly review machine learning concepts that will be relevant later. We’ll focus in particular on the problem of <strong>prediction</strong>, that is, to model some output variable as a function of observed input covariates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -390,15 +402,15 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome y&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_6_1.png" src="../_images/2_introduction_to_Machine_Learning_6_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_6_1.png" src="../_images/2_introduction_to_machine_learning_6_1.png" />
 </div>
 </div>
 <p>Note: If you’d like to run the code below on a different dataset, you can replace the dataset above with another <code class="docutils literal notranslate"><span class="pre">data.frame</span></code> of your choice, and redefine the key variable identifiers (<code class="docutils literal notranslate"><span class="pre">outcome</span></code>, <code class="docutils literal notranslate"><span class="pre">covariates</span></code>) accordingly. Although we try to make the code as general as possible, you may also need to make a few minor changes to the code below; read the comments carefully.</p>
 <div class="section" id="key-concepts">
-<h2>Key concepts<a class="headerlink" href="#key-concepts" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.1. </span>Key concepts<a class="headerlink" href="#key-concepts" title="Permalink to this headline">¶</a></h2>
 <p>The prediction problem is to accurately guess the value of some output variable <span class="math notranslate nohighlight">\(Y_i\)</span> from input variables <span class="math notranslate nohighlight">\(X_i\)</span>. For example, we might want to predict “house prices given house characteristics such as the number of rooms, age of the building, and so on. The relationship between input and output is modeled in very general terms by some function</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0232795f-5372-49d7-b00f-cc8a0db9ed15">
-<span class="eqno">()<a class="headerlink" href="#equation-0232795f-5372-49d7-b00f-cc8a0db9ed15" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{eq:true-model} \tag{2.1}
+<div class="amsmath math notranslate nohighlight" id="equation-21005f9b-4d93-4cbb-b5cf-9ee2a2ee5d23">
+<span class="eqno">(2.1)<a class="headerlink" href="#equation-21005f9b-4d93-4cbb-b5cf-9ee2a2ee5d23" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{eq:true-model} \tag{2.1}
   Y_i = f(X_i) + \epsilon_i
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\epsilon_i\)</span> represents all that is not captured by information obtained from <span class="math notranslate nohighlight">\(X_i\)</span> via the mapping <span class="math notranslate nohighlight">\(f\)</span>. We say that error <span class="math notranslate nohighlight">\(\epsilon_i\)</span> is irreducible.</p>
@@ -410,8 +422,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><strong>Evaluation:</strong> Evaluate our fitted model <span class="math notranslate nohighlight">\(\hat{f}\)</span>. That is, if we were given a new, yet unseen, input and output pair <span class="math notranslate nohighlight">\((X',Y')\)</span>, we’d like to know if <span class="math notranslate nohighlight">\(Y' \approx \hat{f}(X_i)\)</span> by some metric.</p></li>
 </ul>
 <p>For concreteness, let’s work through an example. Let’s say that, given the data simulated above, we’d like to predict <span class="math notranslate nohighlight">\(Y_i\)</span> from the first covariate  <span class="math notranslate nohighlight">\(X_{i1}\)</span> only. Also, let’s say that our model class will be polynomials of degree <span class="math notranslate nohighlight">\(q\)</span> in <span class="math notranslate nohighlight">\(X_{i1}\)</span>, and we’ll evaluate fit based on mean squared error. That is, <span class="math notranslate nohighlight">\(\hat{f}(X_{i1}) = \hat{b}_0 + X_{i1}\hat{b}_1 + \cdots + X_{i1}^q \hat{b}_q\)</span>, where the coefficients are obtained by solving the following problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bf0799a0-5b96-4d8f-9a1b-deb3dc20aab7">
-<span class="eqno">()<a class="headerlink" href="#equation-bf0799a0-5b96-4d8f-9a1b-deb3dc20aab7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-3d589115-8e2e-4552-a769-fb5013ddb0be">
+<span class="eqno">(2.2)<a class="headerlink" href="#equation-3d589115-8e2e-4552-a769-fb5013ddb0be" title="Permalink to this equation">¶</a></span>\[\begin{equation}
   \hat{b} = \arg\min_b \sum_{i=1}^m
     \left(Y_i - b_0 - X_{i1}b_1 - \cdots - X_{iq}^q b_q \right)^2
 \end{equation}\]</div>
@@ -461,7 +473,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome y&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_10_1.png" src="../_images/2_introduction_to_Machine_Learning_10_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_10_1.png" src="../_images/2_introduction_to_machine_learning_10_1.png" />
 </div>
 </div>
 <p>On the other hand, when <span class="math notranslate nohighlight">\(q\)</span> is too small relative to our data, we permit only very simple models and may suffer from misspecification bias. We call this <strong>underfitting</strong>. The main feature of underfitting is <strong>high bias</strong> – the selected model just isn’t complex enough to accurately capture the relationship between input and output variables.</p>
@@ -493,7 +505,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome y&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_12_1.png" src="../_images/2_introduction_to_Machine_Learning_12_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_12_1.png" src="../_images/2_introduction_to_machine_learning_12_1.png" />
 </div>
 </div>
 <p>This tension is called the <strong>bias-variance trade-off</strong>: simpler models underfit and have more bias, more complex models overfit and have more variance.</p>
@@ -548,7 +560,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(7, 1.3, &#39;High bias \n Low Variance&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_15_1.png" src="../_images/2_introduction_to_Machine_Learning_15_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_15_1.png" src="../_images/2_introduction_to_machine_learning_15_1.png" />
 </div>
 </div>
 <p>To make better use of the data we will often divide the data into <span class="math notranslate nohighlight">\(K\)</span> subsets, or <em>folds</em>. Then one fits <span class="math notranslate nohighlight">\(K\)</span> models, each using  <span class="math notranslate nohighlight">\(K-1\)</span> folds and then evaluation the fitted model on the remaining fold. This is called <strong>k-fold cross-validation</strong>.</p>
@@ -591,7 +603,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;MSE estimate (K-fold cross validation)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_18_1.png" src="../_images/2_introduction_to_Machine_Learning_18_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_18_1.png" src="../_images/2_introduction_to_machine_learning_18_1.png" />
 </div>
 </div>
 <p>A final remark is that, in machine learning applications, the complexity of the model often is allowed to increase with the available data. In the example above, even though we weren’t very successful when fitting a high-dimensional model on very little data, if we had much more data perhaps such a model would be appropriate. The next figure again fits a high order polynomial model, but this time on many data points. Note how, at least in data-rich regions, the model is much better behaved, and tracks the average outcome reasonably well without trying to interpolate wildly of the data points.</p>
@@ -636,14 +648,14 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_20_1.png" src="../_images/2_introduction_to_Machine_Learning_20_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_20_1.png" src="../_images/2_introduction_to_machine_learning_20_1.png" />
 </div>
 </div>
 <p>This is one of the benefits of using machine learning-based models: more data implies more flexible modeling, and therefore potentially better predictive power – provided that we carefully avoid overfitting.</p>
 <p>The example above based on polynomial regression was used mostly for illustration. In practice, there are often better-performing algorithms. We’ll see some of them next.</p>
 </div>
 <div class="section" id="common-machine-learning-algorithms">
-<h2>Common machine learning algorithms<a class="headerlink" href="#common-machine-learning-algorithms" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.2. </span>Common machine learning algorithms<a class="headerlink" href="#common-machine-learning-algorithms" title="Permalink to this headline">¶</a></h2>
 <p>Next, we’ll introduce three machine learning algorithms: (regularized) linear models, trees, and forests. Although this isn’t an exhaustive list, these algorithms are common enough that every machine learning practitioner should know about them. They also have convenient <code class="docutils literal notranslate"><span class="pre">R</span></code> packages that allow for easy coding.</p>
 <p>In this tutorial, we’ll focus heavily on how to <strong>interpret</strong> the output of machine learning models – or, at least, how not to <em>mis</em>-interpret it. However, in this chapter we won’t be making any causal claims about the relationships between variables yet. But please hang tight, as estimating causal effects will be one of the main topics presented in the next chapters.</p>
 <p>For the remainder of the chapter we will use a real dataset. Each row in this data set represents the characteristics of a owner-occupied housing unit. Our goal is to predict the (log) price of the housing unit (<code class="docutils literal notranslate"><span class="pre">LOGVALUE</span></code>, our outcome variable) from features such as the size of the lot (<code class="docutils literal notranslate"><span class="pre">LOT</span></code>) and square feet area (<code class="docutils literal notranslate"><span class="pre">UNITSF</span></code>), number of bedrooms (<code class="docutils literal notranslate"><span class="pre">BEDRMS</span></code>) and bathrooms (<code class="docutils literal notranslate"><span class="pre">BATHS</span></code>), year in which it was built (<code class="docutils literal notranslate"><span class="pre">BUILT</span></code>) etc. This dataset comes from the American Housing Survey and was used in <a class="reference external" href="https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87">Mullainathan and Spiess (2017, JEP)</a>. In addition, we will append to this data columns that are pure noise. Ideally, our fitted model should not take them into acccount.</p>
@@ -817,17 +829,17 @@ const thebe_selector_output = ".output, .cell_output"
 </div></div></div>
 </div>
 <div class="section" id="generalized-linear-models">
-<h3>Generalized linear models<a class="headerlink" href="#generalized-linear-models" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">2.2.1. </span>Generalized linear models<a class="headerlink" href="#generalized-linear-models" title="Permalink to this headline">¶</a></h3>
 <p>This class of models extends common methods such as linear and logistic regression by adding a penalty to the magnitude of the coefficients. <strong>Lasso</strong> penalizes the absolute value of slope coefficients. For regression problems, it becomes</p>
-<div class="amsmath math notranslate nohighlight" id="equation-18b1c0dc-8a5d-4459-ab16-f5161fb905e4">
-<span class="eqno">()<a class="headerlink" href="#equation-18b1c0dc-8a5d-4459-ab16-f5161fb905e4" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{eq:lasso}\tag{2.2}
+<div class="amsmath math notranslate nohighlight" id="equation-f0e8f920-0feb-456f-80fd-b4f2bf758652">
+<span class="eqno">(2.3)<a class="headerlink" href="#equation-f0e8f920-0feb-456f-80fd-b4f2bf758652" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{eq:lasso}\tag{2.2}
   \hat{b}_{Lasso} = \arg\min_b \sum_{i=1}^m
     \left( Y_i - b_0 - X_{i1}b_1 - \cdots - X_{ip}b_p \right)^2
     - \lambda \sum_{j=1}^p |b_j|
 \end{equation}\]</div>
 <p>Similarly, in a regression problem <strong>Ridge</strong> penalizes the sum of squares of the slope coefficients,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-591aa86c-afc2-4bf9-989a-c32e6366aaca">
-<span class="eqno">()<a class="headerlink" href="#equation-591aa86c-afc2-4bf9-989a-c32e6366aaca" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{eq:ridge}\tag{2.3}
+<div class="amsmath math notranslate nohighlight" id="equation-e57df397-73e3-40d3-9562-874cda44639c">
+<span class="eqno">(2.4)<a class="headerlink" href="#equation-e57df397-73e3-40d3-9562-874cda44639c" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{eq:ridge}\tag{2.3}
   \hat{b}_{Ridge} = \arg\min_b \sum_{i=1}^m
     \left( Y_i - b_0 - X_{i1}b_1 - \cdots - X_{ip}b_p \right)^2
     - \lambda \sum_{j=1}^p b_j^2
@@ -900,7 +912,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1e-08, 0.1)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_33_1.png" src="../_images/2_introduction_to_Machine_Learning_33_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_33_1.png" src="../_images/2_introduction_to_machine_learning_33_1.png" />
 </div>
 </div>
 <p>Here are the first few estimated coefficients at the <span class="math notranslate nohighlight">\(\lambda\)</span> value that minimizes cross-validated MSE. Note that many estimated coefficients them are exactly zero.</p>
@@ -947,11 +959,11 @@ const thebe_selector_output = ".output, .cell_output"
   <tbody>
     <tr>
       <th>Coef.</th>
-      <td>11.586322</td>
-      <td>3.518556e-07</td>
+      <td>11.570608</td>
+      <td>3.504842e-07</td>
       <td>0.000023</td>
-      <td>0.000233</td>
-      <td>0.246402</td>
+      <td>0.00025</td>
+      <td>0.24678</td>
     </tr>
   </tbody>
 </table>
@@ -964,7 +976,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of nonzero coefficients at optimal lambda: 47 out of  63
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of nonzero coefficients at optimal lambda: 43 out of  63
 </pre></div>
 </div>
 </div>
@@ -983,7 +995,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>glmnet MSE estimate (k-fold cross-validation): 0.615875650548438
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>glmnet MSE estimate (k-fold cross-validation): 0.6159119924614578
 </pre></div>
 </div>
 </div>
@@ -1015,7 +1027,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2_introduction_to_Machine_Learning_41_0.png" src="../_images/2_introduction_to_Machine_Learning_41_0.png" />
+<img alt="../_images/2_introduction_to_machine_learning_41_0.png" src="../_images/2_introduction_to_machine_learning_41_0.png" />
 </div>
 </div>
 <p>It’s tempting to try to interpret the coefficients obtained via Lasso. Unfortunately, that can be very difficult, because by dropping covariates Lasso introduces a form of <strong>omitted variable bias</strong> (<a class="reference external" href="https://en.wikipedia.org/wiki/Omitted-variable_bias">wikipedia</a>). To understand this form of bias, consider the following toy example. We have two positively correlated independent variables, <code class="docutils literal notranslate"><span class="pre">x.1</span></code> and <code class="docutils literal notranslate"><span class="pre">x.2</span></code>, that are linearly related to the outcome <code class="docutils literal notranslate"><span class="pre">y</span></code>. Linear regression of <code class="docutils literal notranslate"><span class="pre">y</span></code> on <code class="docutils literal notranslate"><span class="pre">x1</span></code> and <code class="docutils literal notranslate"><span class="pre">x2</span></code> gives us the correct coefficients. However, if we <em>omit</em> <code class="docutils literal notranslate"><span class="pre">x2</span></code> from the estimation model, the coefficient on <code class="docutils literal notranslate"><span class="pre">x1</span></code> increases. This is because <code class="docutils literal notranslate"><span class="pre">x1</span></code> is now “picking up” the effect of the variable that was left out. In other words, the effect of <code class="docutils literal notranslate"><span class="pre">x1</span></code> seems stronger because we aren’t controlling for some other confounding variable. Note that the second model this still works for prediction, but we cannot interpret the coefficient as a measure of strength of the causal relationship between <code class="docutils literal notranslate"><span class="pre">x1</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
@@ -1052,24 +1064,24 @@ const thebe_selector_output = ".output, .cell_output"
 ==============================================================================
 Dep. Variable:                      y   R-squared:                       0.997
 Model:                            OLS   Adj. R-squared:                  0.997
-Method:                 Least Squares   F-statistic:                 1.904e+07
-Date:                Sat, 23 Jul 2022   Prob (F-statistic):               0.00
-Time:                        23:36:49   Log-Likelihood:                -17550.
-No. Observations:              100000   AIC:                         3.511e+04
-Df Residuals:                   99997   BIC:                         3.514e+04
+Method:                 Least Squares   F-statistic:                 1.891e+07
+Date:                Sun, 24 Jul 2022   Prob (F-statistic):               0.00
+Time:                        13:07:04   Log-Likelihood:                -17662.
+No. Observations:              100000   AIC:                         3.533e+04
+Df Residuals:                   99997   BIC:                         3.536e+04
 Df Model:                           2                                         
 Covariance Type:            nonrobust                                         
 ==============================================================================
                  coef    std err          t      P&gt;|t|      [0.025      0.975]
 ------------------------------------------------------------------------------
-Intercept      1.4999      0.001   1644.684      0.000       1.498       1.502
-x1             1.9992      0.001   2000.795      0.000       1.997       2.001
-x2             3.0014      0.001   3016.995      0.000       2.999       3.003
+Intercept      1.4999      0.001   1642.825      0.000       1.498       1.502
+x1             1.9988      0.001   1995.041      0.000       1.997       2.001
+x2             3.0010      0.001   2995.835      0.000       2.999       3.003
 ==============================================================================
-Omnibus:                    81438.026   Durbin-Watson:                   1.997
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):             5906.981
-Skew:                          -0.001   Prob(JB):                         0.00
-Kurtosis:                       1.809   Cond. No.                         2.24
+Omnibus:                    91358.505   Durbin-Watson:                   1.994
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             6032.006
+Skew:                           0.000   Prob(JB):                         0.00
+Kurtosis:                       1.797   Cond. No.                         2.24
 ==============================================================================
 
 Notes:
@@ -1091,25 +1103,25 @@ Notes:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model with omitted variable bias
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:                      y   R-squared:                       0.759
-Model:                            OLS   Adj. R-squared:                  0.759
-Method:                 Least Squares   F-statistic:                 3.150e+05
-Date:                Sat, 23 Jul 2022   Prob (F-statistic):               0.00
-Time:                        23:36:49   Log-Likelihood:            -2.4365e+05
-No. Observations:              100000   AIC:                         4.873e+05
-Df Residuals:                   99998   BIC:                         4.873e+05
+Dep. Variable:                      y   R-squared:                       0.761
+Model:                            OLS   Adj. R-squared:                  0.761
+Method:                 Least Squares   F-statistic:                 3.179e+05
+Date:                Sun, 24 Jul 2022   Prob (F-statistic):               0.00
+Time:                        13:07:04   Log-Likelihood:            -2.4307e+05
+No. Observations:              100000   AIC:                         4.861e+05
+Df Residuals:                   99998   BIC:                         4.862e+05
 Df Model:                           1                                         
 Covariance Type:            nonrobust                                         
 ==============================================================================
                  coef    std err          t      P&gt;|t|      [0.025      0.975]
 ------------------------------------------------------------------------------
-Intercept      1.4906      0.009    170.380      0.000       1.473       1.508
-x1             4.0091      0.007    561.232      0.000       3.995       4.023
+Intercept      1.4926      0.009    171.613      0.000       1.476       1.510
+x1             4.0040      0.007    563.840      0.000       3.990       4.018
 ==============================================================================
-Omnibus:                        2.698   Durbin-Watson:                   1.998
-Prob(Omnibus):                  0.260   Jarque-Bera (JB):                2.670
-Skew:                          -0.003   Prob(JB):                        0.263
-Kurtosis:                       2.975   Cond. No.                         1.22
+Omnibus:                        1.315   Durbin-Watson:                   1.994
+Prob(Omnibus):                  0.518   Jarque-Bera (JB):                1.321
+Skew:                           0.004   Prob(JB):                        0.516
+Kurtosis:                       2.984   Cond. No.                         1.22
 ==============================================================================
 
 Notes:
@@ -1178,7 +1190,7 @@ Notes:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;lambda&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_47_1.png" src="../_images/2_introduction_to_Machine_Learning_47_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_47_1.png" src="../_images/2_introduction_to_machine_learning_47_1.png" />
 </div>
 </div>
 <p>The OLS coefficients are not penalized, so they remain constant. Ridge estimates decrease monotonically as <span class="math notranslate nohighlight">\(\lambda\)</span> grows. Also, for this dataset, Lasso estimates first increase and then decrease. Meanwhile, the post-lasso coefficient estimates seem to behave somewhat erratically with <span class="math notranslate nohighlight">\(lambda\)</span>. To understand this behavior, let’s see what happens to the magnitude of other selected variables that are correlated with <code class="docutils literal notranslate"><span class="pre">BATHS</span></code>.</p>
@@ -1214,7 +1226,7 @@ Notes:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;lambda&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_50_1.png" src="../_images/2_introduction_to_Machine_Learning_50_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_50_1.png" src="../_images/2_introduction_to_machine_learning_50_1.png" />
 </div>
 </div>
 <p>Note how the discrete jumps in magnitude for the <code class="docutils literal notranslate"><span class="pre">BATHS</span></code> coefficient in the first coincide with, for example, variables <code class="docutils literal notranslate"><span class="pre">DINING</span></code> and <code class="docutils literal notranslate"><span class="pre">BEDRMS</span></code> being exactly zero. As these variables got dropped from the model, the coefficient on <code class="docutils literal notranslate"><span class="pre">BATHS</span></code> increased to pick up their effect.</p>
@@ -1274,14 +1286,14 @@ Notes:
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_18d92_row0_col0, #T_18d92_row0_col1, #T_18d92_row0_col2, #T_18d92_row0_col3, #T_18d92_row0_col4, #T_18d92_row0_col5, #T_18d92_row0_col6, #T_18d92_row0_col7, #T_18d92_row0_col8, #T_18d92_row0_col9, #T_18d92_row1_col0, #T_18d92_row1_col1, #T_18d92_row1_col2, #T_18d92_row1_col3, #T_18d92_row1_col4, #T_18d92_row1_col5, #T_18d92_row1_col6, #T_18d92_row1_col7, #T_18d92_row1_col8, #T_18d92_row1_col9, #T_18d92_row2_col0, #T_18d92_row2_col2, #T_18d92_row2_col3, #T_18d92_row2_col4, #T_18d92_row2_col5, #T_18d92_row2_col6, #T_18d92_row2_col7, #T_18d92_row2_col8, #T_18d92_row2_col9, #T_18d92_row3_col0, #T_18d92_row3_col1, #T_18d92_row3_col2, #T_18d92_row3_col3, #T_18d92_row3_col4, #T_18d92_row3_col5, #T_18d92_row3_col6, #T_18d92_row3_col7, #T_18d92_row3_col8, #T_18d92_row3_col9, #T_18d92_row4_col0, #T_18d92_row4_col1, #T_18d92_row4_col2, #T_18d92_row4_col3, #T_18d92_row4_col4, #T_18d92_row4_col5, #T_18d92_row4_col6, #T_18d92_row4_col7, #T_18d92_row4_col8, #T_18d92_row4_col9, #T_18d92_row5_col0, #T_18d92_row5_col1, #T_18d92_row5_col2, #T_18d92_row5_col3, #T_18d92_row5_col4, #T_18d92_row5_col5, #T_18d92_row5_col6, #T_18d92_row5_col7, #T_18d92_row5_col8, #T_18d92_row5_col9, #T_18d92_row6_col1, #T_18d92_row6_col3, #T_18d92_row6_col5, #T_18d92_row6_col6, #T_18d92_row6_col8, #T_18d92_row6_col9, #T_18d92_row7_col0, #T_18d92_row7_col1, #T_18d92_row7_col2, #T_18d92_row7_col3, #T_18d92_row7_col4, #T_18d92_row7_col5, #T_18d92_row7_col6, #T_18d92_row7_col7, #T_18d92_row7_col8, #T_18d92_row7_col9, #T_18d92_row8_col0, #T_18d92_row8_col1, #T_18d92_row8_col2, #T_18d92_row8_col3, #T_18d92_row8_col4, #T_18d92_row8_col5, #T_18d92_row8_col6, #T_18d92_row8_col7, #T_18d92_row8_col8, #T_18d92_row8_col9, #T_18d92_row9_col0, #T_18d92_row9_col1, #T_18d92_row9_col2, #T_18d92_row9_col3, #T_18d92_row9_col4, #T_18d92_row9_col5, #T_18d92_row9_col6, #T_18d92_row9_col7, #T_18d92_row9_col8, #T_18d92_row9_col9, #T_18d92_row10_col0, #T_18d92_row10_col1, #T_18d92_row10_col2, #T_18d92_row10_col3, #T_18d92_row10_col4, #T_18d92_row10_col5, #T_18d92_row10_col7, #T_18d92_row10_col8, #T_18d92_row10_col9, #T_18d92_row11_col0, #T_18d92_row11_col2, #T_18d92_row11_col3, #T_18d92_row11_col4, #T_18d92_row11_col5, #T_18d92_row11_col7, #T_18d92_row11_col8, #T_18d92_row11_col9, #T_18d92_row12_col0, #T_18d92_row12_col1, #T_18d92_row12_col2, #T_18d92_row12_col3, #T_18d92_row12_col4, #T_18d92_row12_col5, #T_18d92_row12_col6, #T_18d92_row12_col7, #T_18d92_row12_col8, #T_18d92_row12_col9, #T_18d92_row15_col0, #T_18d92_row15_col1, #T_18d92_row15_col2, #T_18d92_row15_col3, #T_18d92_row15_col4, #T_18d92_row15_col5, #T_18d92_row15_col6, #T_18d92_row15_col7, #T_18d92_row15_col8, #T_18d92_row15_col9, #T_18d92_row17_col0, #T_18d92_row17_col1, #T_18d92_row17_col2, #T_18d92_row17_col3, #T_18d92_row17_col4, #T_18d92_row17_col5, #T_18d92_row17_col6, #T_18d92_row17_col8, #T_18d92_row17_col9, #T_18d92_row18_col0, #T_18d92_row18_col1, #T_18d92_row18_col2, #T_18d92_row18_col3, #T_18d92_row18_col4, #T_18d92_row18_col5, #T_18d92_row18_col6, #T_18d92_row18_col7, #T_18d92_row18_col8, #T_18d92_row18_col9, #T_18d92_row19_col0, #T_18d92_row19_col1, #T_18d92_row19_col2, #T_18d92_row19_col3, #T_18d92_row19_col4, #T_18d92_row19_col5, #T_18d92_row19_col6, #T_18d92_row19_col7, #T_18d92_row19_col8, #T_18d92_row19_col9, #T_18d92_row20_col0, #T_18d92_row20_col1, #T_18d92_row20_col2, #T_18d92_row20_col3, #T_18d92_row20_col4, #T_18d92_row20_col5, #T_18d92_row20_col6, #T_18d92_row20_col7, #T_18d92_row20_col9, #T_18d92_row21_col0, #T_18d92_row21_col1, #T_18d92_row21_col2, #T_18d92_row21_col3, #T_18d92_row21_col4, #T_18d92_row21_col5, #T_18d92_row21_col6, #T_18d92_row21_col7, #T_18d92_row21_col8, #T_18d92_row21_col9, #T_18d92_row22_col0, #T_18d92_row22_col1, #T_18d92_row22_col2, #T_18d92_row22_col3, #T_18d92_row22_col4, #T_18d92_row22_col5, #T_18d92_row22_col6, #T_18d92_row22_col7, #T_18d92_row22_col8, #T_18d92_row22_col9, #T_18d92_row26_col6, #T_18d92_row27_col0, #T_18d92_row27_col1, #T_18d92_row27_col2, #T_18d92_row27_col3, #T_18d92_row27_col4, #T_18d92_row27_col5, #T_18d92_row27_col6, #T_18d92_row27_col7, #T_18d92_row27_col8, #T_18d92_row27_col9, #T_18d92_row28_col0, #T_18d92_row28_col1, #T_18d92_row28_col2, #T_18d92_row28_col3, #T_18d92_row28_col4, #T_18d92_row28_col5, #T_18d92_row28_col6, #T_18d92_row28_col7, #T_18d92_row28_col8, #T_18d92_row28_col9, #T_18d92_row29_col0, #T_18d92_row29_col1, #T_18d92_row29_col2, #T_18d92_row29_col3, #T_18d92_row29_col4, #T_18d92_row29_col5, #T_18d92_row29_col6, #T_18d92_row29_col7, #T_18d92_row29_col8, #T_18d92_row29_col9, #T_18d92_row30_col0, #T_18d92_row30_col1, #T_18d92_row30_col2, #T_18d92_row30_col3, #T_18d92_row30_col4, #T_18d92_row30_col5, #T_18d92_row30_col6, #T_18d92_row30_col7, #T_18d92_row30_col8, #T_18d92_row30_col9, #T_18d92_row31_col0, #T_18d92_row31_col1, #T_18d92_row31_col2, #T_18d92_row31_col3, #T_18d92_row31_col4, #T_18d92_row31_col5, #T_18d92_row31_col6, #T_18d92_row31_col7, #T_18d92_row31_col8, #T_18d92_row31_col9, #T_18d92_row32_col0, #T_18d92_row32_col1, #T_18d92_row32_col2, #T_18d92_row32_col3, #T_18d92_row32_col4, #T_18d92_row32_col5, #T_18d92_row32_col6, #T_18d92_row32_col7, #T_18d92_row32_col8, #T_18d92_row32_col9, #T_18d92_row33_col0, #T_18d92_row33_col1, #T_18d92_row33_col2, #T_18d92_row33_col3, #T_18d92_row33_col4, #T_18d92_row33_col5, #T_18d92_row33_col6, #T_18d92_row33_col7, #T_18d92_row33_col8, #T_18d92_row33_col9, #T_18d92_row34_col0, #T_18d92_row34_col1, #T_18d92_row34_col2, #T_18d92_row34_col3, #T_18d92_row34_col4, #T_18d92_row34_col5, #T_18d92_row34_col6, #T_18d92_row34_col7, #T_18d92_row34_col8, #T_18d92_row34_col9, #T_18d92_row35_col0, #T_18d92_row35_col1, #T_18d92_row35_col2, #T_18d92_row35_col3, #T_18d92_row35_col4, #T_18d92_row35_col5, #T_18d92_row35_col6, #T_18d92_row35_col7, #T_18d92_row35_col8, #T_18d92_row35_col9, #T_18d92_row36_col0, #T_18d92_row36_col1, #T_18d92_row36_col2, #T_18d92_row36_col3, #T_18d92_row36_col4, #T_18d92_row36_col5, #T_18d92_row36_col6, #T_18d92_row36_col7, #T_18d92_row36_col8, #T_18d92_row36_col9, #T_18d92_row37_col0, #T_18d92_row37_col1, #T_18d92_row37_col2, #T_18d92_row37_col3, #T_18d92_row37_col4, #T_18d92_row37_col5, #T_18d92_row37_col6, #T_18d92_row37_col7, #T_18d92_row37_col8, #T_18d92_row37_col9, #T_18d92_row38_col0, #T_18d92_row38_col1, #T_18d92_row38_col2, #T_18d92_row38_col3, #T_18d92_row38_col4, #T_18d92_row38_col5, #T_18d92_row38_col6, #T_18d92_row38_col7, #T_18d92_row38_col8, #T_18d92_row38_col9, #T_18d92_row40_col0, #T_18d92_row40_col1, #T_18d92_row40_col2, #T_18d92_row40_col3, #T_18d92_row40_col4, #T_18d92_row40_col5, #T_18d92_row40_col6, #T_18d92_row40_col7, #T_18d92_row40_col8, #T_18d92_row40_col9, #T_18d92_row41_col0, #T_18d92_row41_col1, #T_18d92_row41_col2, #T_18d92_row41_col3, #T_18d92_row41_col4, #T_18d92_row41_col6, #T_18d92_row41_col7, #T_18d92_row41_col8, #T_18d92_row43_col1, #T_18d92_row43_col2, #T_18d92_row43_col3, #T_18d92_row43_col6, #T_18d92_row44_col4, #T_18d92_row44_col6, #T_18d92_row45_col1, #T_18d92_row45_col2, #T_18d92_row45_col3, #T_18d92_row45_col4, #T_18d92_row45_col6, #T_18d92_row45_col7, #T_18d92_row45_col9, #T_18d92_row46_col0, #T_18d92_row46_col1, #T_18d92_row46_col2, #T_18d92_row46_col3, #T_18d92_row46_col4, #T_18d92_row46_col5, #T_18d92_row46_col6, #T_18d92_row46_col7, #T_18d92_row46_col8, #T_18d92_row46_col9, #T_18d92_row47_col2, #T_18d92_row47_col3, #T_18d92_row47_col4, #T_18d92_row47_col6, #T_18d92_row47_col7, #T_18d92_row47_col8, #T_18d92_row47_col9, #T_18d92_row51_col0, #T_18d92_row51_col1, #T_18d92_row51_col2, #T_18d92_row51_col3, #T_18d92_row51_col4, #T_18d92_row51_col5, #T_18d92_row51_col6, #T_18d92_row51_col7, #T_18d92_row51_col8, #T_18d92_row51_col9, #T_18d92_row52_col0, #T_18d92_row52_col1, #T_18d92_row52_col2, #T_18d92_row52_col3, #T_18d92_row52_col4, #T_18d92_row52_col5, #T_18d92_row52_col6, #T_18d92_row52_col7, #T_18d92_row52_col8, #T_18d92_row54_col0, #T_18d92_row54_col1, #T_18d92_row54_col2, #T_18d92_row54_col3, #T_18d92_row54_col4, #T_18d92_row54_col5, #T_18d92_row54_col6, #T_18d92_row54_col7, #T_18d92_row54_col8, #T_18d92_row54_col9, #T_18d92_row55_col3, #T_18d92_row55_col8, #T_18d92_row56_col0, #T_18d92_row56_col2, #T_18d92_row56_col5, #T_18d92_row56_col6, #T_18d92_row56_col8, #T_18d92_row57_col7, #T_18d92_row58_col0, #T_18d92_row58_col1, #T_18d92_row58_col2, #T_18d92_row58_col3, #T_18d92_row58_col4, #T_18d92_row58_col5, #T_18d92_row58_col7, #T_18d92_row58_col8, #T_18d92_row58_col9, #T_18d92_row60_col0, #T_18d92_row60_col1, #T_18d92_row60_col2, #T_18d92_row60_col3, #T_18d92_row60_col4, #T_18d92_row60_col5, #T_18d92_row60_col6, #T_18d92_row60_col7, #T_18d92_row60_col8, #T_18d92_row60_col9 {
+#T_53b62_row0_col0, #T_53b62_row0_col1, #T_53b62_row0_col2, #T_53b62_row0_col3, #T_53b62_row0_col4, #T_53b62_row0_col5, #T_53b62_row0_col6, #T_53b62_row0_col7, #T_53b62_row0_col8, #T_53b62_row0_col9, #T_53b62_row1_col0, #T_53b62_row1_col1, #T_53b62_row1_col2, #T_53b62_row1_col3, #T_53b62_row1_col4, #T_53b62_row1_col5, #T_53b62_row1_col6, #T_53b62_row1_col7, #T_53b62_row1_col8, #T_53b62_row1_col9, #T_53b62_row2_col0, #T_53b62_row2_col1, #T_53b62_row2_col2, #T_53b62_row2_col3, #T_53b62_row2_col4, #T_53b62_row2_col5, #T_53b62_row2_col6, #T_53b62_row2_col7, #T_53b62_row2_col8, #T_53b62_row2_col9, #T_53b62_row3_col0, #T_53b62_row3_col1, #T_53b62_row3_col2, #T_53b62_row3_col3, #T_53b62_row3_col4, #T_53b62_row3_col5, #T_53b62_row3_col6, #T_53b62_row3_col7, #T_53b62_row3_col8, #T_53b62_row3_col9, #T_53b62_row4_col0, #T_53b62_row4_col1, #T_53b62_row4_col2, #T_53b62_row4_col3, #T_53b62_row4_col4, #T_53b62_row4_col5, #T_53b62_row4_col6, #T_53b62_row4_col7, #T_53b62_row4_col8, #T_53b62_row4_col9, #T_53b62_row5_col0, #T_53b62_row5_col1, #T_53b62_row5_col2, #T_53b62_row5_col3, #T_53b62_row5_col4, #T_53b62_row5_col5, #T_53b62_row5_col6, #T_53b62_row5_col7, #T_53b62_row5_col8, #T_53b62_row5_col9, #T_53b62_row6_col0, #T_53b62_row6_col1, #T_53b62_row6_col3, #T_53b62_row6_col4, #T_53b62_row6_col6, #T_53b62_row7_col0, #T_53b62_row7_col1, #T_53b62_row7_col2, #T_53b62_row7_col3, #T_53b62_row7_col4, #T_53b62_row7_col5, #T_53b62_row7_col6, #T_53b62_row7_col7, #T_53b62_row7_col8, #T_53b62_row7_col9, #T_53b62_row8_col0, #T_53b62_row8_col1, #T_53b62_row8_col2, #T_53b62_row8_col3, #T_53b62_row8_col4, #T_53b62_row8_col5, #T_53b62_row8_col6, #T_53b62_row8_col7, #T_53b62_row8_col8, #T_53b62_row8_col9, #T_53b62_row9_col0, #T_53b62_row9_col1, #T_53b62_row9_col2, #T_53b62_row9_col3, #T_53b62_row9_col4, #T_53b62_row9_col5, #T_53b62_row9_col6, #T_53b62_row9_col7, #T_53b62_row9_col8, #T_53b62_row9_col9, #T_53b62_row10_col0, #T_53b62_row10_col2, #T_53b62_row10_col3, #T_53b62_row10_col4, #T_53b62_row10_col6, #T_53b62_row10_col7, #T_53b62_row10_col8, #T_53b62_row10_col9, #T_53b62_row11_col0, #T_53b62_row11_col1, #T_53b62_row11_col2, #T_53b62_row11_col3, #T_53b62_row11_col4, #T_53b62_row11_col5, #T_53b62_row11_col6, #T_53b62_row11_col7, #T_53b62_row11_col9, #T_53b62_row12_col0, #T_53b62_row12_col1, #T_53b62_row12_col2, #T_53b62_row12_col3, #T_53b62_row12_col4, #T_53b62_row12_col5, #T_53b62_row12_col6, #T_53b62_row12_col7, #T_53b62_row12_col8, #T_53b62_row12_col9, #T_53b62_row15_col0, #T_53b62_row15_col1, #T_53b62_row15_col2, #T_53b62_row15_col3, #T_53b62_row15_col4, #T_53b62_row15_col5, #T_53b62_row15_col6, #T_53b62_row15_col7, #T_53b62_row15_col8, #T_53b62_row15_col9, #T_53b62_row17_col1, #T_53b62_row17_col2, #T_53b62_row17_col3, #T_53b62_row17_col4, #T_53b62_row17_col6, #T_53b62_row17_col7, #T_53b62_row17_col8, #T_53b62_row17_col9, #T_53b62_row18_col0, #T_53b62_row18_col1, #T_53b62_row18_col2, #T_53b62_row18_col3, #T_53b62_row18_col4, #T_53b62_row18_col5, #T_53b62_row18_col6, #T_53b62_row18_col7, #T_53b62_row18_col8, #T_53b62_row18_col9, #T_53b62_row19_col0, #T_53b62_row19_col1, #T_53b62_row19_col2, #T_53b62_row19_col3, #T_53b62_row19_col4, #T_53b62_row19_col5, #T_53b62_row19_col6, #T_53b62_row19_col7, #T_53b62_row19_col8, #T_53b62_row19_col9, #T_53b62_row20_col0, #T_53b62_row20_col1, #T_53b62_row20_col2, #T_53b62_row20_col3, #T_53b62_row20_col4, #T_53b62_row20_col5, #T_53b62_row20_col6, #T_53b62_row20_col7, #T_53b62_row20_col8, #T_53b62_row20_col9, #T_53b62_row21_col0, #T_53b62_row21_col1, #T_53b62_row21_col2, #T_53b62_row21_col3, #T_53b62_row21_col4, #T_53b62_row21_col5, #T_53b62_row21_col6, #T_53b62_row21_col7, #T_53b62_row21_col8, #T_53b62_row21_col9, #T_53b62_row22_col0, #T_53b62_row22_col1, #T_53b62_row22_col2, #T_53b62_row22_col3, #T_53b62_row22_col4, #T_53b62_row22_col5, #T_53b62_row22_col6, #T_53b62_row22_col7, #T_53b62_row22_col8, #T_53b62_row22_col9, #T_53b62_row27_col0, #T_53b62_row27_col1, #T_53b62_row27_col2, #T_53b62_row27_col3, #T_53b62_row27_col4, #T_53b62_row27_col5, #T_53b62_row27_col6, #T_53b62_row27_col7, #T_53b62_row27_col8, #T_53b62_row27_col9, #T_53b62_row28_col0, #T_53b62_row28_col1, #T_53b62_row28_col2, #T_53b62_row28_col3, #T_53b62_row28_col4, #T_53b62_row28_col5, #T_53b62_row28_col6, #T_53b62_row28_col7, #T_53b62_row28_col8, #T_53b62_row28_col9, #T_53b62_row29_col0, #T_53b62_row29_col1, #T_53b62_row29_col2, #T_53b62_row29_col3, #T_53b62_row29_col4, #T_53b62_row29_col5, #T_53b62_row29_col6, #T_53b62_row29_col7, #T_53b62_row29_col8, #T_53b62_row29_col9, #T_53b62_row30_col0, #T_53b62_row30_col1, #T_53b62_row30_col2, #T_53b62_row30_col3, #T_53b62_row30_col4, #T_53b62_row30_col5, #T_53b62_row30_col6, #T_53b62_row30_col7, #T_53b62_row30_col8, #T_53b62_row30_col9, #T_53b62_row31_col0, #T_53b62_row31_col1, #T_53b62_row31_col2, #T_53b62_row31_col3, #T_53b62_row31_col4, #T_53b62_row31_col5, #T_53b62_row31_col6, #T_53b62_row31_col7, #T_53b62_row31_col8, #T_53b62_row31_col9, #T_53b62_row32_col0, #T_53b62_row32_col1, #T_53b62_row32_col2, #T_53b62_row32_col3, #T_53b62_row32_col4, #T_53b62_row32_col5, #T_53b62_row32_col6, #T_53b62_row32_col7, #T_53b62_row32_col8, #T_53b62_row32_col9, #T_53b62_row33_col0, #T_53b62_row33_col1, #T_53b62_row33_col2, #T_53b62_row33_col3, #T_53b62_row33_col4, #T_53b62_row33_col5, #T_53b62_row33_col6, #T_53b62_row33_col7, #T_53b62_row33_col8, #T_53b62_row33_col9, #T_53b62_row34_col0, #T_53b62_row34_col1, #T_53b62_row34_col2, #T_53b62_row34_col3, #T_53b62_row34_col4, #T_53b62_row34_col5, #T_53b62_row34_col6, #T_53b62_row34_col7, #T_53b62_row34_col8, #T_53b62_row34_col9, #T_53b62_row35_col0, #T_53b62_row35_col1, #T_53b62_row35_col2, #T_53b62_row35_col3, #T_53b62_row35_col4, #T_53b62_row35_col5, #T_53b62_row35_col6, #T_53b62_row35_col7, #T_53b62_row35_col8, #T_53b62_row35_col9, #T_53b62_row36_col0, #T_53b62_row36_col1, #T_53b62_row36_col2, #T_53b62_row36_col3, #T_53b62_row36_col5, #T_53b62_row36_col6, #T_53b62_row36_col7, #T_53b62_row36_col8, #T_53b62_row36_col9, #T_53b62_row37_col0, #T_53b62_row37_col1, #T_53b62_row37_col2, #T_53b62_row37_col3, #T_53b62_row37_col4, #T_53b62_row37_col5, #T_53b62_row37_col6, #T_53b62_row37_col7, #T_53b62_row37_col8, #T_53b62_row37_col9, #T_53b62_row38_col0, #T_53b62_row38_col1, #T_53b62_row38_col2, #T_53b62_row38_col3, #T_53b62_row38_col4, #T_53b62_row38_col5, #T_53b62_row38_col6, #T_53b62_row38_col7, #T_53b62_row38_col8, #T_53b62_row38_col9, #T_53b62_row40_col0, #T_53b62_row40_col1, #T_53b62_row40_col2, #T_53b62_row40_col3, #T_53b62_row40_col4, #T_53b62_row40_col5, #T_53b62_row40_col6, #T_53b62_row40_col7, #T_53b62_row40_col8, #T_53b62_row40_col9, #T_53b62_row41_col0, #T_53b62_row41_col2, #T_53b62_row41_col3, #T_53b62_row41_col5, #T_53b62_row41_col6, #T_53b62_row41_col8, #T_53b62_row43_col6, #T_53b62_row44_col3, #T_53b62_row45_col0, #T_53b62_row45_col1, #T_53b62_row45_col2, #T_53b62_row45_col3, #T_53b62_row45_col4, #T_53b62_row45_col6, #T_53b62_row45_col7, #T_53b62_row45_col8, #T_53b62_row46_col0, #T_53b62_row46_col1, #T_53b62_row46_col2, #T_53b62_row46_col3, #T_53b62_row46_col4, #T_53b62_row46_col6, #T_53b62_row46_col7, #T_53b62_row46_col9, #T_53b62_row47_col2, #T_53b62_row48_col2, #T_53b62_row49_col4, #T_53b62_row51_col0, #T_53b62_row51_col1, #T_53b62_row51_col2, #T_53b62_row51_col3, #T_53b62_row51_col4, #T_53b62_row51_col5, #T_53b62_row51_col6, #T_53b62_row51_col7, #T_53b62_row51_col8, #T_53b62_row51_col9, #T_53b62_row53_col0, #T_53b62_row53_col2, #T_53b62_row53_col3, #T_53b62_row53_col4, #T_53b62_row53_col5, #T_53b62_row53_col6, #T_53b62_row53_col7, #T_53b62_row54_col3, #T_53b62_row55_col0, #T_53b62_row55_col1, #T_53b62_row55_col2, #T_53b62_row55_col3, #T_53b62_row55_col4, #T_53b62_row55_col5, #T_53b62_row55_col6, #T_53b62_row55_col7, #T_53b62_row55_col8, #T_53b62_row55_col9, #T_53b62_row57_col0, #T_53b62_row57_col2, #T_53b62_row57_col7, #T_53b62_row59_col0, #T_53b62_row59_col1, #T_53b62_row59_col2, #T_53b62_row59_col3, #T_53b62_row59_col5, #T_53b62_row59_col6, #T_53b62_row59_col7, #T_53b62_row59_col8, #T_53b62_row59_col9, #T_53b62_row60_col5, #T_53b62_row61_col2, #T_53b62_row61_col3, #T_53b62_row61_col4, #T_53b62_row61_col6 {
   background-color: black;
 }
-#T_18d92_row2_col1, #T_18d92_row6_col0, #T_18d92_row6_col2, #T_18d92_row6_col4, #T_18d92_row6_col7, #T_18d92_row10_col6, #T_18d92_row11_col1, #T_18d92_row11_col6, #T_18d92_row13_col0, #T_18d92_row13_col1, #T_18d92_row13_col2, #T_18d92_row13_col3, #T_18d92_row13_col4, #T_18d92_row13_col5, #T_18d92_row13_col6, #T_18d92_row13_col7, #T_18d92_row13_col8, #T_18d92_row13_col9, #T_18d92_row14_col0, #T_18d92_row14_col1, #T_18d92_row14_col2, #T_18d92_row14_col3, #T_18d92_row14_col4, #T_18d92_row14_col5, #T_18d92_row14_col6, #T_18d92_row14_col7, #T_18d92_row14_col8, #T_18d92_row14_col9, #T_18d92_row16_col0, #T_18d92_row16_col1, #T_18d92_row16_col2, #T_18d92_row16_col3, #T_18d92_row16_col4, #T_18d92_row16_col5, #T_18d92_row16_col6, #T_18d92_row16_col7, #T_18d92_row16_col8, #T_18d92_row16_col9, #T_18d92_row17_col7, #T_18d92_row20_col8, #T_18d92_row23_col0, #T_18d92_row23_col1, #T_18d92_row23_col2, #T_18d92_row23_col3, #T_18d92_row23_col4, #T_18d92_row23_col5, #T_18d92_row23_col6, #T_18d92_row23_col7, #T_18d92_row23_col8, #T_18d92_row23_col9, #T_18d92_row24_col0, #T_18d92_row24_col1, #T_18d92_row24_col2, #T_18d92_row24_col3, #T_18d92_row24_col4, #T_18d92_row24_col5, #T_18d92_row24_col6, #T_18d92_row24_col7, #T_18d92_row24_col8, #T_18d92_row24_col9, #T_18d92_row25_col0, #T_18d92_row25_col1, #T_18d92_row25_col2, #T_18d92_row25_col3, #T_18d92_row25_col4, #T_18d92_row25_col5, #T_18d92_row25_col6, #T_18d92_row25_col7, #T_18d92_row25_col8, #T_18d92_row25_col9, #T_18d92_row26_col0, #T_18d92_row26_col1, #T_18d92_row26_col2, #T_18d92_row26_col3, #T_18d92_row26_col4, #T_18d92_row26_col5, #T_18d92_row26_col7, #T_18d92_row26_col8, #T_18d92_row26_col9, #T_18d92_row39_col0, #T_18d92_row39_col1, #T_18d92_row39_col2, #T_18d92_row39_col3, #T_18d92_row39_col4, #T_18d92_row39_col5, #T_18d92_row39_col6, #T_18d92_row39_col7, #T_18d92_row39_col8, #T_18d92_row39_col9, #T_18d92_row41_col5, #T_18d92_row41_col9, #T_18d92_row42_col0, #T_18d92_row42_col1, #T_18d92_row42_col2, #T_18d92_row42_col3, #T_18d92_row42_col4, #T_18d92_row42_col5, #T_18d92_row42_col6, #T_18d92_row42_col7, #T_18d92_row42_col8, #T_18d92_row42_col9, #T_18d92_row43_col0, #T_18d92_row43_col4, #T_18d92_row43_col5, #T_18d92_row43_col7, #T_18d92_row43_col8, #T_18d92_row43_col9, #T_18d92_row44_col0, #T_18d92_row44_col1, #T_18d92_row44_col2, #T_18d92_row44_col3, #T_18d92_row44_col5, #T_18d92_row44_col7, #T_18d92_row44_col8, #T_18d92_row44_col9, #T_18d92_row45_col0, #T_18d92_row45_col5, #T_18d92_row45_col8, #T_18d92_row47_col0, #T_18d92_row47_col1, #T_18d92_row47_col5, #T_18d92_row48_col0, #T_18d92_row48_col1, #T_18d92_row48_col2, #T_18d92_row48_col3, #T_18d92_row48_col4, #T_18d92_row48_col5, #T_18d92_row48_col6, #T_18d92_row48_col7, #T_18d92_row48_col8, #T_18d92_row48_col9, #T_18d92_row49_col0, #T_18d92_row49_col1, #T_18d92_row49_col2, #T_18d92_row49_col3, #T_18d92_row49_col4, #T_18d92_row49_col5, #T_18d92_row49_col6, #T_18d92_row49_col7, #T_18d92_row49_col8, #T_18d92_row49_col9, #T_18d92_row50_col0, #T_18d92_row50_col1, #T_18d92_row50_col2, #T_18d92_row50_col3, #T_18d92_row50_col4, #T_18d92_row50_col5, #T_18d92_row50_col6, #T_18d92_row50_col7, #T_18d92_row50_col8, #T_18d92_row50_col9, #T_18d92_row52_col9, #T_18d92_row53_col0, #T_18d92_row53_col1, #T_18d92_row53_col2, #T_18d92_row53_col3, #T_18d92_row53_col4, #T_18d92_row53_col5, #T_18d92_row53_col6, #T_18d92_row53_col7, #T_18d92_row53_col8, #T_18d92_row53_col9, #T_18d92_row55_col0, #T_18d92_row55_col1, #T_18d92_row55_col2, #T_18d92_row55_col4, #T_18d92_row55_col5, #T_18d92_row55_col6, #T_18d92_row55_col7, #T_18d92_row55_col9, #T_18d92_row56_col1, #T_18d92_row56_col3, #T_18d92_row56_col4, #T_18d92_row56_col7, #T_18d92_row56_col9, #T_18d92_row57_col0, #T_18d92_row57_col1, #T_18d92_row57_col2, #T_18d92_row57_col3, #T_18d92_row57_col4, #T_18d92_row57_col5, #T_18d92_row57_col6, #T_18d92_row57_col8, #T_18d92_row57_col9, #T_18d92_row58_col6, #T_18d92_row59_col0, #T_18d92_row59_col1, #T_18d92_row59_col2, #T_18d92_row59_col3, #T_18d92_row59_col4, #T_18d92_row59_col5, #T_18d92_row59_col6, #T_18d92_row59_col7, #T_18d92_row59_col8, #T_18d92_row59_col9, #T_18d92_row61_col0, #T_18d92_row61_col1, #T_18d92_row61_col2, #T_18d92_row61_col3, #T_18d92_row61_col4, #T_18d92_row61_col5, #T_18d92_row61_col6, #T_18d92_row61_col7, #T_18d92_row61_col8, #T_18d92_row61_col9, #T_18d92_row62_col0, #T_18d92_row62_col1, #T_18d92_row62_col2, #T_18d92_row62_col3, #T_18d92_row62_col4, #T_18d92_row62_col5, #T_18d92_row62_col6, #T_18d92_row62_col7, #T_18d92_row62_col8, #T_18d92_row62_col9 {
+#T_53b62_row6_col2, #T_53b62_row6_col5, #T_53b62_row6_col7, #T_53b62_row6_col8, #T_53b62_row6_col9, #T_53b62_row10_col1, #T_53b62_row10_col5, #T_53b62_row11_col8, #T_53b62_row13_col0, #T_53b62_row13_col1, #T_53b62_row13_col2, #T_53b62_row13_col3, #T_53b62_row13_col4, #T_53b62_row13_col5, #T_53b62_row13_col6, #T_53b62_row13_col7, #T_53b62_row13_col8, #T_53b62_row13_col9, #T_53b62_row14_col0, #T_53b62_row14_col1, #T_53b62_row14_col2, #T_53b62_row14_col3, #T_53b62_row14_col4, #T_53b62_row14_col5, #T_53b62_row14_col6, #T_53b62_row14_col7, #T_53b62_row14_col8, #T_53b62_row14_col9, #T_53b62_row16_col0, #T_53b62_row16_col1, #T_53b62_row16_col2, #T_53b62_row16_col3, #T_53b62_row16_col4, #T_53b62_row16_col5, #T_53b62_row16_col6, #T_53b62_row16_col7, #T_53b62_row16_col8, #T_53b62_row16_col9, #T_53b62_row17_col0, #T_53b62_row17_col5, #T_53b62_row23_col0, #T_53b62_row23_col1, #T_53b62_row23_col2, #T_53b62_row23_col3, #T_53b62_row23_col4, #T_53b62_row23_col5, #T_53b62_row23_col6, #T_53b62_row23_col7, #T_53b62_row23_col8, #T_53b62_row23_col9, #T_53b62_row24_col0, #T_53b62_row24_col1, #T_53b62_row24_col2, #T_53b62_row24_col3, #T_53b62_row24_col4, #T_53b62_row24_col5, #T_53b62_row24_col6, #T_53b62_row24_col7, #T_53b62_row24_col8, #T_53b62_row24_col9, #T_53b62_row25_col0, #T_53b62_row25_col1, #T_53b62_row25_col2, #T_53b62_row25_col3, #T_53b62_row25_col4, #T_53b62_row25_col5, #T_53b62_row25_col6, #T_53b62_row25_col7, #T_53b62_row25_col8, #T_53b62_row25_col9, #T_53b62_row26_col0, #T_53b62_row26_col1, #T_53b62_row26_col2, #T_53b62_row26_col3, #T_53b62_row26_col4, #T_53b62_row26_col5, #T_53b62_row26_col6, #T_53b62_row26_col7, #T_53b62_row26_col8, #T_53b62_row26_col9, #T_53b62_row36_col4, #T_53b62_row39_col0, #T_53b62_row39_col1, #T_53b62_row39_col2, #T_53b62_row39_col3, #T_53b62_row39_col4, #T_53b62_row39_col5, #T_53b62_row39_col6, #T_53b62_row39_col7, #T_53b62_row39_col8, #T_53b62_row39_col9, #T_53b62_row41_col1, #T_53b62_row41_col4, #T_53b62_row41_col7, #T_53b62_row41_col9, #T_53b62_row42_col0, #T_53b62_row42_col1, #T_53b62_row42_col2, #T_53b62_row42_col3, #T_53b62_row42_col4, #T_53b62_row42_col5, #T_53b62_row42_col6, #T_53b62_row42_col7, #T_53b62_row42_col8, #T_53b62_row42_col9, #T_53b62_row43_col0, #T_53b62_row43_col1, #T_53b62_row43_col2, #T_53b62_row43_col3, #T_53b62_row43_col4, #T_53b62_row43_col5, #T_53b62_row43_col7, #T_53b62_row43_col8, #T_53b62_row43_col9, #T_53b62_row44_col0, #T_53b62_row44_col1, #T_53b62_row44_col2, #T_53b62_row44_col4, #T_53b62_row44_col5, #T_53b62_row44_col6, #T_53b62_row44_col7, #T_53b62_row44_col8, #T_53b62_row44_col9, #T_53b62_row45_col5, #T_53b62_row45_col9, #T_53b62_row46_col5, #T_53b62_row46_col8, #T_53b62_row47_col0, #T_53b62_row47_col1, #T_53b62_row47_col3, #T_53b62_row47_col4, #T_53b62_row47_col5, #T_53b62_row47_col6, #T_53b62_row47_col7, #T_53b62_row47_col8, #T_53b62_row47_col9, #T_53b62_row48_col0, #T_53b62_row48_col1, #T_53b62_row48_col3, #T_53b62_row48_col4, #T_53b62_row48_col5, #T_53b62_row48_col6, #T_53b62_row48_col7, #T_53b62_row48_col8, #T_53b62_row48_col9, #T_53b62_row49_col0, #T_53b62_row49_col1, #T_53b62_row49_col2, #T_53b62_row49_col3, #T_53b62_row49_col5, #T_53b62_row49_col6, #T_53b62_row49_col7, #T_53b62_row49_col8, #T_53b62_row49_col9, #T_53b62_row50_col0, #T_53b62_row50_col1, #T_53b62_row50_col2, #T_53b62_row50_col3, #T_53b62_row50_col4, #T_53b62_row50_col5, #T_53b62_row50_col6, #T_53b62_row50_col7, #T_53b62_row50_col8, #T_53b62_row50_col9, #T_53b62_row52_col0, #T_53b62_row52_col1, #T_53b62_row52_col2, #T_53b62_row52_col3, #T_53b62_row52_col4, #T_53b62_row52_col5, #T_53b62_row52_col6, #T_53b62_row52_col7, #T_53b62_row52_col8, #T_53b62_row52_col9, #T_53b62_row53_col1, #T_53b62_row53_col8, #T_53b62_row53_col9, #T_53b62_row54_col0, #T_53b62_row54_col1, #T_53b62_row54_col2, #T_53b62_row54_col4, #T_53b62_row54_col5, #T_53b62_row54_col6, #T_53b62_row54_col7, #T_53b62_row54_col8, #T_53b62_row54_col9, #T_53b62_row56_col0, #T_53b62_row56_col1, #T_53b62_row56_col2, #T_53b62_row56_col3, #T_53b62_row56_col4, #T_53b62_row56_col5, #T_53b62_row56_col6, #T_53b62_row56_col7, #T_53b62_row56_col8, #T_53b62_row56_col9, #T_53b62_row57_col1, #T_53b62_row57_col3, #T_53b62_row57_col4, #T_53b62_row57_col5, #T_53b62_row57_col6, #T_53b62_row57_col8, #T_53b62_row57_col9, #T_53b62_row58_col0, #T_53b62_row58_col1, #T_53b62_row58_col2, #T_53b62_row58_col3, #T_53b62_row58_col4, #T_53b62_row58_col5, #T_53b62_row58_col6, #T_53b62_row58_col7, #T_53b62_row58_col8, #T_53b62_row58_col9, #T_53b62_row59_col4, #T_53b62_row60_col0, #T_53b62_row60_col1, #T_53b62_row60_col2, #T_53b62_row60_col3, #T_53b62_row60_col4, #T_53b62_row60_col6, #T_53b62_row60_col7, #T_53b62_row60_col8, #T_53b62_row60_col9, #T_53b62_row61_col0, #T_53b62_row61_col1, #T_53b62_row61_col5, #T_53b62_row61_col7, #T_53b62_row61_col8, #T_53b62_row61_col9, #T_53b62_row62_col0, #T_53b62_row62_col1, #T_53b62_row62_col2, #T_53b62_row62_col3, #T_53b62_row62_col4, #T_53b62_row62_col5, #T_53b62_row62_col6, #T_53b62_row62_col7, #T_53b62_row62_col8, #T_53b62_row62_col9 {
   background-color: white;
 }
 </style>
-<table id="T_18d92_">
+<table id="T_53b62_">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
@@ -1299,823 +1311,823 @@ Notes:
   </thead>
   <tbody>
     <tr>
-      <th id="T_18d92_level0_row0" class="row_heading level0 row0" >LOT</th>
-      <td id="T_18d92_row0_col0" class="data row0 col0" >0.041875</td>
-      <td id="T_18d92_row0_col1" class="data row0 col1" >0.036732</td>
-      <td id="T_18d92_row0_col2" class="data row0 col2" >0.039817</td>
-      <td id="T_18d92_row0_col3" class="data row0 col3" >0.039648</td>
-      <td id="T_18d92_row0_col4" class="data row0 col4" >0.036000</td>
-      <td id="T_18d92_row0_col5" class="data row0 col5" >0.037343</td>
-      <td id="T_18d92_row0_col6" class="data row0 col6" >0.040378</td>
-      <td id="T_18d92_row0_col7" class="data row0 col7" >0.041977</td>
-      <td id="T_18d92_row0_col8" class="data row0 col8" >0.040608</td>
-      <td id="T_18d92_row0_col9" class="data row0 col9" >0.037228</td>
+      <th id="T_53b62_level0_row0" class="row_heading level0 row0" >LOT</th>
+      <td id="T_53b62_row0_col0" class="data row0 col0" >0.039334</td>
+      <td id="T_53b62_row0_col1" class="data row0 col1" >0.042181</td>
+      <td id="T_53b62_row0_col2" class="data row0 col2" >0.038296</td>
+      <td id="T_53b62_row0_col3" class="data row0 col3" >0.038855</td>
+      <td id="T_53b62_row0_col4" class="data row0 col4" >0.035946</td>
+      <td id="T_53b62_row0_col5" class="data row0 col5" >0.041348</td>
+      <td id="T_53b62_row0_col6" class="data row0 col6" >0.040638</td>
+      <td id="T_53b62_row0_col7" class="data row0 col7" >0.038884</td>
+      <td id="T_53b62_row0_col8" class="data row0 col8" >0.039048</td>
+      <td id="T_53b62_row0_col9" class="data row0 col9" >0.036079</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row1" class="row_heading level0 row1" >UNITSF</th>
-      <td id="T_18d92_row1_col0" class="data row1 col0" >0.043899</td>
-      <td id="T_18d92_row1_col1" class="data row1 col1" >0.046625</td>
-      <td id="T_18d92_row1_col2" class="data row1 col2" >0.042495</td>
-      <td id="T_18d92_row1_col3" class="data row1 col3" >0.046024</td>
-      <td id="T_18d92_row1_col4" class="data row1 col4" >0.045576</td>
-      <td id="T_18d92_row1_col5" class="data row1 col5" >0.050349</td>
-      <td id="T_18d92_row1_col6" class="data row1 col6" >0.049011</td>
-      <td id="T_18d92_row1_col7" class="data row1 col7" >0.045534</td>
-      <td id="T_18d92_row1_col8" class="data row1 col8" >0.047361</td>
-      <td id="T_18d92_row1_col9" class="data row1 col9" >0.047105</td>
+      <th id="T_53b62_level0_row1" class="row_heading level0 row1" >UNITSF</th>
+      <td id="T_53b62_row1_col0" class="data row1 col0" >0.043446</td>
+      <td id="T_53b62_row1_col1" class="data row1 col1" >0.049752</td>
+      <td id="T_53b62_row1_col2" class="data row1 col2" >0.046999</td>
+      <td id="T_53b62_row1_col3" class="data row1 col3" >0.043314</td>
+      <td id="T_53b62_row1_col4" class="data row1 col4" >0.051068</td>
+      <td id="T_53b62_row1_col5" class="data row1 col5" >0.047171</td>
+      <td id="T_53b62_row1_col6" class="data row1 col6" >0.045392</td>
+      <td id="T_53b62_row1_col7" class="data row1 col7" >0.047444</td>
+      <td id="T_53b62_row1_col8" class="data row1 col8" >0.044652</td>
+      <td id="T_53b62_row1_col9" class="data row1 col9" >0.043928</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row2" class="row_heading level0 row2" >BUILT</th>
-      <td id="T_18d92_row2_col0" class="data row2 col0" >0.004518</td>
-      <td id="T_18d92_row2_col1" class="data row2 col1" >0.000000</td>
-      <td id="T_18d92_row2_col2" class="data row2 col2" >0.002539</td>
-      <td id="T_18d92_row2_col3" class="data row2 col3" >0.000435</td>
-      <td id="T_18d92_row2_col4" class="data row2 col4" >0.006965</td>
-      <td id="T_18d92_row2_col5" class="data row2 col5" >0.001126</td>
-      <td id="T_18d92_row2_col6" class="data row2 col6" >0.003546</td>
-      <td id="T_18d92_row2_col7" class="data row2 col7" >0.004647</td>
-      <td id="T_18d92_row2_col8" class="data row2 col8" >0.007243</td>
-      <td id="T_18d92_row2_col9" class="data row2 col9" >0.004310</td>
+      <th id="T_53b62_level0_row2" class="row_heading level0 row2" >BUILT</th>
+      <td id="T_53b62_row2_col0" class="data row2 col0" >0.004261</td>
+      <td id="T_53b62_row2_col1" class="data row2 col1" >0.003123</td>
+      <td id="T_53b62_row2_col2" class="data row2 col2" >0.002295</td>
+      <td id="T_53b62_row2_col3" class="data row2 col3" >0.001440</td>
+      <td id="T_53b62_row2_col4" class="data row2 col4" >0.000648</td>
+      <td id="T_53b62_row2_col5" class="data row2 col5" >0.002065</td>
+      <td id="T_53b62_row2_col6" class="data row2 col6" >0.002591</td>
+      <td id="T_53b62_row2_col7" class="data row2 col7" >0.006350</td>
+      <td id="T_53b62_row2_col8" class="data row2 col8" >0.006427</td>
+      <td id="T_53b62_row2_col9" class="data row2 col9" >0.005223</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row3" class="row_heading level0 row3" >BATHS</th>
-      <td id="T_18d92_row3_col0" class="data row3 col0" >0.203597</td>
-      <td id="T_18d92_row3_col1" class="data row3 col1" >0.199671</td>
-      <td id="T_18d92_row3_col2" class="data row3 col2" >0.197617</td>
-      <td id="T_18d92_row3_col3" class="data row3 col3" >0.198385</td>
-      <td id="T_18d92_row3_col4" class="data row3 col4" >0.194836</td>
-      <td id="T_18d92_row3_col5" class="data row3 col5" >0.199763</td>
-      <td id="T_18d92_row3_col6" class="data row3 col6" >0.196214</td>
-      <td id="T_18d92_row3_col7" class="data row3 col7" >0.196592</td>
-      <td id="T_18d92_row3_col8" class="data row3 col8" >0.196090</td>
-      <td id="T_18d92_row3_col9" class="data row3 col9" >0.194580</td>
+      <th id="T_53b62_level0_row3" class="row_heading level0 row3" >BATHS</th>
+      <td id="T_53b62_row3_col0" class="data row3 col0" >0.199838</td>
+      <td id="T_53b62_row3_col1" class="data row3 col1" >0.193577</td>
+      <td id="T_53b62_row3_col2" class="data row3 col2" >0.198698</td>
+      <td id="T_53b62_row3_col3" class="data row3 col3" >0.197730</td>
+      <td id="T_53b62_row3_col4" class="data row3 col4" >0.194731</td>
+      <td id="T_53b62_row3_col5" class="data row3 col5" >0.197139</td>
+      <td id="T_53b62_row3_col6" class="data row3 col6" >0.201966</td>
+      <td id="T_53b62_row3_col7" class="data row3 col7" >0.193448</td>
+      <td id="T_53b62_row3_col8" class="data row3 col8" >0.203336</td>
+      <td id="T_53b62_row3_col9" class="data row3 col9" >0.198833</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row4" class="row_heading level0 row4" >BEDRMS</th>
-      <td id="T_18d92_row4_col0" class="data row4 col0" >0.053663</td>
-      <td id="T_18d92_row4_col1" class="data row4 col1" >0.054409</td>
-      <td id="T_18d92_row4_col2" class="data row4 col2" >0.056524</td>
-      <td id="T_18d92_row4_col3" class="data row4 col3" >0.058523</td>
-      <td id="T_18d92_row4_col4" class="data row4 col4" >0.053564</td>
-      <td id="T_18d92_row4_col5" class="data row4 col5" >0.050606</td>
-      <td id="T_18d92_row4_col6" class="data row4 col6" >0.055126</td>
-      <td id="T_18d92_row4_col7" class="data row4 col7" >0.056476</td>
-      <td id="T_18d92_row4_col8" class="data row4 col8" >0.054014</td>
-      <td id="T_18d92_row4_col9" class="data row4 col9" >0.055678</td>
+      <th id="T_53b62_level0_row4" class="row_heading level0 row4" >BEDRMS</th>
+      <td id="T_53b62_row4_col0" class="data row4 col0" >0.054827</td>
+      <td id="T_53b62_row4_col1" class="data row4 col1" >0.053815</td>
+      <td id="T_53b62_row4_col2" class="data row4 col2" >0.056391</td>
+      <td id="T_53b62_row4_col3" class="data row4 col3" >0.054585</td>
+      <td id="T_53b62_row4_col4" class="data row4 col4" >0.051964</td>
+      <td id="T_53b62_row4_col5" class="data row4 col5" >0.056194</td>
+      <td id="T_53b62_row4_col6" class="data row4 col6" >0.052687</td>
+      <td id="T_53b62_row4_col7" class="data row4 col7" >0.055484</td>
+      <td id="T_53b62_row4_col8" class="data row4 col8" >0.054240</td>
+      <td id="T_53b62_row4_col9" class="data row4 col9" >0.058203</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row5" class="row_heading level0 row5" >DINING</th>
-      <td id="T_18d92_row5_col0" class="data row5 col0" >0.044715</td>
-      <td id="T_18d92_row5_col1" class="data row5 col1" >0.043797</td>
-      <td id="T_18d92_row5_col2" class="data row5 col2" >0.046921</td>
-      <td id="T_18d92_row5_col3" class="data row5 col3" >0.047683</td>
-      <td id="T_18d92_row5_col4" class="data row5 col4" >0.047841</td>
-      <td id="T_18d92_row5_col5" class="data row5 col5" >0.048563</td>
-      <td id="T_18d92_row5_col6" class="data row5 col6" >0.044560</td>
-      <td id="T_18d92_row5_col7" class="data row5 col7" >0.045948</td>
-      <td id="T_18d92_row5_col8" class="data row5 col8" >0.046025</td>
-      <td id="T_18d92_row5_col9" class="data row5 col9" >0.046464</td>
+      <th id="T_53b62_level0_row5" class="row_heading level0 row5" >DINING</th>
+      <td id="T_53b62_row5_col0" class="data row5 col0" >0.047335</td>
+      <td id="T_53b62_row5_col1" class="data row5 col1" >0.047147</td>
+      <td id="T_53b62_row5_col2" class="data row5 col2" >0.047374</td>
+      <td id="T_53b62_row5_col3" class="data row5 col3" >0.045311</td>
+      <td id="T_53b62_row5_col4" class="data row5 col4" >0.046082</td>
+      <td id="T_53b62_row5_col5" class="data row5 col5" >0.044781</td>
+      <td id="T_53b62_row5_col6" class="data row5 col6" >0.046067</td>
+      <td id="T_53b62_row5_col7" class="data row5 col7" >0.048700</td>
+      <td id="T_53b62_row5_col8" class="data row5 col8" >0.047071</td>
+      <td id="T_53b62_row5_col9" class="data row5 col9" >0.043293</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row6" class="row_heading level0 row6" >METRO</th>
-      <td id="T_18d92_row6_col0" class="data row6 col0" >0.000000</td>
-      <td id="T_18d92_row6_col1" class="data row6 col1" >0.004174</td>
-      <td id="T_18d92_row6_col2" class="data row6 col2" >0.000000</td>
-      <td id="T_18d92_row6_col3" class="data row6 col3" >0.000603</td>
-      <td id="T_18d92_row6_col4" class="data row6 col4" >0.000000</td>
-      <td id="T_18d92_row6_col5" class="data row6 col5" >0.000729</td>
-      <td id="T_18d92_row6_col6" class="data row6 col6" >0.000266</td>
-      <td id="T_18d92_row6_col7" class="data row6 col7" >0.000000</td>
-      <td id="T_18d92_row6_col8" class="data row6 col8" >0.002482</td>
-      <td id="T_18d92_row6_col9" class="data row6 col9" >0.000865</td>
+      <th id="T_53b62_level0_row6" class="row_heading level0 row6" >METRO</th>
+      <td id="T_53b62_row6_col0" class="data row6 col0" >0.001101</td>
+      <td id="T_53b62_row6_col1" class="data row6 col1" >0.001851</td>
+      <td id="T_53b62_row6_col2" class="data row6 col2" >0.000000</td>
+      <td id="T_53b62_row6_col3" class="data row6 col3" >0.000491</td>
+      <td id="T_53b62_row6_col4" class="data row6 col4" >0.005416</td>
+      <td id="T_53b62_row6_col5" class="data row6 col5" >0.000000</td>
+      <td id="T_53b62_row6_col6" class="data row6 col6" >0.001685</td>
+      <td id="T_53b62_row6_col7" class="data row6 col7" >0.000000</td>
+      <td id="T_53b62_row6_col8" class="data row6 col8" >0.000000</td>
+      <td id="T_53b62_row6_col9" class="data row6 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row7" class="row_heading level0 row7" >CRACKS</th>
-      <td id="T_18d92_row7_col0" class="data row7 col0" >0.019909</td>
-      <td id="T_18d92_row7_col1" class="data row7 col1" >0.019148</td>
-      <td id="T_18d92_row7_col2" class="data row7 col2" >0.019330</td>
-      <td id="T_18d92_row7_col3" class="data row7 col3" >0.019518</td>
-      <td id="T_18d92_row7_col4" class="data row7 col4" >0.017687</td>
-      <td id="T_18d92_row7_col5" class="data row7 col5" >0.019672</td>
-      <td id="T_18d92_row7_col6" class="data row7 col6" >0.016046</td>
-      <td id="T_18d92_row7_col7" class="data row7 col7" >0.019190</td>
-      <td id="T_18d92_row7_col8" class="data row7 col8" >0.023199</td>
-      <td id="T_18d92_row7_col9" class="data row7 col9" >0.022858</td>
+      <th id="T_53b62_level0_row7" class="row_heading level0 row7" >CRACKS</th>
+      <td id="T_53b62_row7_col0" class="data row7 col0" >0.019471</td>
+      <td id="T_53b62_row7_col1" class="data row7 col1" >0.018646</td>
+      <td id="T_53b62_row7_col2" class="data row7 col2" >0.020971</td>
+      <td id="T_53b62_row7_col3" class="data row7 col3" >0.020945</td>
+      <td id="T_53b62_row7_col4" class="data row7 col4" >0.020541</td>
+      <td id="T_53b62_row7_col5" class="data row7 col5" >0.017851</td>
+      <td id="T_53b62_row7_col6" class="data row7 col6" >0.020578</td>
+      <td id="T_53b62_row7_col7" class="data row7 col7" >0.021731</td>
+      <td id="T_53b62_row7_col8" class="data row7 col8" >0.018447</td>
+      <td id="T_53b62_row7_col9" class="data row7 col9" >0.016862</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row8" class="row_heading level0 row8" >REGION</th>
-      <td id="T_18d92_row8_col0" class="data row8 col0" >0.081158</td>
-      <td id="T_18d92_row8_col1" class="data row8 col1" >0.078486</td>
-      <td id="T_18d92_row8_col2" class="data row8 col2" >0.083120</td>
-      <td id="T_18d92_row8_col3" class="data row8 col3" >0.081434</td>
-      <td id="T_18d92_row8_col4" class="data row8 col4" >0.082015</td>
-      <td id="T_18d92_row8_col5" class="data row8 col5" >0.081589</td>
-      <td id="T_18d92_row8_col6" class="data row8 col6" >0.083560</td>
-      <td id="T_18d92_row8_col7" class="data row8 col7" >0.083823</td>
-      <td id="T_18d92_row8_col8" class="data row8 col8" >0.080403</td>
-      <td id="T_18d92_row8_col9" class="data row8 col9" >0.081243</td>
+      <th id="T_53b62_level0_row8" class="row_heading level0 row8" >REGION</th>
+      <td id="T_53b62_row8_col0" class="data row8 col0" >0.082111</td>
+      <td id="T_53b62_row8_col1" class="data row8 col1" >0.083335</td>
+      <td id="T_53b62_row8_col2" class="data row8 col2" >0.081332</td>
+      <td id="T_53b62_row8_col3" class="data row8 col3" >0.086720</td>
+      <td id="T_53b62_row8_col4" class="data row8 col4" >0.080920</td>
+      <td id="T_53b62_row8_col5" class="data row8 col5" >0.083034</td>
+      <td id="T_53b62_row8_col6" class="data row8 col6" >0.080495</td>
+      <td id="T_53b62_row8_col7" class="data row8 col7" >0.079982</td>
+      <td id="T_53b62_row8_col8" class="data row8 col8" >0.079276</td>
+      <td id="T_53b62_row8_col9" class="data row8 col9" >0.079039</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row9" class="row_heading level0 row9" >METRO3</th>
-      <td id="T_18d92_row9_col0" class="data row9 col0" >0.008164</td>
-      <td id="T_18d92_row9_col1" class="data row9 col1" >0.007279</td>
-      <td id="T_18d92_row9_col2" class="data row9 col2" >0.009180</td>
-      <td id="T_18d92_row9_col3" class="data row9 col3" >0.009850</td>
-      <td id="T_18d92_row9_col4" class="data row9 col4" >0.006746</td>
-      <td id="T_18d92_row9_col5" class="data row9 col5" >0.009067</td>
-      <td id="T_18d92_row9_col6" class="data row9 col6" >0.010178</td>
-      <td id="T_18d92_row9_col7" class="data row9 col7" >0.008615</td>
-      <td id="T_18d92_row9_col8" class="data row9 col8" >0.008463</td>
-      <td id="T_18d92_row9_col9" class="data row9 col9" >0.006118</td>
+      <th id="T_53b62_level0_row9" class="row_heading level0 row9" >METRO3</th>
+      <td id="T_53b62_row9_col0" class="data row9 col0" >0.007632</td>
+      <td id="T_53b62_row9_col1" class="data row9 col1" >0.007764</td>
+      <td id="T_53b62_row9_col2" class="data row9 col2" >0.008717</td>
+      <td id="T_53b62_row9_col3" class="data row9 col3" >0.009085</td>
+      <td id="T_53b62_row9_col4" class="data row9 col4" >0.008308</td>
+      <td id="T_53b62_row9_col5" class="data row9 col5" >0.010400</td>
+      <td id="T_53b62_row9_col6" class="data row9 col6" >0.006155</td>
+      <td id="T_53b62_row9_col7" class="data row9 col7" >0.009527</td>
+      <td id="T_53b62_row9_col8" class="data row9 col8" >0.007189</td>
+      <td id="T_53b62_row9_col9" class="data row9 col9" >0.009035</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row10" class="row_heading level0 row10" >PHONE</th>
-      <td id="T_18d92_row10_col0" class="data row10 col0" >0.004824</td>
-      <td id="T_18d92_row10_col1" class="data row10 col1" >0.001489</td>
-      <td id="T_18d92_row10_col2" class="data row10 col2" >0.002344</td>
-      <td id="T_18d92_row10_col3" class="data row10 col3" >0.000780</td>
-      <td id="T_18d92_row10_col4" class="data row10 col4" >0.001677</td>
-      <td id="T_18d92_row10_col5" class="data row10 col5" >0.000103</td>
-      <td id="T_18d92_row10_col6" class="data row10 col6" >0.000000</td>
-      <td id="T_18d92_row10_col7" class="data row10 col7" >0.003213</td>
-      <td id="T_18d92_row10_col8" class="data row10 col8" >0.002853</td>
-      <td id="T_18d92_row10_col9" class="data row10 col9" >0.001011</td>
+      <th id="T_53b62_level0_row10" class="row_heading level0 row10" >PHONE</th>
+      <td id="T_53b62_row10_col0" class="data row10 col0" >0.000637</td>
+      <td id="T_53b62_row10_col1" class="data row10 col1" >0.000000</td>
+      <td id="T_53b62_row10_col2" class="data row10 col2" >0.001138</td>
+      <td id="T_53b62_row10_col3" class="data row10 col3" >0.005678</td>
+      <td id="T_53b62_row10_col4" class="data row10 col4" >0.000239</td>
+      <td id="T_53b62_row10_col5" class="data row10 col5" >0.000000</td>
+      <td id="T_53b62_row10_col6" class="data row10 col6" >0.004314</td>
+      <td id="T_53b62_row10_col7" class="data row10 col7" >0.003819</td>
+      <td id="T_53b62_row10_col8" class="data row10 col8" >0.001720</td>
+      <td id="T_53b62_row10_col9" class="data row10 col9" >0.002134</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row11" class="row_heading level0 row11" >KITCHEN</th>
-      <td id="T_18d92_row11_col0" class="data row11 col0" >-0.002862</td>
-      <td id="T_18d92_row11_col1" class="data row11 col1" >-0.000000</td>
-      <td id="T_18d92_row11_col2" class="data row11 col2" >-0.002843</td>
-      <td id="T_18d92_row11_col3" class="data row11 col3" >-0.004854</td>
-      <td id="T_18d92_row11_col4" class="data row11 col4" >-0.003106</td>
-      <td id="T_18d92_row11_col5" class="data row11 col5" >-0.001618</td>
-      <td id="T_18d92_row11_col6" class="data row11 col6" >-0.000000</td>
-      <td id="T_18d92_row11_col7" class="data row11 col7" >-0.005565</td>
-      <td id="T_18d92_row11_col8" class="data row11 col8" >-0.003428</td>
-      <td id="T_18d92_row11_col9" class="data row11 col9" >-0.002915</td>
+      <th id="T_53b62_level0_row11" class="row_heading level0 row11" >KITCHEN</th>
+      <td id="T_53b62_row11_col0" class="data row11 col0" >-0.003489</td>
+      <td id="T_53b62_row11_col1" class="data row11 col1" >-0.003576</td>
+      <td id="T_53b62_row11_col2" class="data row11 col2" >-0.000939</td>
+      <td id="T_53b62_row11_col3" class="data row11 col3" >-0.004477</td>
+      <td id="T_53b62_row11_col4" class="data row11 col4" >-0.001349</td>
+      <td id="T_53b62_row11_col5" class="data row11 col5" >-0.002450</td>
+      <td id="T_53b62_row11_col6" class="data row11 col6" >-0.003959</td>
+      <td id="T_53b62_row11_col7" class="data row11 col7" >-0.005143</td>
+      <td id="T_53b62_row11_col8" class="data row11 col8" >0.000000</td>
+      <td id="T_53b62_row11_col9" class="data row11 col9" >-0.004371</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row12" class="row_heading level0 row12" >MOBILTYP</th>
-      <td id="T_18d92_row12_col0" class="data row12 col0" >-0.112303</td>
-      <td id="T_18d92_row12_col1" class="data row12 col1" >-0.121602</td>
-      <td id="T_18d92_row12_col2" class="data row12 col2" >-0.113536</td>
-      <td id="T_18d92_row12_col3" class="data row12 col3" >-0.109450</td>
-      <td id="T_18d92_row12_col4" class="data row12 col4" >-0.116989</td>
-      <td id="T_18d92_row12_col5" class="data row12 col5" >-0.098885</td>
-      <td id="T_18d92_row12_col6" class="data row12 col6" >-0.098410</td>
-      <td id="T_18d92_row12_col7" class="data row12 col7" >-0.111467</td>
-      <td id="T_18d92_row12_col8" class="data row12 col8" >-0.121142</td>
-      <td id="T_18d92_row12_col9" class="data row12 col9" >-0.109356</td>
+      <th id="T_53b62_level0_row12" class="row_heading level0 row12" >MOBILTYP</th>
+      <td id="T_53b62_row12_col0" class="data row12 col0" >-0.113221</td>
+      <td id="T_53b62_row12_col1" class="data row12 col1" >-0.108808</td>
+      <td id="T_53b62_row12_col2" class="data row12 col2" >-0.120505</td>
+      <td id="T_53b62_row12_col3" class="data row12 col3" >-0.117579</td>
+      <td id="T_53b62_row12_col4" class="data row12 col4" >-0.110866</td>
+      <td id="T_53b62_row12_col5" class="data row12 col5" >-0.107325</td>
+      <td id="T_53b62_row12_col6" class="data row12 col6" >-0.109229</td>
+      <td id="T_53b62_row12_col7" class="data row12 col7" >-0.108278</td>
+      <td id="T_53b62_row12_col8" class="data row12 col8" >-0.110068</td>
+      <td id="T_53b62_row12_col9" class="data row12 col9" >-0.111377</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row13" class="row_heading level0 row13" >WINTEROVEN</th>
-      <td id="T_18d92_row13_col0" class="data row13 col0" >0.000000</td>
-      <td id="T_18d92_row13_col1" class="data row13 col1" >0.000000</td>
-      <td id="T_18d92_row13_col2" class="data row13 col2" >0.000000</td>
-      <td id="T_18d92_row13_col3" class="data row13 col3" >0.000000</td>
-      <td id="T_18d92_row13_col4" class="data row13 col4" >0.000000</td>
-      <td id="T_18d92_row13_col5" class="data row13 col5" >0.000000</td>
-      <td id="T_18d92_row13_col6" class="data row13 col6" >0.000000</td>
-      <td id="T_18d92_row13_col7" class="data row13 col7" >0.000000</td>
-      <td id="T_18d92_row13_col8" class="data row13 col8" >0.000000</td>
-      <td id="T_18d92_row13_col9" class="data row13 col9" >0.000000</td>
+      <th id="T_53b62_level0_row13" class="row_heading level0 row13" >WINTEROVEN</th>
+      <td id="T_53b62_row13_col0" class="data row13 col0" >0.000000</td>
+      <td id="T_53b62_row13_col1" class="data row13 col1" >0.000000</td>
+      <td id="T_53b62_row13_col2" class="data row13 col2" >0.000000</td>
+      <td id="T_53b62_row13_col3" class="data row13 col3" >0.000000</td>
+      <td id="T_53b62_row13_col4" class="data row13 col4" >0.000000</td>
+      <td id="T_53b62_row13_col5" class="data row13 col5" >0.000000</td>
+      <td id="T_53b62_row13_col6" class="data row13 col6" >0.000000</td>
+      <td id="T_53b62_row13_col7" class="data row13 col7" >0.000000</td>
+      <td id="T_53b62_row13_col8" class="data row13 col8" >0.000000</td>
+      <td id="T_53b62_row13_col9" class="data row13 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row14" class="row_heading level0 row14" >WINTERKESP</th>
-      <td id="T_18d92_row14_col0" class="data row14 col0" >0.000000</td>
-      <td id="T_18d92_row14_col1" class="data row14 col1" >0.000000</td>
-      <td id="T_18d92_row14_col2" class="data row14 col2" >0.000000</td>
-      <td id="T_18d92_row14_col3" class="data row14 col3" >0.000000</td>
-      <td id="T_18d92_row14_col4" class="data row14 col4" >0.000000</td>
-      <td id="T_18d92_row14_col5" class="data row14 col5" >0.000000</td>
-      <td id="T_18d92_row14_col6" class="data row14 col6" >0.000000</td>
-      <td id="T_18d92_row14_col7" class="data row14 col7" >0.000000</td>
-      <td id="T_18d92_row14_col8" class="data row14 col8" >-0.000000</td>
-      <td id="T_18d92_row14_col9" class="data row14 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row14" class="row_heading level0 row14" >WINTERKESP</th>
+      <td id="T_53b62_row14_col0" class="data row14 col0" >0.000000</td>
+      <td id="T_53b62_row14_col1" class="data row14 col1" >-0.000000</td>
+      <td id="T_53b62_row14_col2" class="data row14 col2" >0.000000</td>
+      <td id="T_53b62_row14_col3" class="data row14 col3" >-0.000000</td>
+      <td id="T_53b62_row14_col4" class="data row14 col4" >0.000000</td>
+      <td id="T_53b62_row14_col5" class="data row14 col5" >0.000000</td>
+      <td id="T_53b62_row14_col6" class="data row14 col6" >0.000000</td>
+      <td id="T_53b62_row14_col7" class="data row14 col7" >0.000000</td>
+      <td id="T_53b62_row14_col8" class="data row14 col8" >0.000000</td>
+      <td id="T_53b62_row14_col9" class="data row14 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row15" class="row_heading level0 row15" >WINTERELSP</th>
-      <td id="T_18d92_row15_col0" class="data row15 col0" >0.026630</td>
-      <td id="T_18d92_row15_col1" class="data row15 col1" >0.025502</td>
-      <td id="T_18d92_row15_col2" class="data row15 col2" >0.029329</td>
-      <td id="T_18d92_row15_col3" class="data row15 col3" >0.029129</td>
-      <td id="T_18d92_row15_col4" class="data row15 col4" >0.027646</td>
-      <td id="T_18d92_row15_col5" class="data row15 col5" >0.026057</td>
-      <td id="T_18d92_row15_col6" class="data row15 col6" >0.027866</td>
-      <td id="T_18d92_row15_col7" class="data row15 col7" >0.025227</td>
-      <td id="T_18d92_row15_col8" class="data row15 col8" >0.024560</td>
-      <td id="T_18d92_row15_col9" class="data row15 col9" >0.020285</td>
+      <th id="T_53b62_level0_row15" class="row_heading level0 row15" >WINTERELSP</th>
+      <td id="T_53b62_row15_col0" class="data row15 col0" >0.028091</td>
+      <td id="T_53b62_row15_col1" class="data row15 col1" >0.024752</td>
+      <td id="T_53b62_row15_col2" class="data row15 col2" >0.027052</td>
+      <td id="T_53b62_row15_col3" class="data row15 col3" >0.022013</td>
+      <td id="T_53b62_row15_col4" class="data row15 col4" >0.026723</td>
+      <td id="T_53b62_row15_col5" class="data row15 col5" >0.026035</td>
+      <td id="T_53b62_row15_col6" class="data row15 col6" >0.028384</td>
+      <td id="T_53b62_row15_col7" class="data row15 col7" >0.025510</td>
+      <td id="T_53b62_row15_col8" class="data row15 col8" >0.026480</td>
+      <td id="T_53b62_row15_col9" class="data row15 col9" >0.024275</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row16" class="row_heading level0 row16" >WINTERWOOD</th>
-      <td id="T_18d92_row16_col0" class="data row16 col0" >0.000000</td>
-      <td id="T_18d92_row16_col1" class="data row16 col1" >0.000000</td>
-      <td id="T_18d92_row16_col2" class="data row16 col2" >0.000000</td>
-      <td id="T_18d92_row16_col3" class="data row16 col3" >0.000000</td>
-      <td id="T_18d92_row16_col4" class="data row16 col4" >-0.000000</td>
-      <td id="T_18d92_row16_col5" class="data row16 col5" >0.000000</td>
-      <td id="T_18d92_row16_col6" class="data row16 col6" >-0.000000</td>
-      <td id="T_18d92_row16_col7" class="data row16 col7" >0.000000</td>
-      <td id="T_18d92_row16_col8" class="data row16 col8" >-0.000000</td>
-      <td id="T_18d92_row16_col9" class="data row16 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row16" class="row_heading level0 row16" >WINTERWOOD</th>
+      <td id="T_53b62_row16_col0" class="data row16 col0" >0.000000</td>
+      <td id="T_53b62_row16_col1" class="data row16 col1" >-0.000000</td>
+      <td id="T_53b62_row16_col2" class="data row16 col2" >-0.000000</td>
+      <td id="T_53b62_row16_col3" class="data row16 col3" >-0.000000</td>
+      <td id="T_53b62_row16_col4" class="data row16 col4" >-0.000000</td>
+      <td id="T_53b62_row16_col5" class="data row16 col5" >0.000000</td>
+      <td id="T_53b62_row16_col6" class="data row16 col6" >0.000000</td>
+      <td id="T_53b62_row16_col7" class="data row16 col7" >0.000000</td>
+      <td id="T_53b62_row16_col8" class="data row16 col8" >0.000000</td>
+      <td id="T_53b62_row16_col9" class="data row16 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row17" class="row_heading level0 row17" >WINTERNONE</th>
-      <td id="T_18d92_row17_col0" class="data row17 col0" >-0.005799</td>
-      <td id="T_18d92_row17_col1" class="data row17 col1" >-0.001719</td>
-      <td id="T_18d92_row17_col2" class="data row17 col2" >-0.003458</td>
-      <td id="T_18d92_row17_col3" class="data row17 col3" >-0.009085</td>
-      <td id="T_18d92_row17_col4" class="data row17 col4" >-0.003001</td>
-      <td id="T_18d92_row17_col5" class="data row17 col5" >-0.001398</td>
-      <td id="T_18d92_row17_col6" class="data row17 col6" >-0.004048</td>
-      <td id="T_18d92_row17_col7" class="data row17 col7" >-0.000000</td>
-      <td id="T_18d92_row17_col8" class="data row17 col8" >-0.001989</td>
-      <td id="T_18d92_row17_col9" class="data row17 col9" >-0.009538</td>
+      <th id="T_53b62_level0_row17" class="row_heading level0 row17" >WINTERNONE</th>
+      <td id="T_53b62_row17_col0" class="data row17 col0" >-0.000000</td>
+      <td id="T_53b62_row17_col1" class="data row17 col1" >-0.000838</td>
+      <td id="T_53b62_row17_col2" class="data row17 col2" >-0.002999</td>
+      <td id="T_53b62_row17_col3" class="data row17 col3" >-0.011809</td>
+      <td id="T_53b62_row17_col4" class="data row17 col4" >-0.006753</td>
+      <td id="T_53b62_row17_col5" class="data row17 col5" >-0.000000</td>
+      <td id="T_53b62_row17_col6" class="data row17 col6" >-0.004047</td>
+      <td id="T_53b62_row17_col7" class="data row17 col7" >-0.005404</td>
+      <td id="T_53b62_row17_col8" class="data row17 col8" >-0.003037</td>
+      <td id="T_53b62_row17_col9" class="data row17 col9" >-0.002415</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row18" class="row_heading level0 row18" >NEWC</th>
-      <td id="T_18d92_row18_col0" class="data row18 col0" >0.028086</td>
-      <td id="T_18d92_row18_col1" class="data row18 col1" >0.032383</td>
-      <td id="T_18d92_row18_col2" class="data row18 col2" >0.028415</td>
-      <td id="T_18d92_row18_col3" class="data row18 col3" >0.028982</td>
-      <td id="T_18d92_row18_col4" class="data row18 col4" >0.028145</td>
-      <td id="T_18d92_row18_col5" class="data row18 col5" >0.027224</td>
-      <td id="T_18d92_row18_col6" class="data row18 col6" >0.026153</td>
-      <td id="T_18d92_row18_col7" class="data row18 col7" >0.029931</td>
-      <td id="T_18d92_row18_col8" class="data row18 col8" >0.029357</td>
-      <td id="T_18d92_row18_col9" class="data row18 col9" >0.024773</td>
+      <th id="T_53b62_level0_row18" class="row_heading level0 row18" >NEWC</th>
+      <td id="T_53b62_row18_col0" class="data row18 col0" >0.028732</td>
+      <td id="T_53b62_row18_col1" class="data row18 col1" >0.029702</td>
+      <td id="T_53b62_row18_col2" class="data row18 col2" >0.027837</td>
+      <td id="T_53b62_row18_col3" class="data row18 col3" >0.029499</td>
+      <td id="T_53b62_row18_col4" class="data row18 col4" >0.030041</td>
+      <td id="T_53b62_row18_col5" class="data row18 col5" >0.026617</td>
+      <td id="T_53b62_row18_col6" class="data row18 col6" >0.028638</td>
+      <td id="T_53b62_row18_col7" class="data row18 col7" >0.027779</td>
+      <td id="T_53b62_row18_col8" class="data row18 col8" >0.027120</td>
+      <td id="T_53b62_row18_col9" class="data row18 col9" >0.028027</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row19" class="row_heading level0 row19" >DISH</th>
-      <td id="T_18d92_row19_col0" class="data row19 col0" >-0.094848</td>
-      <td id="T_18d92_row19_col1" class="data row19 col1" >-0.099767</td>
-      <td id="T_18d92_row19_col2" class="data row19 col2" >-0.093189</td>
-      <td id="T_18d92_row19_col3" class="data row19 col3" >-0.098059</td>
-      <td id="T_18d92_row19_col4" class="data row19 col4" >-0.096007</td>
-      <td id="T_18d92_row19_col5" class="data row19 col5" >-0.097614</td>
-      <td id="T_18d92_row19_col6" class="data row19 col6" >-0.097560</td>
-      <td id="T_18d92_row19_col7" class="data row19 col7" >-0.092694</td>
-      <td id="T_18d92_row19_col8" class="data row19 col8" >-0.096064</td>
-      <td id="T_18d92_row19_col9" class="data row19 col9" >-0.096277</td>
+      <th id="T_53b62_level0_row19" class="row_heading level0 row19" >DISH</th>
+      <td id="T_53b62_row19_col0" class="data row19 col0" >-0.095492</td>
+      <td id="T_53b62_row19_col1" class="data row19 col1" >-0.097138</td>
+      <td id="T_53b62_row19_col2" class="data row19 col2" >-0.097106</td>
+      <td id="T_53b62_row19_col3" class="data row19 col3" >-0.094811</td>
+      <td id="T_53b62_row19_col4" class="data row19 col4" >-0.096843</td>
+      <td id="T_53b62_row19_col5" class="data row19 col5" >-0.098043</td>
+      <td id="T_53b62_row19_col6" class="data row19 col6" >-0.096690</td>
+      <td id="T_53b62_row19_col7" class="data row19 col7" >-0.093801</td>
+      <td id="T_53b62_row19_col8" class="data row19 col8" >-0.094818</td>
+      <td id="T_53b62_row19_col9" class="data row19 col9" >-0.096059</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row20" class="row_heading level0 row20" >WASH</th>
-      <td id="T_18d92_row20_col0" class="data row20 col0" >-0.004487</td>
-      <td id="T_18d92_row20_col1" class="data row20 col1" >-0.009536</td>
-      <td id="T_18d92_row20_col2" class="data row20 col2" >-0.011579</td>
-      <td id="T_18d92_row20_col3" class="data row20 col3" >-0.010534</td>
-      <td id="T_18d92_row20_col4" class="data row20 col4" >-0.006733</td>
-      <td id="T_18d92_row20_col5" class="data row20 col5" >-0.013064</td>
-      <td id="T_18d92_row20_col6" class="data row20 col6" >-0.007876</td>
-      <td id="T_18d92_row20_col7" class="data row20 col7" >-0.003907</td>
-      <td id="T_18d92_row20_col8" class="data row20 col8" >-0.000000</td>
-      <td id="T_18d92_row20_col9" class="data row20 col9" >-0.010553</td>
+      <th id="T_53b62_level0_row20" class="row_heading level0 row20" >WASH</th>
+      <td id="T_53b62_row20_col0" class="data row20 col0" >-0.001013</td>
+      <td id="T_53b62_row20_col1" class="data row20 col1" >-0.012387</td>
+      <td id="T_53b62_row20_col2" class="data row20 col2" >-0.011980</td>
+      <td id="T_53b62_row20_col3" class="data row20 col3" >-0.010722</td>
+      <td id="T_53b62_row20_col4" class="data row20 col4" >-0.010888</td>
+      <td id="T_53b62_row20_col5" class="data row20 col5" >-0.005257</td>
+      <td id="T_53b62_row20_col6" class="data row20 col6" >-0.003432</td>
+      <td id="T_53b62_row20_col7" class="data row20 col7" >-0.015225</td>
+      <td id="T_53b62_row20_col8" class="data row20 col8" >-0.005121</td>
+      <td id="T_53b62_row20_col9" class="data row20 col9" >-0.000422</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row21" class="row_heading level0 row21" >DRY</th>
-      <td id="T_18d92_row21_col0" class="data row21 col0" >-0.031152</td>
-      <td id="T_18d92_row21_col1" class="data row21 col1" >-0.027001</td>
-      <td id="T_18d92_row21_col2" class="data row21 col2" >-0.031979</td>
-      <td id="T_18d92_row21_col3" class="data row21 col3" >-0.026552</td>
-      <td id="T_18d92_row21_col4" class="data row21 col4" >-0.033517</td>
-      <td id="T_18d92_row21_col5" class="data row21 col5" >-0.030070</td>
-      <td id="T_18d92_row21_col6" class="data row21 col6" >-0.031548</td>
-      <td id="T_18d92_row21_col7" class="data row21 col7" >-0.034602</td>
-      <td id="T_18d92_row21_col8" class="data row21 col8" >-0.033036</td>
-      <td id="T_18d92_row21_col9" class="data row21 col9" >-0.029140</td>
+      <th id="T_53b62_level0_row21" class="row_heading level0 row21" >DRY</th>
+      <td id="T_53b62_row21_col0" class="data row21 col0" >-0.033776</td>
+      <td id="T_53b62_row21_col1" class="data row21 col1" >-0.023649</td>
+      <td id="T_53b62_row21_col2" class="data row21 col2" >-0.030104</td>
+      <td id="T_53b62_row21_col3" class="data row21 col3" >-0.033566</td>
+      <td id="T_53b62_row21_col4" class="data row21 col4" >-0.026506</td>
+      <td id="T_53b62_row21_col5" class="data row21 col5" >-0.032601</td>
+      <td id="T_53b62_row21_col6" class="data row21 col6" >-0.035085</td>
+      <td id="T_53b62_row21_col7" class="data row21 col7" >-0.026036</td>
+      <td id="T_53b62_row21_col8" class="data row21 col8" >-0.032559</td>
+      <td id="T_53b62_row21_col9" class="data row21 col9" >-0.035552</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row22" class="row_heading level0 row22" >NUNIT2</th>
-      <td id="T_18d92_row22_col0" class="data row22 col0" >-0.228367</td>
-      <td id="T_18d92_row22_col1" class="data row22 col1" >-0.209729</td>
-      <td id="T_18d92_row22_col2" class="data row22 col2" >-0.223340</td>
-      <td id="T_18d92_row22_col3" class="data row22 col3" >-0.219721</td>
-      <td id="T_18d92_row22_col4" class="data row22 col4" >-0.215949</td>
-      <td id="T_18d92_row22_col5" class="data row22 col5" >-0.223968</td>
-      <td id="T_18d92_row22_col6" class="data row22 col6" >-0.235531</td>
-      <td id="T_18d92_row22_col7" class="data row22 col7" >-0.226641</td>
-      <td id="T_18d92_row22_col8" class="data row22 col8" >-0.214659</td>
-      <td id="T_18d92_row22_col9" class="data row22 col9" >-0.221836</td>
+      <th id="T_53b62_level0_row22" class="row_heading level0 row22" >NUNIT2</th>
+      <td id="T_53b62_row22_col0" class="data row22 col0" >-0.216402</td>
+      <td id="T_53b62_row22_col1" class="data row22 col1" >-0.223786</td>
+      <td id="T_53b62_row22_col2" class="data row22 col2" >-0.212042</td>
+      <td id="T_53b62_row22_col3" class="data row22 col3" >-0.221009</td>
+      <td id="T_53b62_row22_col4" class="data row22 col4" >-0.220342</td>
+      <td id="T_53b62_row22_col5" class="data row22 col5" >-0.222329</td>
+      <td id="T_53b62_row22_col6" class="data row22 col6" >-0.225406</td>
+      <td id="T_53b62_row22_col7" class="data row22 col7" >-0.222366</td>
+      <td id="T_53b62_row22_col8" class="data row22 col8" >-0.228021</td>
+      <td id="T_53b62_row22_col9" class="data row22 col9" >-0.222269</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row23" class="row_heading level0 row23" >BURNER</th>
-      <td id="T_18d92_row23_col0" class="data row23 col0" >-0.000000</td>
-      <td id="T_18d92_row23_col1" class="data row23 col1" >-0.000000</td>
-      <td id="T_18d92_row23_col2" class="data row23 col2" >-0.000000</td>
-      <td id="T_18d92_row23_col3" class="data row23 col3" >0.000000</td>
-      <td id="T_18d92_row23_col4" class="data row23 col4" >-0.000000</td>
-      <td id="T_18d92_row23_col5" class="data row23 col5" >0.000000</td>
-      <td id="T_18d92_row23_col6" class="data row23 col6" >-0.000000</td>
-      <td id="T_18d92_row23_col7" class="data row23 col7" >-0.000000</td>
-      <td id="T_18d92_row23_col8" class="data row23 col8" >0.000000</td>
-      <td id="T_18d92_row23_col9" class="data row23 col9" >0.000000</td>
+      <th id="T_53b62_level0_row23" class="row_heading level0 row23" >BURNER</th>
+      <td id="T_53b62_row23_col0" class="data row23 col0" >-0.000000</td>
+      <td id="T_53b62_row23_col1" class="data row23 col1" >0.000000</td>
+      <td id="T_53b62_row23_col2" class="data row23 col2" >-0.000000</td>
+      <td id="T_53b62_row23_col3" class="data row23 col3" >0.000000</td>
+      <td id="T_53b62_row23_col4" class="data row23 col4" >-0.000000</td>
+      <td id="T_53b62_row23_col5" class="data row23 col5" >-0.000000</td>
+      <td id="T_53b62_row23_col6" class="data row23 col6" >0.000000</td>
+      <td id="T_53b62_row23_col7" class="data row23 col7" >0.000000</td>
+      <td id="T_53b62_row23_col8" class="data row23 col8" >-0.000000</td>
+      <td id="T_53b62_row23_col9" class="data row23 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row24" class="row_heading level0 row24" >COOK</th>
-      <td id="T_18d92_row24_col0" class="data row24 col0" >-0.000000</td>
-      <td id="T_18d92_row24_col1" class="data row24 col1" >-0.000000</td>
-      <td id="T_18d92_row24_col2" class="data row24 col2" >-0.000000</td>
-      <td id="T_18d92_row24_col3" class="data row24 col3" >0.000000</td>
-      <td id="T_18d92_row24_col4" class="data row24 col4" >-0.000000</td>
-      <td id="T_18d92_row24_col5" class="data row24 col5" >0.000000</td>
-      <td id="T_18d92_row24_col6" class="data row24 col6" >-0.000000</td>
-      <td id="T_18d92_row24_col7" class="data row24 col7" >-0.000000</td>
-      <td id="T_18d92_row24_col8" class="data row24 col8" >0.000000</td>
-      <td id="T_18d92_row24_col9" class="data row24 col9" >0.000000</td>
+      <th id="T_53b62_level0_row24" class="row_heading level0 row24" >COOK</th>
+      <td id="T_53b62_row24_col0" class="data row24 col0" >-0.000000</td>
+      <td id="T_53b62_row24_col1" class="data row24 col1" >0.000000</td>
+      <td id="T_53b62_row24_col2" class="data row24 col2" >-0.000000</td>
+      <td id="T_53b62_row24_col3" class="data row24 col3" >0.000000</td>
+      <td id="T_53b62_row24_col4" class="data row24 col4" >-0.000000</td>
+      <td id="T_53b62_row24_col5" class="data row24 col5" >-0.000000</td>
+      <td id="T_53b62_row24_col6" class="data row24 col6" >0.000000</td>
+      <td id="T_53b62_row24_col7" class="data row24 col7" >0.000000</td>
+      <td id="T_53b62_row24_col8" class="data row24 col8" >-0.000000</td>
+      <td id="T_53b62_row24_col9" class="data row24 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row25" class="row_heading level0 row25" >OVEN</th>
-      <td id="T_18d92_row25_col0" class="data row25 col0" >-0.000000</td>
-      <td id="T_18d92_row25_col1" class="data row25 col1" >-0.000000</td>
-      <td id="T_18d92_row25_col2" class="data row25 col2" >-0.000000</td>
-      <td id="T_18d92_row25_col3" class="data row25 col3" >0.000000</td>
-      <td id="T_18d92_row25_col4" class="data row25 col4" >-0.000000</td>
-      <td id="T_18d92_row25_col5" class="data row25 col5" >0.000000</td>
-      <td id="T_18d92_row25_col6" class="data row25 col6" >-0.000000</td>
-      <td id="T_18d92_row25_col7" class="data row25 col7" >-0.000000</td>
-      <td id="T_18d92_row25_col8" class="data row25 col8" >0.000000</td>
-      <td id="T_18d92_row25_col9" class="data row25 col9" >0.000000</td>
+      <th id="T_53b62_level0_row25" class="row_heading level0 row25" >OVEN</th>
+      <td id="T_53b62_row25_col0" class="data row25 col0" >-0.000000</td>
+      <td id="T_53b62_row25_col1" class="data row25 col1" >0.000000</td>
+      <td id="T_53b62_row25_col2" class="data row25 col2" >-0.000000</td>
+      <td id="T_53b62_row25_col3" class="data row25 col3" >0.000000</td>
+      <td id="T_53b62_row25_col4" class="data row25 col4" >-0.000000</td>
+      <td id="T_53b62_row25_col5" class="data row25 col5" >-0.000000</td>
+      <td id="T_53b62_row25_col6" class="data row25 col6" >-0.000000</td>
+      <td id="T_53b62_row25_col7" class="data row25 col7" >-0.000000</td>
+      <td id="T_53b62_row25_col8" class="data row25 col8" >-0.000000</td>
+      <td id="T_53b62_row25_col9" class="data row25 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row26" class="row_heading level0 row26" >REFR</th>
-      <td id="T_18d92_row26_col0" class="data row26 col0" >-0.000000</td>
-      <td id="T_18d92_row26_col1" class="data row26 col1" >-0.000000</td>
-      <td id="T_18d92_row26_col2" class="data row26 col2" >-0.000000</td>
-      <td id="T_18d92_row26_col3" class="data row26 col3" >-0.000000</td>
-      <td id="T_18d92_row26_col4" class="data row26 col4" >-0.000000</td>
-      <td id="T_18d92_row26_col5" class="data row26 col5" >-0.000000</td>
-      <td id="T_18d92_row26_col6" class="data row26 col6" >-0.000435</td>
-      <td id="T_18d92_row26_col7" class="data row26 col7" >-0.000000</td>
-      <td id="T_18d92_row26_col8" class="data row26 col8" >-0.000000</td>
-      <td id="T_18d92_row26_col9" class="data row26 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row26" class="row_heading level0 row26" >REFR</th>
+      <td id="T_53b62_row26_col0" class="data row26 col0" >-0.000000</td>
+      <td id="T_53b62_row26_col1" class="data row26 col1" >-0.000000</td>
+      <td id="T_53b62_row26_col2" class="data row26 col2" >-0.000000</td>
+      <td id="T_53b62_row26_col3" class="data row26 col3" >-0.000000</td>
+      <td id="T_53b62_row26_col4" class="data row26 col4" >-0.000000</td>
+      <td id="T_53b62_row26_col5" class="data row26 col5" >-0.000000</td>
+      <td id="T_53b62_row26_col6" class="data row26 col6" >-0.000000</td>
+      <td id="T_53b62_row26_col7" class="data row26 col7" >-0.000000</td>
+      <td id="T_53b62_row26_col8" class="data row26 col8" >-0.000000</td>
+      <td id="T_53b62_row26_col9" class="data row26 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row27" class="row_heading level0 row27" >DENS</th>
-      <td id="T_18d92_row27_col0" class="data row27 col0" >0.047199</td>
-      <td id="T_18d92_row27_col1" class="data row27 col1" >0.047925</td>
-      <td id="T_18d92_row27_col2" class="data row27 col2" >0.048781</td>
-      <td id="T_18d92_row27_col3" class="data row27 col3" >0.047760</td>
-      <td id="T_18d92_row27_col4" class="data row27 col4" >0.051670</td>
-      <td id="T_18d92_row27_col5" class="data row27 col5" >0.046767</td>
-      <td id="T_18d92_row27_col6" class="data row27 col6" >0.047922</td>
-      <td id="T_18d92_row27_col7" class="data row27 col7" >0.046746</td>
-      <td id="T_18d92_row27_col8" class="data row27 col8" >0.048225</td>
-      <td id="T_18d92_row27_col9" class="data row27 col9" >0.048860</td>
+      <th id="T_53b62_level0_row27" class="row_heading level0 row27" >DENS</th>
+      <td id="T_53b62_row27_col0" class="data row27 col0" >0.047918</td>
+      <td id="T_53b62_row27_col1" class="data row27 col1" >0.046076</td>
+      <td id="T_53b62_row27_col2" class="data row27 col2" >0.048762</td>
+      <td id="T_53b62_row27_col3" class="data row27 col3" >0.048292</td>
+      <td id="T_53b62_row27_col4" class="data row27 col4" >0.049146</td>
+      <td id="T_53b62_row27_col5" class="data row27 col5" >0.047995</td>
+      <td id="T_53b62_row27_col6" class="data row27 col6" >0.047168</td>
+      <td id="T_53b62_row27_col7" class="data row27 col7" >0.050491</td>
+      <td id="T_53b62_row27_col8" class="data row27 col8" >0.047879</td>
+      <td id="T_53b62_row27_col9" class="data row27 col9" >0.047386</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row28" class="row_heading level0 row28" >FAMRM</th>
-      <td id="T_18d92_row28_col0" class="data row28 col0" >0.055937</td>
-      <td id="T_18d92_row28_col1" class="data row28 col1" >0.056429</td>
-      <td id="T_18d92_row28_col2" class="data row28 col2" >0.056530</td>
-      <td id="T_18d92_row28_col3" class="data row28 col3" >0.060497</td>
-      <td id="T_18d92_row28_col4" class="data row28 col4" >0.061034</td>
-      <td id="T_18d92_row28_col5" class="data row28 col5" >0.057877</td>
-      <td id="T_18d92_row28_col6" class="data row28 col6" >0.058926</td>
-      <td id="T_18d92_row28_col7" class="data row28 col7" >0.056537</td>
-      <td id="T_18d92_row28_col8" class="data row28 col8" >0.057735</td>
-      <td id="T_18d92_row28_col9" class="data row28 col9" >0.057224</td>
+      <th id="T_53b62_level0_row28" class="row_heading level0 row28" >FAMRM</th>
+      <td id="T_53b62_row28_col0" class="data row28 col0" >0.057970</td>
+      <td id="T_53b62_row28_col1" class="data row28 col1" >0.057433</td>
+      <td id="T_53b62_row28_col2" class="data row28 col2" >0.056752</td>
+      <td id="T_53b62_row28_col3" class="data row28 col3" >0.059398</td>
+      <td id="T_53b62_row28_col4" class="data row28 col4" >0.060119</td>
+      <td id="T_53b62_row28_col5" class="data row28 col5" >0.056616</td>
+      <td id="T_53b62_row28_col6" class="data row28 col6" >0.059239</td>
+      <td id="T_53b62_row28_col7" class="data row28 col7" >0.061496</td>
+      <td id="T_53b62_row28_col8" class="data row28 col8" >0.055380</td>
+      <td id="T_53b62_row28_col9" class="data row28 col9" >0.054029</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row29" class="row_heading level0 row29" >HALFB</th>
-      <td id="T_18d92_row29_col0" class="data row29 col0" >0.107972</td>
-      <td id="T_18d92_row29_col1" class="data row29 col1" >0.108867</td>
-      <td id="T_18d92_row29_col2" class="data row29 col2" >0.106510</td>
-      <td id="T_18d92_row29_col3" class="data row29 col3" >0.104718</td>
-      <td id="T_18d92_row29_col4" class="data row29 col4" >0.101439</td>
-      <td id="T_18d92_row29_col5" class="data row29 col5" >0.106652</td>
-      <td id="T_18d92_row29_col6" class="data row29 col6" >0.105434</td>
-      <td id="T_18d92_row29_col7" class="data row29 col7" >0.105654</td>
-      <td id="T_18d92_row29_col8" class="data row29 col8" >0.103794</td>
-      <td id="T_18d92_row29_col9" class="data row29 col9" >0.104603</td>
+      <th id="T_53b62_level0_row29" class="row_heading level0 row29" >HALFB</th>
+      <td id="T_53b62_row29_col0" class="data row29 col0" >0.109445</td>
+      <td id="T_53b62_row29_col1" class="data row29 col1" >0.108356</td>
+      <td id="T_53b62_row29_col2" class="data row29 col2" >0.103943</td>
+      <td id="T_53b62_row29_col3" class="data row29 col3" >0.107080</td>
+      <td id="T_53b62_row29_col4" class="data row29 col4" >0.101210</td>
+      <td id="T_53b62_row29_col5" class="data row29 col5" >0.104503</td>
+      <td id="T_53b62_row29_col6" class="data row29 col6" >0.109246</td>
+      <td id="T_53b62_row29_col7" class="data row29 col7" >0.102182</td>
+      <td id="T_53b62_row29_col8" class="data row29 col8" >0.106089</td>
+      <td id="T_53b62_row29_col9" class="data row29 col9" >0.103671</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row30" class="row_heading level0 row30" >KITCH</th>
-      <td id="T_18d92_row30_col0" class="data row30 col0" >-0.015930</td>
-      <td id="T_18d92_row30_col1" class="data row30 col1" >-0.016817</td>
-      <td id="T_18d92_row30_col2" class="data row30 col2" >-0.016257</td>
-      <td id="T_18d92_row30_col3" class="data row30 col3" >-0.015293</td>
-      <td id="T_18d92_row30_col4" class="data row30 col4" >-0.015561</td>
-      <td id="T_18d92_row30_col5" class="data row30 col5" >-0.012165</td>
-      <td id="T_18d92_row30_col6" class="data row30 col6" >-0.020866</td>
-      <td id="T_18d92_row30_col7" class="data row30 col7" >-0.012544</td>
-      <td id="T_18d92_row30_col8" class="data row30 col8" >-0.017686</td>
-      <td id="T_18d92_row30_col9" class="data row30 col9" >-0.016210</td>
+      <th id="T_53b62_level0_row30" class="row_heading level0 row30" >KITCH</th>
+      <td id="T_53b62_row30_col0" class="data row30 col0" >-0.015796</td>
+      <td id="T_53b62_row30_col1" class="data row30 col1" >-0.013128</td>
+      <td id="T_53b62_row30_col2" class="data row30 col2" >-0.014320</td>
+      <td id="T_53b62_row30_col3" class="data row30 col3" >-0.018597</td>
+      <td id="T_53b62_row30_col4" class="data row30 col4" >-0.017382</td>
+      <td id="T_53b62_row30_col5" class="data row30 col5" >-0.020147</td>
+      <td id="T_53b62_row30_col6" class="data row30 col6" >-0.015551</td>
+      <td id="T_53b62_row30_col7" class="data row30 col7" >-0.013089</td>
+      <td id="T_53b62_row30_col8" class="data row30 col8" >-0.015004</td>
+      <td id="T_53b62_row30_col9" class="data row30 col9" >-0.015066</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row31" class="row_heading level0 row31" >LIVING</th>
-      <td id="T_18d92_row31_col0" class="data row31 col0" >0.006915</td>
-      <td id="T_18d92_row31_col1" class="data row31 col1" >0.003335</td>
-      <td id="T_18d92_row31_col2" class="data row31 col2" >0.001957</td>
-      <td id="T_18d92_row31_col3" class="data row31 col3" >0.011094</td>
-      <td id="T_18d92_row31_col4" class="data row31 col4" >0.004114</td>
-      <td id="T_18d92_row31_col5" class="data row31 col5" >0.001427</td>
-      <td id="T_18d92_row31_col6" class="data row31 col6" >0.004974</td>
-      <td id="T_18d92_row31_col7" class="data row31 col7" >0.001774</td>
-      <td id="T_18d92_row31_col8" class="data row31 col8" >0.005749</td>
-      <td id="T_18d92_row31_col9" class="data row31 col9" >0.003701</td>
+      <th id="T_53b62_level0_row31" class="row_heading level0 row31" >LIVING</th>
+      <td id="T_53b62_row31_col0" class="data row31 col0" >0.007472</td>
+      <td id="T_53b62_row31_col1" class="data row31 col1" >0.002849</td>
+      <td id="T_53b62_row31_col2" class="data row31 col2" >0.005285</td>
+      <td id="T_53b62_row31_col3" class="data row31 col3" >0.003917</td>
+      <td id="T_53b62_row31_col4" class="data row31 col4" >0.003719</td>
+      <td id="T_53b62_row31_col5" class="data row31 col5" >0.005226</td>
+      <td id="T_53b62_row31_col6" class="data row31 col6" >0.003785</td>
+      <td id="T_53b62_row31_col7" class="data row31 col7" >0.004556</td>
+      <td id="T_53b62_row31_col8" class="data row31 col8" >0.003788</td>
+      <td id="T_53b62_row31_col9" class="data row31 col9" >0.002801</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row32" class="row_heading level0 row32" >OTHFN</th>
-      <td id="T_18d92_row32_col0" class="data row32 col0" >0.038202</td>
-      <td id="T_18d92_row32_col1" class="data row32 col1" >0.035090</td>
-      <td id="T_18d92_row32_col2" class="data row32 col2" >0.039073</td>
-      <td id="T_18d92_row32_col3" class="data row32 col3" >0.037725</td>
-      <td id="T_18d92_row32_col4" class="data row32 col4" >0.038234</td>
-      <td id="T_18d92_row32_col5" class="data row32 col5" >0.035244</td>
-      <td id="T_18d92_row32_col6" class="data row32 col6" >0.036516</td>
-      <td id="T_18d92_row32_col7" class="data row32 col7" >0.036982</td>
-      <td id="T_18d92_row32_col8" class="data row32 col8" >0.036416</td>
-      <td id="T_18d92_row32_col9" class="data row32 col9" >0.036639</td>
+      <th id="T_53b62_level0_row32" class="row_heading level0 row32" >OTHFN</th>
+      <td id="T_53b62_row32_col0" class="data row32 col0" >0.035254</td>
+      <td id="T_53b62_row32_col1" class="data row32 col1" >0.034365</td>
+      <td id="T_53b62_row32_col2" class="data row32 col2" >0.040353</td>
+      <td id="T_53b62_row32_col3" class="data row32 col3" >0.038342</td>
+      <td id="T_53b62_row32_col4" class="data row32 col4" >0.037681</td>
+      <td id="T_53b62_row32_col5" class="data row32 col5" >0.037604</td>
+      <td id="T_53b62_row32_col6" class="data row32 col6" >0.036688</td>
+      <td id="T_53b62_row32_col7" class="data row32 col7" >0.036706</td>
+      <td id="T_53b62_row32_col8" class="data row32 col8" >0.033634</td>
+      <td id="T_53b62_row32_col9" class="data row32 col9" >0.038038</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row33" class="row_heading level0 row33" >RECRM</th>
-      <td id="T_18d92_row33_col0" class="data row33 col0" >0.020126</td>
-      <td id="T_18d92_row33_col1" class="data row33 col1" >0.021194</td>
-      <td id="T_18d92_row33_col2" class="data row33 col2" >0.022353</td>
-      <td id="T_18d92_row33_col3" class="data row33 col3" >0.020315</td>
-      <td id="T_18d92_row33_col4" class="data row33 col4" >0.020665</td>
-      <td id="T_18d92_row33_col5" class="data row33 col5" >0.021339</td>
-      <td id="T_18d92_row33_col6" class="data row33 col6" >0.020735</td>
-      <td id="T_18d92_row33_col7" class="data row33 col7" >0.022081</td>
-      <td id="T_18d92_row33_col8" class="data row33 col8" >0.022011</td>
-      <td id="T_18d92_row33_col9" class="data row33 col9" >0.025954</td>
+      <th id="T_53b62_level0_row33" class="row_heading level0 row33" >RECRM</th>
+      <td id="T_53b62_row33_col0" class="data row33 col0" >0.019584</td>
+      <td id="T_53b62_row33_col1" class="data row33 col1" >0.019005</td>
+      <td id="T_53b62_row33_col2" class="data row33 col2" >0.024025</td>
+      <td id="T_53b62_row33_col3" class="data row33 col3" >0.023360</td>
+      <td id="T_53b62_row33_col4" class="data row33 col4" >0.021892</td>
+      <td id="T_53b62_row33_col5" class="data row33 col5" >0.021644</td>
+      <td id="T_53b62_row33_col6" class="data row33 col6" >0.019140</td>
+      <td id="T_53b62_row33_col7" class="data row33 col7" >0.022248</td>
+      <td id="T_53b62_row33_col8" class="data row33 col8" >0.023084</td>
+      <td id="T_53b62_row33_col9" class="data row33 col9" >0.021309</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row34" class="row_heading level0 row34" >CLIMB</th>
-      <td id="T_18d92_row34_col0" class="data row34 col0" >0.011768</td>
-      <td id="T_18d92_row34_col1" class="data row34 col1" >0.011665</td>
-      <td id="T_18d92_row34_col2" class="data row34 col2" >0.012144</td>
-      <td id="T_18d92_row34_col3" class="data row34 col3" >0.012819</td>
-      <td id="T_18d92_row34_col4" class="data row34 col4" >0.012142</td>
-      <td id="T_18d92_row34_col5" class="data row34 col5" >0.014942</td>
-      <td id="T_18d92_row34_col6" class="data row34 col6" >0.016069</td>
-      <td id="T_18d92_row34_col7" class="data row34 col7" >0.009349</td>
-      <td id="T_18d92_row34_col8" class="data row34 col8" >0.012000</td>
-      <td id="T_18d92_row34_col9" class="data row34 col9" >0.009936</td>
+      <th id="T_53b62_level0_row34" class="row_heading level0 row34" >CLIMB</th>
+      <td id="T_53b62_row34_col0" class="data row34 col0" >0.014630</td>
+      <td id="T_53b62_row34_col1" class="data row34 col1" >0.011252</td>
+      <td id="T_53b62_row34_col2" class="data row34 col2" >0.011804</td>
+      <td id="T_53b62_row34_col3" class="data row34 col3" >0.016592</td>
+      <td id="T_53b62_row34_col4" class="data row34 col4" >0.010988</td>
+      <td id="T_53b62_row34_col5" class="data row34 col5" >0.013223</td>
+      <td id="T_53b62_row34_col6" class="data row34 col6" >0.008425</td>
+      <td id="T_53b62_row34_col7" class="data row34 col7" >0.011331</td>
+      <td id="T_53b62_row34_col8" class="data row34 col8" >0.011627</td>
+      <td id="T_53b62_row34_col9" class="data row34 col9" >0.013170</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row35" class="row_heading level0 row35" >ELEV</th>
-      <td id="T_18d92_row35_col0" class="data row35 col0" >0.082241</td>
-      <td id="T_18d92_row35_col1" class="data row35 col1" >0.072173</td>
-      <td id="T_18d92_row35_col2" class="data row35 col2" >0.083767</td>
-      <td id="T_18d92_row35_col3" class="data row35 col3" >0.084126</td>
-      <td id="T_18d92_row35_col4" class="data row35 col4" >0.075695</td>
-      <td id="T_18d92_row35_col5" class="data row35 col5" >0.081561</td>
-      <td id="T_18d92_row35_col6" class="data row35 col6" >0.095178</td>
-      <td id="T_18d92_row35_col7" class="data row35 col7" >0.083139</td>
-      <td id="T_18d92_row35_col8" class="data row35 col8" >0.075673</td>
-      <td id="T_18d92_row35_col9" class="data row35 col9" >0.082260</td>
+      <th id="T_53b62_level0_row35" class="row_heading level0 row35" >ELEV</th>
+      <td id="T_53b62_row35_col0" class="data row35 col0" >0.079705</td>
+      <td id="T_53b62_row35_col1" class="data row35 col1" >0.079867</td>
+      <td id="T_53b62_row35_col2" class="data row35 col2" >0.078772</td>
+      <td id="T_53b62_row35_col3" class="data row35 col3" >0.083654</td>
+      <td id="T_53b62_row35_col4" class="data row35 col4" >0.080020</td>
+      <td id="T_53b62_row35_col5" class="data row35 col5" >0.080818</td>
+      <td id="T_53b62_row35_col6" class="data row35 col6" >0.084583</td>
+      <td id="T_53b62_row35_col7" class="data row35 col7" >0.080111</td>
+      <td id="T_53b62_row35_col8" class="data row35 col8" >0.086173</td>
+      <td id="T_53b62_row35_col9" class="data row35 col9" >0.078284</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row36" class="row_heading level0 row36" >DIRAC</th>
-      <td id="T_18d92_row36_col0" class="data row36 col0" >-0.002840</td>
-      <td id="T_18d92_row36_col1" class="data row36 col1" >-0.000242</td>
-      <td id="T_18d92_row36_col2" class="data row36 col2" >-0.000488</td>
-      <td id="T_18d92_row36_col3" class="data row36 col3" >-0.005094</td>
-      <td id="T_18d92_row36_col4" class="data row36 col4" >-0.003627</td>
-      <td id="T_18d92_row36_col5" class="data row36 col5" >-0.004765</td>
-      <td id="T_18d92_row36_col6" class="data row36 col6" >-0.000642</td>
-      <td id="T_18d92_row36_col7" class="data row36 col7" >-0.002837</td>
-      <td id="T_18d92_row36_col8" class="data row36 col8" >-0.003849</td>
-      <td id="T_18d92_row36_col9" class="data row36 col9" >-0.003270</td>
+      <th id="T_53b62_level0_row36" class="row_heading level0 row36" >DIRAC</th>
+      <td id="T_53b62_row36_col0" class="data row36 col0" >-0.001320</td>
+      <td id="T_53b62_row36_col1" class="data row36 col1" >-0.001750</td>
+      <td id="T_53b62_row36_col2" class="data row36 col2" >-0.002732</td>
+      <td id="T_53b62_row36_col3" class="data row36 col3" >-0.003955</td>
+      <td id="T_53b62_row36_col4" class="data row36 col4" >-0.000000</td>
+      <td id="T_53b62_row36_col5" class="data row36 col5" >-0.004090</td>
+      <td id="T_53b62_row36_col6" class="data row36 col6" >-0.003683</td>
+      <td id="T_53b62_row36_col7" class="data row36 col7" >-0.003017</td>
+      <td id="T_53b62_row36_col8" class="data row36 col8" >-0.002652</td>
+      <td id="T_53b62_row36_col9" class="data row36 col9" >-0.005505</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row37" class="row_heading level0 row37" >PORCH</th>
-      <td id="T_18d92_row37_col0" class="data row37 col0" >-0.018112</td>
-      <td id="T_18d92_row37_col1" class="data row37 col1" >-0.015707</td>
-      <td id="T_18d92_row37_col2" class="data row37 col2" >-0.015362</td>
-      <td id="T_18d92_row37_col3" class="data row37 col3" >-0.012720</td>
-      <td id="T_18d92_row37_col4" class="data row37 col4" >-0.017239</td>
-      <td id="T_18d92_row37_col5" class="data row37 col5" >-0.014446</td>
-      <td id="T_18d92_row37_col6" class="data row37 col6" >-0.012993</td>
-      <td id="T_18d92_row37_col7" class="data row37 col7" >-0.015639</td>
-      <td id="T_18d92_row37_col8" class="data row37 col8" >-0.016247</td>
-      <td id="T_18d92_row37_col9" class="data row37 col9" >-0.016677</td>
+      <th id="T_53b62_level0_row37" class="row_heading level0 row37" >PORCH</th>
+      <td id="T_53b62_row37_col0" class="data row37 col0" >-0.015092</td>
+      <td id="T_53b62_row37_col1" class="data row37 col1" >-0.017502</td>
+      <td id="T_53b62_row37_col2" class="data row37 col2" >-0.014265</td>
+      <td id="T_53b62_row37_col3" class="data row37 col3" >-0.018957</td>
+      <td id="T_53b62_row37_col4" class="data row37 col4" >-0.015202</td>
+      <td id="T_53b62_row37_col5" class="data row37 col5" >-0.014862</td>
+      <td id="T_53b62_row37_col6" class="data row37 col6" >-0.013961</td>
+      <td id="T_53b62_row37_col7" class="data row37 col7" >-0.014248</td>
+      <td id="T_53b62_row37_col8" class="data row37 col8" >-0.014409</td>
+      <td id="T_53b62_row37_col9" class="data row37 col9" >-0.016173</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row38" class="row_heading level0 row38" >AIRSYS</th>
-      <td id="T_18d92_row38_col0" class="data row38 col0" >-0.054604</td>
-      <td id="T_18d92_row38_col1" class="data row38 col1" >-0.053190</td>
-      <td id="T_18d92_row38_col2" class="data row38 col2" >-0.056067</td>
-      <td id="T_18d92_row38_col3" class="data row38 col3" >-0.049455</td>
-      <td id="T_18d92_row38_col4" class="data row38 col4" >-0.048804</td>
-      <td id="T_18d92_row38_col5" class="data row38 col5" >-0.048534</td>
-      <td id="T_18d92_row38_col6" class="data row38 col6" >-0.048283</td>
-      <td id="T_18d92_row38_col7" class="data row38 col7" >-0.053449</td>
-      <td id="T_18d92_row38_col8" class="data row38 col8" >-0.051997</td>
-      <td id="T_18d92_row38_col9" class="data row38 col9" >-0.053201</td>
+      <th id="T_53b62_level0_row38" class="row_heading level0 row38" >AIRSYS</th>
+      <td id="T_53b62_row38_col0" class="data row38 col0" >-0.049438</td>
+      <td id="T_53b62_row38_col1" class="data row38 col1" >-0.052984</td>
+      <td id="T_53b62_row38_col2" class="data row38 col2" >-0.049845</td>
+      <td id="T_53b62_row38_col3" class="data row38 col3" >-0.052332</td>
+      <td id="T_53b62_row38_col4" class="data row38 col4" >-0.053330</td>
+      <td id="T_53b62_row38_col5" class="data row38 col5" >-0.051213</td>
+      <td id="T_53b62_row38_col6" class="data row38 col6" >-0.052127</td>
+      <td id="T_53b62_row38_col7" class="data row38 col7" >-0.051260</td>
+      <td id="T_53b62_row38_col8" class="data row38 col8" >-0.051866</td>
+      <td id="T_53b62_row38_col9" class="data row38 col9" >-0.053413</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row39" class="row_heading level0 row39" >WELL</th>
-      <td id="T_18d92_row39_col0" class="data row39 col0" >-0.000000</td>
-      <td id="T_18d92_row39_col1" class="data row39 col1" >-0.000000</td>
-      <td id="T_18d92_row39_col2" class="data row39 col2" >-0.000000</td>
-      <td id="T_18d92_row39_col3" class="data row39 col3" >-0.000000</td>
-      <td id="T_18d92_row39_col4" class="data row39 col4" >0.000000</td>
-      <td id="T_18d92_row39_col5" class="data row39 col5" >0.000000</td>
-      <td id="T_18d92_row39_col6" class="data row39 col6" >-0.000000</td>
-      <td id="T_18d92_row39_col7" class="data row39 col7" >-0.000000</td>
-      <td id="T_18d92_row39_col8" class="data row39 col8" >-0.000000</td>
-      <td id="T_18d92_row39_col9" class="data row39 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row39" class="row_heading level0 row39" >WELL</th>
+      <td id="T_53b62_row39_col0" class="data row39 col0" >-0.000000</td>
+      <td id="T_53b62_row39_col1" class="data row39 col1" >-0.000000</td>
+      <td id="T_53b62_row39_col2" class="data row39 col2" >-0.000000</td>
+      <td id="T_53b62_row39_col3" class="data row39 col3" >-0.000000</td>
+      <td id="T_53b62_row39_col4" class="data row39 col4" >-0.000000</td>
+      <td id="T_53b62_row39_col5" class="data row39 col5" >0.000000</td>
+      <td id="T_53b62_row39_col6" class="data row39 col6" >-0.000000</td>
+      <td id="T_53b62_row39_col7" class="data row39 col7" >-0.000000</td>
+      <td id="T_53b62_row39_col8" class="data row39 col8" >-0.000000</td>
+      <td id="T_53b62_row39_col9" class="data row39 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row40" class="row_heading level0 row40" >WELDUS</th>
-      <td id="T_18d92_row40_col0" class="data row40 col0" >-0.024444</td>
-      <td id="T_18d92_row40_col1" class="data row40 col1" >-0.023845</td>
-      <td id="T_18d92_row40_col2" class="data row40 col2" >-0.023120</td>
-      <td id="T_18d92_row40_col3" class="data row40 col3" >-0.024872</td>
-      <td id="T_18d92_row40_col4" class="data row40 col4" >-0.026534</td>
-      <td id="T_18d92_row40_col5" class="data row40 col5" >-0.022591</td>
-      <td id="T_18d92_row40_col6" class="data row40 col6" >-0.023138</td>
-      <td id="T_18d92_row40_col7" class="data row40 col7" >-0.025998</td>
-      <td id="T_18d92_row40_col8" class="data row40 col8" >-0.021951</td>
-      <td id="T_18d92_row40_col9" class="data row40 col9" >-0.023647</td>
+      <th id="T_53b62_level0_row40" class="row_heading level0 row40" >WELDUS</th>
+      <td id="T_53b62_row40_col0" class="data row40 col0" >-0.024584</td>
+      <td id="T_53b62_row40_col1" class="data row40 col1" >-0.025130</td>
+      <td id="T_53b62_row40_col2" class="data row40 col2" >-0.026336</td>
+      <td id="T_53b62_row40_col3" class="data row40 col3" >-0.023436</td>
+      <td id="T_53b62_row40_col4" class="data row40 col4" >-0.020748</td>
+      <td id="T_53b62_row40_col5" class="data row40 col5" >-0.022723</td>
+      <td id="T_53b62_row40_col6" class="data row40 col6" >-0.023835</td>
+      <td id="T_53b62_row40_col7" class="data row40 col7" >-0.025863</td>
+      <td id="T_53b62_row40_col8" class="data row40 col8" >-0.024914</td>
+      <td id="T_53b62_row40_col9" class="data row40 col9" >-0.022074</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row41" class="row_heading level0 row41" >STEAM</th>
-      <td id="T_18d92_row41_col0" class="data row41 col0" >0.001489</td>
-      <td id="T_18d92_row41_col1" class="data row41 col1" >0.000115</td>
-      <td id="T_18d92_row41_col2" class="data row41 col2" >0.001960</td>
-      <td id="T_18d92_row41_col3" class="data row41 col3" >0.006181</td>
-      <td id="T_18d92_row41_col4" class="data row41 col4" >0.001547</td>
-      <td id="T_18d92_row41_col5" class="data row41 col5" >0.000000</td>
-      <td id="T_18d92_row41_col6" class="data row41 col6" >0.000765</td>
-      <td id="T_18d92_row41_col7" class="data row41 col7" >0.000376</td>
-      <td id="T_18d92_row41_col8" class="data row41 col8" >0.000780</td>
-      <td id="T_18d92_row41_col9" class="data row41 col9" >0.000000</td>
+      <th id="T_53b62_level0_row41" class="row_heading level0 row41" >STEAM</th>
+      <td id="T_53b62_row41_col0" class="data row41 col0" >0.001343</td>
+      <td id="T_53b62_row41_col1" class="data row41 col1" >0.000000</td>
+      <td id="T_53b62_row41_col2" class="data row41 col2" >0.001593</td>
+      <td id="T_53b62_row41_col3" class="data row41 col3" >0.006393</td>
+      <td id="T_53b62_row41_col4" class="data row41 col4" >0.000000</td>
+      <td id="T_53b62_row41_col5" class="data row41 col5" >0.000665</td>
+      <td id="T_53b62_row41_col6" class="data row41 col6" >0.001789</td>
+      <td id="T_53b62_row41_col7" class="data row41 col7" >0.000000</td>
+      <td id="T_53b62_row41_col8" class="data row41 col8" >0.000637</td>
+      <td id="T_53b62_row41_col9" class="data row41 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row42" class="row_heading level0 row42" >OARSYS</th>
-      <td id="T_18d92_row42_col0" class="data row42 col0" >0.000000</td>
-      <td id="T_18d92_row42_col1" class="data row42 col1" >0.000000</td>
-      <td id="T_18d92_row42_col2" class="data row42 col2" >0.000000</td>
-      <td id="T_18d92_row42_col3" class="data row42 col3" >0.000000</td>
-      <td id="T_18d92_row42_col4" class="data row42 col4" >0.000000</td>
-      <td id="T_18d92_row42_col5" class="data row42 col5" >0.000000</td>
-      <td id="T_18d92_row42_col6" class="data row42 col6" >0.000000</td>
-      <td id="T_18d92_row42_col7" class="data row42 col7" >0.000000</td>
-      <td id="T_18d92_row42_col8" class="data row42 col8" >0.000000</td>
-      <td id="T_18d92_row42_col9" class="data row42 col9" >0.000000</td>
+      <th id="T_53b62_level0_row42" class="row_heading level0 row42" >OARSYS</th>
+      <td id="T_53b62_row42_col0" class="data row42 col0" >0.000000</td>
+      <td id="T_53b62_row42_col1" class="data row42 col1" >0.000000</td>
+      <td id="T_53b62_row42_col2" class="data row42 col2" >0.000000</td>
+      <td id="T_53b62_row42_col3" class="data row42 col3" >0.000000</td>
+      <td id="T_53b62_row42_col4" class="data row42 col4" >0.000000</td>
+      <td id="T_53b62_row42_col5" class="data row42 col5" >0.000000</td>
+      <td id="T_53b62_row42_col6" class="data row42 col6" >0.000000</td>
+      <td id="T_53b62_row42_col7" class="data row42 col7" >0.000000</td>
+      <td id="T_53b62_row42_col8" class="data row42 col8" >0.000000</td>
+      <td id="T_53b62_row42_col9" class="data row42 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row43" class="row_heading level0 row43" >noise1</th>
-      <td id="T_18d92_row43_col0" class="data row43 col0" >0.000000</td>
-      <td id="T_18d92_row43_col1" class="data row43 col1" >0.000130</td>
-      <td id="T_18d92_row43_col2" class="data row43 col2" >0.000157</td>
-      <td id="T_18d92_row43_col3" class="data row43 col3" >0.001084</td>
-      <td id="T_18d92_row43_col4" class="data row43 col4" >0.000000</td>
-      <td id="T_18d92_row43_col5" class="data row43 col5" >0.000000</td>
-      <td id="T_18d92_row43_col6" class="data row43 col6" >0.000365</td>
-      <td id="T_18d92_row43_col7" class="data row43 col7" >0.000000</td>
-      <td id="T_18d92_row43_col8" class="data row43 col8" >0.000000</td>
-      <td id="T_18d92_row43_col9" class="data row43 col9" >0.000000</td>
+      <th id="T_53b62_level0_row43" class="row_heading level0 row43" >noise1</th>
+      <td id="T_53b62_row43_col0" class="data row43 col0" >-0.000000</td>
+      <td id="T_53b62_row43_col1" class="data row43 col1" >-0.000000</td>
+      <td id="T_53b62_row43_col2" class="data row43 col2" >-0.000000</td>
+      <td id="T_53b62_row43_col3" class="data row43 col3" >0.000000</td>
+      <td id="T_53b62_row43_col4" class="data row43 col4" >0.000000</td>
+      <td id="T_53b62_row43_col5" class="data row43 col5" >-0.000000</td>
+      <td id="T_53b62_row43_col6" class="data row43 col6" >-0.000596</td>
+      <td id="T_53b62_row43_col7" class="data row43 col7" >0.000000</td>
+      <td id="T_53b62_row43_col8" class="data row43 col8" >-0.000000</td>
+      <td id="T_53b62_row43_col9" class="data row43 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row44" class="row_heading level0 row44" >noise2</th>
-      <td id="T_18d92_row44_col0" class="data row44 col0" >-0.000000</td>
-      <td id="T_18d92_row44_col1" class="data row44 col1" >-0.000000</td>
-      <td id="T_18d92_row44_col2" class="data row44 col2" >-0.000000</td>
-      <td id="T_18d92_row44_col3" class="data row44 col3" >-0.000000</td>
-      <td id="T_18d92_row44_col4" class="data row44 col4" >-0.000629</td>
-      <td id="T_18d92_row44_col5" class="data row44 col5" >-0.000000</td>
-      <td id="T_18d92_row44_col6" class="data row44 col6" >-0.000111</td>
-      <td id="T_18d92_row44_col7" class="data row44 col7" >-0.000000</td>
-      <td id="T_18d92_row44_col8" class="data row44 col8" >-0.000000</td>
-      <td id="T_18d92_row44_col9" class="data row44 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row44" class="row_heading level0 row44" >noise2</th>
+      <td id="T_53b62_row44_col0" class="data row44 col0" >0.000000</td>
+      <td id="T_53b62_row44_col1" class="data row44 col1" >0.000000</td>
+      <td id="T_53b62_row44_col2" class="data row44 col2" >0.000000</td>
+      <td id="T_53b62_row44_col3" class="data row44 col3" >0.000068</td>
+      <td id="T_53b62_row44_col4" class="data row44 col4" >0.000000</td>
+      <td id="T_53b62_row44_col5" class="data row44 col5" >0.000000</td>
+      <td id="T_53b62_row44_col6" class="data row44 col6" >0.000000</td>
+      <td id="T_53b62_row44_col7" class="data row44 col7" >0.000000</td>
+      <td id="T_53b62_row44_col8" class="data row44 col8" >0.000000</td>
+      <td id="T_53b62_row44_col9" class="data row44 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row45" class="row_heading level0 row45" >noise3</th>
-      <td id="T_18d92_row45_col0" class="data row45 col0" >0.000000</td>
-      <td id="T_18d92_row45_col1" class="data row45 col1" >0.001517</td>
-      <td id="T_18d92_row45_col2" class="data row45 col2" >0.003680</td>
-      <td id="T_18d92_row45_col3" class="data row45 col3" >0.001014</td>
-      <td id="T_18d92_row45_col4" class="data row45 col4" >0.000357</td>
-      <td id="T_18d92_row45_col5" class="data row45 col5" >0.000000</td>
-      <td id="T_18d92_row45_col6" class="data row45 col6" >0.001052</td>
-      <td id="T_18d92_row45_col7" class="data row45 col7" >0.001354</td>
-      <td id="T_18d92_row45_col8" class="data row45 col8" >0.000000</td>
-      <td id="T_18d92_row45_col9" class="data row45 col9" >0.002063</td>
+      <th id="T_53b62_level0_row45" class="row_heading level0 row45" >noise3</th>
+      <td id="T_53b62_row45_col0" class="data row45 col0" >0.000791</td>
+      <td id="T_53b62_row45_col1" class="data row45 col1" >0.002844</td>
+      <td id="T_53b62_row45_col2" class="data row45 col2" >0.001171</td>
+      <td id="T_53b62_row45_col3" class="data row45 col3" >0.004682</td>
+      <td id="T_53b62_row45_col4" class="data row45 col4" >0.002993</td>
+      <td id="T_53b62_row45_col5" class="data row45 col5" >0.000000</td>
+      <td id="T_53b62_row45_col6" class="data row45 col6" >0.002440</td>
+      <td id="T_53b62_row45_col7" class="data row45 col7" >0.000281</td>
+      <td id="T_53b62_row45_col8" class="data row45 col8" >0.003252</td>
+      <td id="T_53b62_row45_col9" class="data row45 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row46" class="row_heading level0 row46" >noise4</th>
-      <td id="T_18d92_row46_col0" class="data row46 col0" >0.004181</td>
-      <td id="T_18d92_row46_col1" class="data row46 col1" >0.002613</td>
-      <td id="T_18d92_row46_col2" class="data row46 col2" >0.004478</td>
-      <td id="T_18d92_row46_col3" class="data row46 col3" >0.005036</td>
-      <td id="T_18d92_row46_col4" class="data row46 col4" >0.002893</td>
-      <td id="T_18d92_row46_col5" class="data row46 col5" >0.003899</td>
-      <td id="T_18d92_row46_col6" class="data row46 col6" >0.004278</td>
-      <td id="T_18d92_row46_col7" class="data row46 col7" >0.005093</td>
-      <td id="T_18d92_row46_col8" class="data row46 col8" >0.006411</td>
-      <td id="T_18d92_row46_col9" class="data row46 col9" >0.002653</td>
+      <th id="T_53b62_level0_row46" class="row_heading level0 row46" >noise4</th>
+      <td id="T_53b62_row46_col0" class="data row46 col0" >0.002412</td>
+      <td id="T_53b62_row46_col1" class="data row46 col1" >0.000851</td>
+      <td id="T_53b62_row46_col2" class="data row46 col2" >0.002412</td>
+      <td id="T_53b62_row46_col3" class="data row46 col3" >0.000292</td>
+      <td id="T_53b62_row46_col4" class="data row46 col4" >0.001273</td>
+      <td id="T_53b62_row46_col5" class="data row46 col5" >0.000000</td>
+      <td id="T_53b62_row46_col6" class="data row46 col6" >0.000991</td>
+      <td id="T_53b62_row46_col7" class="data row46 col7" >0.000912</td>
+      <td id="T_53b62_row46_col8" class="data row46 col8" >0.000000</td>
+      <td id="T_53b62_row46_col9" class="data row46 col9" >0.000047</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row47" class="row_heading level0 row47" >noise5</th>
-      <td id="T_18d92_row47_col0" class="data row47 col0" >0.000000</td>
-      <td id="T_18d92_row47_col1" class="data row47 col1" >0.000000</td>
-      <td id="T_18d92_row47_col2" class="data row47 col2" >0.001714</td>
-      <td id="T_18d92_row47_col3" class="data row47 col3" >0.004070</td>
-      <td id="T_18d92_row47_col4" class="data row47 col4" >0.004479</td>
-      <td id="T_18d92_row47_col5" class="data row47 col5" >0.000000</td>
-      <td id="T_18d92_row47_col6" class="data row47 col6" >0.000221</td>
-      <td id="T_18d92_row47_col7" class="data row47 col7" >0.001947</td>
-      <td id="T_18d92_row47_col8" class="data row47 col8" >0.000424</td>
-      <td id="T_18d92_row47_col9" class="data row47 col9" >0.001387</td>
+      <th id="T_53b62_level0_row47" class="row_heading level0 row47" >noise5</th>
+      <td id="T_53b62_row47_col0" class="data row47 col0" >-0.000000</td>
+      <td id="T_53b62_row47_col1" class="data row47 col1" >0.000000</td>
+      <td id="T_53b62_row47_col2" class="data row47 col2" >0.001302</td>
+      <td id="T_53b62_row47_col3" class="data row47 col3" >0.000000</td>
+      <td id="T_53b62_row47_col4" class="data row47 col4" >-0.000000</td>
+      <td id="T_53b62_row47_col5" class="data row47 col5" >0.000000</td>
+      <td id="T_53b62_row47_col6" class="data row47 col6" >-0.000000</td>
+      <td id="T_53b62_row47_col7" class="data row47 col7" >0.000000</td>
+      <td id="T_53b62_row47_col8" class="data row47 col8" >0.000000</td>
+      <td id="T_53b62_row47_col9" class="data row47 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row48" class="row_heading level0 row48" >noise6</th>
-      <td id="T_18d92_row48_col0" class="data row48 col0" >0.000000</td>
-      <td id="T_18d92_row48_col1" class="data row48 col1" >0.000000</td>
-      <td id="T_18d92_row48_col2" class="data row48 col2" >0.000000</td>
-      <td id="T_18d92_row48_col3" class="data row48 col3" >0.000000</td>
-      <td id="T_18d92_row48_col4" class="data row48 col4" >-0.000000</td>
-      <td id="T_18d92_row48_col5" class="data row48 col5" >-0.000000</td>
-      <td id="T_18d92_row48_col6" class="data row48 col6" >0.000000</td>
-      <td id="T_18d92_row48_col7" class="data row48 col7" >0.000000</td>
-      <td id="T_18d92_row48_col8" class="data row48 col8" >0.000000</td>
-      <td id="T_18d92_row48_col9" class="data row48 col9" >0.000000</td>
+      <th id="T_53b62_level0_row48" class="row_heading level0 row48" >noise6</th>
+      <td id="T_53b62_row48_col0" class="data row48 col0" >-0.000000</td>
+      <td id="T_53b62_row48_col1" class="data row48 col1" >-0.000000</td>
+      <td id="T_53b62_row48_col2" class="data row48 col2" >-0.000015</td>
+      <td id="T_53b62_row48_col3" class="data row48 col3" >-0.000000</td>
+      <td id="T_53b62_row48_col4" class="data row48 col4" >-0.000000</td>
+      <td id="T_53b62_row48_col5" class="data row48 col5" >0.000000</td>
+      <td id="T_53b62_row48_col6" class="data row48 col6" >-0.000000</td>
+      <td id="T_53b62_row48_col7" class="data row48 col7" >-0.000000</td>
+      <td id="T_53b62_row48_col8" class="data row48 col8" >-0.000000</td>
+      <td id="T_53b62_row48_col9" class="data row48 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row49" class="row_heading level0 row49" >noise7</th>
-      <td id="T_18d92_row49_col0" class="data row49 col0" >-0.000000</td>
-      <td id="T_18d92_row49_col1" class="data row49 col1" >-0.000000</td>
-      <td id="T_18d92_row49_col2" class="data row49 col2" >0.000000</td>
-      <td id="T_18d92_row49_col3" class="data row49 col3" >0.000000</td>
-      <td id="T_18d92_row49_col4" class="data row49 col4" >0.000000</td>
-      <td id="T_18d92_row49_col5" class="data row49 col5" >0.000000</td>
-      <td id="T_18d92_row49_col6" class="data row49 col6" >-0.000000</td>
-      <td id="T_18d92_row49_col7" class="data row49 col7" >-0.000000</td>
-      <td id="T_18d92_row49_col8" class="data row49 col8" >0.000000</td>
-      <td id="T_18d92_row49_col9" class="data row49 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row49" class="row_heading level0 row49" >noise7</th>
+      <td id="T_53b62_row49_col0" class="data row49 col0" >-0.000000</td>
+      <td id="T_53b62_row49_col1" class="data row49 col1" >-0.000000</td>
+      <td id="T_53b62_row49_col2" class="data row49 col2" >-0.000000</td>
+      <td id="T_53b62_row49_col3" class="data row49 col3" >-0.000000</td>
+      <td id="T_53b62_row49_col4" class="data row49 col4" >-0.000027</td>
+      <td id="T_53b62_row49_col5" class="data row49 col5" >-0.000000</td>
+      <td id="T_53b62_row49_col6" class="data row49 col6" >-0.000000</td>
+      <td id="T_53b62_row49_col7" class="data row49 col7" >-0.000000</td>
+      <td id="T_53b62_row49_col8" class="data row49 col8" >-0.000000</td>
+      <td id="T_53b62_row49_col9" class="data row49 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row50" class="row_heading level0 row50" >noise8</th>
-      <td id="T_18d92_row50_col0" class="data row50 col0" >0.000000</td>
-      <td id="T_18d92_row50_col1" class="data row50 col1" >0.000000</td>
-      <td id="T_18d92_row50_col2" class="data row50 col2" >-0.000000</td>
-      <td id="T_18d92_row50_col3" class="data row50 col3" >0.000000</td>
-      <td id="T_18d92_row50_col4" class="data row50 col4" >-0.000000</td>
-      <td id="T_18d92_row50_col5" class="data row50 col5" >-0.000000</td>
-      <td id="T_18d92_row50_col6" class="data row50 col6" >-0.000000</td>
-      <td id="T_18d92_row50_col7" class="data row50 col7" >-0.000000</td>
-      <td id="T_18d92_row50_col8" class="data row50 col8" >-0.000000</td>
-      <td id="T_18d92_row50_col9" class="data row50 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row50" class="row_heading level0 row50" >noise8</th>
+      <td id="T_53b62_row50_col0" class="data row50 col0" >0.000000</td>
+      <td id="T_53b62_row50_col1" class="data row50 col1" >0.000000</td>
+      <td id="T_53b62_row50_col2" class="data row50 col2" >0.000000</td>
+      <td id="T_53b62_row50_col3" class="data row50 col3" >0.000000</td>
+      <td id="T_53b62_row50_col4" class="data row50 col4" >0.000000</td>
+      <td id="T_53b62_row50_col5" class="data row50 col5" >-0.000000</td>
+      <td id="T_53b62_row50_col6" class="data row50 col6" >0.000000</td>
+      <td id="T_53b62_row50_col7" class="data row50 col7" >0.000000</td>
+      <td id="T_53b62_row50_col8" class="data row50 col8" >-0.000000</td>
+      <td id="T_53b62_row50_col9" class="data row50 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row51" class="row_heading level0 row51" >noise9</th>
-      <td id="T_18d92_row51_col0" class="data row51 col0" >-0.001826</td>
-      <td id="T_18d92_row51_col1" class="data row51 col1" >-0.005932</td>
-      <td id="T_18d92_row51_col2" class="data row51 col2" >-0.006243</td>
-      <td id="T_18d92_row51_col3" class="data row51 col3" >-0.006367</td>
-      <td id="T_18d92_row51_col4" class="data row51 col4" >-0.007589</td>
-      <td id="T_18d92_row51_col5" class="data row51 col5" >-0.005841</td>
-      <td id="T_18d92_row51_col6" class="data row51 col6" >-0.007344</td>
-      <td id="T_18d92_row51_col7" class="data row51 col7" >-0.006316</td>
-      <td id="T_18d92_row51_col8" class="data row51 col8" >-0.006753</td>
-      <td id="T_18d92_row51_col9" class="data row51 col9" >-0.005595</td>
+      <th id="T_53b62_level0_row51" class="row_heading level0 row51" >noise9</th>
+      <td id="T_53b62_row51_col0" class="data row51 col0" >-0.005606</td>
+      <td id="T_53b62_row51_col1" class="data row51 col1" >-0.005776</td>
+      <td id="T_53b62_row51_col2" class="data row51 col2" >-0.003814</td>
+      <td id="T_53b62_row51_col3" class="data row51 col3" >-0.004766</td>
+      <td id="T_53b62_row51_col4" class="data row51 col4" >-0.003432</td>
+      <td id="T_53b62_row51_col5" class="data row51 col5" >-0.005154</td>
+      <td id="T_53b62_row51_col6" class="data row51 col6" >-0.002323</td>
+      <td id="T_53b62_row51_col7" class="data row51 col7" >-0.006599</td>
+      <td id="T_53b62_row51_col8" class="data row51 col8" >-0.004702</td>
+      <td id="T_53b62_row51_col9" class="data row51 col9" >-0.002887</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row52" class="row_heading level0 row52" >noise10</th>
-      <td id="T_18d92_row52_col0" class="data row52 col0" >0.004489</td>
-      <td id="T_18d92_row52_col1" class="data row52 col1" >0.003289</td>
-      <td id="T_18d92_row52_col2" class="data row52 col2" >0.007605</td>
-      <td id="T_18d92_row52_col3" class="data row52 col3" >0.003762</td>
-      <td id="T_18d92_row52_col4" class="data row52 col4" >0.004239</td>
-      <td id="T_18d92_row52_col5" class="data row52 col5" >0.000021</td>
-      <td id="T_18d92_row52_col6" class="data row52 col6" >0.001151</td>
-      <td id="T_18d92_row52_col7" class="data row52 col7" >0.003448</td>
-      <td id="T_18d92_row52_col8" class="data row52 col8" >0.003932</td>
-      <td id="T_18d92_row52_col9" class="data row52 col9" >0.000000</td>
+      <th id="T_53b62_level0_row52" class="row_heading level0 row52" >noise10</th>
+      <td id="T_53b62_row52_col0" class="data row52 col0" >-0.000000</td>
+      <td id="T_53b62_row52_col1" class="data row52 col1" >-0.000000</td>
+      <td id="T_53b62_row52_col2" class="data row52 col2" >-0.000000</td>
+      <td id="T_53b62_row52_col3" class="data row52 col3" >0.000000</td>
+      <td id="T_53b62_row52_col4" class="data row52 col4" >-0.000000</td>
+      <td id="T_53b62_row52_col5" class="data row52 col5" >0.000000</td>
+      <td id="T_53b62_row52_col6" class="data row52 col6" >-0.000000</td>
+      <td id="T_53b62_row52_col7" class="data row52 col7" >-0.000000</td>
+      <td id="T_53b62_row52_col8" class="data row52 col8" >-0.000000</td>
+      <td id="T_53b62_row52_col9" class="data row52 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row53" class="row_heading level0 row53" >noise11</th>
-      <td id="T_18d92_row53_col0" class="data row53 col0" >0.000000</td>
-      <td id="T_18d92_row53_col1" class="data row53 col1" >0.000000</td>
-      <td id="T_18d92_row53_col2" class="data row53 col2" >-0.000000</td>
-      <td id="T_18d92_row53_col3" class="data row53 col3" >0.000000</td>
-      <td id="T_18d92_row53_col4" class="data row53 col4" >0.000000</td>
-      <td id="T_18d92_row53_col5" class="data row53 col5" >-0.000000</td>
-      <td id="T_18d92_row53_col6" class="data row53 col6" >0.000000</td>
-      <td id="T_18d92_row53_col7" class="data row53 col7" >0.000000</td>
-      <td id="T_18d92_row53_col8" class="data row53 col8" >0.000000</td>
-      <td id="T_18d92_row53_col9" class="data row53 col9" >0.000000</td>
+      <th id="T_53b62_level0_row53" class="row_heading level0 row53" >noise11</th>
+      <td id="T_53b62_row53_col0" class="data row53 col0" >-0.001247</td>
+      <td id="T_53b62_row53_col1" class="data row53 col1" >-0.000000</td>
+      <td id="T_53b62_row53_col2" class="data row53 col2" >-0.000809</td>
+      <td id="T_53b62_row53_col3" class="data row53 col3" >-0.001241</td>
+      <td id="T_53b62_row53_col4" class="data row53 col4" >-0.001446</td>
+      <td id="T_53b62_row53_col5" class="data row53 col5" >-0.001470</td>
+      <td id="T_53b62_row53_col6" class="data row53 col6" >-0.001073</td>
+      <td id="T_53b62_row53_col7" class="data row53 col7" >-0.002934</td>
+      <td id="T_53b62_row53_col8" class="data row53 col8" >-0.000000</td>
+      <td id="T_53b62_row53_col9" class="data row53 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row54" class="row_heading level0 row54" >noise12</th>
-      <td id="T_18d92_row54_col0" class="data row54 col0" >0.006088</td>
-      <td id="T_18d92_row54_col1" class="data row54 col1" >0.003644</td>
-      <td id="T_18d92_row54_col2" class="data row54 col2" >0.006057</td>
-      <td id="T_18d92_row54_col3" class="data row54 col3" >0.005157</td>
-      <td id="T_18d92_row54_col4" class="data row54 col4" >0.005255</td>
-      <td id="T_18d92_row54_col5" class="data row54 col5" >0.004515</td>
-      <td id="T_18d92_row54_col6" class="data row54 col6" >0.008063</td>
-      <td id="T_18d92_row54_col7" class="data row54 col7" >0.005572</td>
-      <td id="T_18d92_row54_col8" class="data row54 col8" >0.004641</td>
-      <td id="T_18d92_row54_col9" class="data row54 col9" >0.004402</td>
+      <th id="T_53b62_level0_row54" class="row_heading level0 row54" >noise12</th>
+      <td id="T_53b62_row54_col0" class="data row54 col0" >0.000000</td>
+      <td id="T_53b62_row54_col1" class="data row54 col1" >0.000000</td>
+      <td id="T_53b62_row54_col2" class="data row54 col2" >0.000000</td>
+      <td id="T_53b62_row54_col3" class="data row54 col3" >0.000649</td>
+      <td id="T_53b62_row54_col4" class="data row54 col4" >0.000000</td>
+      <td id="T_53b62_row54_col5" class="data row54 col5" >0.000000</td>
+      <td id="T_53b62_row54_col6" class="data row54 col6" >0.000000</td>
+      <td id="T_53b62_row54_col7" class="data row54 col7" >0.000000</td>
+      <td id="T_53b62_row54_col8" class="data row54 col8" >0.000000</td>
+      <td id="T_53b62_row54_col9" class="data row54 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row55" class="row_heading level0 row55" >noise13</th>
-      <td id="T_18d92_row55_col0" class="data row55 col0" >0.000000</td>
-      <td id="T_18d92_row55_col1" class="data row55 col1" >0.000000</td>
-      <td id="T_18d92_row55_col2" class="data row55 col2" >0.000000</td>
-      <td id="T_18d92_row55_col3" class="data row55 col3" >0.001773</td>
-      <td id="T_18d92_row55_col4" class="data row55 col4" >0.000000</td>
-      <td id="T_18d92_row55_col5" class="data row55 col5" >0.000000</td>
-      <td id="T_18d92_row55_col6" class="data row55 col6" >0.000000</td>
-      <td id="T_18d92_row55_col7" class="data row55 col7" >0.000000</td>
-      <td id="T_18d92_row55_col8" class="data row55 col8" >0.001756</td>
-      <td id="T_18d92_row55_col9" class="data row55 col9" >0.000000</td>
+      <th id="T_53b62_level0_row55" class="row_heading level0 row55" >noise13</th>
+      <td id="T_53b62_row55_col0" class="data row55 col0" >0.004646</td>
+      <td id="T_53b62_row55_col1" class="data row55 col1" >0.006731</td>
+      <td id="T_53b62_row55_col2" class="data row55 col2" >0.002766</td>
+      <td id="T_53b62_row55_col3" class="data row55 col3" >0.002619</td>
+      <td id="T_53b62_row55_col4" class="data row55 col4" >0.001047</td>
+      <td id="T_53b62_row55_col5" class="data row55 col5" >0.004311</td>
+      <td id="T_53b62_row55_col6" class="data row55 col6" >0.003054</td>
+      <td id="T_53b62_row55_col7" class="data row55 col7" >0.005126</td>
+      <td id="T_53b62_row55_col8" class="data row55 col8" >0.001006</td>
+      <td id="T_53b62_row55_col9" class="data row55 col9" >0.005275</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row56" class="row_heading level0 row56" >noise14</th>
-      <td id="T_18d92_row56_col0" class="data row56 col0" >-0.002245</td>
-      <td id="T_18d92_row56_col1" class="data row56 col1" >-0.000000</td>
-      <td id="T_18d92_row56_col2" class="data row56 col2" >-0.000085</td>
-      <td id="T_18d92_row56_col3" class="data row56 col3" >-0.000000</td>
-      <td id="T_18d92_row56_col4" class="data row56 col4" >-0.000000</td>
-      <td id="T_18d92_row56_col5" class="data row56 col5" >-0.000537</td>
-      <td id="T_18d92_row56_col6" class="data row56 col6" >-0.000926</td>
-      <td id="T_18d92_row56_col7" class="data row56 col7" >-0.000000</td>
-      <td id="T_18d92_row56_col8" class="data row56 col8" >-0.000897</td>
-      <td id="T_18d92_row56_col9" class="data row56 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row56" class="row_heading level0 row56" >noise14</th>
+      <td id="T_53b62_row56_col0" class="data row56 col0" >-0.000000</td>
+      <td id="T_53b62_row56_col1" class="data row56 col1" >-0.000000</td>
+      <td id="T_53b62_row56_col2" class="data row56 col2" >-0.000000</td>
+      <td id="T_53b62_row56_col3" class="data row56 col3" >-0.000000</td>
+      <td id="T_53b62_row56_col4" class="data row56 col4" >0.000000</td>
+      <td id="T_53b62_row56_col5" class="data row56 col5" >0.000000</td>
+      <td id="T_53b62_row56_col6" class="data row56 col6" >0.000000</td>
+      <td id="T_53b62_row56_col7" class="data row56 col7" >0.000000</td>
+      <td id="T_53b62_row56_col8" class="data row56 col8" >0.000000</td>
+      <td id="T_53b62_row56_col9" class="data row56 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row57" class="row_heading level0 row57" >noise15</th>
-      <td id="T_18d92_row57_col0" class="data row57 col0" >0.000000</td>
-      <td id="T_18d92_row57_col1" class="data row57 col1" >0.000000</td>
-      <td id="T_18d92_row57_col2" class="data row57 col2" >0.000000</td>
-      <td id="T_18d92_row57_col3" class="data row57 col3" >0.000000</td>
-      <td id="T_18d92_row57_col4" class="data row57 col4" >0.000000</td>
-      <td id="T_18d92_row57_col5" class="data row57 col5" >0.000000</td>
-      <td id="T_18d92_row57_col6" class="data row57 col6" >0.000000</td>
-      <td id="T_18d92_row57_col7" class="data row57 col7" >0.000189</td>
-      <td id="T_18d92_row57_col8" class="data row57 col8" >0.000000</td>
-      <td id="T_18d92_row57_col9" class="data row57 col9" >0.000000</td>
+      <th id="T_53b62_level0_row57" class="row_heading level0 row57" >noise15</th>
+      <td id="T_53b62_row57_col0" class="data row57 col0" >0.000971</td>
+      <td id="T_53b62_row57_col1" class="data row57 col1" >0.000000</td>
+      <td id="T_53b62_row57_col2" class="data row57 col2" >0.000802</td>
+      <td id="T_53b62_row57_col3" class="data row57 col3" >-0.000000</td>
+      <td id="T_53b62_row57_col4" class="data row57 col4" >-0.000000</td>
+      <td id="T_53b62_row57_col5" class="data row57 col5" >0.000000</td>
+      <td id="T_53b62_row57_col6" class="data row57 col6" >0.000000</td>
+      <td id="T_53b62_row57_col7" class="data row57 col7" >0.000463</td>
+      <td id="T_53b62_row57_col8" class="data row57 col8" >0.000000</td>
+      <td id="T_53b62_row57_col9" class="data row57 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row58" class="row_heading level0 row58" >noise16</th>
-      <td id="T_18d92_row58_col0" class="data row58 col0" >0.004045</td>
-      <td id="T_18d92_row58_col1" class="data row58 col1" >0.002147</td>
-      <td id="T_18d92_row58_col2" class="data row58 col2" >0.002624</td>
-      <td id="T_18d92_row58_col3" class="data row58 col3" >0.003711</td>
-      <td id="T_18d92_row58_col4" class="data row58 col4" >0.002697</td>
-      <td id="T_18d92_row58_col5" class="data row58 col5" >0.002487</td>
-      <td id="T_18d92_row58_col6" class="data row58 col6" >0.000000</td>
-      <td id="T_18d92_row58_col7" class="data row58 col7" >0.002080</td>
-      <td id="T_18d92_row58_col8" class="data row58 col8" >0.003366</td>
-      <td id="T_18d92_row58_col9" class="data row58 col9" >0.005577</td>
+      <th id="T_53b62_level0_row58" class="row_heading level0 row58" >noise16</th>
+      <td id="T_53b62_row58_col0" class="data row58 col0" >-0.000000</td>
+      <td id="T_53b62_row58_col1" class="data row58 col1" >0.000000</td>
+      <td id="T_53b62_row58_col2" class="data row58 col2" >0.000000</td>
+      <td id="T_53b62_row58_col3" class="data row58 col3" >0.000000</td>
+      <td id="T_53b62_row58_col4" class="data row58 col4" >0.000000</td>
+      <td id="T_53b62_row58_col5" class="data row58 col5" >0.000000</td>
+      <td id="T_53b62_row58_col6" class="data row58 col6" >0.000000</td>
+      <td id="T_53b62_row58_col7" class="data row58 col7" >0.000000</td>
+      <td id="T_53b62_row58_col8" class="data row58 col8" >-0.000000</td>
+      <td id="T_53b62_row58_col9" class="data row58 col9" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row59" class="row_heading level0 row59" >noise17</th>
-      <td id="T_18d92_row59_col0" class="data row59 col0" >-0.000000</td>
-      <td id="T_18d92_row59_col1" class="data row59 col1" >0.000000</td>
-      <td id="T_18d92_row59_col2" class="data row59 col2" >-0.000000</td>
-      <td id="T_18d92_row59_col3" class="data row59 col3" >0.000000</td>
-      <td id="T_18d92_row59_col4" class="data row59 col4" >0.000000</td>
-      <td id="T_18d92_row59_col5" class="data row59 col5" >0.000000</td>
-      <td id="T_18d92_row59_col6" class="data row59 col6" >0.000000</td>
-      <td id="T_18d92_row59_col7" class="data row59 col7" >-0.000000</td>
-      <td id="T_18d92_row59_col8" class="data row59 col8" >-0.000000</td>
-      <td id="T_18d92_row59_col9" class="data row59 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row59" class="row_heading level0 row59" >noise17</th>
+      <td id="T_53b62_row59_col0" class="data row59 col0" >0.003788</td>
+      <td id="T_53b62_row59_col1" class="data row59 col1" >0.002849</td>
+      <td id="T_53b62_row59_col2" class="data row59 col2" >0.004539</td>
+      <td id="T_53b62_row59_col3" class="data row59 col3" >0.003513</td>
+      <td id="T_53b62_row59_col4" class="data row59 col4" >0.000000</td>
+      <td id="T_53b62_row59_col5" class="data row59 col5" >0.001583</td>
+      <td id="T_53b62_row59_col6" class="data row59 col6" >0.002540</td>
+      <td id="T_53b62_row59_col7" class="data row59 col7" >0.002921</td>
+      <td id="T_53b62_row59_col8" class="data row59 col8" >0.000718</td>
+      <td id="T_53b62_row59_col9" class="data row59 col9" >0.000020</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row60" class="row_heading level0 row60" >noise18</th>
-      <td id="T_18d92_row60_col0" class="data row60 col0" >0.002494</td>
-      <td id="T_18d92_row60_col1" class="data row60 col1" >0.000556</td>
-      <td id="T_18d92_row60_col2" class="data row60 col2" >0.004428</td>
-      <td id="T_18d92_row60_col3" class="data row60 col3" >0.003723</td>
-      <td id="T_18d92_row60_col4" class="data row60 col4" >0.004773</td>
-      <td id="T_18d92_row60_col5" class="data row60 col5" >0.002145</td>
-      <td id="T_18d92_row60_col6" class="data row60 col6" >0.006272</td>
-      <td id="T_18d92_row60_col7" class="data row60 col7" >0.005704</td>
-      <td id="T_18d92_row60_col8" class="data row60 col8" >0.004386</td>
-      <td id="T_18d92_row60_col9" class="data row60 col9" >0.002332</td>
+      <th id="T_53b62_level0_row60" class="row_heading level0 row60" >noise18</th>
+      <td id="T_53b62_row60_col0" class="data row60 col0" >0.000000</td>
+      <td id="T_53b62_row60_col1" class="data row60 col1" >0.000000</td>
+      <td id="T_53b62_row60_col2" class="data row60 col2" >-0.000000</td>
+      <td id="T_53b62_row60_col3" class="data row60 col3" >-0.000000</td>
+      <td id="T_53b62_row60_col4" class="data row60 col4" >0.000000</td>
+      <td id="T_53b62_row60_col5" class="data row60 col5" >0.000823</td>
+      <td id="T_53b62_row60_col6" class="data row60 col6" >0.000000</td>
+      <td id="T_53b62_row60_col7" class="data row60 col7" >0.000000</td>
+      <td id="T_53b62_row60_col8" class="data row60 col8" >0.000000</td>
+      <td id="T_53b62_row60_col9" class="data row60 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row61" class="row_heading level0 row61" >noise19</th>
-      <td id="T_18d92_row61_col0" class="data row61 col0" >0.000000</td>
-      <td id="T_18d92_row61_col1" class="data row61 col1" >0.000000</td>
-      <td id="T_18d92_row61_col2" class="data row61 col2" >0.000000</td>
-      <td id="T_18d92_row61_col3" class="data row61 col3" >-0.000000</td>
-      <td id="T_18d92_row61_col4" class="data row61 col4" >0.000000</td>
-      <td id="T_18d92_row61_col5" class="data row61 col5" >0.000000</td>
-      <td id="T_18d92_row61_col6" class="data row61 col6" >0.000000</td>
-      <td id="T_18d92_row61_col7" class="data row61 col7" >-0.000000</td>
-      <td id="T_18d92_row61_col8" class="data row61 col8" >0.000000</td>
-      <td id="T_18d92_row61_col9" class="data row61 col9" >0.000000</td>
+      <th id="T_53b62_level0_row61" class="row_heading level0 row61" >noise19</th>
+      <td id="T_53b62_row61_col0" class="data row61 col0" >-0.000000</td>
+      <td id="T_53b62_row61_col1" class="data row61 col1" >-0.000000</td>
+      <td id="T_53b62_row61_col2" class="data row61 col2" >-0.001774</td>
+      <td id="T_53b62_row61_col3" class="data row61 col3" >-0.000502</td>
+      <td id="T_53b62_row61_col4" class="data row61 col4" >-0.000904</td>
+      <td id="T_53b62_row61_col5" class="data row61 col5" >-0.000000</td>
+      <td id="T_53b62_row61_col6" class="data row61 col6" >-0.001385</td>
+      <td id="T_53b62_row61_col7" class="data row61 col7" >-0.000000</td>
+      <td id="T_53b62_row61_col8" class="data row61 col8" >-0.000000</td>
+      <td id="T_53b62_row61_col9" class="data row61 col9" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_18d92_level0_row62" class="row_heading level0 row62" >noise20</th>
-      <td id="T_18d92_row62_col0" class="data row62 col0" >-0.000000</td>
-      <td id="T_18d92_row62_col1" class="data row62 col1" >-0.000000</td>
-      <td id="T_18d92_row62_col2" class="data row62 col2" >-0.000000</td>
-      <td id="T_18d92_row62_col3" class="data row62 col3" >-0.000000</td>
-      <td id="T_18d92_row62_col4" class="data row62 col4" >0.000000</td>
-      <td id="T_18d92_row62_col5" class="data row62 col5" >-0.000000</td>
-      <td id="T_18d92_row62_col6" class="data row62 col6" >-0.000000</td>
-      <td id="T_18d92_row62_col7" class="data row62 col7" >-0.000000</td>
-      <td id="T_18d92_row62_col8" class="data row62 col8" >-0.000000</td>
-      <td id="T_18d92_row62_col9" class="data row62 col9" >-0.000000</td>
+      <th id="T_53b62_level0_row62" class="row_heading level0 row62" >noise20</th>
+      <td id="T_53b62_row62_col0" class="data row62 col0" >-0.000000</td>
+      <td id="T_53b62_row62_col1" class="data row62 col1" >0.000000</td>
+      <td id="T_53b62_row62_col2" class="data row62 col2" >-0.000000</td>
+      <td id="T_53b62_row62_col3" class="data row62 col3" >-0.000000</td>
+      <td id="T_53b62_row62_col4" class="data row62 col4" >-0.000000</td>
+      <td id="T_53b62_row62_col5" class="data row62 col5" >-0.000000</td>
+      <td id="T_53b62_row62_col6" class="data row62 col6" >-0.000000</td>
+      <td id="T_53b62_row62_col7" class="data row62 col7" >-0.000000</td>
+      <td id="T_53b62_row62_col8" class="data row62 col8" >-0.000000</td>
+      <td id="T_53b62_row62_col9" class="data row62 col9" >-0.000000</td>
     </tr>
   </tbody>
 </table>
@@ -2269,38 +2281,38 @@ Notes:
   <tbody>
     <tr>
       <th>LOT</th>
-      <td>49715.751 (1474.307)</td>
-      <td>48853.365 (1448.848)</td>
-      <td>45501.161 (1341.025)</td>
-      <td>47505.855 (1418.065)</td>
+      <td>49466.473 (1471.452)</td>
+      <td>47126.472 (1402.063)</td>
+      <td>47922.504 (1437.652)</td>
+      <td>47097.825 (1373.177)</td>
     </tr>
     <tr>
       <th>UNITSF</th>
-      <td>2417.557 (23.642)</td>
-      <td>2438.953 (25.43)</td>
-      <td>2430.635 (25.188)</td>
-      <td>2433.317 (24.66)</td>
+      <td>2433.896 (24.992)</td>
+      <td>2410.747 (24.515)</td>
+      <td>2424.837 (24.426)</td>
+      <td>2450.613 (25.016)</td>
     </tr>
     <tr>
       <th>BUILT</th>
-      <td>1974.55 (0.293)</td>
-      <td>1973.089 (0.298)</td>
-      <td>1973.611 (0.3)</td>
-      <td>1972.64 (0.302)</td>
+      <td>1974.865 (0.293)</td>
+      <td>1973.742 (0.3)</td>
+      <td>1973.126 (0.296)</td>
+      <td>1972.17 (0.303)</td>
     </tr>
     <tr>
       <th>BATHS</th>
-      <td>1.969 (0.009)</td>
-      <td>1.938 (0.009)</td>
-      <td>1.939 (0.009)</td>
-      <td>1.921 (0.009)</td>
+      <td>1.967 (0.01)</td>
+      <td>1.936 (0.009)</td>
+      <td>1.944 (0.009)</td>
+      <td>1.919 (0.009)</td>
     </tr>
     <tr>
       <th>BEDRMS</th>
-      <td>3.26 (0.01)</td>
-      <td>3.236 (0.01)</td>
-      <td>3.245 (0.01)</td>
+      <td>3.265 (0.01)</td>
+      <td>3.242 (0.01)</td>
       <td>3.229 (0.01)</td>
+      <td>3.234 (0.01)</td>
     </tr>
     <tr>
       <th>...</th>
@@ -2311,38 +2323,38 @@ Notes:
     </tr>
     <tr>
       <th>noise16</th>
+      <td>0.5 (0.003)</td>
+      <td>0.498 (0.003)</td>
       <td>0.497 (0.003)</td>
-      <td>0.497 (0.003)</td>
-      <td>0.499 (0.003)</td>
-      <td>0.502 (0.003)</td>
+      <td>0.501 (0.003)</td>
     </tr>
     <tr>
       <th>noise17</th>
-      <td>0.5 (0.003)</td>
-      <td>0.495 (0.003)</td>
       <td>0.494 (0.003)</td>
-      <td>0.503 (0.003)</td>
+      <td>0.501 (0.003)</td>
+      <td>0.499 (0.003)</td>
+      <td>0.506 (0.003)</td>
     </tr>
     <tr>
       <th>noise18</th>
-      <td>0.492 (0.003)</td>
-      <td>0.501 (0.003)</td>
-      <td>0.499 (0.003)</td>
-      <td>0.497 (0.003)</td>
+      <td>0.506 (0.003)</td>
+      <td>0.502 (0.003)</td>
+      <td>0.498 (0.003)</td>
+      <td>0.502 (0.003)</td>
     </tr>
     <tr>
       <th>noise19</th>
-      <td>0.509 (0.003)</td>
       <td>0.496 (0.003)</td>
       <td>0.498 (0.003)</td>
-      <td>0.5 (0.003)</td>
+      <td>0.499 (0.003)</td>
+      <td>0.499 (0.003)</td>
     </tr>
     <tr>
       <th>noise20</th>
-      <td>0.504 (0.003)</td>
-      <td>0.492 (0.003)</td>
-      <td>0.498 (0.003)</td>
       <td>0.497 (0.003)</td>
+      <td>0.503 (0.003)</td>
+      <td>0.497 (0.003)</td>
+      <td>0.5 (0.003)</td>
     </tr>
   </tbody>
 </table>
@@ -2411,14 +2423,14 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2_introduction_to_Machine_Learning_64_0.png" src="../_images/2_introduction_to_Machine_Learning_64_0.png" />
+<img alt="../_images/2_introduction_to_machine_learning_64_0.png" src="../_images/2_introduction_to_machine_learning_64_0.png" />
 </div>
 </div>
 <p>As we just saw above, houses that have, e.g., been built more recently (<code class="docutils literal notranslate"><span class="pre">BUILT</span></code>), have more baths (<code class="docutils literal notranslate"><span class="pre">BATHS</span></code>) are associated with larger price predictions.</p>
 <p>This sort of interpretation exercise did not rely on reading any coefficients, and in fact it could also be done using any other flexible method, including decisions trees and forests.</p>
 </div>
 <div class="section" id="decision-tree">
-<h3>Decision Tree<a class="headerlink" href="#decision-tree" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">2.2.2. </span>Decision Tree<a class="headerlink" href="#decision-tree" title="Permalink to this headline">¶</a></h3>
 <p>This next class of algorithms divides the covariate space into “regions” and estimates a constant prediction within each region.</p>
 <p>To estimate a decision tree, we following a recursive partition algorithm. At each stage, we select one variable <span class="math notranslate nohighlight">\(j\)</span> and one split point
 <span class="math notranslate nohighlight">\(s\)</span>, and divide the observations into “left” and “right” subsets, depending on whether <span class="math notranslate nohighlight">\(X_{ij} \leq s\)</span> or <span class="math notranslate nohighlight">\(X_{ij} &gt; s\)</span>. For regression problems, the variable and split points are often selected so that the sum of the variances of the outcome variable in each “child” subset is smallest. For classification problems, we split to separate the classes. Then, for each child, we separately repeat the process of finding variables and split points. This continues until a minimum subset size is reached, or improvement falls below some threshold.</p>
@@ -2447,7 +2459,7 @@ Notes:
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_7792</span><span class="o">/</span><span class="mf">2063672304.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_14448</span><span class="o">/</span><span class="mf">2063672304.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span>
 <span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">simple_colors</span> <span class="kn">import</span> <span class="o">*</span>
@@ -3498,12 +3510,12 @@ Notes:
  ...]
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_73_1.png" src="../_images/2_introduction_to_Machine_Learning_73_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_73_1.png" src="../_images/2_introduction_to_machine_learning_73_1.png" />
 </div>
 </div>
 <p>To reduce the complexity of the tree, we <strong>prune</strong> the tree: we collapse its leaves, permitting bias to increase but forcing variance to decrease until the desired trade-off is achieved. In <code class="docutils literal notranslate"><span class="pre">rpart</span></code>, this is done by considering a modified loss function that takes into account the number of terminal nodes (i.e., the number of regions in which the original data was partitioned). Somewhat heuristically, if we denote tree predictions by <span class="math notranslate nohighlight">\(T(x)\)</span> and its number of terminal nodes by  <span class="math notranslate nohighlight">\(|T|\)</span>, the modified regression problem can be written as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d29ba747-ecdd-4933-919c-0824ef6a9670">
-<span class="eqno">()<a class="headerlink" href="#equation-d29ba747-ecdd-4933-919c-0824ef6a9670" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{eq:pruned-tree}\tag{2.4}
+<div class="amsmath math notranslate nohighlight" id="equation-d4a14fed-cd5d-4630-bb79-a61627f0812e">
+<span class="eqno">(2.5)<a class="headerlink" href="#equation-d4a14fed-cd5d-4630-bb79-a61627f0812e" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{eq:pruned-tree}\tag{2.4}
   \widehat{T} = \arg\min_{T} \sum_{i=1}^m \left( T(X_i) - Y_i \right)^2 + c_p |T|
 \end{equation}\]</div>
 <p>The complexity of the tree is controlled by the scalar parameter <span class="math notranslate nohighlight">\(c_p\)</span>, denoted as <code class="docutils literal notranslate"><span class="pre">ccp_alpha</span></code> in <code class="docutils literal notranslate"><span class="pre">sklearn.tree.DecisionTreeRegressor</span></code>. For each value of <span class="math notranslate nohighlight">\(c_p\)</span>, we find the subtree that solves \eqref{eq:pruned-tree}. Large values of <span class="math notranslate nohighlight">\(c_p\)</span> lead to aggressively pruned trees, which have more bias and less variance. Small values of <span class="math notranslate nohighlight">\(c_p\)</span> allow for deeper trees whose predictions can vary more wildly.</p>
@@ -3630,7 +3642,7 @@ Notes:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x229901244c0&gt;
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_78_1.png" src="../_images/2_introduction_to_Machine_Learning_78_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_78_1.png" src="../_images/2_introduction_to_machine_learning_78_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3704,7 +3716,7 @@ Notes:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x229926aff40&gt;
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_81_1.png" src="../_images/2_introduction_to_Machine_Learning_81_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_81_1.png" src="../_images/2_introduction_to_machine_learning_81_1.png" />
 </div>
 </div>
 <p>The following code retrieves the optimal parameter and prunes the tree. Here, instead of choosing the parameter that minimizes the mean-squared-error, we’re following another common heuristic: we will choose the most regularized model whose error is within one standard error of the minimum error.</p>
@@ -3754,7 +3766,7 @@ Notes:
  Text(0.95, 0.5, &#39;squared_error = 1.031\nsamples = 313\nvalue = 10.606&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_85_1.png" src="../_images/2_introduction_to_Machine_Learning_85_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_85_1.png" src="../_images/2_introduction_to_machine_learning_85_1.png" />
 </div>
 </div>
 <p>Finally, here’s how to extract predictions and mse estimates from the pruned tree.</p>
@@ -4366,12 +4378,12 @@ Std.Err.  0.008697  0.010667  0.015243
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Average covariate values within leaf&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_92_1.png" src="../_images/2_introduction_to_Machine_Learning_92_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_92_1.png" src="../_images/2_introduction_to_machine_learning_92_1.png" />
 </div>
 </div>
 </div>
 <div class="section" id="forest">
-<h3>Forest<a class="headerlink" href="#forest" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">2.2.3. </span>Forest<a class="headerlink" href="#forest" title="Permalink to this headline">¶</a></h3>
 <p>Forests are a type of <strong>ensemble</strong> estimators: they aggregate information about many decision trees to compute a new estimate that typically has much smaller variance.</p>
 <p>At a high level, the process of fitting a (regression) forest consists of fitting many decision trees, each on a different subsample of the data. The forest prediction for a particular point <span class="math notranslate nohighlight">\(x\)</span> is the average of all tree predictions for that point.</p>
 <p>One interesting aspect of forests and many other ensemble methods is that cross-validation can be built into the algorithm itself. Since each tree only uses a subset of the data, the remaining subset is effectively a test set for that tree. We call these observations <strong>out-of-bag</strong> (there were not in the “bag” of training observations). They can be used to evaluate the performance of that tree, and the average of out-of-bag evaluations is evidence of the performance of the forest itself.</p>
@@ -4478,14 +4490,14 @@ Std.Err.  0.008697  0.010667  0.015243
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Variable Importance&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_Machine_Learning_99_1.png" src="../_images/2_introduction_to_Machine_Learning_99_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_99_1.png" src="../_images/2_introduction_to_machine_learning_99_1.png" />
 </div>
 </div>
 <p>All the caveats about interpretation that we mentioned above apply in a similar to forest output.</p>
 </div>
 </div>
 <div class="section" id="further-reading">
-<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.3. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <p>In this tutorial we briefly reviewed some key concepts that we recur later in this tutorial. For readers who are entirely new to this field or interested in learning about it more depth, the first few chapters of the following textbook are an acccessible introduction:</p>
 <p>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2013). An introduction to statistical learning (Vol. 112, p. 18). New York: springer. Available for free at <a class="reference external" href="https://www.statlearning.com/">the authors’ website</a>.</p>
 <p>Some of the discussion in the Lasso section in particular was drawn from <a class="reference external" href="https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87">Mullainathan and Spiess (JEP, 2017)</a>, which contains a good discussion of the interpretability issues discussed here.</p>
@@ -4517,7 +4529,21 @@ Std.Err.  0.008697  0.010667  0.015243
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="1_introduction_1.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">1. </span>Introduction</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="3_average_treatment_effect_1.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>ATE I: Binary treatment</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             
         </div>
