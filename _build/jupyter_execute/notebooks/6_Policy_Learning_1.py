@@ -17,84 +17,125 @@
 # In[1]:
 
 
+# Loading relevant packages
 import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
 import statsmodels.api as sm
+import warnings
+warnings.filterwarnings('ignore')
 import seaborn as sns
 import matplotlib.pyplot as plt
-import matplotlib
-import matplotlib.mlab as mlab
 import random 
-import econml
 import time
-from patsy import dmatrices
-from sklearn.linear_model import Lasso, LassoCV
+
+rest_time = 10 # For time.sleep()
+
+# !pip install patsy
+import patsy
+
+## pip install sklearn
+from sklearn.linear_model import LassoCV
 from sklearn.model_selection import train_test_split
+
+## !pip install scipy
 from scipy.stats import norm, expon, binom
-from econml.grf import RegressionForest, CausalIVForest as instrumental_forest
-from econml.dml import CausalForestDML as causal_forest
+## pip install econml
+from econml.grf import RegressionForest, CausalForest, CausalIVForest as instrumental_forest
+# from econml.dml import CausalForestDML as causal_forest
 from econml.policy import PolicyForest, PolicyTree 
+## Users function
+from main import *
+
 random.seed(12)
+np.random.seed(12)
 
 
 # In[2]:
 
 
-# A randomized setting.
-n, p, e = 1000, 4, .5
-x = np.reshape(np.random.uniform(0, 1, n*p), (n, p))
-w = binom.rvs(1, p = e, size = n)
-# w = np.random.binomial(1, e, n)
-# x = np.random.normal(size = (n, p))
+## Simulate R, random data
+import rpy2.robjects as robjs
+
+r_random_data = robjs.r("""
+set.seed(
+    1
+    , kind = "Mersenne-Twister"
+    , normal.kind = "Inversion"
+    , sample.kind = "Rejection"
+    )
+    n_0 <- 1000 * 4
+
+    x_cov <- runif(n_0)
+    w <- rbinom(1000, .5, size = 1)
+    
+    data <- read.csv("https://docs.google.com/uc?id=1kSxrVci_EUcSr_Lg1JKk1l7Xd5I9zfRC&export=download")
+    n <- nrow(data)
+    data$w <- 1 - data$w
+
+    C <- ifelse(data$w == 1, rexp(n=n, 1/(data$income * data$polviews)), 0)
+    
+    r_random = list(
+        x = x_cov
+        , w = w
+        , random_cost = C
+    )
+"""
+)
+
+
+# In[3]:
+
+
+# Simulating data
+n, p, e = 1000, 4, .5 # n: sample size, p : number of covariates, e: binomial probability
+x = np.reshape(np.array(r_random_data[0]), (n, p))
+w = np.array(r_random_data[1])
 y = e * (x[:, 0] - e) + w * (x[:, 1] - e) + .1 * np.random.normal(0, 1, n)
 
-data = pd.DataFrame(x)
-data.columns = ['x_1', 'x_2', 'x_3', 'x_4']
-data["y"], data["w"] = y, w
-
-# data = pd.read_csv("cap6_data/test.csv")
-
-outcome, treatment, covariates = "y", "w", list(data.columns)[1:5]
-data.head(4)
-
-# covariates
+data = pd.DataFrame(x, columns=['x_1', 'x_2', 'x_3', 'x_4'])
+data["y"], data['w'] = y, w
+outcome, treatment, covariates = "y", "w", list(data.columns)[0:4]
 
 
 # ## Non-parametric policies
 # 
 # In the HTE chapter we define the conditional average treatment effect (CATE) function
 # 
-# $$
+# \begin{equation} \label{cate}
+#   \tag{4.1}
 #   \tau(x) := \mathop{\mathrm{E}}[Y_i(1) - Y_i(0) | X_i = x],
-# $$ (cate)
+# \end{equation}
 # 
-# that is, the average effect of a binary treatment conditional on observable charateristics. If we knew {eq}`cate`, then a natural policy would be to assigns individuals to treatment their CATE is positive,
+# that is, the average effect of a binary treatment conditional on observable charateristics. If we knew \eqref{cate}, then a natural policy would be to assigns individuals to treatment their CATE is positive,
 # 
-# $$
+# \begin{equation}
+#   \tag{6.1}
 #   \pi^{*} = \mathbb{I}\{\tau(x) \geq 0\}.
-# $$
+# \end{equation}
 # 
 # More generally, if treating that individual costs a known amount $c(x)$, 
 # 
-# $$
+# \begin{equation}
+#   \tag{6.1}
 #   \pi^{*} = \mathbb{I}\{\tau(x) \geq c(x)\}.
-# $$
+# \end{equation}
 # 
-# Of course, we don't know {eq}`cate`. However, we can obtain an estimate $\widehat{\tau}(\cdot)$ using any flexible (i.e., non-parametric) method as we learned in the HTE chapter, and then obtain a policy estimate
+# Of course, we don't know \eqref{cate}. However, we can obtain an estimate $\widehat{\tau}(\cdot)$ using any flexible (i.e., non-parametric) method as we learned in the HTE chapter, and then obtain a policy estimate
 # 
-# $$
+# \begin{equation}
 #   \hat{\pi}(x) = \mathbb{I}\{ \widehat{\tau}(x) \geq 0\},
-# $$
+# \end{equation}
 # 
 # replacing the zero threshold by some appropriate cost function if needed.
+# 
 # 
 # Once we have an estimated policy, we need to estimate its value. To obtain accurate estimates, we must ensure appropriate **data-splitting**. We cannot estimate and evaluate a policy using the same data set, because that would lead to an overestimate of the value of the policy. One option here is to divide the data into training and test subsets, fit $\widehat{\tau}(\cdot)$ in the training subset and evaluate it in the test subset. This is analogous to what we saw in prediction problems: if we try to evaluate our predictions on the training set, we will overestimate how good our predictions are. 
 # 
 # The next snippet estimates the conditional treatment effect function via a Lasso model with splines. Note the data splitting.
 # 
 
-# In[3]:
+# In[4]:
 
 
 # Preparing to run a regression with splines (\\piecewise polynomials).
@@ -102,54 +143,52 @@ data.head(4)
 # The optimal value of `df` can be found by cross-validation
 # i.e., check if the value of the policy, estimated below, increases or decreases as `df` varies. 
 
-def bs_x(x_n, d_f = 5, add = True):
-    bs_n = " bs(" + covariates[x_n] + " , df = " + str(d_f) + ") * w "
-    if add:
-        bs_n = "+" + bs_n
-    return bs_n
+# Create the model object
 fmla_xw = "y ~ " +  bs_x(0, add = False) + bs_x(1) + bs_x(2) + bs_x(3)
-fmla_xw
-
-
-# In[4]:
-
+# fmla_xw
 
 # Data-splitting
 ## Define training and evaluation sets
+### Extract rows and cols from dataframe
+# train_size = int(.5 * nrow) #Splits works with int type
 
-data_train, data_test = train_test_split(data, test_size = .5, random_state=1) 
+# Split data 
 
-## Contruct matrices 
+train_size = .5
 
-y_train, xw_train = dmatrices(fmla_xw, data_train)
-y_test, xw_test = dmatrices(fmla_xw, data_test)
+data_train, data_test = simple_split(data, train_size)
 
-y_test, y_train = np.ravel(y_test), np.ravel(y_train)
+y, xw = patsy.dmatrices(fmla_xw, data, return_type="dataframe")
 
-
-# In[5]:
-
+y_train, y_test= simple_split(y, train_size)
+xw_train, xw_test = simple_split(xw, train_size)
 
 # Fitting the outcome model on the *training* data
+
 model_m = LassoCV(cv = 10, random_state=12)
 model_m.fit(xw_train, y_train)
 data_0 = data_test.copy()
 data_1 = data_test.copy()
 
+
 # Predict outcome E[Y|X,W=w] for w in {0, 1} on the *test* data
+
 data_0[treatment] = 0
 data_1[treatment] = 1
 
 ## Construct matirces
-y0, xw0 = dmatrices(fmla_xw, data_0)
-y1, xw1 = dmatrices(fmla_xw, data_1)
+
+y0, xw0 = patsy.dmatrices(fmla_xw, data_0)
+y1, xw1 = patsy.dmatrices(fmla_xw, data_1)
 
 # Predict values
+
 mu_hat_1 = model_m.predict(xw1)
 mu_hat_0 = model_m.predict(xw0)
 
 # Extract rows 
-n_row, n_col = data_test.shape
+
+n_row = data_test.shape[0]
 
 # Computing the CATE estimate tau_hat 
 tau_hat = mu_hat_1 - mu_hat_0
@@ -161,6 +200,7 @@ pi_hat = tau_hat > 0
 # (This will be useful for evaluation via AIPW scores a little later)
 
 # In randomized settings assignment probabilities are fixed and known.
+
 e_hat = np.repeat(.5, n_row)
 
 
@@ -168,135 +208,134 @@ e_hat = np.repeat(.5, n_row)
 # 
 # 
 
-# In[6]:
+# In[5]:
 
 
 # Only valid in randomized settings.
-
 a = pi_hat == 1
 Y = data_test[outcome]
 W = data_test[treatment]
 
+cost = 0 
+message_a = "Value estimate: "
+message_b = "Std. Error: "
+
 ## Extract, value estimate and standard error
-def extr_val_sd(y_eval, w_eval, a, cost = 0):
-    c_1 = a & (w_eval == 1)
-    c_0 = np.logical_not(a) & (w_eval == 0)
 
-    y_eval_main = pd.DataFrame(y_eval)
-    y_eval_main['c_1'] = c_1
-    y_eval_main['c_0'] = c_0
+c_1 = a & (W == 1)
+c_0 = a != 1 & (W == 0)
 
-    y_0 = y_eval_main.loc[y_eval_main['c_0'] == True]['y']
-    y_1 = y_eval_main.loc[y_eval_main['c_1'] == True]['y']
+value_estimate = np.mean(Y[c_1] - cost) * np.mean(a) +  \
+                          np.mean(Y[c_0]) * np.mean(a != 1)
 
-    mean_1 = np.mean(y_1 - cost) * np.mean(a)
-    mean_0 = np.mean(y_0) * np.mean(np.logical_not(a))
-    val_est = mean_1 + mean_0
+value_stderr = np.sqrt(np.var(Y[c_1]) / sum(c_1) * np.mean(a ** 2) + \
+    np.var(Y[c_0]) / sum(c_0) * np.mean(a != 1**2))
 
-    var_1 = np.var(y_eval[c_1]) / np.sum(c_1) * np.mean(a)**2
-    var_0 = np.var(y_eval[c_0]) / np.sum(c_0) * np.mean(np.logical_not(a))**2
-    var_sqr = np.sqrt(var_1 + var_0)
-    return val_est, var_sqr
+print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 
-extr_val_sd(Y, W, a)
+# extr_val_sd(Y, W, a) # Same results
 
 
 # In randomized settings and observational settings with unconfoundedness, an estimator of the policy value based on AIPW scores is available. In large samples, it should have smaller variance than the one based on sample averages.
-# 
-# 
 
-# In[7]:
+# In[6]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness and overlap.
-Y = data_test[outcome]
-W = data_test[treatment]
+y = data_test[outcome]
+w = data_test[treatment]
 
 # AIPW 
-gamma_hat_1 = mu_hat_1 + W / e_hat * (Y - mu_hat_1)
-gamma_hat_0 = mu_hat_0 + (1 - W) / (1 - e_hat) * (Y - mu_hat_0)
+gamma_hat_1 = mu_hat_1 + w / e_hat * (y - mu_hat_1)
+gamma_hat_0 = mu_hat_0 + (1 - w) / (1 - e_hat) * (y - mu_hat_0)
 gamma_hat_pi = pi_hat * gamma_hat_1 + (1 - pi_hat) * gamma_hat_0
 
 ## Print the value_estiamte and standard error
 ve = np.mean(gamma_hat_pi)
 std =  np.std(gamma_hat_pi) / np.sqrt(len(gamma_hat_pi))
 
-ve, std
+print(f"Value estimate: {ve}\nStd.Error: {std}")
 
 
 # Above we used a flexible linear model, but in fact we can also use any other non-parametric method. The next example uses `econml.grf`. An advantage of using `econ.grf` is that we can leverage [out-of-bag predictions](https://github.com/grf-labs/grf/blob/master/REFERENCE.md#out-of-bag-prediction), so explicit data splitting is not necessary.
 
-# In[8]:
-
-
-# Make a causal_forest object
-forest = causal_forest(
-    model_t = RegressionForest(),
-    model_y = RegressionForest(),
-    n_estimators = 200, min_samples_leaf = 5,
-    max_depth = 50, verbose = 0, 
-    random_state = 2
-)
-
-
-# In[9]:
+# In[7]:
 
 
 # Using the entire data
+
 x = data[covariates]
 y = data[outcome]
 w = data[treatment]
 
-# Tune and Fit 
-forest.tune(y, w, X=x, W=None)
-forest_oob = forest.fit(y, w, X=x, W=None)
+# Flexible linear model (econml.grf.Causalforest) 
+
+forest_oob = CausalForest(n_estimators = 100, max_depth = 50, random_state=12)
+forest_oob.fit(x, w, y)
+# forest_oob = fit_causal_forest(y, w, x)
 
 # Extract residuals
-residuals = forest.fit(y, w, X = x, W = None, cache_values=True).residuals_
+# residuals = forest_oob.residuals_
 
 # Get "out-of-bag" predictions
-tau_hat_oob = forest_oob.effect(x)
+
+tau_hat_oob = forest_oob.predict(x).flatten()
 pi_hat = tau_hat_oob > 0
+# tau_hat_oob
 
 
 # Again, to evaluate the value of this policy in a randomized setting, we can use the following estimator based on sample averages.
 # 
 # 
 
-# In[10]:
+# In[8]:
 
 
 # Only valid in randomized settings.
 # We can use the entire data because predictions are out-of-bag
 a = pi_hat == 1
 
+c_1 = a & (w == 1)
+c_0 = a != 1 & (w == 0)
+
+value_estimate = np.mean(y[c_1] - cost) * np.mean(a) +  \
+                          np.mean(y[c_0]) * np.mean(a != 1)
+
+value_stderr = np.sqrt(np.var(y[c_1]) / sum(c_1) * np.mean(a ** 2) + \
+    np.var(y[c_0]) / sum(c_0) * np.mean(a != 1**2))
+
+print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
+
 # Using a Extract function, return, value estimate and standard error
-extr_val_sd(y, w, a)
+# extr_val_sd(y, w, a)
 
 
 # And here's how to produce an AIPW-based estimate. Note that that estimates of the propensity scores (`w_hat`) and outcome model (`mu_hat_1`, `mu_hat_0`) are also [out-of-bag](https://github.com/grf-labs/grf/blob/master/REFERENCE.md#out-of-bag-prediction), ensuring appropriate sample splitting.
 # 
 # 
 
-# In[11]:
+# In[9]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness and overlap.
-tau_hat = forest_oob.effect(x)
+tau_hat = forest_oob.predict(x).flatten()
 
 # Retrieve relevant quantities.
-e_hat = w - residuals[1] # P[W=1|X]
-y_hat = y - residuals[0] 
+aux_reg = RegressionForest(random_state = 12, n_estimators = 2000)
+e_hat = aux_reg.fit(x, w).predict(x).flatten()
+m_hat = aux_reg.fit(x, y).predict(x).flatten()
+mu_hat_1 = m_hat + (1 - e_hat) * tau_hat # E[Y|X,W=1] = E[Y|X] + (1 - e(X)) * tau(X) 
+mu_hat_0 = m_hat - e_hat * tau_hat # E[Y|X,W=0] = E[Y|X] - e(X) * tau(X)
 
-mu_hat_1 = y_hat + (1 - e_hat) * tau_hat # E[Y|X,W=1] = E[Y|X] + (1 - e(X)) * tau(X) 
-mu_hat_0 = y_hat - e_hat * tau_hat # E[Y|X,W=0] = E[Y|X] - e(X) * tau(X)
+# ## Compute AIPW score
 
-## Compute AIPW score
 gamma_hat_1 = mu_hat_1  + w / e_hat * (y - mu_hat_1)
-gamma_hat_0 = mu_hat_0 + (1 - w) / (1 - e_hat) * (Y -mu_hat_0) # T can be W
+gamma_hat_0 = mu_hat_0 + (1 - w) / (1 - e_hat) * (y - mu_hat_0) # T can be W
 gamma_hat_pi = pi_hat * gamma_hat_1 + (1 - pi_hat) * gamma_hat_0
 
-np.mean(gamma_hat_pi), np.std(gamma_hat_pi)/ np.sqrt(len(gamma_hat_pi))
+## Value estimates
+ve, std = np.mean(gamma_hat_pi), np.std(gamma_hat_pi)/ np.sqrt(len(gamma_hat_pi))
+print(f"Value estimate: {ve}\nStd.Error: {std}")
 
 
 # 
@@ -309,105 +348,93 @@ np.mean(gamma_hat_pi), np.std(gamma_hat_pi)/ np.sqrt(len(gamma_hat_pi))
 # 
 # Estimating such a policy from data is finding an approximate solution to the following constrained maximization problem,
 # 
-# $$ 
+# \begin{equation} \label{param-pi-oracle}
+#   \tag{6.2}
 #   \pi^{*} = \arg\max_{\pi \in \Pi} \mathop{\mathrm{E}}[Y(\pi(X_i))].
-# $$  (param-pi-oracle)
+# \end{equation}
 # 
 # 
-# Following [Athey and Wager (2020, Econometrica)], we will use the following em\\pirical counterpart of {eq}`param-pi-oracle`,
+# Following [Athey and Wager (2020, Econometrica)], we will use the following em\\pirical counterpart of \eqref{param-pi-oracle},
 # 
-# $$ 
+# \begin{equation} \label{param-pi-problem} \tag{6.3}
 #   \hat{\pi} = \arg\min_{\pi \in \Pi} \frac{1}{n} \sum_{i=1}^{n} \widehat{\Gamma}_{i,\pi(X_i)}
-# $$ (param-pi-problem)
+# \end{equation}
 # 
 # where $\widehat{\Gamma}_{i,\pi(X_i)}$ are AIPW scores as defined in the previous chapter. As reminder, 
 # 
-# $$ 
+# \begin{equation} 
 #   \widehat{\Gamma}_{i,\pi(X_i)} = \pi(X_i)\widehat{\Gamma}_{i,1} + (1 - \pi(X_i))\widehat{\Gamma}_{i,0},
-# $$ 
+# \end{equation}
 # 
 # 
 # where
 # 
-# $$  
-# \begin{align}
+# \begin{align} \label{aipw}
+#     \tag{3.10}
 #     \widehat{\Gamma}_{i,1} 
 #     &= \hat{\mu}^{-i}(X_i, 1) + \frac{W_i}{\hat{e}^{-i}(X_i)} \left(Y_i -\hat{\mu}^{-i}(X_i, 1)\right), \\
 #     \widehat{\Gamma}_{i,0} 
 #     &= \hat{\mu}^{-i}(X_i, 0) . \frac{1-W_i}{1-\hat{e}^{-i}(X_i)} \left(Y_i -\hat{\mu}^{-i}(X_i, 0)\right).
 # \end{align}
-# $$ (aipw)
 # 
-# Here we use shallow tree policies as our main example of parametric policies. The `R` package `policytree` to find a policy that solves {eq}`param-pi-problem`. In the example below, we'll construct AIPW scores estimated using `grf`, though we could have used any other non-parametric method (with appropriate sample-splitting). See this short [tutorial](https://grf-labs.github.io/policytree/) for other examples using these two packages.
+# Here we use shallow tree policies as our main example of parametric policies. The `R` package `policytree` to find a policy that solves \eqref{param-pi-problem}. In the example below, we'll construct AIPW scores estimated using `grf`, though we could have used any other non-parametric method (with appropriate sample-splitting). See this short [tutorial](https://grf-labs.github.io/policytree/) for other examples using these two packages.
 # 
-# Let's walk through an example for the data simulated above. The first step is to construct AIPW scores {eq}`aipw`. 
+# Let's walk through an example for the data simulated above. The first step is to construct AIPW scores \eqref{aipw}. 
 # 
 
-# In[12]:
+# In[10]:
 
 
 # Randomized setting: pass the known treatment assignment as an argument.
-forest.tune(y, w, X=x, W=None)
-forest_prm_p = forest.fit(y, w, X=x, W=None, cache_values = True)
+# Causal Forest Object
+forest_prm_p = CausalForest(n_estimators=100, max_depth = 50, random_state=12)
+forest_prm_p.fit(x, w, y)
 
-## Extract Gamma_hat_0 and gamma_hat_1 => R: double_robust_scores(forest)
-def double_robust_score(forest_model, y, w, x):
-    residuals = forest_model.residuals_
+aux_reg_f = RegressionForest(random_state = 12, n_estimators = 2000)
 
-    tau_hat = forest_model.effect(x)
+tau_hat = forest_prm_p.predict(x).flatten()
 
-    e_hat = w - residuals[1]
-    y_hat = y - residuals[0]
-    mu_hat_1 = y_hat + (1 - e_hat) * tau_hat # E[Y|X,W=1] = E[Y|X] + (1 - e(X)) * tau(X) 
-    mu_hat_0 = y_hat - e_hat * tau_hat # E[Y|X,W=0] = E[Y|X] - e(X) * tau(X)
-    
-    gamma_hat_1 = mu_hat_1  + w / e_hat * (y - mu_hat_1)
-    gamma_hat_0 = mu_hat_0 + (1 - w) / (1 - e_hat) * (y - mu_hat_0) # T can be W
-    
-    return gamma_hat_1, gamma_hat_0
-    
-gamma_hat_0, gamma_hat_0 = double_robust_score(forest_prm_p, y, w, x)
+# Retrieve relevant quantiles
+e_hat = aux_reg_f.fit(x, w).predict(x).flatten()
+m_hat = aux_reg_f.fit(x, y).predict(x).flatten()
 
+mu_hat_1 = m_hat + (1 - e_hat) * tau_hat # E[Y|X,W=1] = E[Y|X] + (1 - e(X)) * tau(X) 
+mu_hat_0 = m_hat - e_hat * tau_hat # E[Y|X,W=0] = E[Y|X] - e(X) * tau(X)
 
-# In[13]:
+gamma_hat_1 = mu_hat_1  + w / e_hat * (y - mu_hat_1)
+gamma_hat_0 = mu_hat_0 + (1 - w) / (1 - e_hat) * (y - mu_hat_0)
 
-
-gamma_mtrx = pd.DataFrame(
-    {
-        "gamma_hat_0" : gamma_hat_0,
-        "gamma_hat_1": gamma_hat_1
-    }
-)
+gamma_mtrx = pd.DataFrame({"gamma_hat_0" : gamma_hat_0,"gamma_hat_1": gamma_hat_1})
 
 
 # Next, to ensure appropriate sample splitting, we divide our data into training and test subsets. We estimate the policy on the training subset and estimate its value on the test subset.
 # 
 # 
 
-# In[14]:
+# In[11]:
 
 
 # Set train size
-train = int(n/2)
+train = .5
+
+# Split object into training and testing subset
+x_train, x_test = simple_split(x, train)
+gamma_mtrx_train, gamma_mtrx_test = simple_split(gamma_mtrx, train)
 
 # Estimate the policy on the training subset 
-policy = PolicyTree(
-    max_depth = 2, random_state = 2
-).fit(x.iloc[ : train], gamma_mtrx.iloc[ : train])
+policy = PolicyTree(max_depth = 2, random_state = 21)\
+        .fit(x_train, gamma_mtrx_train)
 
-
-# In[15]:
-
-
-# Predict on the test subsets
-pi_hat = policy.predict(x.iloc[int(n/2):, ]) 
+## Predict on the test subsets
+pi_hat = policy.predict(x_test)
+set(pi_hat) # in R return c(2, 1) => pi_hat = predict(policy, x_test) - 1
 
 
 # 
 # We can plot the tree.
 # 
 
-# In[16]:
+# In[12]:
 
 
 get_ipython().run_line_magic('matplotlib', 'inline')
@@ -421,52 +448,59 @@ plt.show()
 # To evaluate the policy, we again use what we learned in the previous chapter, remembering that we can only use the test set for evaluation. In randomized settings, we can use the following estimator based on sample averages.
 # 
 
-# In[17]:
+# In[13]:
 
+
+# Only valid for randomized setting!
+y_train, y_test = simple_split(y, train)
+w_train, w_test = simple_split(w, train)
 
 a = pi_hat == 1
-y1 = data.iloc[train : ][outcome]
-w1 = data.iloc[train : ][treatment]
-extr_val_sd(y1, w1, a)
+
+c_1 = a & (w_test == 1)
+c_0 = a != 1 & (w_test == 0)
+
+value_estimate = np.mean(y_test[c_1] - cost) * np.mean(a) +  \
+                          np.mean(y_test[c_0]) * np.mean(a != 1)
+
+value_stderr = np.sqrt(np.var(y_test[c_1]) / sum(c_1) * np.mean(a ** 2) + \
+    np.var(y_test[c_0]) / sum(c_0) * np.mean(a != 1**2))
+
+print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 
 
 # Using the remaining AIPW scores produces an estimate that, in large samples, has smaller standard error.
 # 
 # 
 
-# In[18]:
+# In[14]:
 
 
 # Using the remaining AIPW scores produces an estimate that, in large samples, has smaller standard error.
-gamma_hat_pi = pi_hat + gamma_hat_1.iloc[int(n/2):] + (1 - pi_hat) * gamma_hat_0.iloc[int(n/2) : ]
+gamma_hat_pi = pi_hat * gamma_mtrx_test.iloc[:, 1] + (1 - pi_hat) * gamma_mtrx_test.iloc[:, 0]
+ve, std = np.mean(gamma_hat_pi), np.std(gamma_hat_pi) / np.sqrt(len(gamma_hat_pi))
 
-val_st, val_sderr = np.mean(gamma_hat_pi), np.std(gamma_hat_pi) / np.sqrt(len(gamma_hat_pi))
-val_st, val_sderr
+print(f"Value estimate: {ve}\nStd.Error: {std}")
 
 
-# 
 # A technical note. Very small policy tree leaves make it hard to reliably evaluate policy values, in particular when the treatment is categorical with many levels. You can avoid small tree leaves increasing the `min.node.size` argument in `policy_tree`.
 # 
-# 
 # [Possible edit here: talk about cross-validation?]
-# 
 # 
 # ## Case study
 # 
 # Let's apply the methods above to our `welfare` dataset, as used in previous chapters.
-# 
 
-# In[19]:
+# In[15]:
 
 
 # Read in data
 data = pd.read_csv("https://docs.google.com/uc?id=1kSxrVci_EUcSr_Lg1JKk1l7Xd5I9zfRC&export=download")
 
 # Extract rows from data
-n_row, ncol = data.shape
+n_row = len(data)
 
 # ## NOTE: invert treatment and control, compared to the ATE and HTE chapters.
-
 data['w'] = 1 - data['w']
 
 # # Treatment is the wording of the question:
@@ -486,48 +520,63 @@ covariates = ["age", "polviews", "income", "educ", "marital", "sex"]
 # In this dataset, however, the effect seems to be mostly positive throughout. That is, i.e., most individuals respond "yes" more often when they are asked about "welfare" than about "assistance to the poor". To make the problem more interesting, we'll artificially modify the problem by introducing a cost of asking about welfare. This is just for illustration here, although there are natural examples in which treatment is indeed costly. Note in the code below how we subtract a cost of `.3` from the AIPW scores associated with treatment.
 # 
 
-# In[20]:
+# In[16]:
 
 
 # Prepare data
 x = data[covariates]
 y = data[outcome]
 w = data[treatment]
+
 cost = .3
 
 # Fit a policy tree on forest-based AIPW scores
-forest.tune(y, w, X=x, W=None)
-forest_aipw = forest.fit(y, w, X=x, W=None, cache_values=True)
-# time.sleep(5) 
+forest_aipw = CausalForest(n_estimators = 100,max_depth=50, random_state=13)
+forest_aipw.fit(x, w, y)
 
-gamma_hat_1, gamma_hat_0 = double_robust_score(forest_aipw, y, w, x)
-# time.sleep(5)
+tau_hat = forest_aipw.predict(x).flatten()
 
-# Substracting cost of treatment
+# Computing AIPW scores
+aux_reg = RegressionForest(random_state = 12, n_estimators = 2000)
+e_hat = aux_reg.fit(x, w).predict(x).flatten()
+m_hat = aux_reg.fit(x, y).predict(x).flatten()
+
+# y_hat = y - residuals[0]
+mu_hat_1 = m_hat + (1 - e_hat) * tau_hat # E[Y|X,W=1] = E[Y|X] + (1 - e(X)) * tau(X) 
+mu_hat_0 = m_hat - e_hat * tau_hat # E[Y|X,W=0] = E[Y|X] - e(X) * tau(X)
+
+gamma_hat_1 = mu_hat_1  + w / e_hat * (y - mu_hat_1)
+gamma_hat_0 = mu_hat_0 + (1 - w) / (1 - e_hat) * (y - mu_hat_0)
+
+
+### Substracting cost of treatment
+
 gamma_hat_1 -= cost
-gamma_mtrx = pd.DataFrame(
-    {
-        "gamm_hat_0" : gamma_hat_0,
-        "gamm_hat_1": gamma_hat_1
-    }
-)
+
+gamma_mtrx = pd.DataFrame({"gamm_hat_0" : gamma_hat_0, "gamm_hat_1": gamma_hat_1})
 
 # Divide data into train and evaluation sets
-train = int(n_row * .8)
+train = .8
+
+x_train, x_test = simple_split(x, train)
+gamma_mtrx_train, gamma_mtrx_test = simple_split(gamma_mtrx, train)
 
 # Fit policy on training subset
+
 policy = PolicyTree(
     max_depth=2, honest=True, random_state=2
-).fit(x.iloc[ : train], gamma_mtrx.iloc[ : train])
+).fit(x_train, gamma_mtrx_train)
+
+# Predicting treatment on test subset
+pi_hat = policy.predict(x_test)
 
 # Predicting leaves (useful later)
-pi_hat = policy.predict(x.iloc[train : ])
-leaf = policy.apply(x.iloc[train : ])
+leaf = policy.apply(x_test)
 num_leave = len(set(leaf))
 # policy.pre leaf by obsservacion
 
 
-# In[21]:
+# In[17]:
 
 
 plt.figure(figsize=(25, 5))
@@ -539,80 +588,93 @@ plt.show()
 # 
 # 
 
-# In[22]:
+# In[18]:
 
 
 a = pi_hat == 1
 
-y_test = y.iloc[train : ] 
-w_test = w.iloc[train : ]
+y_train, y_test = simple_split(y, train)
+w_train, w_test = simple_split(w, train)
 
-print("Print value estimate [sample avg], and standard error")
+c_1 = a & (w_test == 1)
+c_0 = a != 1 & (w_test == 0)
 
-# Print Value_estimate [sample avg] 
-extr_val_sd(y_test, w_test, a)
+# Obly valid for randomized setting
+# Note the -cost!=0 here!
+
+value_estimate = np.mean(y_test[c_1] - cost) * np.mean(a) +  \
+                          np.mean(y_test[c_0]) * np.mean(a != 1)
+
+value_stderr = np.sqrt(np.var(y_test[c_1]) / sum(c_1) * np.mean(a ** 2) + \
+    np.var(y_test[c_0]) / sum(c_0) * np.mean(a != 1**2))
+
+print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
+
+### Print Value_estimate [sample avg] 
+
+# extr_val_sd(y_test, w_test, a, cost = cost, message_a="Estimate [Sample avg]", message_b="Std. Error [avg]:")# Declaring the cost of treatment
 
 
-# In[23]:
+# In[19]:
 
 
 # Valid in both randomized and obs setting with unconf + overlap.
 ### AIPW
 ### Results from double_robust_score(): gamma_hat_1, gamma_hat_0
-gamma_hat_pi = pi_hat * (gamma_hat_1.iloc[train:]) + (1 - pi_hat) * gamma_hat_0.iloc[train : ]
 
-print("Estimate [AIPW], Value Estiamte and standar error")
+gamma_hat_pi = pi_hat * (gamma_mtrx_test.iloc[:, 1]) + (1 - pi_hat) * gamma_mtrx_test.iloc[:, 0]
+
 ## Print Estimate [AIPW}
-np.mean(gamma_hat_pi), np.std(gamma_hat_pi) / np.sqrt(len(gamma_hat_pi))
+ve, std = np.mean(gamma_hat_pi), np.std(gamma_hat_pi) / np.sqrt(len(gamma_hat_pi))
+print(f"Estimate [AIPW]: {ve}\nStd.Error [AIPW]: {std}")
 
 
 # Testing whether the learned policy value is different from the value attained by the "no-treatment" policy.
 # 
 # 
 
-# In[24]:
+# In[20]:
 
 
 # Only valid for randomized setting.
+
 c_1 = a & (w_test == 1)
 c_0 = np.logical_not(a) & (w_test == 0)
 
-y_main = pd.DataFrame(y_test)
-y_main['c_0'], y_main['c_1'] = c_0, c_1
-y_0 = y_main.loc[y_main['c_0'] == True]['y']
-y_1 = y_main.loc[y_main['c_1'] == True]['y']
 
-diff_estimate = (np.mean(y_1) - cost - np.mean(y_0)) * np.mean(a)
-diff_strerr = np.sqrt(np.var(y_1) / np.sum(c_1) * np.mean(a)**2 +  np.var(y_0) / np.sum(c_0) * np.mean(a)**2) 
-diff_estimate, diff_strerr
+diff_estimate = (np.mean(y_test[c_1]) - cost - np.mean(y_test[c_0])) * np.mean(a)
+diff_strerr = np.sqrt(np.var(y_test[c_1]) / np.sum(c_1) * np.mean(a)**2 +  np.var(y_test[c_1]) / 
+                      np.sum(c_0) * np.mean(a)**2) 
+
+print(f"Difference estimate [sample avg]: {diff_estimate}\t({diff_strerr})")
 
 gamma_hat_pi_diff = gamma_hat_pi - gamma_hat_0
 diff_estimate = np.mean(gamma_hat_pi_diff)
 diff_strerr = np.std(gamma_hat_pi_diff) / np.sqrt(len(gamma_hat_pi_diff))
 
-print("Diference estimate [AIPW]:")
-diff_estimate, diff_strerr
+print(f"Diference estimate [AIPW]: {diff_estimate}\t ({diff_strerr})")
 
 
 # ## Topics 1: Subgroups using learned policy
 # 
 # The learned policy naturally induces interesting subgroups for which we expect the treatment effect to be different. With appropriate sample splitting, we can test that treatment effect is indeed different across "regions" defined by assignment under the learned policy,
 # 
-# $$
+# \begin{equation}
 #   H_0: \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \hat{\pi}(X_i) = 1] = \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \hat{\pi}(X_i) = 0].
-# $$
+# \end{equation}
 # 
 
-# In[25]:
+# In[21]:
 
 
 ## Olny from randomized settings
 
 ## subset test data
 
-data_test = data.iloc[train : ]
-data_test['pi_hat'] = pi_hat
+data_test = simple_split(data, train)[1]
 
+# data_test['pi_hat'] = np.array(pi_hat) # pi_hat as covariate
+pd.DataFrame(data_test)["pi_hat"] = pi_hat # remove warning
 ## Formula
 fmla = outcome + " ~ 0 + C(pi_hat) + w:C(pi_hat)"
 
@@ -622,15 +684,15 @@ ols_coef['Coef.'] = ols_coef['Coef.'] - cost
 ols_coef.iloc[2:4, 0:3]
 
 
-# In[26]:
+# In[22]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness+overlap
 
-gamma_diff = gamma_hat_1 - gamma_hat_0
+gamma_diff = gamma_mtrx_test.iloc[:, 1] -  gamma_mtrx_test.iloc[:, 0]
 
 ### gamma_diff as y 
-ga_df = pd.DataFrame({'gamma_diff': gamma_diff}).iloc[train : ]
+ga_df = pd.DataFrame({'gamma_diff': gamma_diff})
 ga_df['pi_hat'] = pi_hat
 gam_fml = "gamma_diff ~ 0 + C(pi_hat)"
 ols = smf.ols(gam_fml, data = ga_df).fit(cov_type = "HC2").summary2().tables[1].reset_index()
@@ -639,23 +701,24 @@ ols
 
 # If we learned a tree policy using the `policytree`, we can test whether treatment effects are different across leaves.
 # 
-# $$
+# \begin{equation}
 #   H_0: \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \text{Leaf} = 1] = \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \text{Leaf} = \ell] \qquad \text{for }\ell \geq 2
-# $$
+# \end{equation}
 
-# In[27]:
+# In[23]:
 
 
 # Only valid in randomized settings.
+
 fmla = outcome + " ~ + C(leaf) + w:C(leaf)"
 
-data_test['leaf'] = leaf
+pd.DataFrame(data_test)['leaf'] = leaf 
 ols = smf.ols(fmla, data=data_test).fit(cov_type = "HC2")
 ols_coef = ols.summary2().tables[1].reset_index()
 ols_coef.loc[ols_coef["index"].str.contains(":")].iloc[:, 0:3]
 
 
-# In[28]:
+# In[24]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness+overlap.
@@ -667,12 +730,12 @@ ols.iloc[:, 0:3]
 
 # Finally, as we have done in previous chapters, we can check how covariate averages vary across subgroups. This time, the subgroups are defined by treatment assignment under the learned policy.
 # 
-# $$
+# \begin{equation}
 #   H_0: \mathop{\mathrm{E}}[X_{ij} | \hat{\pi}(X_i) = 1] = \mathop{\mathrm{E}}[X_{ij} | \hat{\pi}(X_i) = 0] \qquad \text{for each covariate }j
-# $$
+# \end{equation}
 # 
 
-# In[29]:
+# In[36]:
 
 
 df = pd.DataFrame()
@@ -689,10 +752,7 @@ for var_name in covariates:
     cova1 = pd.Series(np.repeat(var_name,nrow), index = index, name = "covariate")
     avg = pd.Series(ols["Coef."], name="avg")
     stderr = pd.Series(ols["Std.Err."], name = "stderr")
-    # ranking = pd.Series(np.arange(1,nrow+1), index = index, name = "ranking")
-    # ranking = pd.Series(np.array(["Control", "Treatment"]), index = index, name = "pi_hat"),
     scaling = pd.Series(norm.cdf((avg - np.mean(avg))/np.std(avg)), index = index, name = "scaling")
-    # data2 = pd.DataFrame(data=X, columns= covariates)
     variation1= np.std(avg) / np.std(data[var_name])
     variation = pd.Series(np.repeat(variation1, nrow), index = index, name = "variation")
     labels = pd.Series(round(avg,2).astype('str') + "\n" + "(" + round(stderr, 2).astype('str') + ")", index = index, name = "labels")
@@ -703,14 +763,11 @@ for var_name in covariates:
 
 
 df["pi_hat"] = ["Control", "Treatment"]*len(covariates) 
-df.head(3)
 
 
-# In[30]:
-
-
-df1 = df.pivot("covariate", "pi_hat", "scaling").astype(float)
-labels = df.pivot('covariate', 'pi_hat', 'labels').to_numpy()
+df1 = df.pivot("covariate", "pi_hat", "scaling").astype(float).reindex(['polviews', 'educ', 'income', 'sex', 'marital', 'age'])
+df1.reindex(['polviews', 'educ', 'income', 'sex', 'marital', 'age'])
+labels = df.pivot('covariate', 'pi_hat', 'labels').reindex(['polviews', 'educ', 'income', 'sex', 'marital', 'age']).to_numpy()
 
 ax = plt.subplots(figsize=(10, 10))
 ax = sns.heatmap(
@@ -735,111 +792,125 @@ plt.title("Average covariate values within each leaf")
 # Here, we follow [Sun, Du, Wager (2021)](https://arxiv.org/abs/2103.11066) for how to deal with this issue. Their formulation is as follows. In potential outcome notation, each observation can be described by the tuple $(X_i, Y_i(0), Y_i(1), C_i(0), C_i(1))$, where the new pair $(C_i(0), C_i(1))$ represents costs that would be realized if individuals were assigned to control or treatment. Of course, in the data we only observe the tuple $(X_i, W_i, Y_i, C_i)$, where $C_i \equiv C_i(W_i)$. We are interested in approximating the policy $\pi_B^*$ that maximizes the gain from treating relative to not treating anyone while kee\\ping the average relative cost bounded by some known budget $B$,
 # 
 # $$
-#   \\\pi_B^*(x) := \arg\max \mathop{\mathrm{E}}[Y(\pi(X_i))] - \mathop{\mathrm{E}}[Y_i(0)]  \quad \text{such that} \quad \mathop{\mathrm{E}}[C_i(\pi(X_i)) - C_i(0)] \leq B.
+# \begin{equation}
+#   \pi_B^*(x) := \arg\max \mathop{\mathrm{E}}[Y(\pi(X_i))] - \mathop{\mathrm{E}}[Y_i(0)]  \quad \text{such that} \quad \mathop{\mathrm{E}}[C_i(\pi(X_i)) - C_i(0)] \leq B.
+# \end{equation}
 # $$
 # 
 # This paper demonstrates that the optimal policy has the following structure. First, we can order observations in decreasing order according to the following priority ranking,
-# 
-# $$ 
+#  
+# $$
+# \begin{equation} \tag{6.4} \label{rho}
 #   \rho(x) := 
 #     \frac{\mathop{\mathrm{E}}[Y_i(1) - Y_i(0) | X_i = x]}
 #          {\mathop{\mathrm{E}}[C_i(1) - C_i(0) | X_i = x]}.
-# $$ (rho)
+# \end{equation}
+# $$
 # 
-# Then, we assign treatment in decreasing order {eq}`rho` until we either treat everyone with positive $\rho(x)$ or the budget is met. The intuition is that individuals for which {eq}`rho` is high have a high expected treatment effect relative to cost, so by assigning them first we obtain a cost-effective policy. We stop once there's no one else for which treatment is expected to be positive or we run out of resources.
+# Then, we assign treatment in decreasing order \eqref{rho} until we either treat everyone with positive $\rho(x)$ or the budget is met. The intuition is that individuals for which \eqref{rho} is high have a high expected treatment effect relative to cost, so by assigning them first we obtain a cost-effective policy. We stop once there's no one else for which treatment is expected to be positive or we run out of resources.
 # 
-# To obtain estimates $\hat{\rho}$ of {eq}`rho` from the data, we have two options. The first is to estimate the numerator $\widehat{\tau}(x) = \mathop{\mathrm{E}}[Y_i(1) - Y_i(0) |X_i = x]$ and the denominator $\hat{\widehat{\Gamma}}(x) = \mathop{\mathrm{E}}[C_i(1) - C_i(0) |X_i = x]$ separately, in a manner analogous to what we saw in the HTE chapter, and compute their ratio, producing the estimate $\hat{\rho}(x) = \widehat{\tau}(x) / \hat{\widehat{\Gamma}}(x)$. We'll see a second option below. 
+# To obtain estimates $\hat{\rho}$ of \eqref{rho} from the data, we have two options. The first is to estimate the numerator $\widehat{\tau}(x) = \mathop{\mathrm{E}}[Y_i(1) - Y_i(0) |X_i = x]$ and the denominator $\hat{\widehat{\Gamma}}(x) = \mathop{\mathrm{E}}[C_i(1) - C_i(0) |X_i = x]$ separately, in a manner analogous to what we saw in the HTE chapter, and compute their ratio, producing the estimate $\hat{\rho}(x) = \widehat{\tau}(x) / \hat{\widehat{\Gamma}}(x)$. We'll see a second option below. 
 # 
 # Let's put the above into practice. For illustration, we will generate random costs for our data. We'll assume that the costs of treatment are drawn from a conditionally Exponential distribution, and that there are no costs for no treating.
 # 
 
-# In[31]:
+# In[26]:
 
 
-# Creating random costs.
-nrow, ncol = data.shape
-cond = [data['w'] == 1]
-# do_it = [12]
-do_it = [np.random.uniform(0, 1, 1)]
-data['cost'] = C = np.select(cond, do_it, 0)
+# Import random costs, and cost to data.
+cost = np.array(r_random_data[2])
+data['cost'] = cost        
 
 
-# The next snippet compares two kinds of policies. An "ignore costs" policy which, as the name suggests, orders individuals by $\hat{\tau}$ only without taking costs into account; and the "ratio" policy in which the numerator and denominator of {eq}`rho` are estimated separately. The comparison is made via a **cost curve** that compares the cumulative benefit of treatment with its cumulative cost (both normalized to 1), for all possible budgets at once. More cost-effective policies hug the left corner of the graph more tightly, kee\\ping away from the 45-degree line.
+# The next snippet compares two kinds of policies. An "ignore costs" policy which, as the name suggests, orders individuals by $\hat{\tau}$ only without taking costs into account; and the "ratio" policy in which the numerator and denominator of (6.4) are estimated separately. The comparison is made via a **cost curve** that compares the cumulative benefit of treatment with its cumulative cost (both normalized to 1), for all possible budgets at once. More cost-effective policies hug the left corner of the graph more tightly, kee\\ping away from the 45-degree line.
 # 
 # 
 
-# In[32]:
+# In[27]:
 
 
 # Assuming that the assignment probability is known.
 # If these are not known, they must be estimated from the data as usual.
 e = 0.5  
+# Preparing data
 
 y = data[outcome]
 w = data[treatment]
 x = data[covariates]
+d_cost = data['cost']
+
+train = .5
+
+w_hat_train = .5
 
 # Sample splitting. 
 # Note that we can't simply rely on out-of-bag observations here.
-train = int(nrow / 2)
+# train = int(nrow / 2)
 
-# IPW-based estimates of (normalized) treatment and cost
-n_test = int(nrow - nrow / 2)
-treatment_ipw = 1 / n_test * (w.iloc[train : ] / e - (1 - w.iloc[train : ]) / (1 - e)) * y.iloc[train : ]
-cost_ipw = 1 / n_test * w.iloc[train : ] / e * data['cost'].iloc[train : ]
-forest = causal_forest(
-    model_t=RegressionForest(),
-    model_y=RegressionForest(),
-    n_estimators=200, min_samples_leaf=5,
-    max_depth=50, verbose=0, random_state=1
-)
-forest.tune(y.iloc[:train], w.iloc[:train], X=x.iloc[:train], W=None)
+x_train, x_test = simple_split(x, train)
+y_train, y_test = simple_split(y, train)
+w_train, w_test = simple_split(w, train)
+c_train, c_test = simple_split(d_cost, train)
 
-# # Compute predictions on test set
-tau_forest = forest.fit(y.iloc[: train], w.iloc[: train], X=x.iloc[: train], W=None)
-tau_hat = tau_forest.effect(x.iloc[train : ])
+# Outcome models
+m_forest = RegressionForest(n_estimators=2000, random_state = 12)
+m_forest.fit(x_train, c_train)
 
-# Estimating the denominator.
-# Because costs for untreated observations are known to be zero, we're only after E[C(1)|X].
-# Under unconfoundedness, this can be estimated by regressing C on X using only the treated units.
-gamm_forest = forest.fit(data['cost'].iloc[: train], w.iloc[: train], X=x.iloc[: train], W=None)
-gamm_hat = gamm_forest.effect(x.iloc[train : ])
+# time.sleep(10)
+
+# Retrieving forest predictions
+y_hat_train = m_forest.predict(x_test).flatten()
+
+## Estimating the numerator
+tau_forest = CausalForest(n_estimators = 100, max_depth = 50, random_state=12)
+tau_forest.fit(x_train, w_train, y_train)
+
+## Estimating the denominator
+gamma_forest = RegressionForest(n_estimators=200)
+gamma_forest.fit(x_train, c_train)
 
 
-# In[33]:
+### Compute predictions on test set
+
+tau_hat = tau_forest.predict(x_test).flatten()
+gamma_hat = gamma_forest.predict(x_test).flatten()
 
 
 # Rankings
-rank_ignore_cost = (-tau_hat).argsort()
-rank_ratio = (-gamm_hat).argsort()
 
+rank_ignore = np.array(tau_hat).argsort()
+rank_direct = np.array(tau_hat / gamma_hat).argsort()
 
-# In[34]:
+n_test = int(nrow - nrow / 2)
 
+# IPW-based estimates of (normalized) treatment and cost
+w_hat_test = .5
 
-# Create w_hat_test data_frame
-ipw = pd.DataFrame({'treatment_ipw': treatment_ipw, "cost_ipw": cost_ipw})
-ipw['rank_ignore_cost'] = rank_ignore_cost
-ipw['rank_ratio'] = rank_ratio
-
-
-# In[35]:
-
+treatment_ipw = 1 / n_test * (w_test / w_hat_test - (1 - w_test) / (1 - e)) * y_test
+cost_ipw = 1 / n_test * w_test / w_hat_test * c_test
 
 # Cumulative benefit and cost of treatment (normalized) for a policy that ignores costs.
-treatment_value_ignore_cost = np.cumsum(ipw.sort_values("rank_ignore_cost")['treatment_ipw']) / np.sum(ipw['treatment_ipw'])
-treatment_cost_ignore_cost = np.cumsum(ipw.sort_values("rank_ignore_cost")['cost_ipw']) / np.sum(ipw['cost_ipw'])
+
+t_ipw_ig = np.array(treatment_ipw)[rank_ignore[::-1]]
+c_ipw_ig = np.array(cost_ipw)[rank_ignore[::-1]]
+
+treatment_value_ignore = np.cumsum(t_ipw_ig) / np.sum(treatment_ipw)
+treatment_cost_ignore = np.cumsum(c_ipw_ig) / np.sum(cost_ipw)
 
 # Cumulative benefit and cost of treatment (normalized) for a policy that uses the ratio, estimated separately.
-treatment_value_ratio = np.cumsum(ipw.sort_values("rank_ratio")['treatment_ipw']) / np.sum(ipw['treatment_ipw'])
-treatment_cost_ratio = np.cumsum(ipw.sort_values("rank_ratio")['cost_ipw']) / np.sum(ipw['cost_ipw'])
+
+t_ipw_di = np.array(treatment_ipw)[rank_direct[::-1]]
+c_ipw_di = np.array(cost_ipw)[rank_direct[::-1]]
+
+treatment_value_direct = np.cumsum(t_ipw_di) / np.sum(treatment_ipw)
+treatment_cost_direct = np.cumsum(c_ipw_di) / np.sum(cost_ipw)
 
 
-# In[36]:
+# In[28]:
 
 
-plt.plot(treatment_cost_ignore_cost, treatment_value_ignore_cost, '#0d5413', label='Ignoring costs')
-plt.plot(treatment_cost_ratio, treatment_value_ratio, '#7c730d', label='Ratio')
+plt.plot(treatment_cost_ignore, treatment_value_ignore, '#0d5413', label='Ignoring costs')
+plt.plot(treatment_cost_direct, treatment_value_direct, '#7c730d', label='Direct Ratio')
 plt.title("Cost Curves")
 plt.xlabel("(Normalized) cumulative cost")
 plt.ylabel("(Normalized) cumulative value")
@@ -850,70 +921,60 @@ plt.show()
 
 # To read this graph, we consider a point on the horizontal axis, representing a possible (normalized) budget constraint. At that point, whichever policy is higher is more cost-effective.
 # 
-# As the authors note, we can also estimate {eq}`rho` in a second way. First, they note that, under overlap and the following extended unconfoudedness assumption
+# As the authors note, we can also estimate (6.4) in a second way. First, they note that, under overlap and the following extended unconfoudedness assumption
 # 
-# $$
+# \begin{equation}
 #   \{Y_i(0), Y_i(1), C_i(1), C_i(0) \perp W_i | X_i \},
-# $$
+# \end{equation}
 # 
-# we can rewrite {eq}`rho` as
+# we can rewrite (6.4) as
 # 
-# $$
+# \begin{equation} \label{rho-iv} \tag{6.5}
 #   \rho(x) := 
 #     \frac{\text{Cov}[Y_i, W_i | X_i = x]}
 #          {\text{Cov}[C_i, W_i | X_i = x]}.
-# $$ (rho-iv)
+# \end{equation}
 # 
-# As readers with a little more background in causal inference may note, {eq}`rho-iv` coincides with the definition of the conditional local average treatment effect (LATE) if we _were_ to take $W_i$ as an "instrumental variable" and $C_i$ as the "treatment". In fact, instrumental variable methods require different assumptions, so the connection with instrumental variables is tenuous (see the paper for details), but mechanically {eq}`rho-iv` provides us with an estimation procedure: we can use any method used to estimate conditional LATE to produce an estimate $\hat{\rho}$.
+# As readers with a little more background in causal inference may note, \eqref{rho-iv} coincides with the definition of the conditional local average treatment effect (LATE) if we _were_ to take $W_i$ as an "instrumental variable" and $C_i$ as the "treatment". In fact, instrumental variable methods require different assumptions, so the connection with instrumental variables is tenuous (see the paper for details), but mechanically \eqref{rho-iv} provides us with an estimation procedure: we can use any method used to estimate conditional LATE to produce an estimate $\hat{\rho}$.
 # 
 
-# In[37]:
+# In[29]:
 
 
 # Estimating rho(x) directly via instrumental forests.
 # In observational settings, remove the argument W.hat.
-i_f = instrumental_forest().fit(x.iloc[:train], w.iloc[:train], y.iloc[:train], Z = data['cost'].iloc[:train])
+iv_forest = instrumental_forest().fit(x_train, c_train, y_train, Z = w_train)
+rho_iv = iv_forest.predict(x_test)
+rank_iv = (np.concatenate(rho_iv)).argsort()
+# Sorting
+t_v_iv = np.array(treatment_ipw)[rank_iv[::-1]]
+t_c_iv = np.array(cost_ipw)[rank_iv[::-1]]
+
+treatment_value_iv = np.cumsum(t_v_iv) / np.sum(t_v_iv)
+treatment_cost_iv = np.cumsum(t_c_iv) / np.sum(t_c_iv)
 
 
-# In[38]:
+# In[30]:
 
 
-# Predict and compute and estimate of the ranking on a test set.
-rho_iv = i_f.predict(x.iloc[train : ])
-
-
-# In[39]:
-
-
-# Create objects
-ipw['rho_iv']  = rho_iv
-ipw['rank_iv'] = (-rho_iv).argsort()
-
-treatment_valu_iv = np.cumsum(ipw.sort_values("rank_iv")['treatment_ipw']) / sum(ipw['treatment_ipw'])
-treatment_cost_iv = np.cumsum(ipw.sort_values("rank_iv")["cost_ipw"]) / sum(ipw['cost_ipw'])
-
-
-# In[40]:
-
-
-plt.plot(treatment_cost_ignore_cost, treatment_value_ignore_cost, '#0d5413', label='Ignoring costs')
-plt.plot(treatment_cost_ratio, treatment_value_ratio, '#7c730d', label='Ratio')
-plt.plot(treatment_cost_iv, treatment_valu_iv, "#af1313", label = "Sun. Du. Wager (2021)")
+plt.plot(treatment_cost_ignore, treatment_value_ignore, '#0d5413', label='Ignoring costs')
+plt.plot(treatment_cost_direct, treatment_value_direct, '#7c730d', label='Direct Ratio')
+plt.plot(treatment_cost_iv, treatment_value_iv, "#af1313", label = "Sun. Du. Wager (2021)")
 plt.title("Cost Curves")
 plt.xlabel("(Normalized) cumulative cost")
 plt.ylabel("(Normalized) cumulative value")
+plt.plot([0, 1], [0, 1], color = 'black', linewidth = 1.5, linestyle = "dotted")
 plt.legend()
-plt.plot([0, 1], [0, 1], color = 'black', linewidth = 2)
 plt.show()
 
 
 # In this example, both the “direct ratio” and the solution based on instrumental forests have similar performance. This isn’t always the case. When the ratio $\rho(x)$ is simpler relative to $\tau(x)$ and $\gamma(x)$, the solution based on instrumental forests may perform better since it is estimating $\rho(x)$ directly, where the “direct ratio” solution needs to estimate the more complicated objects $\tau(x)$ and $\gamma(x)$ separately. At a high level, we should expect $\rho(x)$ to be relatively simpler when there is a strong relationship between $\tau(x)$ and $\gamma(x)$. Here, our simulated costs seem to be somewhat related to CATE (see the plot below), but perhaps not strongly enough to make the instrumental forest solution noticeably better than the one based on ratios.
 
-# In[41]:
+# In[34]:
 
 
 # plot
-sns.scatterplot(x = gamm_hat, y = tau_hat)
+sns.scatterplot(x = gamma_hat, y = tau_hat, alpha=.2)
 plt.xlabel("Estimated cost (normalized)")
 plt.ylabel("Esimated CATE (normalized)")
 
@@ -922,22 +983,20 @@ plt.ylabel("Esimated CATE (normalized)")
 # 
 # 
 
-# In[42]:
+# In[32]:
 
 
-t_c_i_c = pd.Series(np.array(treatment_cost_ignore_cost))
-t_c_r = pd.Series(np.array(treatment_cost_ratio))
+t_c_i_c = pd.Series(np.array(treatment_cost_ignore))
+t_c_r = pd.Series(np.array(treatment_cost_direct))
 t_c_iv = pd.Series(np.array(treatment_cost_iv))
-ignore = np.sum((np.array(treatment_value_ignore_cost) - t_c_i_c) * (t_c_i_c - t_c_i_c.shift(1)))
-ratio = np.sum((np.array(treatment_value_ratio) - t_c_r) * (t_c_r - t_c_r.shift(1)))
-iv = np.sum((np.array(treatment_valu_iv) - t_c_iv) * (t_c_iv - t_c_iv.shift(1)))
 
-
-# In[43]:
-
+##
+ignore = np.sum((np.array(treatment_value_ignore) - t_c_i_c) * (t_c_i_c - t_c_i_c.shift(1)))
+ratio = np.sum((np.array(treatment_value_direct) - t_c_r) * (t_c_r - t_c_r.shift(1)))
+iv = np.sum((np.array(treatment_value_iv) - t_c_iv) * (t_c_iv - t_c_iv.shift(1)))
 
 pd.DataFrame({
-    "ig": ignore,
+    "ignore": ignore,
      "ratio": ratio,
     "iv" : iv
 }, index = [0])

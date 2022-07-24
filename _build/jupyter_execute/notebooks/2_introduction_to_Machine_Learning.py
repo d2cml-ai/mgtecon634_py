@@ -8,28 +8,15 @@
 # In[1]:
 
 
-# loading relevant packages
+# importing the packages
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import figure
 import seaborn as sns
 import random
 import math
-import statsmodels.formula.api as smf
-from sklearn.metrics import mean_squared_error
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import make_scorer
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import Ridge
-import statsmodels.api as sm
-from scipy.stats import norm
 import warnings
+from sklearn.metrics import mean_squared_error
 from SyncRNG import SyncRNG
 warnings.filterwarnings('ignore')
 get_ipython().run_line_magic('matplotlib', 'inline')
@@ -46,16 +33,11 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 n = 500
 
 # Generating covariate X ~ Unif[-4, 4]
-x = np.linspace(-4, 4, n) #with linspace we can generate a vector of "n" numbers between a range of numbers
+x = np.linspace(-4,4, n) #with linspace we can generate a vector of "n" numbers between a range of numbers
 
-# Generate outcome
-# if x < 0:
-#   y = cos(2*x) + N(0, 1)
-# else:
-#   y = 1-sin(x) + N(0, 1)
 random.shuffle(x) 
-mu = np.where(x<0, np.cos(2*x), 1-np.sin(x))
-y = mu + 1*np.random.normal(size=n)
+mu = np.where(x<0, np.cos(2*x), 1 - np.sin(x) )
+y = mu + 1*np.random.normal(size =n)
 
 # collecting observations in a data.frame object
 data = pd.DataFrame(np.array([x,y]).T, columns=['x','y'])
@@ -81,13 +63,13 @@ plt.ylabel("Outcome y")
 
 # The prediction problem is to accurately guess the value of some output variable $Y_i$ from input variables $X_i$. For example, we might want to predict “house prices given house characteristics such as the number of rooms, age of the building, and so on. The relationship between input and output is modeled in very general terms by some function
 # 
-# $$
+# \begin{equation}\label{eq:true-model} \tag{2.1}
 #   Y_i = f(X_i) + \epsilon_i
-# $$ (true-model)
+# \end{equation}
 # 
 # where $\epsilon_i$ represents all that is not captured by information obtained from $X_i$ via the mapping $f$. We say that error $\epsilon_i$ is irreducible.
 # 
-# We highlight that {eq}`true-model` is **not modeling a causal relationship** between inputs and outputs. For an extreme example, consider taking $Y_i$ to be “distance from the equator” and $X_i$ to be “average temperature.” We can still think of the problem of guessing (“predicting”) “distance from the equator” given some information about “average temperature,” even though one would expect the former to cause the latter.
+# We highlight that \eqref{eq:true-model} is **not modeling a causal relationship** between inputs and outputs. For an extreme example, consider taking $Y_i$ to be “distance from the equator” and $X_i$ to be “average temperature.” We can still think of the problem of guessing (“predicting”) “distance from the equator” given some information about “average temperature,” even though one would expect the former to cause the latter.
 # 
 # In general, we can’t know the “ground truth”  $f$, so we will approximate it from data. Given $n$ data points $\{(X_1, Y_1), \cdots, (X_n, Y_n)\}$, our goal is to obtain an estimated model  $\hat{f}$ such that our predictions $\widehat{Y}_i := \hat{f}(X_i)$ are “close” to the true outcome values $Y_i$ given some criterion. To formalize this, we’ll follow these three steps:
 # 
@@ -98,12 +80,10 @@ plt.ylabel("Outcome y")
 # + **Evaluation:** Evaluate our fitted model $\hat{f}$. That is, if we were given a new, yet unseen, input and output pair $(X',Y')$, we'd like to know if $Y' \approx \hat{f}(X_i)$ by some metric.
 # 
 # For concreteness, let’s work through an example. Let’s say that, given the data simulated above, we’d like to predict $Y_i$ from the first covariate  $X_{i1}$ only. Also, let’s say that our model class will be polynomials of degree $q$ in $X_{i1}$, and we’ll evaluate fit based on mean squared error. That is, $\hat{f}(X_{i1}) = \hat{b}_0 + X_{i1}\hat{b}_1 + \cdots + X_{i1}^q \hat{b}_q$, where the coefficients are obtained by solving the following problem:
-# 
-# $$
+# \begin{equation}
 #   \hat{b} = \arg\min_b \sum_{i=1}^m
 #     \left(Y_i - b_0 - X_{i1}b_1 - \cdots - X_{iq}^q b_q \right)^2
-# $$
-# 
+# \end{equation}
 # An important question is what is $q$, the degree of the polynomial. It controls the complexity of the model. One may imagine that more complex models are better, but that is not always true, because a very flexible model may try to simply interpolate over the data at hand, but fail to generalize well for new data points. We call this **overfitting**. The main feature of overfitting is **high variance**, in the sense that, if we were given a different data set of the same size, we'd likely get a very different model.
 # 
 # To illustrate, in the figure below we let the degree be  $q=10$ but use only the first few data points. The fitted model is shown in green, and the original data points are in red.
@@ -119,27 +99,27 @@ Y = data.loc[:,'y'].values.reshape(-1, 1)
 
 # selecting only a few data points
 subset = np.arange(0,30)
+from sklearn.metrics import mean_squared_error
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.model_selection import train_test_split
 
-# formula for a high-dimensional polynomial regression
-# y ~ 1 + x1 + x1^2 + x1^3 + .... + x1^q
+
 poly = PolynomialFeatures(degree = 10)
 X_poly = poly.fit_transform(X)
 
-# linear regression using only a few observations
 poly.fit(X_poly, Y)
 lin2 = LinearRegression()
 lin2.fit(X_poly[0:30], Y[0:30])
 
-# compute a grid of x1 values we'll use for prediction
 x = data['x']
 xgrid = np.linspace(min(x),max(x), 1000)
+
 new_data = pd.DataFrame(xgrid, columns=['x'])
 
-# predict
 yhat = lin2.predict(poly.fit_transform(new_data))
 
 # Visualising the Polynomial Regression results
-# Plotting observations (in red) and model predictions (in green
 plt.figure(figsize=(18,6))
 sns.scatterplot(data.loc[subset,'x'],data.loc[subset,'y'], color = 'red', label = 'Data')
 plt.plot(xgrid, yhat, color = 'green', label = 'Estimate')
@@ -155,23 +135,18 @@ plt.ylabel('Outcome y')
 # In[5]:
 
 
-# Note: this code assumes that the first covariate is continuous
-# Fitting a very simply model on very little data
-
-# formula for a linear regression (without taking polynomials of x1)
-# y ~ 1 + x1
 lin = LinearRegression()
+
 lin.fit(X[0:30], Y[0:30])
 
-# compute a grid of x1 values we'll use for prediction
+
 x = data['x']
 xgrid = np.linspace(min(x),max(x), 1000)
+
 new_data = pd.DataFrame(xgrid, columns=['x'])
 
-# predict
 yhat = lin.predict(new_data)
 
-# plotting observations (in red) and model predictions (in green)
 plt.figure(figsize=(18,6))
 sns.scatterplot(data.loc[subset,'x'],data.loc[subset,'y'], color = 'red', label = 'Data')
 plt.plot(xgrid, yhat, color = 'green',label = 'Estimate')
@@ -188,37 +163,24 @@ plt.ylabel('Outcome y')
 # In[6]:
 
 
-# polynomial degrees that we'll loop over
-degrees =np.arange(3, 21)
-
-# training data observations: 1 to (n/2)
+degrees =np.arange(3,21)
 train_mse =[]
 test_mse =[]
-
-# looping over each polynomial degree
 for d in degrees:
-    
-    # formula y ~ 1 + x1 + x1^2 + ... + x1^q
-    # linear regression using the formula above
-    # note we're fitting only on the training data observations
-    poly = PolynomialFeatures(degree = d, include_bias =False  )
+    poly =PolynomialFeatures(degree = d, include_bias =False  )
     poly_features = poly.fit_transform(X)
-    
-    # predicting on the training subset
-    # (no need to pass a dataframe)
     X_train, X_test, y_train, y_test = train_test_split(poly_features,y, train_size=0.5 , random_state= 0)
 
-    # Now since we want the valid and test size to be equal (10% each of overall data). 
-    # we have to define valid_size=0.5 (that is 50% of remaining data)
+# Now since we want the valid and test size to be equal (10% each of overall data). 
+# we have to define valid_size=0.5 (that is 50% of remaining data)
+
     poly_reg_model = LinearRegression()
     poly_reg_model.fit(X_train, y_train)
     
-    # predicting on the validation subset
-    # (the minus sign in "-train" excludes observations in the training data)
+    
     y_train_pred = poly_reg_model.predict(X_train)
     y_test_pred = poly_reg_model.predict(X_test)
-    
-    # compute the mse estimate on the validation subset and output it
+
     mse_train= mean_squared_error(y_train, y_train_pred)
     mse_test= mean_squared_error(y_test, y_test_pred)
     
@@ -248,32 +210,27 @@ ax.annotate("High bias \n Low Variance", xy=(5.3, 1.30), xycoords='data', xytext
 # In[8]:
 
 
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import make_scorer
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import KFold
 #cv = KFold(n_splits=10, random_state=1, shuffle=True)
 scorer = make_scorer
 mse =[]
 
-# looping over polynomial degrees (q)
 for d in degrees: 
     
-    # formula y ~ 1 + x1 + x1^2 + ... + x1^q
-    # polynomial degrees that we'll loop over to select
-    poly = PolynomialFeatures(degree = d, include_bias =False  )
+    poly =PolynomialFeatures(degree = d, include_bias =False  )
     poly_features = poly.fit_transform(X)
-    
-    # fit on K-1 folds, leaving out observations in fold.idx
-    # (the minus sign in -fold.idx excludes those observations)
     ols = LinearRegression()
-    
-    # cross-validated mse estimate
     scorer = make_scorer(mean_squared_error)
-    mse_test = cross_val_score(ols, poly_features, y, scoring=scorer, cv =5).mean()
+    mse_test= cross_val_score(ols, poly_features, y, scoring=scorer, cv =5).mean()
     mse.append(mse_test)
 
 
 # In[9]:
 
 
-# plot
 plt.figure(figsize=(12,6))
 plt.plot(degrees, mse)
 plt.xlabel('Polynomial degree', fontsize = 14)
@@ -289,40 +246,36 @@ plt.title('MSE estimate (K-fold cross validation)', fontsize =16)
 # In[10]:
 
 
-# Note this code assumes that the first covariate is continuous
-# Fitting a flexible model on a lot of data
-
-# now using much more data
-subset = np.arange(0,500)
-
-
 X = data.loc[:,'x'].values.reshape(-1, 1)
 Y = data.loc[:,'y'].values.reshape(-1, 1)
 
-# formula for high order polynomial regression
-# y ~ 1 + x1 + x1^2 + ... + x1^q
-poly = PolynomialFeatures(degree = 15)
 
-# linear regression
+subset = np.arange(0,500)
+
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+
+
+poly = PolynomialFeatures(degree = 15)
 X_poly = poly.fit_transform(X)
+
 poly.fit(X_poly, Y)
 lin2 = LinearRegression()
 lin2.fit(X_poly[0:500], Y[0:500])
 
-# compute a grid of x1 values we'll use for prediction
 x = data['x']
 xgrid = np.linspace(min(x),max(x), 1000)
+
 new_data = pd.DataFrame(xgrid, columns=['x'])
 
-# predict
 yhat = lin2.predict(poly.fit_transform(new_data))
 
 # Visualising the Polynomial Regression results
-# plotting observations (in red) and model predictions (in green)
 plt.figure(figsize=(18,6))
 sns.scatterplot(data.loc[subset,'x'],data.loc[subset,'y'], color = 'red', label = 'Data')
 plt.plot(xgrid, yhat, color = 'green', label = 'Estimate')
 sns.lineplot(x,mu, color = 'black', label = "Ground truth")
+
 plt.xlabel('X')
 plt.ylabel('Outcome')
 
@@ -346,11 +299,6 @@ plt.ylabel('Outcome')
 import requests
 import io
 
-
-# In[12]:
-
-
-# load dataset
 url = 'https://docs.google.com/uc?id=1qHr-6nN7pCbU8JUtbRDtMzUKqS9ZlZcR&export=download'
 urlData = requests.get(url).content
 data = pd.read_csv(io.StringIO(urlData.decode('utf-8')))
@@ -364,11 +312,15 @@ true_covariates = ['LOT','UNITSF','BUILT','BATHS','BEDRMS','DINING','METRO','CRA
 p_true = len(true_covariates)
 
 # noise covariates added for didactic reasons
+
 p_noise = 20
+
 noise_covariates = []
 for x in range(1, p_noise+1):
     noise_covariates.append('noise{0}'.format(x))
+
 covariates = true_covariates + noise_covariates
+
 x_noise = np.random.rand(data.shape[0] * p_noise).reshape(28727,20)
 x_noise = pd.DataFrame(x_noise, columns=noise_covariates)
 data = pd.concat([data, x_noise], axis=1)
@@ -382,7 +334,7 @@ p = len(covariates)
 
 # Here's the correlation between the first few covariates. Note how, most variables are positively correlated, which is expected since houses with more bedrooms will usually also have more bathrooms, larger area, etc.
 
-# In[13]:
+# In[12]:
 
 
 data.loc[:,covariates[0:8]].corr()
@@ -393,20 +345,20 @@ data.loc[:,covariates[0:8]].corr()
 # 
 # This class of models extends common methods such as linear and logistic regression by adding a penalty to the magnitude of the coefficients. **Lasso** penalizes the absolute value of slope coefficients. For regression problems, it becomes
 # 
-# $$
+# \begin{equation}\label{eq:lasso}\tag{2.2}
 #   \hat{b}_{Lasso} = \arg\min_b \sum_{i=1}^m
 #     \left( Y_i - b_0 - X_{i1}b_1 - \cdots - X_{ip}b_p \right)^2
 #     - \lambda \sum_{j=1}^p |b_j|
-# $$ (lasso)
+# \end{equation}
 # 
 # 
 # Similarly, in a regression problem **Ridge** penalizes the sum of squares of the slope coefficients,
 # 
-# $$
+# \begin{equation}\label{eq:ridge}\tag{2.3}
 #   \hat{b}_{Ridge} = \arg\min_b \sum_{i=1}^m
 #     \left( Y_i - b_0 - X_{i1}b_1 - \cdots - X_{ip}b_p \right)^2
 #     - \lambda \sum_{j=1}^p b_j^2
-# $$ (ridge)
+# \end{equation}
 # 
 # Also, there exists the **Elastic Net** penalization which consists of a convex combination between the other two. In all cases, the scalar parameter
 # $\lambda$ controls the complexity of the model. For $\lambda=0$, the problem reduces to the “usual” linear regression. As $\lambda$ increases, we favor simpler models. As we’ll see below, the optimal parameter $\lambda$ is selected via cross-validation.
@@ -415,31 +367,22 @@ data.loc[:,covariates[0:8]].corr()
 # 
 # Another interesting property of these models is that, even though they are called “linear” models, this should actually be understood as **linear in transformations** of the covariates. For example, we could use polynomials or splines (continuous piecewise polynomials) of the covariates and allow for much more flexible models.
 # 
-# In fact, because of the penalization term, problems {eq}`lasso` and {eq}`ridge` remain well-defined and have a unique solution even in **high-dimensional** problems in which the number of coefficients $p$ is larger than the sample size $n$ – that is, our data is “fat” with more columns than rows. These situations can arise either naturally (e.g. genomics problems in which we have hundreds of thousands of gene expression information for a few individuals) or because we are including many transformations of a smaller set of covariates.
+# In fact, because of the penalization term, problems \eqref{eq:lasso} and \eqref{eq:ridge} remain well-defined and have a unique solution even in **high-dimensional** problems in which the number of coefficients $p$ is larger than the sample size $n$ – that is, our data is “fat” with more columns than rows. These situations can arise either naturally (e.g. genomics problems in which we have hundreds of thousands of gene expression information for a few individuals) or because we are including many transformations of a smaller set of covariates.
 # 
 # Finally, although here we are focusing on regression problems, other generalized linear models such as logistic regression can also be similarly modified by adding a Lasso, Ridge, or Elastic Net-type penalty to similar consequences.
-# 
 
-# In[14]:
+# In[13]:
 
 
 X = data.loc[:,covariates]
 Y = data.loc[:,outcome]
 
 
-# In[15]:
+# In[14]:
 
 
 from sklearn.linear_model import Lasso
 
-
-# In[16]:
-
-
-# A formula of type "~ x1 + x2 + ..." (right-hand side only) to
-# indicate how covariates should enter the model. If you'd like to add, e.g.,
-# third-order polynomials in x1, you could do so here by modifying the formula
-# to be something like  "~ poly(x1, 3) + x2 + ..."
 lasso = Lasso()
 alphas = np.logspace(np.log10(1e-8), np.log10(1e-1), 100)
 
@@ -448,16 +391,7 @@ n_folds = 10
 
 scorer = make_scorer(mean_squared_error)
 
-# Use this formula instead if you'd like to fit on piecewise polynomials
-# fmla <- formula(paste(" ~ 0 + ", paste0("bs(", covariates, ", df=5)", collapse=" + ")))
-
-# Function model.matrix selects the covariates according to the formula
-# above and expands the covariates accordingly. In addition, if any column
-# is a factor, then this creates dummies (one-hot encoding) as well.
 clf = GridSearchCV(lasso, tuned_parameters, cv=n_folds, refit=False, scoring=scorer)
-
-# Fit a lasso model.
-# Note this automatically performs cross-validation.
 clf.fit(X, Y)
 scores = clf.cv_results_["mean_test_score"]
 scores_std = clf.cv_results_["std_test_score"]
@@ -465,14 +399,14 @@ scores_std = clf.cv_results_["std_test_score"]
 
 # The next figure plots the average estimated MSE for each lambda. The red dots are the averages across all folds, and the error bars are based on the variability of mse estimates across folds. The vertical dashed lines show the (log) lambda with smallest estimated MSE (left) and the one whose mse is at most one standard error from the first (right).
 
-# In[17]:
+# In[15]:
 
 
 data_lasso = pd.DataFrame([pd.Series(alphas, name= "alphas"), pd.Series(scores, name = "scores")]).T
 best = data_lasso[data_lasso["scores"] == np.min(data_lasso["scores"])]
 
 
-# In[18]:
+# In[16]:
 
 
 plt.figure().set_size_inches(8, 6)
@@ -495,10 +429,9 @@ plt.xlim([alphas[0], alphas[-1]])
 
 # Here are the first few estimated coefficients at the $\lambda$ value that minimizes cross-validated MSE. Note that many estimated coefficients them are exactly zero.
 
-# In[19]:
+# In[17]:
 
 
-# Estimated coefficients at the lambda value that minimized cross-validated MSE
 lasso = Lasso(alpha=best.iloc[0,0])
 lasso.fit(X,Y)
 table = np.zeros((1,5))
@@ -507,10 +440,10 @@ table[0,1] = lasso.coef_[0]
 table[0,2] = lasso.coef_[1]
 table[0,3] = lasso.coef_[2]
 table[0,4] = lasso.coef_[3]
-pd.DataFrame(table, columns=['(Intercept)','LOT','UNITSF','BUILT','BATHS'], index=['Coef.']) # showing only first coefficients
+pd.DataFrame(table, columns=['(Intercept)','LOT','UNITSF','BUILT','BATHS'], index=['Coef.'])
 
 
-# In[20]:
+# In[18]:
 
 
 print("Number of nonzero coefficients at optimal lambda:", len(lasso.coef_[lasso.coef_ != 0]), "out of " , len(lasso.coef_)) 
@@ -519,7 +452,7 @@ print("Number of nonzero coefficients at optimal lambda:", len(lasso.coef_[lasso
 # Predictions and estimated MSE for the selected model are retrieved as follows.
 # 
 
-# In[21]:
+# In[19]:
 
 
 # Retrieve predictions at best lambda regularization parameter
@@ -534,7 +467,7 @@ print("glmnet MSE estimate (k-fold cross-validation):", mse_lasso)
 # The next command plots estimated coefficients as a function of the regularization parameter $\lambda$.
 # 
 
-# In[22]:
+# In[20]:
 
 
 coefs = []
@@ -544,8 +477,10 @@ for a in alphas:
     coefs.append(lasso.coef_)
 
 
-# In[23]:
+# In[21]:
 
+
+from matplotlib.pyplot import figure
 
 plt.figure(figsize=(18,6))
 plt.gca().plot(alphas, coefs)
@@ -560,12 +495,9 @@ plt.title('Lasso coefficients as a function of alpha');
 # 
 # It's tempting to try to interpret the coefficients obtained via Lasso. Unfortunately, that can be very difficult, because by dropping covariates Lasso introduces a form of **omitted variable bias** ([wikipedia](https://en.wikipedia.org/wiki/Omitted-variable_bias)). To understand this form of bias, consider the following toy example. We have two positively correlated independent variables, `x.1` and `x.2`, that are linearly related to the outcome `y`. Linear regression of `y` on `x1` and `x2` gives us the correct coefficients. However, if we _omit_ `x2` from the estimation model, the coefficient on `x1` increases. This is because `x1` is now "picking up" the effect of the variable that was left out. In other words, the effect of `x1` seems stronger because we aren't controlling for some other confounding variable. Note that the second model this still works for prediction, but we cannot interpret the coefficient as a measure of strength of the causal relationship between `x1` and `y`.
 
-# In[24]:
+# In[22]:
 
 
-# Generating some data 
-# y = 1 + 2*x1 + 3*x2 + noise, where corr(x1, x2) = .5
-# note the sample size is very large -- this isn't solved by big data!
 mean = [0.0,0.0]
 cov = [[1.5,1],[1,1.5]]
 
@@ -576,14 +508,16 @@ data_sim = pd.DataFrame(np.array([x1,x2,y]).T,columns=['x1','x2','y'] )
 print('Correct Model')
 
 
-# In[25]:
+# In[23]:
 
+
+import statsmodels.formula.api as smf
 
 result = smf.ols('y ~ x1 + x2', data = data_sim).fit()
 print(result.summary())
 
 
-# In[26]:
+# In[24]:
 
 
 print("Model with omitted variable bias")
@@ -599,61 +533,46 @@ print(result.summary())
 # 
 # We illustrate this next. We observe the path of the estimated coefficient on the number of bathroooms (`BATHS`) as we increase $\lambda$.
 
-# In[27]:
+# In[25]:
 
 
-# prepare data
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import Ridge
+
 scale_X = StandardScaler().fit(X).transform(X)
-
-###############################################
-# fit ols model
 ols = LinearRegression()
 ols.fit(scale_X,Y)
 ols_coef = ols.coef_[3]
 lamdas = np.linspace(0.01,0.4, 100)
 
-# retrieve ols coefficients
+
 coef_ols = np.repeat(ols_coef,100)
-
 ###############################################
-# fit lasso model
-lasso_bath_coef = []
 
-# retrieve lasso coefficients
+lasso_bath_coef = []
 lasso_coefs=[]
 for a in lamdas:
     lasso.set_params(alpha=a,normalize = False)
     lasso.fit(scale_X, Y)
     lasso_bath_coef.append(lasso.coef_[3])
     lasso_coefs.append(lasso.coef_)
-    
 #################################################   
-# fit ridge model
-ridge_bath_coef = []
 
-# retrieve ridge coefficients
+ridge_bath_coef = []
 for a in lamdas:
     ridge = Ridge(alpha=a,normalize = True)
     ridge.fit(scale_X, Y)
     ridge_bath_coef.append(ridge.coef_[3])
-    
 ####################################################
-# fit post-lasso model
+
 poslasso_coef = [ ]
-
-#loop over lasso coefficients and re-fit OLS to get post-lasso coefficients
 for a in range(100):
-    
-    # which slopes are non-zero
     scale_X = StandardScaler().fit(X.iloc[:, (lasso_coefs[a] !=  0)]).transform(X.iloc[:, (lasso_coefs[a] !=  0)])
-
-    # if there are any non zero coefficients, estimate OLS
     ols = LinearRegression()
     ols.fit(scale_X,Y)  
-
-    # populate post-lasso coefficients
     post_coef = ols.coef_[X.iloc[:, (lasso_coefs[a] !=  0)].columns.get_loc('BATHS')]                             
     poslasso_coef.append(post_coef )    
+    
     
 #################################################
 plt.figure(figsize=(18,5))
@@ -669,7 +588,7 @@ plt.xlabel('lambda')
 
 # The OLS coefficients are not penalized, so they remain constant. Ridge estimates decrease monotonically as $\lambda$ grows. Also, for this dataset, Lasso estimates first increase and then decrease. Meanwhile, the post-lasso coefficient estimates seem to behave somewhat erratically with $lambda$. To understand this behavior, let's see what happens to the magnitude of other selected variables that are correlated with `BATHS`. 
 
-# In[28]:
+# In[26]:
 
 
 scale_X = StandardScaler().fit(X).transform(X)
@@ -684,7 +603,7 @@ for a in lamdas:
     DINING_coef.append(lasso.coef_[5])
 
 
-# In[29]:
+# In[27]:
 
 
 plt.figure(figsize=(18,5))
@@ -700,38 +619,35 @@ plt.xlabel('lambda')
 # 
 # Another problem with Lasso coefficients is their instability. When multiple variables are highly correlated we may spuriously drop several of them. To get a sense of the amount of variability, in the next snippet we fix $\lambda$ and then look at the lasso coefficients estimated during cross-validation. We see that by simply removing one fold we can get a very different set of coefficients (nonzero coefficients are in black in the heatmap below). This is because there may be many choices of coefficients with similar predictive power, so the set of nonzero coefficients we end up with can be quite unstable.
 
-# In[30]:
+# In[28]:
 
 
 import itertools
-
-# Fixing lambda. This choice is not very important; the same occurs any intermediate lambda value.
 nobs = X.shape[0]
-nfold = 10
 
-# Define folds indices 
+nfold = 10
+    # Define folds indices 
 list_1 = [*range(0, nfold, 1)]*nobs
 sample = np.random.choice(nobs,nobs, replace=False).tolist()
 foldid = [list_1[index] for index in sample]
 
-# Create split function(similar to R)
+    # Create split function(similar to R)
 def split(x, f):
     count = max(f) + 1
     return tuple( list(itertools.compress(x, (el == i for el in f))) for i in range(count) ) 
 
-# Split observation indices into folds 
+    # Split observation indices into folds 
 list_2 = [*range(0, nobs, 1)]
 I = split(list_2, foldid)
 
 
-# In[31]:
+# In[29]:
 
 
 from sklearn.linear_model import LassoCV
 
 scale_X = StandardScaler().fit(X).transform(X)
 lasso_coef_fold=[]
-
 for b in range(0,len(I)):
     
         # Split data - index to keep are in mask as booleans
@@ -743,9 +659,10 @@ for b in range(0,len(I)):
         lassocv = LassoCV(random_state=0)
         lassocv.fit(scale_X[~mask], Y[~mask])
         lasso_coef_fold.append(lassocv.coef_)
+       
 
 
-# In[32]:
+# In[30]:
 
 
 index_val = ['Fold-1','Fold-2','Fold-3','Fold-4','Fold-5','Fold-6','Fold-7','Fold-8','Fold-9','Fold-10']
@@ -755,33 +672,28 @@ df.style.applymap(lambda x: "background-color: white" if x==0 else "background-c
 
 # As we have seen above, any interpretation needs to take into account the joint distribution of covariates. One possible heuristic is to consider **data-driven subgroups**. For example, we can analyze what differentiates observations whose predictions are high from those whose predictions are low. The following code estimates a flexible Lasso model with splines, ranks the observations into a few subgroups according to their predicted outcomes, and then estimates the average covariate value for each subgroup.  
 
-# In[33]:
+# In[31]:
 
 
 import itertools
-
-# Number of data-driven subgroups.
 nobs = X.shape[0]
 
-# Fold indices
 nfold = 5
-
-# Define folds indices 
+    # Define folds indices 
 list_1 = [*range(0, nfold, 1)]*nobs
 sample = np.random.choice(nobs,nobs, replace=False).tolist()
 foldid = [list_1[index] for index in sample]
 
-# Create split function(similar to R)
+    # Create split function(similar to R)
 def split(x, f):
     count = max(f) + 1
     return tuple( list(itertools.compress(x, (el == i for el in f))) for i in range(count) ) 
 
-# Split observation indices into folds 
+    # Split observation indices into folds 
 list_2 = [*range(0, nobs, 1)]
 I = split(list_2, foldid)
 
-# Fit a lasso model.
-# Passing foldid argument so we know which observations are in each fold.
+
 lasso_coef_rank=[]
 lasso_pred = []
 for b in range(0,len(I)):
@@ -790,13 +702,14 @@ for b in range(0,len(I)):
         mask = np.array([(i in include_idx) for i in range(len(X))])
 
         # Lasso regression, excluding folds selected 
+        
         lassocv = LassoCV(random_state=0)
         lassocv.fit(scale_X[~mask], Y[~mask])
         lasso_coef_rank.append(lassocv.coef_)
         lasso_pred.append(lassocv.predict(scale_X[mask]))
 
 
-# In[34]:
+# In[32]:
 
 
 y_hat = lasso_pred
@@ -805,32 +718,37 @@ df_1 = pd.DataFrame()
 for i in [0,1,2,3,4]:
     df_2 = pd.DataFrame(y_hat[i])
     
-    b = pd.cut(df_2[0], bins =[np.percentile(df_2,0),np.percentile(df_2,25),np.percentile(df_2,50),
+    b =pd.cut(df_2[0], bins =[np.percentile(df_2,0),np.percentile(df_2,25),np.percentile(df_2,50),
            np.percentile(df_2,75),np.percentile(df_2,100)], labels = [1,2,3,4])
     
     df_1 = pd.concat([df_1, b])
-df_1 = df_1.apply(lambda x: pd.factorize(x)[0])
+df_1 =df_1.apply(lambda x: pd.factorize(x)[0])
 df_1.rename(columns={0:'ranking'}, inplace=True)
-df_1 = df_1.reset_index().drop(columns=['index'])
+df_1 =df_1.reset_index().drop(columns=['index'])
 
 
-# In[35]:
+# In[33]:
+
+
+import statsmodels.api as sm
+from scipy.stats import norm
+import statsmodels.formula.api as smf
+
+
+# In[34]:
 
 
 y = X
 x = df_1
 y = pd.DataFrame(y)
 x = pd.DataFrame(x)
-
-# Ranking observations.
 y['ranking'] = x
 data = y
 
 
-# In[36]:
+# In[35]:
 
 
-# Estimate expected covariate per subgroup
 data_frame = pd.DataFrame()
 for var_name in covariates:
     form = var_name + " ~ " + "0" + "+" + "C(ranking)"
@@ -856,7 +774,7 @@ for var_name in covariates:
 data_frame;
 
 
-# In[37]:
+# In[36]:
 
 
 labels_data = pd.DataFrame()
@@ -870,7 +788,7 @@ labels_data
 
 # The next heatmap visualizes the results. Note how observations ranked higher (i.e., were predicted to have higher prices) have more bedrooms and baths, were built more recently, have fewer cracks, and so on. The next snippet of code displays the average covariate per group along with each standard errors. The rows are ordered according to $Var(E[X_{ij} | G_i) / Var(X_i)$, where $G_i$ denotes the ranking. This is a rough normalized measure of how much variation is "explained" by group membership $G_i$. Brighter colors indicate larger values.
 
-# In[38]:
+# In[37]:
 
 
 new_data = pd.DataFrame()
@@ -881,10 +799,9 @@ for i in range(0,4):
 new_data;
 
 
-# In[39]:
+# In[38]:
 
 
-# plot heatmap
 features = covariates
 ranks = ['G1','G2','G3','G4']
 harvest =  np.array(round(new_data,3))
@@ -905,6 +822,7 @@ bar = plt.colorbar(im, shrink=0.2)
 # show plot with labels
 bar.set_label('scaling')
 
+ 
 # Setting the labels
 ax.set_xticks(np.arange(len(ranks)))
 ax.set_yticks(np.arange(len(features)))
@@ -925,6 +843,7 @@ for i in range(len(features)):
 ax.set_title("Average covariate values within group (based on prediction ranking)")
 fig.tight_layout()
 
+
 plt.show()
 
 
@@ -932,7 +851,6 @@ plt.show()
 # As we just saw above, houses that have, e.g., been built more recently (`BUILT`), have more baths (`BATHS`) are associated with larger price predictions.
 # 
 # This sort of interpretation exercise did not rely on reading any coefficients, and in fact it could also be done using any other flexible method, including decisions trees and forests.
-# 
 
 # ### Decision Tree
 
@@ -945,7 +863,7 @@ plt.show()
 # At prediction time, to find the predictions for some point $x$, we just follow the tree we just built, going left or right according to the selected variables and split points, until we reach a terminal node. Then, for regression problems, the predicted value at some point $x$ is the average outcome of the observations in the same partition as the point $x$. For classification problems, we output the majority class in the node.
 # 
 
-# In[40]:
+# In[39]:
 
 
 from sklearn.tree import DecisionTreeRegressor
@@ -966,19 +884,32 @@ from sklearn import tree
 from sklearn.model_selection import train_test_split
 
 
-# In[137]:
+# In[5]:
 
 
-# Fit tree without pruning first
+#Here we define our X and Y variable
+Y = data.loc[:,outcome]
 XX = data.loc[:,covariates]
-dt = DecisionTreeRegressor(ccp_alpha=0, max_depth= 15, random_state=0)
+
+
+# In[6]:
+
+
+# we split data in train and test
 x_train, x_test, y_train, y_test = train_test_split(XX.to_numpy(), Y, test_size=.3)
+
+
+# In[7]:
+
+
+dt = DecisionTreeRegressor( max_depth=15, random_state=0)
+#x_train, x_test, y_train, y_test = train_test_split(XX.to_numpy(), Y, test_size=.3)
 tree1 = dt.fit(x_train,y_train)
 
 
 # At this point, we have not constrained the complexity of the tree in any way, so it's likely too deep and probably overfits. Here’s a plot of what we have so far (without bothering to label the splits to avoid clutter).
 
-# In[135]:
+# In[7]:
 
 
 from sklearn import tree
@@ -989,53 +920,36 @@ tree.plot_tree(dt)
 # 
 # To reduce the complexity of the tree, we **prune** the tree: we collapse its leaves, permitting bias to increase but forcing variance to decrease until the desired trade-off is achieved. In `rpart`, this is done by considering a modified loss function that takes into account the number of terminal nodes (i.e., the number of regions in which the original data was partitioned). Somewhat heuristically, if we denote tree predictions by $T(x)$ and its number of terminal nodes by  $|T|$, the modified regression problem can be written as:
 # 
-# $$
-#   \widehat{T} = \arg\min_{T} \sum_{i=1}^m \left( T(X_i) - Y_i \right)^2 + c_p |T|
-# $$ (pruned-tree)
 # 
-# The complexity of the tree is controlled by the scalar parameter $c_p$, denoted as `ccp_alpha` in `sklearn.tree.DecisionTreeRegressor`. For each value of $c_p$, we find the subtree that solves {eq}`pruned-tree`. Large values of $c_p$ lead to aggressively pruned trees, which have more bias and less variance. Small values of $c_p$ allow for deeper trees whose predictions can vary more wildly.
+#   
+# \begin{equation}\label{eq:pruned-tree}\tag{2.4}
+#   \widehat{T} = \arg\min_{T} \sum_{i=1}^m \left( T(X_i) - Y_i \right)^2 + c_p |T|
+# \end{equation}
+# 
+# 
+# The complexity of the tree is controlled by the scalar parameter $c_p$, denoted as `ccp_alpha` in `sklearn.tree.DecisionTreeRegressor`. For each value of $c_p$, we find the subtree that solves \eqref{eq:pruned-tree}. Large values of $c_p$ lead to aggressively pruned trees, which have more bias and less variance. Small values of $c_p$ allow for deeper trees whose predictions can vary more wildly.
 
-# In[323]:
-
-
-max_depth = []
-mse_gini = []
-for i in range(1,30):
-    dtree = DecisionTreeRegressor( max_depth=i, random_state = 0)
-    dtree.fit(x_train, y_train)
-    pred = dtree.predict(x_test)
-    mse_gini.append(mean_squared_error(y_test, pred))
-    max_depth.append(i)
-
-d1 = pd.DataFrame({'acc_gini':pd.Series(mse_gini),'max_depth':pd.Series(max_depth)})
-
-# visualizing changes in parameters
-plt.figure(figsize=(18,5))
-plt.plot('max_depth','acc_gini', data=d1, label='mse', marker="o")
-plt.xlabel('max_depth')
-plt.ylabel('mse')
-plt.legend()
+# In[8]:
 
 
-# In[138]:
-
-
+import itertools
 path = dt.cost_complexity_pruning_path(x_train,y_train)
-alphas_dt = pd.Series(path['ccp_alphas'], name = "alphas")
+alphas_dt = pd.Series(path['ccp_alphas'], name = "alphas").unique()
 
 
-# In[149]:
+# In[56]:
 
 
 # A function with a manual cross validation
-def run_cross_validation_on_trees(X, y, tree_ccp, nfold=10):
-    cv_scores_list = []
-    cv_scores_mean = []
-    cv_scores_std = []
-    cp_table = []
+#This function can replicate cp_table that R's rplot package creates to get the best complexity parameter
+#This function can be used to prune the tree but it is a lar process, so if you have the computational power, you can use this function
+'''
+def run_cross_validation_on_trees2(X, y, tree_ccp, nfold=10):
+
     cp_table_error = []
     cp_table_std = []
     cp_table_rel_error = []
+    cp_table_size = []
    
      # Num ob observations
     nobs = y.shape[0]
@@ -1055,94 +969,58 @@ def run_cross_validation_on_trees(X, y, tree_ccp, nfold=10):
     I = split(list_2, foldid)
     
     for i in tree_ccp:
+        cv_error_list = []
+        cv_rel_error_list = []
+        
         dtree = DecisionTreeRegressor( ccp_alpha= i, random_state = 0)
         
     # loop to save results
         for b in range(0,len(I)):
+            
             # Split data - index to keep are in mask as booleans
             include_idx = set(I[b])  #Here should go I[b] Set is more efficient, but doesn't reorder your elements if that is desireable
             mask = np.array([(a in include_idx) for a in range(len(y))])
             
             dtree.fit(X[~mask], Y[~mask])
             pred = dtree.predict(X[mask])
-            xerror_fold = np.mean(np.power(Y[mask] - pred,2))
-            rel_error_fold = 1- r2_score(Y[mask], pred)
-            cv_scores_list.append(xerror_fold)
-            rel_error = np.mean(rel_error_fold)
-            xerror = np.mean(cv_scores_list)
-            xstd = np.std(cv_scores_list)
+            xerror_fold = np.mean(np.power(pred - y[mask],2))
+            rel_error_fold = 1- r2_score(y[mask], pred)
+            
+            cv_error_list.append(xerror_fold)
+            cv_rel_error_list.append(rel_error_fold)
+            
+        rel_error = np.mean(cv_rel_error_list)
+        xerror = np.mean(cv_error_list)
+        xstd = np.std(cv_error_list)
 
         cp_table_rel_error.append(rel_error)
         cp_table_error.append(xerror)
         cp_table_std.append(xstd)
-    cp_table = pd.DataFrame([pd.Series(alphas_dt, name = "cp"), pd.Series(cp_table_rel_error, name = "rel error")
-                         ,pd.Series(cp_table_error, name = "xerror"),
+        cp_table_size.append(dtree.tree_.node_count)
+    cp_table = pd.DataFrame([pd.Series(tree_ccp, name = "cp"), pd.Series(cp_table_size, name = "size")
+                        , pd.Series(cp_table_rel_error, name = "rel error"),
+                         pd.Series(cp_table_error, name = "xerror"),
                          pd.Series(cp_table_std, name = "xstd")]).T    
-    return cp_table 
+    return cp_table
+'''
 
 
-# In[150]:
+# In[13]:
 
 
-sm_tree_ccp = alphas_dt[0:3]
-cp_table = run_cross_validation_on_trees(XX, Y, sm_tree_ccp)
-
-
-# In[152]:
-
-
-cp_table.head()
-
-
-# In[143]:
-
-
-def run_cross_validation_on_trees(X, y, tree_ccp, cv=5, scoring='neg_mean_squared_error'):
-    cv_scores_list = []
-    cv_scores_std = []
-    cv_scores_mean = []
-    MSE_scores = []
-    
-    for ccp in tree_ccp:
-        tree_model = DecisionTreeRegressor(ccp_alpha= ccp, random_state=0)
-        cv_scores = -1*cross_val_score(tree_model, X, y, cv=cv, scoring= scoring)
-        cv_scores_list.append(cv_scores)
-        cv_scores_mean.append(cv_scores.mean())
-        cv_scores_std.append(cv_scores.std())
-        
-    # MSE_scores.append(tree_model.fit(X, y).score(X, y))
-    cv_scores_mean = np.array(cv_scores_mean)
-    cv_scores_std = np.array(cv_scores_std)
-    
-    # MSE_scores = np.array(MSE_scores)
-    return cv_scores_mean, cv_scores_std
-
-# fitting trees
-sm_tree_ccp = alphas_dt[:10] #it should run all alphas, but it takes too long
-sm_cv_scores_mean, sm_cv_scores_std = run_cross_validation_on_trees(XX, Y, sm_tree_ccp)
-sm_cv_scores_mean
-
-
-# In[145]:
-
-
-cp_table = pd.DataFrame([pd.Series(alphas_dt, name = "cp"), pd.Series(sm_cv_scores_mean, name = "MSE"),
-              pd.Series(sm_cv_scores_std/math.sqrt(10), name = "xstd")]).T
-cp_table
-
-
-# In[326]:
-
-
+#Here we create a loop to get an arrange with all Mean Squared Errors for each cp_alpha
+from sklearn.metrics import mean_squared_error
 mse_gini = []
+cp_table_size = []
 for i in alphas_dt:
     dtree = DecisionTreeRegressor( ccp_alpha=i, random_state = 0)
     dtree.fit(x_train, y_train)
     pred = dtree.predict(x_test)
     mse_gini.append(mean_squared_error(y_test, pred))
+    cp_table_size.append(dtree.tree_.node_count)
 
 
-# In[327]:
+# In[123]:
 
 
 d2 = pd.DataFrame({'acc_gini':pd.Series(mse_gini),'ccp_alphas':pd.Series(alphas_dt)})
@@ -1161,51 +1039,108 @@ plt.tick_params( axis='x', labelsize=15, length=0, labelrotation=0)
 plt.tick_params( axis='y', labelsize=15, length=0, labelrotation=0)
 plt.grid()
 
-plt.xlabel('ccp_alphas', fontsize = 15)
+
+plt.xlabel('cp', fontsize = 15)
 plt.ylabel('mse', fontsize = 15)
 plt.legend()
 
 
-# In[328]:
+# In[34]:
 
 
-mse_dt = pd.Series(mse_gini, name = "mse")
-filter_df = pd.DataFrame(data= [alphas_dt, mse_dt]).T
+#It is a function to get the best max_depth parametor with cross-validation
+def prune_max_depth(X, y, nfold=10):
+    cv_mean_mse = []
+    max_depth = []
+     # Num ob observations
+    nobs = y.shape[0]
+    
+    # Define folds indices 
+    list_1 = [*range(0, nfold, 1)]*nobs
+    sample = np.random.choice(nobs,nobs, replace=False).tolist()
+    foldid = [list_1[index] for index in sample]
+
+    # Create split function(similar to R)
+    def split(x, f):
+        count = max(f) + 1
+        return tuple( list(itertools.compress(x, (el == i for el in f))) for i in range(count) ) 
+
+    # Split observation indices into folds 
+    list_2 = [*range(0, nobs, 1)]
+    I = split(list_2, foldid)
+    
+    for i in range(1,20):
+        max_depth.append(i)
+        mse_depth = []
+        dtree = DecisionTreeRegressor( max_depth=i, random_state = 0)
+        
+        for b in range(0,len(I)):
+            
+            # Split data - index to keep are in mask as booleans
+            include_idx = set(I[b])  #Here should go I[b] Set is more efficient, but doesn't reorder your elements if that is desireable
+            mask = np.array([(a in include_idx) for a in range(len(y))])
+            
+            dtree.fit(X[~mask], y[~mask])
+            pred = dtree.predict(X[mask])
+            mse_depth.append(mean_squared_error(y[mask],pred))
+            
+        mse = np.mean(mse_depth)
+        cv_mean_mse.append(mse)
+    
+    d1 = pd.DataFrame({'acc_depth':pd.Series(cv_mean_mse),'max_depth':pd.Series(max_depth)})
+    return d1
+
+
+# In[35]:
+
+
+d1 = prune_max_depth(x_train, y_train)
+
+
+# In[44]:
+
+
+# visualizing changes in parameters
+plt.figure(figsize=(18,5))
+plt.plot('max_depth','acc_depth', data=d1, label='mse', marker="o")
+plt.xticks(np.arange(1,20))
+
+plt.xlabel('max_depth')
+plt.ylabel('mse')
+plt.legend()
 
 
 # The following code retrieves the optimal parameter and prunes the tree. Here, instead of choosing the parameter that minimizes the mean-squared-error, we're following another common heuristic: we will choose the most regularized model whose error is within one standard error of the minimum error.
 
-# In[329]:
+# In[120]:
 
 
-best_max_depth = d1[d1["acc_gini"] == np.min(d1["acc_gini"])].iloc[0,1]
-best_ccp = filter_df[filter_df["mse"] == np.min(filter_df["mse"]) ].iloc[0,0]
+# We get the best parameters
+best_max_depth = d1[d1["acc_depth"] == np.min(d1["acc_depth"])].iloc[0,1]
+best_ccp = d2[d2["acc_gini"] == np.min(d2["acc_gini"])].iloc[0,1]
 
 # Prune the tree
-dt = DecisionTreeRegressor(ccp_alpha= best_ccp , max_depth= best_max_depth, random_state=0)
+dt = DecisionTreeRegressor(max_depth=best_max_depth , ccp_alpha= best_ccp , random_state=0)
 tree1 = dt.fit(x_train,y_train)
 
 
 # Plotting the pruned tree. See also the package [rpart.plot](http://www.milbo.org/rpart-plot/prp.pdf) for more advanced plotting capabilities.
 # ```{r}
 
-# In[330]:
+# In[121]:
 
 
 from sklearn import tree
-plt.figure(figsize=(18,5))
-tree.plot_tree(dt, filled=True, rounded=True)
+plt.figure(figsize=(25,16))
+tree.plot_tree(dt, filled=True, rounded=True, feature_names = XX.columns)
 
 
 # Finally, here’s how to extract predictions and mse estimates from the pruned tree.
 
-# In[331]:
+# In[122]:
 
 
-# Retrieve predictions from pruned tre
 y_pred = dt.predict(x_test)
-
-# Compute mse for pruned tree (using cross-validated predictions)
 mse = mean_squared_error(y_test, y_pred)
 
 print("Tree MSE estimate:", mse)
@@ -1218,7 +1153,7 @@ print("Tree MSE estimate:", mse)
 # 
 # Similar to what we did for Lasso above, we can estimate the average value of each covariate per leaf. Although results are noisier here because there are many leaves, we see somewhat similar trends in that houses with higher predictions are also correlated with more bedrooms, bathrooms and room sizes.
 
-# In[332]:
+# In[40]:
 
 
 from pandas import Series
@@ -1228,31 +1163,20 @@ import statsmodels.formula.api as smf
 from scipy.stats import norm
 
 
-# In[333]:
+# In[41]:
 
 
 y_pred
-
-# Number of leaves should equal the number of distinct prediction values.
-# This should be okay for most applications, but if an exact answer is needed use
-# predict.rpart.leaves from package treeCluster
 num_leaves = len(pd.Series(y_pred).unique())
 
-# Leaf membership, ordered by increasing prediction value
 categ = pd.Categorical(y_pred, categories= np.sort(pd.unique(y_pred)))
 leaf = categ.rename_categories(np.arange(1,len(categ.categories)+1))
 
-# Looping over covariates
 data1 = pd.DataFrame(data=x_test, columns= covariates)
 data1["leaf"] = leaf
 
 for var_name in covariates:
-    # Coefficients on linear regression of covariate on leaf 
-    #  are the average covariate value in each leaf.
-    # covariate ~ leaf.1 + ... + leaf.L 
     form2 = var_name + " ~ " + "0" + "+" + "leaf"
-    
-    # Heteroskedasticity-robust standard errors
     ols = smf.ols(formula=form2, data=data1).fit(cov_type = 'HC2').summary2().tables[1].iloc[:, 0:2].T
     print(red(var_name, 'bold'),ols, "\n")
 
@@ -1261,14 +1185,11 @@ for var_name in covariates:
 # Finally, as we did in the linear model case, we can use the same code for an annotated version of the same information. Again, we ordered the rows in decreasing order based on an estimate of the relative variance "explained" by leaf membership: $Var(E[X_i|L_i]) / Var(X_i)$, where $L_i$ represents the leaf.
 # 
 
-# In[336]:
+# In[227]:
 
 
 df = pd.DataFrame()
-
 for var_name in covariates:
-    # Looping over covariate names
-    # Compute average covariate value per ranking (with correct standard errors)
     form2 = var_name + " ~ " + "0" + "+" + "leaf"
     ols = smf.ols(formula=form2, data=data1).fit(cov_type = 'HC2').summary2().tables[1].iloc[:, 0:2]
     
@@ -1302,7 +1223,7 @@ ax = sns.heatmap(df1,
                  annot=labels,
                  annot_kws={"size": 12, 'color':"k"},
                  fmt = '',
-                 cmap = "terrain_r",
+                 cmap = "YlGnBu",
                  linewidths=0,
                  xticklabels = ranking)
 plt.tick_params( axis='y', labelsize=15, length=0, labelrotation=0)
@@ -1323,45 +1244,49 @@ ax.set_title("Average covariate values within leaf", fontsize=18, fontweight = "
 # 
 # For the example below, we’ll use the regression_forest function of the `R` package `grf`. The particular forest implementation in `grf` has interesting properties that are absent from most other packages. For example, trees are build using a certain sample-splitting scheme that ensures that predictions are approximately unbiased and normally distributed for large samples, which in turn allows us to compute valid confidence intervals around those predictions. We’ll have more to say about the importance of these features when we talk about causal estimates in future chapters. See also the grf website for more information.
 
-# In[337]:
+# In[7]:
 
 
+from sklearn.inspection import permutation_importance
 from sklearn.ensemble import RandomForestRegressor
 
 
-# In[337]:
+# In[8]:
 
 
-# Fitting the forest
-# We'll use few trees for speed here. 
-# In a practical application please use a higher number of trees.
-forest = RandomForestRegressor(n_estimators=200)
-
+forest = RandomForestRegressor(n_estimators=200, oob_score=True)
 #x_train, x_test, y_train, y_test = train_test_split(XX.to_numpy() , Y, test_size=.3)
 forest.fit(x_train, y_train)
-
 # Retrieving forest predictions
-y_pred = forest.predict(x_test)
+rf_pred = forest.predict(x_test)
 
-# Evaluation (out-of-bag mse)
-mse = mean_squared_error(y_test, y_pred)
+# Evaluation
+mse = mean_squared_error(y_test, rf_pred)
 
-print("Forest MSE (out-of-bag):", mse)
+print("Forest MSE:", mse)
 
 
 # 
 # The fitted attribute `feature_importances_` computes the decrease in node impurity weighted by the probability of reaching that node. The node probability can be calculated by the number of samples that reach the node, divided by the total number of samples. The higher the value the more important the feature.
 # 
 
-# In[339]:
+# In[11]:
 
 
-plt.figure(figsize=(20,10))
-sorted_idx = forest.feature_importances_.argsort()[:10]
-plt.barh(XX.columns[sorted_idx], forest.feature_importances_[sorted_idx])
-plt.tick_params( axis='y', labelsize=15, length=0, labelrotation=0)
-plt.tick_params( axis='x', labelsize=15, length=0, labelrotation=0)
-plt.title("Random Forest Feature Importance", fontsize = 15, fontweight = "bold")
+feature_importance = pd.DataFrame(forest.feature_importances_, index=covariates, columns= ["importance"])
+importance = feature_importance.sort_values(by=["importance"], ascending=False)
+importance[:10].T
+
+
+# In[12]:
+
+
+plt.figure(figsize=(10,7))
+sns.barplot(importance.index[:10],importance.importance[:10])
+plt. xticks(rotation= 90, fontsize=15)
+plt.yticks(fontsize=10)
+plt.ylabel("Importance",fontsize=15)
+plt.title("Variable Importance", fontsize=15)
 
 
 # 

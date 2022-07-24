@@ -8,9 +8,9 @@ parts:
   numbered: true
   chapters:
   - file: notebooks/1_introduction_1
-  - file: notebooks/2_introduction_to_Machine_Learning
+  - file: notebooks/2_introduction_to_machine_learning
   - file: notebooks/3_average_treatment_effect_1
   - file: notebooks/4_heterogeneous_treatment_effect_1
   - file: notebooks/5_policy_evaluation_1
-  - file: notebooks/6_Policy_Learning_1
+  - file: notebooks/6_policy_learning_1
   

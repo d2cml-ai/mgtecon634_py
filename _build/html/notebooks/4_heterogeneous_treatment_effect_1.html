@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. HTE I: Binary treatment &#8212; MGTECON 634 at Stanford (R scripts)</title>
+    <title>3. HTE I: Binary treatment &#8212; MGTECON 634 at Stanford (R scripts)</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,8 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5. Policy Evaluation I - Binary Treatment" href="5_policy_evaluation_1.html" />
-    <link rel="prev" title="3. ATE I: Binary treatment" href="3_average_treatment_effect_1.html" />
+    <link rel="next" title="4. Policy Evaluation I - Binary Treatment" href="5_policy_evaluation_1.html" />
+    <link rel="prev" title="2. ATE I: Binary treatment" href="3_average_treatment_effect_1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -112,28 +112,18 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="2_introduction_to_Machine_Learning.html">
-   2. Introduction to Machine Learning
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="3_average_treatment_effect_1.html">
-   3. ATE I: Binary treatment
+   2. ATE I: Binary treatment
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   4. HTE I: Binary treatment
+   3. HTE I: Binary treatment
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="5_policy_evaluation_1.html">
-   5. Policy Evaluation I - Binary Treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_Policy_Learning_1.html">
-   6. Policy Learning I - Binary Treatment
+   4. Policy Evaluation I - Binary Treatment
   </a>
  </li>
 </ul>
@@ -252,46 +242,46 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pre-specified-hypotheses">
-   4.1. Pre-specified hypotheses
+   3.1. Pre-specified hypotheses
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#data-driven-hypotheses">
-   4.2. Data-driven hypotheses
+   3.2. Data-driven hypotheses
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#via-causal-trees">
-     4.2.1. Via causal trees
+     3.2.1. Via causal trees
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#via-grf-causal-forest">
-       4.2.1.1. Via grf - Causal Forest
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#data-driven-subgroups">
-       4.2.1.2. Data-driven subgroups
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#best-linear-projection">
-       4.2.1.3. Best linear projection
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#partial-dependence">
-       4.2.1.4. Partial dependence
-      </a>
-     </li>
-    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#causal-forest">
+   3.3. Causal Forest
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-driven-subgroups">
+     3.3.1. Data-driven subgroups
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#best-linear-projection">
+     3.3.2. Best linear projection
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#partial-dependence">
+     3.3.3. Partial dependence
+    </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#further-reading">
-   4.3. Further reading
+   3.4. Further reading
   </a>
  </li>
 </ul>
@@ -316,46 +306,46 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pre-specified-hypotheses">
-   4.1. Pre-specified hypotheses
+   3.1. Pre-specified hypotheses
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#data-driven-hypotheses">
-   4.2. Data-driven hypotheses
+   3.2. Data-driven hypotheses
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#via-causal-trees">
-     4.2.1. Via causal trees
+     3.2.1. Via causal trees
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#via-grf-causal-forest">
-       4.2.1.1. Via grf - Causal Forest
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#data-driven-subgroups">
-       4.2.1.2. Data-driven subgroups
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#best-linear-projection">
-       4.2.1.3. Best linear projection
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#partial-dependence">
-       4.2.1.4. Partial dependence
-      </a>
-     </li>
-    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#causal-forest">
+   3.3. Causal Forest
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-driven-subgroups">
+     3.3.1. Data-driven subgroups
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#best-linear-projection">
+     3.3.2. Best linear projection
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#partial-dependence">
+     3.3.3. Partial dependence
+    </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#further-reading">
-   4.3. Further reading
+   3.4. Further reading
   </a>
  </li>
 </ul>
@@ -368,14 +358,6 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pip install -U DoubleML</span>
-<span class="c1"># pip install ctl</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -400,13 +382,16 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_4196</span><span class="o">/</span><span class="mf">2508031605.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_15164</span><span class="o">/</span><span class="mf">683896246.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">SyncRNG</span> <span class="kn">import</span> <span class="n">SyncRNG</span>
 <span class="g g-Whitespace">     </span><span class="mi">17</span> 
 <span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">CTL.causal_tree_learn</span> <span class="kn">import</span> <span class="n">CausalTree</span>
@@ -419,26 +404,26 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="hte-i-binary-treatment">
-<h1><span class="section-number">4. </span>HTE I: Binary treatment<a class="headerlink" href="#hte-i-binary-treatment" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">3. </span>HTE I: Binary treatment<a class="headerlink" href="#hte-i-binary-treatment" title="Permalink to this headline">¶</a></h1>
 <p>Source RMD file: <a class="reference external" href="https://docs.google.com/uc?export=download&amp;id=1FSUi4WLfYYKnvWsNWypiQORhkqf5IlFP">link</a></p>
 <p>In the previous chapter, we learned how to estimate the effect of a binary treatment averaged over the entire population. However, the average may obscure important details about how different individuals react to the treatment. In this chapter, we will learn how to estimate the <strong>conditional average treatment effect (CATE)</strong>,</p>
-<div class="math notranslate nohighlight" id="equation-cate">
-<span class="eqno">(4.1)<a class="headerlink" href="#equation-cate" title="Permalink to this equation">¶</a></span>\[
+<div class="amsmath math notranslate nohighlight" id="equation-9286b48f-f745-4cd4-a03f-8f750a88a348">
+<span class="eqno">(3.1)<a class="headerlink" href="#equation-9286b48f-f745-4cd4-a03f-8f750a88a348" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{eq:cate} \tag{4.1}
   \tau(x) := \mathbf{E}[Y_i(1) - Y_i(0) | X_i = x],
-\]</div>
+\end{equation}\]</div>
 <p>which is a “localized” version of the average treatment effect conditional on a vector of observable characteristics.</p>
-<p>It’s often the case that <a class="reference internal" href="#equation-cate">(4.1)</a> is too general to be immediately useful, especially when the observable covariates are high-dimensional. It can be hard to estimate reliably without making strong modeling assumptions, and hard to summarize in a useful manner after estimation. In such situations, we will instead try to estimate treatment effect averages for simpler groups</p>
-<div class="math notranslate nohighlight" id="equation-cate-g">
-<span class="eqno">(4.2)<a class="headerlink" href="#equation-cate-g" title="Permalink to this equation">¶</a></span>\[
+<p>It’s often the case that \eqref{eq:cate} is too general to be immediately useful, especially when the observable covariates are high-dimensional. It can be hard to estimate reliably without making strong modeling assumptions, and hard to summarize in a useful manner after estimation. In such situations, we will instead try to estimate treatment effect averages for simpler groups</p>
+<div class="amsmath math notranslate nohighlight" id="equation-97dd5f12-9556-4147-958b-5977aadf0e22">
+<span class="eqno">(3.2)<a class="headerlink" href="#equation-97dd5f12-9556-4147-958b-5977aadf0e22" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{eq:cate-g} \tag{4.2}
   \mathbf{E}[Y_i(1) - Y_i(0) | G_i = g],
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(G_i\)</span> indexes subgroups of interest. Below you’ll learn how to estimate and test hypotheses about pre-defined subgroups, and also how to discover subgroups of interest from the data. In this tutorial, you will learn how to use estimates of <a class="reference internal" href="#equation-cate">(4.1)</a> to suggest relevant subgroups <span class="math notranslate nohighlight">\(G_i\)</span> (and in the next chapters you will find out other uses of <a class="reference internal" href="#equation-cate">(4.1)</a> in policy learning and evaluation).</p>
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(G_i\)</span> indexes subgroups of interest. Below you’ll learn how to estimate and test hypotheses about pre-defined subgroups, and also how to discover subgroups of interest from the data. In this tutorial, you will learn how to use estimates of \eqref{eq:cate} to suggest relevant subgroups <span class="math notranslate nohighlight">\(G_i\)</span> (and in the next chapters you will find out other uses of \eqref{eq:cate} in policy learning and evaluation).</p>
 <p>We’ll continue using the abridged version of the General Social Survey (GSS) <a class="reference external" href="https://gss.norc.org/Documents/reports/project-reports/GSSProject%20report32.pdf">(Smith, 2016)</a> dataset that was introduced in the previous chapter. In this dataset, individuals were sent to treatment or control with equal probability, so we are in a randomized setting. However, many of the techniques and code shown below should also work in an observational setting provided that unconfoundedness and overlap are satisfied (these assumptions were defined in the previous chapter).</p>
 <p>As with other chapters in this tutorial, the code below should still work by replacing the next snippet of code with a different dataset, provided that you update the key variables <code class="docutils literal notranslate"><span class="pre">treatment</span></code>, <code class="docutils literal notranslate"><span class="pre">outcome</span></code>, and <code class="docutils literal notranslate"><span class="pre">covariates</span></code> below. Also, please make sure to read the comments as they may be subtle differences depending on whether your dataset was created in a randomized or observational setting.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in data</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span> <span class="s2">&quot;https://docs.google.com/uc?id=1kSxrVci_EUcSr_Lg1JKk1l7Xd5I9zfRC&amp;export=download&quot;</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span> <span class="s2">&quot;https://docs.google.com/uc?id=1kSxrVci_EUcSr_Lg1JKk1l7Xd5I9zfRC&amp;export=download&quot;</span> <span class="p">)</span>
+
 <span class="n">n</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># Treatment: does the the gov&#39;t spend too much on &quot;welfare&quot; (1) or &quot;assistance to the poor&quot; (0)</span>
@@ -454,33 +439,33 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="pre-specified-hypotheses">
-<h2><span class="section-number">4.1. </span>Pre-specified hypotheses<a class="headerlink" href="#pre-specified-hypotheses" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.1. </span>Pre-specified hypotheses<a class="headerlink" href="#pre-specified-hypotheses" title="Permalink to this headline">¶</a></h2>
 <p>We will begin by learning how to test pre-specified null hypotheses of the form</p>
-<div class="math notranslate nohighlight" id="equation-hte-hyp">
-<span class="eqno">(4.3)<a class="headerlink" href="#equation-hte-hyp" title="Permalink to this equation">¶</a></span>\[
+<div class="amsmath math notranslate nohighlight" id="equation-d9e4fe89-e2d3-4629-a99a-ccfa0d42775a">
+<span class="eqno">(3.3)<a class="headerlink" href="#equation-d9e4fe89-e2d3-4629-a99a-ccfa0d42775a" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{eq:hte-hyp} \tag{4.3}
   H_{0}: \mathbf{E}[Y(1) - Y(0) | G_i = 1] = \mathbf{E}[Y(1) - Y(0) | G_i = 0].
-\]</div>
+\end{equation}\]</div>
 <p>That is, that the treatment effect is the same regardless of membership to some group
 <span class="math notranslate nohighlight">\(G_i\)</span>. Importantly, for now we’ll assume that the group <span class="math notranslate nohighlight">\(G_i\)</span> was <strong>pre-specified</strong> – it was decided <em>before</em> looking at the data.</p>
 <p>In a randomized setting, if the both the treatment  <span class="math notranslate nohighlight">\(W_i\)</span> and group membership <span class="math notranslate nohighlight">\(G_i\)</span> are binary, we can write</p>
-<div class="math notranslate nohighlight" id="equation-linear">
-<span class="eqno">(4.4)<a class="headerlink" href="#equation-linear" title="Permalink to this equation">¶</a></span>\[
+<div class="amsmath math notranslate nohighlight" id="equation-6bd3806c-8df2-4ff4-a3e1-684d2e78d98d">
+<span class="eqno">(3.4)<a class="headerlink" href="#equation-6bd3806c-8df2-4ff4-a3e1-684d2e78d98d" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{eq:linear} \tag{4.4}
   \mathbf{E}[Y_i(W_i)|G_i] = \mathbf{E}[Y_i|W_i, G_i] = \beta_0 + \beta_w W_i + \beta_g G_i + \beta_{wg} W_i G_i
-\]</div>
+\end{equation}\]</div>
 <font size=1>
 When $W_i$ and $G_i$ are binary, this decomposition is true without loss of generality. Why?
 </font>
 <p>This allows us to write the average effects of <span class="math notranslate nohighlight">\(W_i\)</span> and <span class="math notranslate nohighlight">\(G_i\)</span> on <span class="math notranslate nohighlight">\(Y_i\)</span> as</p>
-<div class="math notranslate nohighlight" id="equation-decomp">
-<span class="eqno">(4.5)<a class="headerlink" href="#equation-decomp" title="Permalink to this equation">¶</a></span>\[\begin{split}
-  \begin{aligned}
+<div class="amsmath math notranslate nohighlight" id="equation-6f3792d4-6443-426f-bae6-6ee82283c565">
+<span class="eqno">(3.5)<a class="headerlink" href="#equation-6f3792d4-6443-426f-bae6-6ee82283c565" title="Permalink to this equation">¶</a></span>\[\begin{equation}  \label{eq:decomp} \tag{4.5}
+  \begin{aligned} 
     \mathbf{E}[Y(1) | G_i=1] &amp;= \beta_0 + \beta_w W_i + \beta_g G_i + \beta_{wg} W_i G_i, \\
     \mathbf{E}[Y(1) | G_i=0] &amp;= \beta_0 + \beta_w W_i,  \\
     \mathbf{E}[Y(0) | G_i=1] &amp;= \beta_0 + \beta_g G_i,  \\
     \mathbf{E}[Y(0) | G_i=0] &amp;= \beta_0.
   \end{aligned}
-\end{split}\]</div>
-<p>Rewriting the null hypothesis <a class="reference internal" href="#equation-hte-hyp">(4.3)</a> in terms of the decomposition <a class="reference internal" href="#equation-decomp">(4.5)</a>, we see that it boils down to a test about the coefficient in the interaction: <span class="math notranslate nohighlight">\(\beta_{xw} = 0\)</span>. Here’s an example that tests whether the treatment effect is the same for “conservative” (<code class="docutils literal notranslate"><span class="pre">polviews</span></code> &lt; 4) and “liberal” (<code class="docutils literal notranslate"><span class="pre">polviews</span></code> <span class="math notranslate nohighlight">\(\geq\)</span> 4) individuals.</p>
+\end{equation}\]</div>
+<p>Rewriting the null hypothesis \eqref{eq:hte-hyp} in terms of the decomposition \eqref{eq:decomp}, we see that it boils down to a test about the coefficient in the interaction: <span class="math notranslate nohighlight">\(\beta_{xw} = 0\)</span>. Here’s an example that tests whether the treatment effect is the same for “conservative” (<code class="docutils literal notranslate"><span class="pre">polviews</span></code> &lt; 4) and “liberal” (<code class="docutils literal notranslate"><span class="pre">polviews</span></code> <span class="math notranslate nohighlight">\(\geq\)</span> 4) individuals.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only valid in randomized settings</span>
@@ -517,12 +502,12 @@ w:conservative     0.1160      0.010     11.185      0.000       0.096       0.1
 Interpret the results above. The coefficient $\beta_{xw}$ is denoted by `w:conservativeTRUE`. Can we detect a difference in treatment effect for conservative vs liberal individuals? For whom is the effect larger?
 </font>
 <p>Sometimes there are many subgroups, leading to multiple hypotheses such as</p>
-<div class="math notranslate nohighlight" id="equation-mult-hyp">
-<span class="eqno">(4.6)<a class="headerlink" href="#equation-mult-hyp" title="Permalink to this equation">¶</a></span>\[
+<div class="amsmath math notranslate nohighlight" id="equation-ef5e44ec-aa56-4702-9250-db0d2f6928cb">
+<span class="eqno">(3.6)<a class="headerlink" href="#equation-ef5e44ec-aa56-4702-9250-db0d2f6928cb" title="Permalink to this equation">¶</a></span>\[\begin{equation} \label{eq:mult-hyp} \tag{4.6}
 H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i = g]
 \qquad
 \text{for many values of }g.
-\]</div>
+\end{equation}\]</div>
 <p>In that case, we need to correct for the fact that we are testing for multiple hypotheses, or we will end up with many false positives. The <strong>Bonferroni correction</strong> <a class="reference external" href="https://en.wikipedia.org/wiki/Bonferroni_correction">(wiki)</a> is a common method for dealing with multiple hypothesis testing, though it is often too conservative to be useful. It is available via the function <code class="docutils literal notranslate"><span class="pre">p.adjust</span></code> from base <code class="docutils literal notranslate"><span class="pre">R</span></code>. The next snippet of code tests whether the treatment effect at each level of <code class="docutils literal notranslate"><span class="pre">polviews</span></code> is different from the treatment effect from <code class="docutils literal notranslate"><span class="pre">polviews</span></code> equals one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -816,17 +801,15 @@ H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Roberto\AppData\Local\Temp\ipykernel_5896\909325009.py:48: SettingWithCopyWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Roberto\AppData\Local\Temp\ipykernel_19960\909325009.py:48: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  result.rename(columns={&#39;P&gt;|t|&#39;: &#39;Orig.p-value&#39;}, inplace=True)
-C:\Users\Roberto\AppData\Local\Temp\ipykernel_5896\909325009.py:49: SettingWithCopyWarning: 
+C:\Users\Roberto\AppData\Local\Temp\ipykernel_19960\909325009.py:49: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  result[&#39;Adj. p-value&#39;] = p_adj
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -861,7 +844,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <td>-0.024242</td>
       <td>0.030348</td>
       <td>4.244098e-01</td>
-      <td>0.4267</td>
+      <td>0.4235</td>
     </tr>
     <tr>
       <th>9</th>
@@ -869,7 +852,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <td>-0.059623</td>
       <td>0.030150</td>
       <td>4.798896e-02</td>
-      <td>0.0721</td>
+      <td>0.0764</td>
     </tr>
     <tr>
       <th>10</th>
@@ -911,181 +894,272 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 Compare the adjusted p-values under Romano-Wolf with those obtained via Bonferroni above.
 </font>
 <p>The Bonferroni and Romano-Wolf methods control the <strong>familywise error rate (FWER)</strong>, which is the (asymptotic) probability of rejecting even one true null hypothesis. In other words, for a significance level <span class="math notranslate nohighlight">\(\alpha\)</span>, they guarantee that with probability <span class="math notranslate nohighlight">\(1 - \alpha\)</span> we will make zero false discoveries. However, when the number of hypotheses being tested is very large, this criterion may be so stringent that it prevents us from being able to detect real effects. Instead, there exist alternative procedures that control the (asymptotic) <strong>false discovery rate (FDR)</strong>, defined as the expected proportion of true null hypotheses rejected among all hypotheses rejected. One such procedure is the Benjamini-Hochberg procedure, which is available in base R via <code class="docutils literal notranslate"><span class="pre">p.adjust(...,</span> <span class="pre">method=&quot;BH&quot;)</span></code>. For what remains we’ll stick with FWER control, but keep in mind that FDR control can also useful in exploratory analyses or settings in which there’s a very large number of hypotheses under consideration.</p>
-<p>As in the previous chapter, when working with observational data under unconfoundedness and overlap, one can use AIPW scores  <span class="math notranslate nohighlight">\(\hat{\Gamma}_i\)</span> in place of the raw outcomes  <span class="math notranslate nohighlight">\(Y_i\)</span>. In the next snippet, we construct AIPW scores using the <code class="docutils literal notranslate"><span class="pre">causal_forest</span></code> function from the <code class="docutils literal notranslate"><span class="pre">grf</span></code> package.</p>
+<p>As in the previous chapter, when working with observational data under unconfoundedness and overlap, one can use AIPW scores  <span class="math notranslate nohighlight">\(\hat{\Gamma_i}\)</span> in place of the raw outcomes  <span class="math notranslate nohighlight">\(Y_i\)</span>. In the next snippet, we construct AIPW scores using the <code class="docutils literal notranslate"><span class="pre">causal_forest</span></code> function from the <code class="docutils literal notranslate"><span class="pre">CausalForest</span></code> package.</p>
 </div>
 <div class="section" id="data-driven-hypotheses">
-<h2><span class="section-number">4.2. </span>Data-driven hypotheses<a class="headerlink" href="#data-driven-hypotheses" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2. </span>Data-driven hypotheses<a class="headerlink" href="#data-driven-hypotheses" title="Permalink to this headline">¶</a></h2>
 <p>Pre-specifying hypotheses prior to looking at the data is in general good practice to avoid “p-hacking” (e.g., slicing the data into different subgroups until a significant result is found). However, valid tests can also be attained if by <strong>sample splitting</strong>: we can use a subset of the sample to find promising subgroups, then test hypotheses about these subgroups in the remaining sample. This kind of sample splitting for hypothesis testing is called <strong>honesty</strong>.</p>
 <div class="section" id="via-causal-trees">
-<h3><span class="section-number">4.2.1. </span>Via causal trees<a class="headerlink" href="#via-causal-trees" title="Permalink to this headline">¶</a></h3>
-<p><strong>Causal trees</strong> <a class="reference external" href="https://www.pnas.org/content/pnas/113/27/7353.full.pdf">(Athey and Imbens)(PNAS, 2016)</a> are an intuitive algorithm that is available in the randomized setting to discover subgroups with different treatment effects.</p>
+<h3><span class="section-number">3.2.1. </span>Via causal trees<a class="headerlink" href="#via-causal-trees" title="Permalink to this headline">¶</a></h3>
+<p><strong>Causal trees</strong> [(Athey and Imbens)](PNAS, 2016)](<a class="reference external" href="https://www.pnas.org/content/pnas/113/27/7353.full.pdf">https://www.pnas.org/content/pnas/113/27/7353.full.pdf</a>) are an intuitive algorithm that is available in the randomized setting to discover subgroups with different treatment effects.</p>
 <p>At a high level, the idea is to divide the sample into three subsets (not necessarily of equal size). The <code class="docutils literal notranslate"><span class="pre">splitting</span></code> subset is used to fit a decision tree whose objective is modified to maximize heterogeneity in treatment effect estimates across leaves. The <code class="docutils literal notranslate"><span class="pre">estimation</span></code> subset is then used to produce a valid estimate of the treatment effect at each leaf of the fitted tree. Finally, a <code class="docutils literal notranslate"><span class="pre">test</span></code> subset can be used to validate the tree estimates.</p>
 <p>The next snippet uses <code class="docutils literal notranslate"><span class="pre">honest.causalTree</span></code> function from the <a class="reference external" href="https://github.com/susanathey/causalTree"><code class="docutils literal notranslate"><span class="pre">causalTree</span></code></a> package. For more details, see the <a class="reference external" href="https://github.com/susanathey/causalTree/blob/master/briefintro.pdf">causalTree documentation</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;polviews&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span><span class="s1">&#39;educ&#39;</span><span class="p">,</span><span class="s1">&#39;marital&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">]]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
-<span class="n">treatment</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">econml</span>
+<span class="c1"># Main imports</span>
+<span class="kn">from</span> <span class="nn">econml.orf</span> <span class="kn">import</span> <span class="n">DMLOrthoForest</span><span class="p">,</span> <span class="n">DROrthoForest</span>
+<span class="kn">from</span> <span class="nn">econml.dml</span> <span class="kn">import</span> <span class="n">CausalForestDML</span>
+<span class="kn">from</span> <span class="nn">econml.grf</span> <span class="kn">import</span> <span class="n">CausalForest</span>
+<span class="kn">from</span> <span class="nn">econml.sklearn_extensions.linear_model</span> <span class="kn">import</span> <span class="n">WeightedLassoCVWrapper</span><span class="p">,</span> <span class="n">WeightedLasso</span><span class="p">,</span> <span class="n">WeightedLassoCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">MultiTaskLassoCV</span>
+<span class="c1"># Helper imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Lasso</span><span class="p">,</span> <span class="n">LassoCV</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">,</span> <span class="n">LogisticRegressionCV</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">econml.grf</span> <span class="kn">import</span> <span class="n">RegressionForest</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">patsy</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="c1"># get varaible&#39;s names in a list</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">split</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">),</span><span class="mi">3</span><span class="p">)</span>
 
-<span class="c1"># From DataFrame to array </span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">],[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;polviews&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span><span class="s1">&#39;educ&#39;</span><span class="p">,</span><span class="s1">&#39;marital&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">]]</span> 
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> 
+<span class="n">T_train</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> 
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">values</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">values</span>
-<span class="n">treatment</span> <span class="o">=</span> <span class="n">treatment</span><span class="o">.</span><span class="n">values</span>
+<span class="n">X_est</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">],[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;polviews&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span><span class="s1">&#39;educ&#39;</span><span class="p">,</span><span class="s1">&#39;marital&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">]]</span> 
+<span class="n">y_est</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> 
+<span class="n">T_est</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> 
 
-<span class="c1"># CL-honest</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">2</span><span class="p">],[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;polviews&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span><span class="s1">&#39;educ&#39;</span><span class="p">,</span><span class="s1">&#39;marital&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">]]</span> 
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> 
+<span class="n">T_test</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preparing data to fit a causal forest</span>
 
-<span class="n">cthl</span> <span class="o">=</span> <span class="n">CausalTree</span><span class="p">(</span><span class="n">honest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
-<span class="n">cthl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">treatment</span><span class="p">)</span>
-<span class="n">cthl</span><span class="o">.</span><span class="n">prune</span><span class="p">()</span>
+<span class="c1">#fmla = &#39;0+age+polviews+income+educ+marital+sex&#39;</span>
+<span class="c1">#matrix = patsy.dmatrix(fmla, data, return_type = &quot;dataframe&quot;)</span>
 
-<span class="c1"># plot</span>
-<span class="n">cthl</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;bin_tree_honest_1&quot;</span><span class="p">,</span> <span class="n">show_effect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c1">#T = data.loc[ : ,&quot;w&quot;]</span>
+<span class="c1">#Y = data.loc[ : ,&quot;y&quot;]X = matrix</span>
+
+
+<span class="c1"># Estimate a causal tree using Causal Forest library</span>
+
+<span class="n">ctree</span> <span class="o">=</span> <span class="n">CausalForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">170</span><span class="p">,</span>
+                       <span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">inference</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                       <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span><span class="n">subforest_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ctree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">T_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\fromnumeric.py:3723: RuntimeWarning: Degrees of freedom &lt;= 0 for slice
-C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: RuntimeWarning: invalid value encountered in double_scalars
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CausalForest(inference=False, max_depth=50, min_samples_leaf=170,
+             n_estimators=1, random_state=123, subforest_size=1)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get train and test sample</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_leaves</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ctree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_est</span><span class="p">)))</span> <span class="c1"># number of leaves </span>
 
-<span class="n">train_x</span><span class="p">,</span> <span class="n">val_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">val_y</span><span class="p">,</span> <span class="n">train_t</span><span class="p">,</span> <span class="n">val_t</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">treatment</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">724</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                                                          <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
-<span class="c1"># get honest/estimation portion</span>
-<span class="n">train_x</span><span class="p">,</span> <span class="n">est_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">est_y</span><span class="p">,</span> <span class="n">train_t</span><span class="p">,</span> <span class="n">est_t</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">train_t</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                                                          <span class="n">random_state</span><span class="o">=</span><span class="mi">724</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cthl_predict</span> <span class="o">=</span> <span class="n">cthl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">est_x</span><span class="p">)</span>  <span class="c1"># Predict tau </span>
-<span class="n">num_leaves</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cthl_predict</span><span class="p">))</span> <span class="c1"># number of leaves </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">num_leaves</span><span class="p">)</span>
 
-<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cthl_predict</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">]</span> <span class="c1"># label by each leaf </span>
+<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">ctree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_est</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="c1"># convert from N- array to 1-array</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tau_hat</span> <span class="p">))</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">]</span> <span class="c1"># label by each leaf </span>
 
 <span class="c1"># Prediction grouped by each leaf</span>
 
-<span class="n">predict</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;predict&quot;</span><span class="p">:</span> <span class="n">cthl_predict</span><span class="p">})</span>
-<span class="n">predict</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">)</span>
-<span class="n">predict</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predict</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict</span>
+<span class="n">predict1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">],:]</span>
+<span class="n">predict1</span><span class="p">[</span><span class="s1">&#39;tau_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau_hat</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">predict1</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">tau_hat</span><span class="p">)</span>
+<span class="n">predict1</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predict1</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>predict</th>
-      <th>leaves</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-0.369901</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-0.369901</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-0.369901</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>-0.369901</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-0.369901</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>9594</th>
-      <td>-0.406130</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>9595</th>
-      <td>-0.433803</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>9596</th>
-      <td>-0.250101</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>9597</th>
-      <td>-0.369901</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>9598</th>
-      <td>-0.369901</td>
-      <td>7</td>
-    </tr>
-  </tbody>
-</table>
-<p>9599 rows × 2 columns</p>
-</div></div></div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9
+</pre></div>
 </div>
-<div class="section" id="via-grf-causal-forest">
-<h4><span class="section-number">4.2.1.1. </span>Via grf - Causal Forest<a class="headerlink" href="#via-grf-causal-forest" title="Permalink to this headline">¶</a></h4>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install econml</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
 </pre></div>
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is only valid in randomized datasets.</span>
+
+<span class="k">if</span> <span class="n">num_leaves</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Skipping since there&#39;s a single leaf.&quot;</span><span class="p">)</span>
+    
+<span class="k">elif</span> <span class="n">num_leaves</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">:</span>
+    
+    <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;y ~ w*C(leaves)&#39;</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">predict1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ols</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">)]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span><span class="s1">&#39;Coef.&#39;</span><span class="p">,</span><span class="s1">&#39;Std.Err.&#39;</span><span class="p">,</span><span class="s1">&#39;P&gt;|t|&#39;</span><span class="p">]]</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;P&gt;|t|&#39;</span><span class="p">:</span> <span class="s1">&#39;Orig.p-value&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+<span class="k">else</span><span class="p">:</span>
+    
+<span class="c1"># This linear regression is only valid in a randomized setting.</span>
+
+    <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;y ~ w*C(leaves)&#39;</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">predict1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">interact</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ols</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">)]</span>
+
+    <span class="c1"># Applying the romano-wolf correction.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">summary_rw_lm</span><span class="p">(</span><span class="n">ols</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">interact</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               index     Coef.  Std.Err.  Orig.p-value  Adj. p-value
+10  w:C(leaves)[T.2] -0.006448  0.030429      0.832177        0.9931
+11  w:C(leaves)[T.3] -0.013501  0.037021      0.715365        0.9972
+12  w:C(leaves)[T.4]  0.015477  0.030218      0.608546        0.9957
+13  w:C(leaves)[T.5] -0.018966  0.036730      0.605610        0.9965
+14  w:C(leaves)[T.6]  0.001973  0.030663      0.948692        0.9960
+15  w:C(leaves)[T.7]  0.002009  0.031635      0.949363        0.9455
+16  w:C(leaves)[T.8] -0.011408  0.042844      0.790039        0.9966
+17  w:C(leaves)[T.9] -0.019500  0.039154      0.618466        0.9923
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">covariates</span><span class="p">:</span>
+    <span class="n">form2</span> <span class="o">=</span> <span class="n">var_name</span> <span class="o">+</span> <span class="s2">&quot; ~ &quot;</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span> <span class="o">+</span> <span class="s2">&quot;C(leaves)&quot;</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">form2</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">predict1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="s1">&#39;HC2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    
+    
+    <span class="c1"># Retrieve results</span>
+    <span class="n">toget_index</span> <span class="o">=</span> <span class="n">ols</span><span class="p">[</span><span class="s2">&quot;Coef.&quot;</span><span class="p">]</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">toget_index</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">cova1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span><span class="n">num_leaves</span><span class="p">),</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;covariate&quot;</span><span class="p">)</span>
+    <span class="n">avg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">ols</span><span class="p">[</span><span class="s2">&quot;Coef.&quot;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;avg&quot;</span><span class="p">)</span>
+    <span class="n">stderr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">ols</span><span class="p">[</span><span class="s2">&quot;Std.Err.&quot;</span><span class="p">],</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;stderr&quot;</span><span class="p">)</span>
+    <span class="n">leaves</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">num_leaves</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;leaves&quot;</span><span class="p">)</span>
+    <span class="n">scaling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">avg</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">avg</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">avg</span><span class="p">)),</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;scaling&quot;</span><span class="p">)</span>
+    <span class="n">data2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="n">covariates</span><span class="p">)</span>
+    <span class="n">variation1</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">avg</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data2</span><span class="p">[</span><span class="n">var_name</span><span class="p">])</span>
+    <span class="n">variation</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">variation1</span><span class="p">,</span> <span class="n">num_leaves</span><span class="p">),</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;variation&quot;</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">avg</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="nb">round</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;labels&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Tally up results</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">cova1</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">stderr</span><span class="p">,</span> <span class="n">leaves</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">variation</span><span class="p">,</span> <span class="n">labels</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
+
+<span class="c1"># a small optional trick to ensure heatmap will be in decreasing order of &#39;variation&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;variation&quot;</span><span class="p">,</span> <span class="s2">&quot;covariate&quot;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:(</span><span class="mi">8</span><span class="o">*</span><span class="n">num_leaves</span><span class="p">),</span> <span class="p">:]</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s2">&quot;covariate&quot;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s2">&quot;leaves&quot;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;scaling&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span>  <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s2">&quot;covariate&quot;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s2">&quot;leaves&quot;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># plot heatmap</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> 
+                 <span class="n">annot</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+                 <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s2">&quot;k&quot;</span><span class="p">},</span>
+                 <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                 <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;YlGn&quot;</span><span class="p">,</span>
+                 <span class="n">linewidths</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">xticklabels</span> <span class="o">=</span> <span class="n">leaves</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelrotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelrotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Average covariate values within each leaf&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Leaf1&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf2&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf3&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf4&quot;</span><span class="p">,</span><span class="s2">&quot;Leaf5&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf6&quot;</span><span class="p">,</span><span class="s2">&quot;Leaf7&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf8&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf9&quot;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Leaf1&#39;),
+ Text(1.5, 0, &#39;Leaf2&#39;),
+ Text(2.5, 0, &#39;Leaf3&#39;),
+ Text(3.5, 0, &#39;Leaf4&#39;),
+ Text(4.5, 0, &#39;Leaf5&#39;),
+ Text(5.5, 0, &#39;Leaf6&#39;),
+ Text(6.5, 0, &#39;Leaf7&#39;),
+ Text(7.5, 0, &#39;Leaf8&#39;),
+ Text(8.5, 0, &#39;Leaf9&#39;)]
+</pre></div>
+</div>
+<img alt="../_images/4_heterogeneous_treatment_effect_1_21_2.png" src="../_images/4_heterogeneous_treatment_effect_1_21_2.png" />
+</div>
+</div>
+<font size=1>
+Interpret the heatmap above. What describes the subgroups with strongest and weakest estimated treatment effect?
+</font></div>
+</div>
+<div class="section" id="causal-forest">
+<h2><span class="section-number">3.3. </span>Causal Forest<a class="headerlink" href="#causal-forest" title="Permalink to this headline">¶</a></h2>
+<p>The function <code class="docutils literal notranslate"><span class="pre">causal_forest</span></code> from the package <code class="docutils literal notranslate"><span class="pre">CausalForest</span></code> allows us to get estimates of the CATE  (4.1).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">econml</span>
@@ -1121,22 +1195,15 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
 <span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">]</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">matrix</span>
-<span class="n">W</span> <span class="o">=</span> <span class="kc">None</span> 
 
 <span class="c1"># Estimate a causal forest.</span>
-<span class="n">est2</span> <span class="o">=</span> <span class="n">CausalForestDML</span><span class="p">(</span><span class="n">model_t</span><span class="o">=</span><span class="n">RegressionForest</span><span class="p">(),</span>
-                       <span class="n">model_y</span><span class="o">=</span><span class="n">RegressionForest</span><span class="p">(),</span>
-                       <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="n">est1</span> <span class="o">=</span> <span class="n">CausalForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                        <span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
                        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 
-<span class="n">est2</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
-<span class="n">est2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;econml.dml.causal_forest.CausalForestDML at 0x1fb09195490&gt;
+<span class="n">est1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1144,49 +1211,40 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get residuals  and propensity </span>
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">cache_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">residuals_</span>
-<span class="n">T_res</span> <span class="o">=</span> <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">e_hat</span> <span class="o">=</span> <span class="n">T</span> <span class="o">-</span> <span class="n">T_res</span> 
+<span class="n">regr</span> <span class="o">=</span> <span class="n">RegressionForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                       <span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                       <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 
-<span class="c1"># T = beta_hat*X + e , beta_hat*X = T_hat = T-e</span>
+<span class="n">e_hat</span> <span class="o">=</span> <span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Prop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;p_score&quot;</span><span class="p">:</span><span class="n">e_hat</span><span class="p">,</span> <span class="s2">&quot;Treatment&quot;</span><span class="p">:</span><span class="n">T</span><span class="p">})</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Propensity score </span>
-<span class="c1"># Do not use this for assessing heterogeneity. See text above.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Propensity score </span>
+
+<span class="n">Prop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;p_score&quot;</span><span class="p">:</span><span class="n">e_hat</span><span class="p">,</span> <span class="s2">&quot;Treatment&quot;</span><span class="p">:</span><span class="n">T</span><span class="p">})</span>
+
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">Prop</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;p_score&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Treatment&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;p_score&#39;, ylabel=&#39;Count&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;&#39;)
 </pre></div>
 </div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_27_1.png" src="../_images/4_heterogeneous_treatment_effect_1_27_1.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_28_1.png" src="../_images/4_heterogeneous_treatment_effect_1_28_1.png" />
 </div>
 </div>
 <p>Having fit a non-parametric method such as a causal forest, a researcher may (incorrectly) start by looking at the distribution of its predictions of the treatment effect. One might be tempted to think: “if the histogram is concentrated at a point, then there is no heterogeneity; if the histogram is spread out, then our estimator has found interesting heterogeneity.” However, this may be false.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">effect</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">)</span> <span class="c1"># tau(X) estimates</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do not use this for assessing heterogeneity. See text above.</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span> <span class="n">tau_hat</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span> <span class="n">tau_hat</span><span class="p">,</span> <span class="n">stat</span> <span class="o">=</span> <span class="s2">&quot;percent&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;CATE estimates&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1199,23 +1257,10 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
 </div>
 </div>
 <p>If the histogram is concentrated at a point, we may simply be underpowered: our method was not able to detect any heterogeneity, but maybe it would detect it if we had more data. If the histogram is spread out, we may be overfitting: our model is producing very noisy estimates <span class="math notranslate nohighlight">\(\widehat{\tau}(x)\)</span>, but in fact the true  <span class="math notranslate nohighlight">\(\tau(x)\)</span> can be much smoother as a function of <span class="math notranslate nohighlight">\(x\)</span>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">grf</span></code> package also produces a measure of variable importance that indicates how often a variable was used in a tree split. Again, much like the histogram above, this can be a rough diagnostic, but it should not be interpreted as indicating that, for example, variable with low importance is not related to heterogeneity. The reasoning is the same as the one presented in the causal trees section: if two covariates are highly correlated, the trees might split on one covariate but not the other, even though both (or maybe neither) are relevant in the true data-generating process.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">CausalForest</span></code> package also produces a measure of variable importance that indicates how often a variable was used in a tree split. Again, much like the histogram above, this can be a rough diagnostic, but it should not be interpreted as indicating that, for example, variable with low importance is not related to heterogeneity. The reasoning is the same as the one presented in the causal trees section: if two covariates are highly correlated, the trees might split on one covariate but not the other, even though both (or maybe neither) are relevant in the true data-generating process.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">est2</span><span class="o">.</span><span class="n">feature_importances</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.05183671, 0.49923342, 0.37411192, 0.0567607 , 0.01369339,
-       0.00436387])
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">importance</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;covariaties&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="s2">&quot;values&quot;</span> <span class="p">:</span> <span class="n">est2</span><span class="o">.</span><span class="n">feature_importances</span><span class="p">()})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">importance</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;covariaties&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="s2">&quot;values&quot;</span> <span class="p">:</span> <span class="n">est1</span><span class="o">.</span><span class="n">feature_importances</span><span class="p">()})</span>
 </pre></div>
 </div>
 </div>
@@ -1253,47 +1298,60 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
     <tr>
       <th>1</th>
       <td>polviews</td>
-      <td>0.499233</td>
+      <td>0.676524</td>
     </tr>
     <tr>
       <th>2</th>
       <td>income</td>
-      <td>0.374112</td>
+      <td>0.222522</td>
     </tr>
     <tr>
       <th>3</th>
       <td>educ</td>
-      <td>0.056761</td>
+      <td>0.053710</td>
     </tr>
     <tr>
       <th>0</th>
       <td>age</td>
-      <td>0.051837</td>
+      <td>0.036800</td>
     </tr>
     <tr>
       <th>4</th>
       <td>marital</td>
-      <td>0.013693</td>
+      <td>0.007500</td>
     </tr>
     <tr>
       <th>5</th>
       <td>sex</td>
-      <td>0.004364</td>
+      <td>0.002944</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</div>
 <div class="section" id="data-driven-subgroups">
-<h4><span class="section-number">4.2.1.2. </span>Data-driven subgroups<a class="headerlink" href="#data-driven-subgroups" title="Permalink to this headline">¶</a></h4>
+<h3><span class="section-number">3.3.1. </span>Data-driven subgroups<a class="headerlink" href="#data-driven-subgroups" title="Permalink to this headline">¶</a></h3>
 <p>Just as with causal trees, we can use causal forests to divide our observations into subgroups. In place of leaves, we’ll rank observation into (say) quintiles according to their estimated CATE prediction; see, e.g., <a class="reference external" href="https://arxiv.org/abs/1712.04802">Chernozhukov, Demirer, Duflo, Fernández-Val (2020)</a> for similar ideas.</p>
 <p>There’s a subtle but important point that needs to be addressed here. As we have mentioned before, when predicting the conditional average treatment effect <span class="math notranslate nohighlight">\(\tau(X_i)\)</span> for observation <span class="math notranslate nohighlight">\(i\)</span> we should in general avoid using a model that was fitted using observation <span class="math notranslate nohighlight">\(i\)</span>. This sort of sample splitting (which we called <strong>honesty</strong> above) is one of the required ingredients to get unbiased estimates of the CATE using the methods described here. However, when ranking estimates of two observations <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>, we need something a little stronger: we must ensure that the model was not fit using <em>either</em> <span class="math notranslate nohighlight">\(i\)</span> <em>or</em> <span class="math notranslate nohighlight">\(j\)</span>’s data.</p>
 <p>One way of overcoming this obstacle is simple. First, divide the data into <span class="math notranslate nohighlight">\(K\)</span> folds (subsets). Then, cycle through the folds, fitting a CATE model on <span class="math notranslate nohighlight">\(K-1\)</span> folds. Next, for each held-out fold, <em>separately</em> rank the unseen observations into <span class="math notranslate nohighlight">\(Q\)</span> groups based on their prediction  (i.e., if <span class="math notranslate nohighlight">\(Q=5\)</span>, then we rank observations by estimated CATE into “top quintile”, “second quintile”, and so on). After concatenating the independent rankings together, we can study the differences in observations in each rank-group.</p>
 <p><a class="reference external" href="https://gist.github.com/halflearned/bea4e5137c0c81fd18a75f682da466c8">This gist</a> computes the above for <code class="docutils literal notranslate"><span class="pre">grf</span></code>, and it should not be hard to modify it so as to replace forests by any other non-parametric method. However, for <code class="docutils literal notranslate"><span class="pre">grf</span></code> specifically, there’s a small trick that allows us to obtain a valid ranking: we can pass a vector of fold indices to the argument <code class="docutils literal notranslate"><span class="pre">clusters</span></code> and rank observations within each fold. This works because estimates for each fold (“cluster”)   trees are computed using trees that were not fit using observations from that fold. Here’s how to do it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cluster_causal_forest</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span>  <span class="n">cluster</span><span class="p">):</span>        
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;0+age+polviews+income+educ+marital+sex&#39;</span>
+<span class="n">desc</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">ModelDesc</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="n">fmla</span><span class="p">)</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">]</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">matrix</span>
+<span class="n">W</span> <span class="o">=</span> <span class="kc">None</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cluster_causal_forest</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">cluster</span><span class="p">):</span>        
         
         <span class="n">base</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">Y</span><span class="p">,</span><span class="n">T</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
         
@@ -1305,14 +1363,12 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
             <span class="n">Y</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">),:]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">T</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">),:]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">XX</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">),:]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-            <span class="n">causal</span> <span class="o">=</span> <span class="n">CausalForestDML</span><span class="p">(</span><span class="n">model_t</span><span class="o">=</span><span class="n">RegressionForest</span><span class="p">(),</span>
-                       <span class="n">model_y</span><span class="o">=</span><span class="n">RegressionForest</span><span class="p">(),</span>
-                       <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">causal</span> <span class="o">=</span> <span class="n">CausalForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                        <span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
                        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
-            <span class="n">causal</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">XX</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+            <span class="n">causal</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
             
-            <span class="n">tau_hat</span> <span class="o">=</span> <span class="n">causal</span><span class="o">.</span><span class="n">effect</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">),:])</span> <span class="c1"># tau(X) estimates using validation data</span>
+            <span class="n">tau_hat</span> <span class="o">=</span> <span class="n">causal</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">),:])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="c1"># tau(X) estimates using validation data</span>
             <span class="n">vector</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="nb">globals</span><span class="p">()[</span><span class="sa">f</span><span class="s1">&#39;data_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;tau_hat&quot;</span><span class="p">:</span><span class="n">tau_hat</span><span class="p">,</span> <span class="s2">&quot;Cluster&quot;</span><span class="p">:</span><span class="n">vector</span><span class="p">})</span>
                                                     
@@ -1320,7 +1376,7 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
        
         <span class="n">tau_predict</span> <span class="o">=</span> <span class="n">data_0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">cluster</span><span class="p">):</span>
             <span class="n">tau_predict</span> <span class="o">=</span> <span class="n">tau_predict</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="sa">f</span><span class="s1">&#39;data_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             
         
@@ -1330,13 +1386,13 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
 </div>
 </div>
 </div>
-<p>The next snippet computes the average treatment effect within each group defined above, i.e.,  <span class="math notranslate nohighlight">\(\mathbf{E}[Y_{i}(0)|G_{i} = g]\)</span>. This can done in two ways. First, by computing a simple difference-in-means estimate of the ATE based on observations within each group. This is valid only in randomized settings.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Valid randomized data and observational data with unconfoundedness+overlap.</span>
 <span class="c1"># Note: read the comments below carefully. </span>
 <span class="c1"># In randomized settings, do not estimate forest.e and e.hat; use known assignment probs.</span>
 
+<span class="c1">#</span>
 <span class="c1"># Prepare dataset</span>
 <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;0+age+polviews+income+educ+marital+sex&#39;</span>
 <span class="n">desc</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">ModelDesc</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="n">fmla</span><span class="p">)</span>
@@ -1359,7 +1415,7 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
 
 <span class="c1"># Estimate a causal forest.</span>
 
-<span class="n">tau_hat_cluster</span> <span class="o">=</span> <span class="n">cluster_causal_forest</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span>  <span class="n">cluster</span> <span class="o">=</span> <span class="n">num_folds</span><span class="p">)</span>
+<span class="n">tau_hat_cluster</span> <span class="o">=</span> <span class="n">cluster_causal_forest</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span>  <span class="n">cluster</span> <span class="o">=</span> <span class="n">num_folds</span><span class="p">)</span>
 
 <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ranking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
@@ -1436,53 +1492,50 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
       <th>5</th>
       <td>ols</td>
       <td>Q1</td>
-      <td>-0.435064</td>
-      <td>0.011338</td>
+      <td>-0.434987</td>
+      <td>0.011334</td>
     </tr>
     <tr>
       <th>6</th>
       <td>ols</td>
       <td>Q2</td>
-      <td>-0.397305</td>
-      <td>0.011151</td>
+      <td>-0.395820</td>
+      <td>0.011269</td>
     </tr>
     <tr>
       <th>7</th>
       <td>ols</td>
       <td>Q3</td>
-      <td>-0.361381</td>
-      <td>0.010971</td>
+      <td>-0.364954</td>
+      <td>0.010913</td>
     </tr>
     <tr>
       <th>8</th>
       <td>ols</td>
       <td>Q4</td>
-      <td>-0.320245</td>
-      <td>0.010623</td>
+      <td>-0.322345</td>
+      <td>0.010519</td>
     </tr>
     <tr>
       <th>9</th>
       <td>ols</td>
       <td>Q5</td>
-      <td>-0.223207</td>
-      <td>0.009822</td>
+      <td>-0.220181</td>
+      <td>0.009833</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Another option is to average the AIPW scores within each group. This valid for both randomized settings and observational settings with unconfoundedness and overlap. Moreover, AIPW-based estimators should produce estimates with tighter confidence intervals in large samples.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Computing AIPW scores.</span>
-<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">effect</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">)</span> <span class="c1">#E[Y|X]</span>
 
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">cache_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">residuals_</span>
-<span class="n">T_res</span> <span class="o">=</span> <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">e_hat</span> <span class="o">=</span> <span class="n">T</span> <span class="o">-</span> <span class="n">T_res</span>  <span class="c1"># P[W=1|X]</span>
+<span class="n">regr</span> <span class="o">=</span> <span class="n">RegressionForest</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
+                        <span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
 
-<span class="n">Y_res</span> <span class="o">=</span> <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">m_hat</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">-</span> <span class="n">Y_res</span> <span class="c1"># E[Y|X]</span>
+<span class="n">e_hat</span> <span class="o">=</span> <span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="c1"># P[W=1|X]</span>
+<span class="n">m_hat</span> <span class="o">=</span> <span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="c1"># E[Y|X]</span>
 
 
 <span class="c1"># Estimating mu.hat(X, 1) and mu.hat(X, 0) for obs in held-out sample</span>
@@ -1539,42 +1592,41 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
       <th>0</th>
       <td>apiw</td>
       <td>Q1</td>
-      <td>-0.430011</td>
-      <td>0.011363</td>
+      <td>-0.434726</td>
+      <td>0.010768</td>
     </tr>
     <tr>
       <th>1</th>
       <td>apiw</td>
       <td>Q2</td>
-      <td>-0.395391</td>
-      <td>0.011210</td>
+      <td>-0.399149</td>
+      <td>0.010537</td>
     </tr>
     <tr>
       <th>2</th>
       <td>apiw</td>
       <td>Q3</td>
-      <td>-0.362498</td>
-      <td>0.011041</td>
+      <td>-0.362827</td>
+      <td>0.010320</td>
     </tr>
     <tr>
       <th>3</th>
       <td>apiw</td>
       <td>Q4</td>
-      <td>-0.322003</td>
-      <td>0.010707</td>
+      <td>-0.321187</td>
+      <td>0.009990</td>
     </tr>
     <tr>
       <th>4</th>
       <td>apiw</td>
       <td>Q5</td>
-      <td>-0.222019</td>
-      <td>0.009806</td>
+      <td>-0.216252</td>
+      <td>0.009182</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>The code below plots the estimates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Concatenate the two results.</span>
@@ -1619,7 +1671,7 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:254: Runtime
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4_heterogeneous_treatment_effect_1_44_0.png" src="../_images/4_heterogeneous_treatment_effect_1_44_0.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_41_0.png" src="../_images/4_heterogeneous_treatment_effect_1_41_0.png" />
 </div>
 </div>
 <p>When there isn’t much detectable heterogeneity, the plot above can end up being non-monotonic. This can mean that the number of observations is too small for us to be able to detect subgroups with relevant differences in treatment effect.</p>
@@ -1632,6 +1684,7 @@ As an exercise, try running the previous two snippets on few data points (e.g., 
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Valid in randomized settings only.</span>
 
 <span class="c1"># y ~ ranking + w + ranking:w</span>
+
 <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;y ~  C(ranking) + w + w:C(ranking)&#39;</span>
 <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
@@ -1696,33 +1749,33 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
     <tr>
       <th>6</th>
       <td>Rank 2 - Rank 1</td>
-      <td>0.037759</td>
-      <td>0.014777</td>
-      <td>1.061615e-02</td>
-      <td>0.0101</td>
+      <td>0.039167</td>
+      <td>0.014772</td>
+      <td>8.021603e-03</td>
+      <td>0.0084</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Rank 3 - Rank 1</td>
-      <td>0.073683</td>
-      <td>0.014772</td>
-      <td>6.136161e-07</td>
+      <td>0.070032</td>
+      <td>0.014765</td>
+      <td>2.114420e-06</td>
       <td>0.0000</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Rank 4 - Rank 1</td>
-      <td>0.114819</td>
-      <td>0.014771</td>
-      <td>7.909513e-15</td>
+      <td>0.112642</td>
+      <td>0.014758</td>
+      <td>2.368220e-14</td>
       <td>0.0000</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Rank 5 - Rank 1</td>
-      <td>0.211857</td>
-      <td>0.014779</td>
-      <td>1.919290e-46</td>
+      <td>0.214805</td>
+      <td>0.014772</td>
+      <td>9.849671e-48</td>
       <td>0.0000</td>
     </tr>
   </tbody>
@@ -1735,6 +1788,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Valid in randomized and observational settings with unconfoundedness+overlap.</span>
 
 <span class="c1"># Using AIPW scores computed above</span>
+
 <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;aipw_scores ~  1 + C(ranking)&#39;</span>
 <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
@@ -1799,47 +1853,44 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
     <tr>
       <th>1</th>
       <td>Rank 2 - Rank 1</td>
-      <td>0.034621</td>
-      <td>0.015330</td>
-      <td>2.392637e-02</td>
-      <td>0.0229</td>
+      <td>0.035577</td>
+      <td>0.014387</td>
+      <td>1.341193e-02</td>
+      <td>0.0142</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Rank 3 - Rank 1</td>
-      <td>0.067514</td>
-      <td>0.015328</td>
-      <td>1.063206e-05</td>
+      <td>0.071899</td>
+      <td>0.014391</td>
+      <td>5.884874e-07</td>
       <td>0.0000</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Rank 4 - Rank 1</td>
-      <td>0.108008</td>
-      <td>0.015330</td>
-      <td>1.891189e-12</td>
+      <td>0.113539</td>
+      <td>0.014392</td>
+      <td>3.157459e-15</td>
       <td>0.0000</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Rank 5 - Rank 1</td>
-      <td>0.207993</td>
-      <td>0.015334</td>
-      <td>8.835049e-42</td>
+      <td>0.218474</td>
+      <td>0.014396</td>
+      <td>8.118727e-52</td>
       <td>0.0000</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Finally, we can also check if different groups have different average covariate levels across rankings.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">covariates</span><span class="p">:</span>
-    <span class="c1"># Looping over covariate names</span>
-    <span class="c1"># Compute average covariate value per ranking (with correct standard errors)</span>
     <span class="n">form2</span> <span class="o">=</span> <span class="n">var_name</span> <span class="o">+</span> <span class="s2">&quot; ~ &quot;</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span> <span class="o">+</span> <span class="s2">&quot;C(ranking)&quot;</span>
     <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">form2</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="s1">&#39;HC2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
     
@@ -1902,26 +1953,19 @@ The frame.append method is deprecated and will be removed from pandas in a futur
  Text(4.5, 0, &#39;Q5&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_50_2.png" src="../_images/4_heterogeneous_treatment_effect_1_50_2.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_46_2.png" src="../_images/4_heterogeneous_treatment_effect_1_46_2.png" />
 </div>
 </div>
-<p>Interpret the heatmap above. What describes the subgroups with strongest and weakest estimated treatment effect? Are there variables that seem to increase or decrease monotonically across rankings?</p>
 </div>
 <div class="section" id="best-linear-projection">
-<h4><span class="section-number">4.2.1.3. </span>Best linear projection<a class="headerlink" href="#best-linear-projection" title="Permalink to this headline">¶</a></h4>
+<h3><span class="section-number">3.3.2. </span>Best linear projection<a class="headerlink" href="#best-linear-projection" title="Permalink to this headline">¶</a></h3>
 <p>This function provides a doubly robust fit to the linear model <span class="math notranslate nohighlight">\(\widehat{\tau}(X_i) = \beta_0 + A_i'\beta_1\)</span>, where <span class="math notranslate nohighlight">\(A_i\)</span> can be a subset of the covariate columns. The coefficients in this regression are suggestive of general trends, but they should not be interpret as partial effects – that would only be true if the true model were really linear in covariates, and that’s an assumption we shouldn’t be willing to make in general</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dataset from best linear proyection</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">X</span>
-<span class="n">d</span><span class="p">[</span><span class="s1">&#39;tau_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau_hat</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;m_hat ~ age+polviews+income+educ+marital+sex&#39;</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="s1">&#39;HC3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dataset for best linear proyection</span>
+<span class="n">X</span><span class="p">[</span><span class="s1">&#39;tau_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau_hat</span>
+
+<span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;tau_hat ~ age+polviews+income+educ+marital+sex&#39;</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="s1">&#39;HC3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1955,66 +1999,66 @@ The frame.append method is deprecated and will be removed from pandas in a futur
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>0.029668</td>
-      <td>0.002917</td>
-      <td>10.169237</td>
-      <td>2.720309e-24</td>
-      <td>0.023950</td>
-      <td>0.035386</td>
+      <td>-0.194487</td>
+      <td>0.004157</td>
+      <td>-46.784878</td>
+      <td>0.000000e+00</td>
+      <td>-0.202635</td>
+      <td>-0.186340</td>
     </tr>
     <tr>
       <th>age</th>
-      <td>-0.000240</td>
-      <td>0.000020</td>
-      <td>-12.226411</td>
-      <td>2.246461e-34</td>
-      <td>-0.000278</td>
-      <td>-0.000201</td>
+      <td>0.001362</td>
+      <td>0.000031</td>
+      <td>43.386983</td>
+      <td>0.000000e+00</td>
+      <td>0.001300</td>
+      <td>0.001423</td>
     </tr>
     <tr>
       <th>polviews</th>
-      <td>0.038560</td>
-      <td>0.000277</td>
-      <td>139.322948</td>
+      <td>-0.033850</td>
+      <td>0.000367</td>
+      <td>-92.257380</td>
       <td>0.000000e+00</td>
-      <td>0.038017</td>
-      <td>0.039102</td>
+      <td>-0.034569</td>
+      <td>-0.033131</td>
     </tr>
     <tr>
       <th>income</th>
-      <td>0.012015</td>
-      <td>0.000146</td>
-      <td>82.440837</td>
+      <td>-0.019321</td>
+      <td>0.000205</td>
+      <td>-94.304034</td>
       <td>0.000000e+00</td>
-      <td>0.011729</td>
-      <td>0.012301</td>
+      <td>-0.019723</td>
+      <td>-0.018920</td>
     </tr>
     <tr>
       <th>educ</th>
-      <td>-0.001681</td>
-      <td>0.000123</td>
-      <td>-13.620749</td>
-      <td>3.014620e-42</td>
-      <td>-0.001923</td>
-      <td>-0.001439</td>
+      <td>0.008714</td>
+      <td>0.000193</td>
+      <td>45.253903</td>
+      <td>0.000000e+00</td>
+      <td>0.008336</td>
+      <td>0.009091</td>
     </tr>
     <tr>
       <th>marital</th>
-      <td>-0.006065</td>
-      <td>0.000210</td>
-      <td>-28.886082</td>
-      <td>1.785792e-183</td>
-      <td>-0.006476</td>
-      <td>-0.005653</td>
+      <td>0.008870</td>
+      <td>0.000317</td>
+      <td>27.986121</td>
+      <td>2.397396e-172</td>
+      <td>0.008249</td>
+      <td>0.009491</td>
     </tr>
     <tr>
       <th>sex</th>
-      <td>-0.008247</td>
-      <td>0.000630</td>
-      <td>-13.094279</td>
-      <td>3.550317e-39</td>
-      <td>-0.009482</td>
-      <td>-0.007013</td>
+      <td>-0.004628</td>
+      <td>0.000981</td>
+      <td>-4.720433</td>
+      <td>2.353431e-06</td>
+      <td>-0.006550</td>
+      <td>-0.002707</td>
     </tr>
   </tbody>
 </table>
@@ -2022,7 +2066,7 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 </div>
 </div>
 <div class="section" id="partial-dependence">
-<h4><span class="section-number">4.2.1.4. </span>Partial dependence<a class="headerlink" href="#partial-dependence" title="Permalink to this headline">¶</a></h4>
+<h3><span class="section-number">3.3.3. </span>Partial dependence<a class="headerlink" href="#partial-dependence" title="Permalink to this headline">¶</a></h3>
 <p>It may also be interesting to examine how our CATE estimates behave when we change a single covariate, while keeping all the other covariates at a some fixed value. In the plot below we evaluate a variable of interest across quantiles, while keeping all other covariates at their median.</p>
 <p>It is important to recognize that by keeping some variables at their median we may be evaluating the CATE at <span class="math notranslate nohighlight">\(x\)</span> values in regions where there are few or no data points. Also, it may be the case that varying some particular variable while keeping others fixed may just not be very interesting.</p>
 <p>In what follows we’ll again use <code class="docutils literal notranslate"><span class="pre">causal_forest</span></code> predictions, along with their variance estimates (set <code class="docutils literal notranslate"><span class="pre">estimate.variances=TRUE</span></code> when predicting to we get estimates of the asymptotic variance of the prediction for each point). Since <code class="docutils literal notranslate"><span class="pre">grf</span></code> predictions are asymptotically normal, we can construct 95% confidence intervals in the usual manner (i.e., <span class="math notranslate nohighlight">\(\hat{\tau}(x) \pm 1.96\sqrt{\widehat{\text{Var}}(\hat{\tau}(x))}\)</span>).</p>
@@ -2035,37 +2079,79 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 <span class="c1"># (commented for convenience; no need re-fit if already fitted above)</span>
 <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;0+age+polviews+income+educ+marital+sex&#39;</span>
 
-<span class="c1"># Compute a grid of values appropriate for the selected covariate</span>
+
 <span class="n">grid_size</span> <span class="o">=</span> <span class="mi">7</span> 
+
+
 <span class="n">covariate_grid</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">selected_covariate</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="n">grid_size</span><span class="p">)</span>
 
 <span class="c1"># Take median of other covariates </span>
+
 <span class="n">median</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">other_covariates</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
 
-<span class="c1"># # Construct a dataset</span>
+<span class="c1"># duplicates rows </span>
+
 <span class="n">data_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">median</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">other_covariates</span><span class="p">)]</span><span class="o">*</span><span class="n">grid_size</span><span class="p">)</span>
 <span class="n">data_grid</span><span class="p">[</span><span class="n">selected_covariate</span> <span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">covariate_grid</span><span class="p">]</span>
 
 <span class="c1"># Expand the data</span>
 <span class="n">X_grid</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data_grid</span><span class="p">,</span> <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
 
-<span class="c1"># Point predictions of the CATE and standard errors </span>
-<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">effect</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span> 
-<span class="n">tau_hat_ci</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">effect_interval</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span> 
-<span class="n">tau_hat_se</span>  <span class="o">=</span> <span class="p">(</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
+<span class="n">tau_hat_ci</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict_interval</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span>
+<span class="n">tau_hat_se</span>  <span class="o">=</span> <span class="p">((</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_covariate</span> <span class="o">=</span> <span class="s2">&quot;polviews&quot;</span>
+<span class="n">other_covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span> <span class="s2">&quot;educ&quot;</span><span class="p">,</span> <span class="s2">&quot;marital&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]</span>
+
+<span class="c1"># Fitting a forest </span>
+<span class="c1"># (commented for convenience; no need re-fit if already fitted above)</span>
+<span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;0+age+polviews+income+educ+marital+sex&#39;</span>
+
+
+<span class="n">grid_size</span> <span class="o">=</span> <span class="mi">7</span> 
+
+
+<span class="n">covariate_grid</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">selected_covariate</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="n">grid_size</span><span class="p">)</span>
+
+<span class="c1"># Take median of other covariates </span>
+
+<span class="n">median</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">other_covariates</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># duplicates rows </span>
+
+<span class="n">data_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">median</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">other_covariates</span><span class="p">)]</span><span class="o">*</span><span class="n">grid_size</span><span class="p">)</span>
+<span class="n">data_grid</span><span class="p">[</span><span class="n">selected_covariate</span> <span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">covariate_grid</span><span class="p">]</span>
+
+<span class="c1"># Expand the data</span>
+<span class="n">X_grid</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data_grid</span><span class="p">,</span> <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
+
+<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
+<span class="n">tau_hat_ci</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict_interval</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span> 
+<span class="n">tau_hat_se</span>  <span class="o">=</span> <span class="p">((</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
 
 <span class="mi">1</span><span class="c1"># Plot predictions for each group and 95% confidence intervals around them.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
+
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data_grid</span><span class="p">[</span><span class="n">selected_covariate</span><span class="p">],</span> 
          <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> 
          <span class="n">y</span><span class="o">=</span><span class="n">tau_hat</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_grid</span><span class="p">[</span><span class="n">selected_covariate</span><span class="p">],</span> <span class="n">tau_hat</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">)</span>
 
 <span class="n">eb1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data_grid</span><span class="p">[</span><span class="n">selected_covariate</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">tau_hat</span><span class="p">,</span>
             <span class="n">yerr</span><span class="o">=</span> <span class="n">tau_hat_se</span><span class="p">,</span>
             <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;darkblue&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">capsize</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
 <span class="n">eb1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_linestyle</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_linestyle</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Predicted treatment effect varying </span><span class="si">{</span><span class="n">selected_covariate</span><span class="si">}</span><span class="s2"> (other variables fixed at median)&quot;</span><span class="p">,</span>
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span><span class="p">)</span>
 <span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
@@ -2087,35 +2173,27 @@ The frame.append method is deprecated and will be removed from pandas in a futur
  Text(8.0, 0, &#39;&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_56_2.png" src="../_images/4_heterogeneous_treatment_effect_1_56_2.png" />
-</div>
-</div>
-<p>Note that, in this example, we got fairly large confidence intervals. This can be explained in two ways. First, as we mentioned above, there’s a data scarcity problem.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>As documented in the original paper on generalized random forests (Athey, Tibshirani and Wager, 2019), the coverage of grf confidence intervals can drop if the signal is too dense or too complex relative to the number of observations. Also, to a point, it’s possible to get tighter confidence intervals by increasing the number of trees; see this short vignette for more information.
-
-We can vary more than one variable at a time. The next snippet shows predictions and standard errors varying two variables.
-</pre></div>
-</div>
+<img alt="../_images/4_heterogeneous_treatment_effect_1_51_2.png" src="../_images/4_heterogeneous_treatment_effect_1_51_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;polviews&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span> <span class="p">]</span>
 <span class="n">other_covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;income&quot;</span><span class="p">,</span> <span class="s2">&quot;educ&quot;</span><span class="p">,</span> <span class="s2">&quot;marital&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]</span>
-
 <span class="c1"># Compute a grid of values appropriate for the selected covariate</span>
 <span class="c1"># See other options for constructing grids in the snippet above.</span>
+
 <span class="n">x1_grid_size</span> <span class="o">=</span> <span class="mi">7</span>
 <span class="n">x2_grid_size</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">x1_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">selected_covariate</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="n">grid_size</span><span class="p">)</span>
 <span class="n">x2_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">selected_covariates</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)))</span>
 
 <span class="c1"># Take median of other covariates </span>
+
 <span class="n">median</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">other_covariates</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 
-<span class="c1"># Construct dataset</span>
+<span class="c1"># duplicates rows </span>
+
 <span class="n">data_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">median</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">other_covariates</span><span class="p">)]</span><span class="o">*</span><span class="p">(</span><span class="n">x1_grid_size</span><span class="p">))</span>
 <span class="n">data_grid</span><span class="p">[</span><span class="n">selected_covariates</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span>  <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">covariate_grid</span><span class="p">]</span>
 <span class="n">data_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data_grid</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">x2_grid_size</span><span class="p">))</span>
@@ -2124,12 +2202,10 @@ We can vary more than one variable at a time. The next snippet shows predictions
 <span class="c1"># Expand the data</span>
 <span class="n">X_grid</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data_grid</span><span class="p">,</span> <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
 
-<span class="c1"># Forest-based point estimates of CATE and standard errors around them</span>
-<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">effect</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span> 
-<span class="n">tau_hat_ci</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">effect_interval</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span> 
-<span class="n">tau_hat_se</span>  <span class="o">=</span> <span class="p">(</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
+<span class="n">tau_hat_ci</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict_interval</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span> 
+<span class="n">tau_hat_se</span>  <span class="o">=</span> <span class="p">((</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
 
-<span class="c1"># A vector of labels for plotting below</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">X_grid</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tau_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau_hat</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tau_hat_se&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau_hat_se</span>
@@ -2146,7 +2222,6 @@ We can vary more than one variable at a time. The next snippet shows predictions
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&quot;polviews&quot;</span><span class="p">,</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="s2">&quot;tau_hat&quot;</span><span class="p">)</span> <span class="c1"># reshape dataset</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;polviews&quot;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># Plotting</span>
 <span class="n">cbar_ticks</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span><span class="o">-</span><span class="mf">0.35</span><span class="p">,</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span><span class="o">-</span><span class="mf">0.25</span><span class="p">]</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 
@@ -2170,14 +2245,13 @@ We can vary more than one variable at a time. The next snippet shows predictions
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Predicted treatment effect varying polviews andage (other variables fixed at median)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_60_1.png" src="../_images/4_heterogeneous_treatment_effect_1_60_1.png" />
-</div>
+<img alt="../_images/4_heterogeneous_treatment_effect_1_53_1.png" src="../_images/4_heterogeneous_treatment_effect_1_53_1.png" />
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="further-reading">
-<h2><span class="section-number">4.3. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.4. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <p>A readable summary of different method for hypothesis testing correction is laid out in the introduction to <a class="reference external" href="http://ftp.iza.org/dp12845.pdf">Clarke, Romano and Wolf (2009)</a>.</p>
 <p><a class="reference external" href="https://arxiv.org/abs/1902.07409">Athey and Wager (2019)</a> shows an application of causal forests to heterogeity analysis in a setting with clustering.</p>
 </div>
@@ -2212,13 +2286,13 @@ We can vary more than one variable at a time. The next snippet shows predictions
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">3. </span>ATE I: Binary treatment</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>ATE I: Binary treatment</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="5_policy_evaluation_1.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>Policy Evaluation I - Binary Treatment</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Policy Evaluation I - Binary Treatment</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
