@@ -63,13 +63,13 @@ plt.ylabel("Outcome y")
 
 # The prediction problem is to accurately guess the value of some output variable $Y_i$ from input variables $X_i$. For example, we might want to predict “house prices given house characteristics such as the number of rooms, age of the building, and so on. The relationship between input and output is modeled in very general terms by some function
 # 
-# \begin{equation}\label{eq:true-model} \tag{2.1}
+# $$
 #   Y_i = f(X_i) + \epsilon_i
-# \end{equation}
+# $$ (true-model)
 # 
 # where $\epsilon_i$ represents all that is not captured by information obtained from $X_i$ via the mapping $f$. We say that error $\epsilon_i$ is irreducible.
 # 
-# We highlight that \eqref{eq:true-model} is **not modeling a causal relationship** between inputs and outputs. For an extreme example, consider taking $Y_i$ to be “distance from the equator” and $X_i$ to be “average temperature.” We can still think of the problem of guessing (“predicting”) “distance from the equator” given some information about “average temperature,” even though one would expect the former to cause the latter.
+# We highlight that {eq}`true-model` is **not modeling a causal relationship** between inputs and outputs. For an extreme example, consider taking $Y_i$ to be “distance from the equator” and $X_i$ to be “average temperature.” We can still think of the problem of guessing (“predicting”) “distance from the equator” given some information about “average temperature,” even though one would expect the former to cause the latter.
 # 
 # In general, we can’t know the “ground truth”  $f$, so we will approximate it from data. Given $n$ data points $\{(X_1, Y_1), \cdots, (X_n, Y_n)\}$, our goal is to obtain an estimated model  $\hat{f}$ such that our predictions $\widehat{Y}_i := \hat{f}(X_i)$ are “close” to the true outcome values $Y_i$ given some criterion. To formalize this, we’ll follow these three steps:
 # 
@@ -80,10 +80,12 @@ plt.ylabel("Outcome y")
 # + **Evaluation:** Evaluate our fitted model $\hat{f}$. That is, if we were given a new, yet unseen, input and output pair $(X',Y')$, we'd like to know if $Y' \approx \hat{f}(X_i)$ by some metric.
 # 
 # For concreteness, let’s work through an example. Let’s say that, given the data simulated above, we’d like to predict $Y_i$ from the first covariate  $X_{i1}$ only. Also, let’s say that our model class will be polynomials of degree $q$ in $X_{i1}$, and we’ll evaluate fit based on mean squared error. That is, $\hat{f}(X_{i1}) = \hat{b}_0 + X_{i1}\hat{b}_1 + \cdots + X_{i1}^q \hat{b}_q$, where the coefficients are obtained by solving the following problem:
-# \begin{equation}
+# 
+# $$
 #   \hat{b} = \arg\min_b \sum_{i=1}^m
 #     \left(Y_i - b_0 - X_{i1}b_1 - \cdots - X_{iq}^q b_q \right)^2
-# \end{equation}
+# $$
+# 
 # An important question is what is $q$, the degree of the polynomial. It controls the complexity of the model. One may imagine that more complex models are better, but that is not always true, because a very flexible model may try to simply interpolate over the data at hand, but fail to generalize well for new data points. We call this **overfitting**. The main feature of overfitting is **high variance**, in the sense that, if we were given a different data set of the same size, we'd likely get a very different model.
 # 
 # To illustrate, in the figure below we let the degree be  $q=10$ but use only the first few data points. The fitted model is shown in green, and the original data points are in red.
@@ -342,23 +344,22 @@ data.loc[:,covariates[0:8]].corr()
 
 # ### Generalized linear models
 
-# 
 # This class of models extends common methods such as linear and logistic regression by adding a penalty to the magnitude of the coefficients. **Lasso** penalizes the absolute value of slope coefficients. For regression problems, it becomes
 # 
-# \begin{equation}\label{eq:lasso}\tag{2.2}
+# $$
 #   \hat{b}_{Lasso} = \arg\min_b \sum_{i=1}^m
 #     \left( Y_i - b_0 - X_{i1}b_1 - \cdots - X_{ip}b_p \right)^2
 #     - \lambda \sum_{j=1}^p |b_j|
-# \end{equation}
+# $$ (lasso)
 # 
 # 
 # Similarly, in a regression problem **Ridge** penalizes the sum of squares of the slope coefficients,
 # 
-# \begin{equation}\label{eq:ridge}\tag{2.3}
+# $$
 #   \hat{b}_{Ridge} = \arg\min_b \sum_{i=1}^m
 #     \left( Y_i - b_0 - X_{i1}b_1 - \cdots - X_{ip}b_p \right)^2
 #     - \lambda \sum_{j=1}^p b_j^2
-# \end{equation}
+# $$ (ridge)
 # 
 # Also, there exists the **Elastic Net** penalization which consists of a convex combination between the other two. In all cases, the scalar parameter
 # $\lambda$ controls the complexity of the model. For $\lambda=0$, the problem reduces to the “usual” linear regression. As $\lambda$ increases, we favor simpler models. As we’ll see below, the optimal parameter $\lambda$ is selected via cross-validation.
@@ -367,9 +368,10 @@ data.loc[:,covariates[0:8]].corr()
 # 
 # Another interesting property of these models is that, even though they are called “linear” models, this should actually be understood as **linear in transformations** of the covariates. For example, we could use polynomials or splines (continuous piecewise polynomials) of the covariates and allow for much more flexible models.
 # 
-# In fact, because of the penalization term, problems \eqref{eq:lasso} and \eqref{eq:ridge} remain well-defined and have a unique solution even in **high-dimensional** problems in which the number of coefficients $p$ is larger than the sample size $n$ – that is, our data is “fat” with more columns than rows. These situations can arise either naturally (e.g. genomics problems in which we have hundreds of thousands of gene expression information for a few individuals) or because we are including many transformations of a smaller set of covariates.
+# In fact, because of the penalization term, problems {eq}`lasso` and {eq}`ridge` remain well-defined and have a unique solution even in **high-dimensional** problems in which the number of coefficients $p$ is larger than the sample size $n$ – that is, our data is “fat” with more columns than rows. These situations can arise either naturally (e.g. genomics problems in which we have hundreds of thousands of gene expression information for a few individuals) or because we are including many transformations of a smaller set of covariates.
 # 
 # Finally, although here we are focusing on regression problems, other generalized linear models such as logistic regression can also be similarly modified by adding a Lasso, Ridge, or Elastic Net-type penalty to similar consequences.
+# 
 
 # In[13]:
 
@@ -920,14 +922,11 @@ tree.plot_tree(dt)
 # 
 # To reduce the complexity of the tree, we **prune** the tree: we collapse its leaves, permitting bias to increase but forcing variance to decrease until the desired trade-off is achieved. In `rpart`, this is done by considering a modified loss function that takes into account the number of terminal nodes (i.e., the number of regions in which the original data was partitioned). Somewhat heuristically, if we denote tree predictions by $T(x)$ and its number of terminal nodes by  $|T|$, the modified regression problem can be written as:
 # 
-# 
-#   
-# \begin{equation}\label{eq:pruned-tree}\tag{2.4}
+# $$
 #   \widehat{T} = \arg\min_{T} \sum_{i=1}^m \left( T(X_i) - Y_i \right)^2 + c_p |T|
-# \end{equation}
+# $$ (pruned-tree)
 # 
-# 
-# The complexity of the tree is controlled by the scalar parameter $c_p$, denoted as `ccp_alpha` in `sklearn.tree.DecisionTreeRegressor`. For each value of $c_p$, we find the subtree that solves \eqref{eq:pruned-tree}. Large values of $c_p$ lead to aggressively pruned trees, which have more bias and less variance. Small values of $c_p$ allow for deeper trees whose predictions can vary more wildly.
+# The complexity of the tree is controlled by the scalar parameter $c_p$, denoted as `ccp_alpha` in `sklearn.tree.DecisionTreeRegressor`. For each value of $c_p$, we find the subtree that solves {eq}`pruned-tree`. Large values of $c_p$ lead to aggressively pruned trees, which have more bias and less variance. Small values of $c_p$ allow for deeper trees whose predictions can vary more wildly.
 
 # In[8]:
 

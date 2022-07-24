@@ -14,22 +14,21 @@ random.seed(123456)
 # 
 # <font color="#fa8072">Note: this chapter is in 'beta' version and may be edited in the near future.</font>
 
-# In previous chapters, you learned how to estimate the effect of a binary treatment on an outcome variable. We saw how to estimate the average treatment effect for the entire population $\mathbf{E}[Y_i(1) - Y_i(0)]$, for specific subgroups $\mathbf{E}[Y_i(1) - Y_i(0) | G_i]$, and at specific covariate values $\mathbf{E}[Y_i(1) - Y_i(0)|X_i = x]$. One common feature of these quantities is that they compare the average effect of treating everyone (in the population, subgroup, etc) to the average effect of treating no one. But what if we had a _treatment rule_ that dictated who should be treated, and who should not? Would treating some people according to this rule be better than treating no one? Can we compare two possible treatment rules? Questions like these abound in applied work, so here we'll learn how to answer them using experimental and observational data (with appropriate assumptions).
+# In previous chapters, you learned how to estimate the effect of a binary treatment on an outcome variable. We saw how to estimate the average treatment effect for the entire population $E[Y_i(1) - Y_i(0)]$, for specific subgroups $E[Y_i(1) - Y_i(0) | G_i]$, and at specific covariate values $E[Y_i(1) - Y_i(0)|X_i = x]$. One common feature of these quantities is that they compare the average effect of treating everyone (in the population, subgroup, etc) to the average effect of treating no one. But what if we had a _treatment rule_ that dictated who should be treated, and who should not? Would treating some people according to this rule be better than treating no one? Can we compare two possible treatment rules? Questions like these abound in applied work, so here we'll learn how to answer them using experimental and observational data (with appropriate assumptions).
 # 
 # Treatment rules that dictate which groups should be treatment are called **policies**. Formally, we'll define a policy (for a binary treatment) to be a mapping from a vector of observable covariates to a number in the unit interval, i.e., $\pi: x \mapsto [0,1]$. Given some vector of covariates $x$, the expression $\pi(x) = 1$ indicates a unit with this covariate value should be treated, $\pi(x) = 0$ indicates no treatment, and  $\pi(x) = p \in (0, 1)$ indicates randomization between treatment and control with probability $p$. 
 # 
 # There are two main objects of interest in this chapter. The first is the **value** of a policy $\pi$, defined as the average outcome attained if we assign individuals to treatments according to the policy $\pi$,
 # 
-# $$  \mathbf{E}[Y_i(\pi(X_i))]. $$ 
+# $$  E[Y_i(\pi(X_i))]. $$ 
 # 
 # The second object of interest is the **difference in values** between two policies $\pi$ and $\pi'$,
 # 
-# $$  \mathbf{E}[Y_i(\pi(X_i)) - Y_i(\pi'(X_i))].$$
+# $$  E[Y_i(\pi(X_i)) - Y_i(\pi'(X_i))].$$
 # 
 # Note how the average treatment effect (ATE) we saw in previous chapters is a difference in values taking $\pi(x) \equiv 1 $ (a policy that treats everyone) and $\pi(x) \equiv 0$ (a policy that treats no one).
 # 
 # Importantly, in this chapter we'll be working with policies that are _pre-specified_ --- that is, that were created or decided _before_ looking at the data. In the next chapter, we'll see how to estimate a policy with desirable properties from the data.
-# 
 
 # In[2]:
 
@@ -109,19 +108,19 @@ for i in range(0,2):
 
 # As a first example, let's estimate the value of the following policy (assuming that it was given to or decided by us prior to looking at the data):
 # 
-# \begin{equation} \label{eq:value_est} \tag{5.1}
+# $$
 #   \pi(x) =
 #     \begin{cases} 
 #      1 \quad \text{if } x_1 > .5 \text{ and } x_2 > .5 \\
 #      0 \quad \text{otherwise}
 #     \end{cases}
-# \end{equation}
+# $$ (value_est)
 # 
 # This policy divides the plane into a "treatment" region $A$ and a complementary "no treatment" region $A^c$,
 # 
-# \begin{equation}
+# $$
 #   A := \{ x : \pi(x) = 1 \} = \{x: x_{1} > .5, x_{2} > .5\}.
-# \end{equation}
+# $$
 
 # In[7]:
 
@@ -163,31 +162,33 @@ plt.text(0.65,0.7, 'TREAT (A)', fontdict=font)
 
 # We'll consider the behavior of the policy $\pi$ separately within each region. In the "treatment" region $A$, its average outcome is the same as the average outcome for the treated population.
 # 
-# \begin{equation} \tag{5.2}
+# $$
 #   \begin{aligned}
-#     \mathbf{E}[Y_i(\pi(X_i)) \ | \ A] 
-#       &= \mathbf{E}[Y_i(1)|A]  \quad &&\text{because $\pi(x) = 1$ for all $x \in A$,} \\
-#       &= \mathbf{E}[Y_i|A, W_{i}=1]  \quad &&\text{randomized setting.} \\
+#     E[Y_i(\pi(X_i)) \ | \ A] 
+#       &= E[Y_i(1)|A]  \quad &&\text{because $\pi(x) = 1$ for all $x \in A$,} \\
+#       &= E[Y_i|A, W_{i}=1]  \quad &&\text{randomized setting.} \\
 #   \end{aligned}
-# \end{equation}
+# $$ (pi-pop-value_1)
 # 
 # In the remaining region $A^c$, its average outcome is the same as the average outcome for the untreated population.
 # 
-# \begin{equation} \tag{5.3}
+# $$
 #   \begin{aligned}
-#     \mathbf{E}[Y_i(\pi(X_i)) \ | \ A^c] 
-#       &= \mathbf{E}[Y_i(0)|A^c]  \quad &&\text{because $\pi(x) = 0$ for all $x \in A^c$,} \\
-#       &= \mathbf{E}[Y_i|A, W_{i}=0]  \quad &&\text{randomized setting.} \\
+#     E[Y_i(\pi(X_i)) \ | \ A^c] 
+#       &= E[Y_i(0)|A^c]  \quad &&\text{because $\pi(x) = 0$ for all $x \in A^c$,} \\
+#       &= E[Y_i|A, W_{i}=0]  \quad &&\text{randomized setting.} \\
 #   \end{aligned}
-# \end{equation}
+# $$ (pi-pop-value_2)
 # 
 # The expected value of $\pi$ is a weighted average of value within each region:
 # 
-# \begin{align} \tag{5.4} \label{pi-pop-value}
-#     \mathbf{E}[Y(\pi(X_i))] &= \mathbf{E}[Y_i | A, W_i = 1] P(A) +  \mathbf{E}[Y_i | A^c, W_i = 0] P(A^c), \\
+# $$
+# \begin{align} 
+#     E[Y(\pi(X_i))] &= E[Y_i | A, W_i = 1] P(A) +  E[Y_i | A^c, W_i = 0] P(A^c), \\
 # \end{align}
+# $$ (pi-pop-value)
 # 
-# where we denote the probability of drawn a covariate from $A$ as $P(A)$. In a randomized setting, we can estimate \eqref{pi-pop-value} by replacing population quantities by simple empirical counterparts based on sample averages; i.e., estimating $\mathbf{E}[Y_i | A, W_i = 1]$ by the sample average of outcomes among treated individuals in region $A$, $\mathbf{E}[Y_i | A^c, W_i = 0]$ by the sample average of outcomes among untreated individuals not in region $A$, and $P(A)$ and $P(A^c)$ by the proportions of individuals inside and outside of region $A$.
+# where we denote the probability of drawn a covariate from $A$ as $P(A)$. In a randomized setting, we can estimate {eq}`pi-pop-value` by replacing population quantities by simple empirical counterparts based on sample averages; i.e., estimating $E[Y_i | A, W_i = 1]$ by the sample average of outcomes among treated individuals in region $A$, $E[Y_i | A^c, W_i = 0]$ by the sample average of outcomes among untreated individuals not in region $A$, and $P(A)$ and $P(A^c)$ by the proportions of individuals inside and outside of region $A$.
 
 # In[8]:
 
@@ -201,26 +202,26 @@ print(f"Value estimate:", value_estimate, "Std. Error", value_stderr)
 
 # For another example, let's consider the value of a  _random_ policy $\pi'$ that would assign observations to treatment and control with probability $p$:
 # 
-# \begin{equation}
+# $$ 
 #   \pi(X_i) = Z_i \qquad Z_i \sim^{iid} \text{Binomial}(p).
-# \end{equation}
+# $$ 
 # 
 # To identify the value of this policy, follow the same argument as above. However, instead of thinking in terms of "regions", consider the output of the random variable $Z_i$:
 # 
-# \begin{equation} \label{region-a}
+# $$
 #   \begin{aligned}
-#     \mathbf{E}[Y_i(\pi'(X_i)) \ | \ Z_i = 1]
-#       &= \mathbf{E}[Y_i(1)| Z_i = 1] \quad &&\text{because $\pi'(\cdot) = 1$ when $Z_i = 1$,} \\ 
-#       &= \mathbf{E}[Y_i(1)]          \quad &&\text{$Z_i$ is drawn independently,} \\
-#       &= \mathbf{E}[Y_i| W_{i}=1]  \quad &&\text{randomized setting.} \\
+#     E[Y_i(\pi'(X_i)) \ | \ Z_i = 1]
+#       &= E[Y_i(1)| Z_i = 1] \quad &&\text{because $\pi'(\cdot) = 1$ when $Z_i = 1$,} \\ 
+#       &= E[Y_i(1)]          \quad &&\text{$Z_i$ is drawn independently,} \\
+#       &= E[Y_i| W_{i}=1]  \quad &&\text{randomized setting.} \\
 #   \end{aligned}
-# \end{equation}
+# $$ (region-a)
 # 
 # We can proceed similarly for the case of $Z_i = 0$. Finally, since $P(Z_i = 1) = p$,
 # 
-# \begin{equation}  \tag{5.5}
-#   \mathbf{E}[Y_i(\pi'(X_i))] = p\mathbf{E}[Y_i | W_i=1] + (1-p)\mathbf{E}[Y_i | W_i = 0],
-# \end{equation}
+# $$ 
+#   E[Y_i(\pi'(X_i))] = pE[Y_i | W_i=1] + (1-p)E[Y_i | W_i = 0],
+# $$ (region-a_1)
 # 
 # which in a randomized setting can be estimated in a manner analogous to the previous example.
 
@@ -236,29 +237,31 @@ print(f"Value estimate:", value_estimate, "Std. Error", value_stderr)
 
 # ### Estimating difference in values
 
-# Next, let's estimate the difference in value between two given policies. For a concrete example, let’s consider the gain from switching to $\pi$ defined in (5.1) from a policy $\pi''$ that never treats, i.e., $\pi''(X_i) \equiv 0$. That is, 
+# Next, let's estimate the difference in value between two given policies. For a concrete example, let’s consider the gain from switching to $\pi$ defined in {eq}`value_est` from a policy $\pi''$ that never treats, i.e., $\pi''(X_i) \equiv 0$. That is, 
 # 
-# \begin{equation} \tag{5.6} \label{diff-0}
-#   \mathbf{E}[Y(\pi(X_i)) - Y(\pi''(X_i))].
-# \end{equation}
+# $$
+#   E[Y(\pi(X_i)) - Y(\pi''(X_i))].
+# $$ (diff-0)
 # 
-# We already derived the value of $\pi$ in (5.5). To derive the value of the second policy,
+# We already derived the value of $\pi$ in {eq}`region-a_1`. To derive the value of the second policy,
 # 
-# \begin{align} \tag{5.7} \label{ey0-expand}
-#   &\mathbf{E}[Y(\pi''(X_i))] \\ 
-#     &= \mathbf{E}[Y_i(0)] && \text{$\pi''(x) = 0$ for all $x$,}  \\
-#     &= \mathbf{E}[Y_i(0)|A]P(A) + E[Y_i(0)|A^c]P(A^c) && \text{law of total expectation,} \\
-#     &= \mathbf{E}[Y|A,W=0]P(A) + E[Y|A^c,W=0]P(A^c) &&\text{randomized setting.} 
-# \end{align}
+# $$
+# \begin{align}
+#   &E[Y(\pi''(X_i))] \\ 
+#     &= E[Y_i(0)] && \text{$\pi''(x) = 0$ for all $x$,}  \\
+#     &= E[Y_i(0)|A]P(A) + E[Y_i(0)|A^c]P(A^c) && \text{law of total expectation,} \\
+#     &= E[Y|A,W=0]P(A) + E[Y|A^c,W=0]P(A^c) &&\text{randomized setting.} 
+# \end{align} (ey0-expand)
+# $$
 # 
-# Substituting (5.5) and \eqref{ey0-expand} into \eqref{diff-0} and simplifying,
+# Substituting {eq}`region-a_1` and {eq}`ey0-expand` into {eq}`diff-0` and simplifying,
 # 
-# \begin{equation} \tag{5.8} \label{diff-0-result}
-#   \mathbf{E}[Y(\pi(X_i)) - Y(\pi''(X_i))]
-#     = \left( \mathbf{E}[Y_i|A, W_i=1] - \mathbf{E}[Y_i|A,W_i=0] \right) \cdot P(A) + 0 \cdot P(A^c) 
-# \end{equation}
+# $$
+#   E[Y(\pi(X_i)) - Y(\pi''(X_i))]
+#     = \left( E[Y_i|A, W_i=1] - E[Y_i|A,W_i=0] \right) \cdot P(A) + 0 \cdot P(A^c) 
+# $$ (diff-0-result)
 # 
-# Expression \eqref{diff-0-result} has the following intepretation. In region $A$, the policy  $\pi$ treats, and the "never treat" policy does not; thus the gain in region $A$ is the average treatment effect in that region, $E[Y_i(1) - Y_i(0)|A]$, which in a randomized setting equals the first term in parentheses. In region $A^{c}$, the policy $\pi$ does not treat, but neither does the "never treat" policy. Therefore, there the different is exactly zero. The expected difference in values equals the weighted average of the difference in values within each region.
+# Expression {eq}`diff-0-result` has the following intepretation. In region $A$, the policy  $\pi$ treats, and the "never treat" policy does not; thus the gain in region $A$ is the average treatment effect in that region, $E[Y_i(1) - Y_i(0)|A]$, which in a randomized setting equals the first term in parentheses. In region $A^{c}$, the policy $\pi$ does not treat, but neither does the "never treat" policy. Therefore, there the different is exactly zero. The expected difference in values equals the weighted average of the difference in values within each region.
 
 # In[10]:
 
@@ -270,23 +273,24 @@ diff_stderr = np.sqrt(np.var(Y[A & (W==1)]) / sum(A & (W==1)) + np.var(Y[A & (W=
 print(f"Difference estimate:", diff_estimate, "Std. Error:", diff_stderr)
 
 
-# For another example, let's consider the difference in value between $\pi$ and a _random_ policy $\pi'$ that assigns observations to treatment and control with equal probability $p = 1/2$. We have already derived an expression for value of the random policy in (5.5). Subtracting it from the value of the policy $\pi$ derived in (5.4) and simplifying,
+# For another example, let's consider the difference in value between $\pi$ and a _random_ policy $\pi'$ that assigns observations to treatment and control with equal probability $p = 1/2$. We have already derived an expression for value of the random policy in {eq}`region-a_1`. Subtracting it from the value of the policy $\pi$ derived in {eq}`pi-pop-value` and simplifying,
 # 
-# \begin{align} \label{pi-pip-diff-results} \tag{5.9}
-#   \mathbf{E}[Y(\pi) - Y(\pi'(X_i))] 
-#     &= \frac{P(A)}{2} \left( \mathbf{E}[Y_i(1) - Y_i(0) | A] \right) +
-#       \frac{P(A^c)}{2} \left( \mathbf{E}[Y_i(0) - Y_i(1) | A^c] \right) 
+# $$
+# \begin{align} 
+#   E[Y(\pi) - Y(\pi'(X_i))] 
+#     &= \frac{P(A)}{2} \left( E[Y_i(1) - Y_i(0) | A] \right) +
+#       \frac{P(A^c)}{2} \left( E[Y_i(0) - Y_i(1) | A^c] \right) 
 # \end{align}
+# $$ (pi-pip-diff-results)
 # 
-# Here's how to interpret \eqref{pi-pip-diff-results}. In region $A$, policy $\pi$ treats everyone, obtaining average value $\mathbf{E}[Y_i(1)|A]$; meanwhile, policy $\pi'$ treats half the observations (i.e., it treats each individual with one-half probability), obtaining average value $(\mathbf{E}[Y_i(1) + Y_i(0)|A])/2$. Subtracting the two gives the term multiplying $P(A)$ in \eqref{pi-pip-diff-results}. In region $A^c$, policy $\pi$ treats no one, obtaining average value $E[Y_i(0)|A]$; meanwhile, policy $\pi'$ still obtains $(\mathbf{E}[Y_i(1) + Y_i(0)|A^c])/2$ for the same reasons as above. Subtracting the two gives the term multiplying $P(A^c)$ \eqref{pi-pip-diff-results}. Expression \eqref{pi-pip-diff-results} is the average of these two terms weighted by the size of each region. 
+# Here's how to interpret {eq}`pi-pip-diff-results`. In region $A$, policy $\pi$ treats everyone, obtaining average value $E[Y_i(1)|A]$; meanwhile, policy $\pi'$ treats half the observations (i.e., it treats each individual with one-half probability), obtaining average value $(E[Y_i(1) + Y_i(0)|A])/2$. Subtracting the two gives the term multiplying $P(A)$ in {eq}`pi-pip-diff-results`. In region $A^c$, policy $\pi$ treats no one, obtaining average value $E[Y_i(0)|A]$; meanwhile, policy $\pi'$ still obtains $(E[Y_i(1) + Y_i(0)|A^c])/2$ for the same reasons as above. Subtracting the two gives the term multiplying $P(A^c)$ {eq}`pi-pip-diff-results`. Expression {eq}`pi-pip-diff-results` is the average of these two terms weighted by the size of each region. 
 # 
-# Finally, in a randomized setting, \eqref{pi-pip-diff-results} is equivalent to
+# Finally, in a randomized setting, {eq}`pi-pip-diff-results` is equivalent to
 # 
 # \begin{align}
-# \frac{P(A)}{2} \left( \mathbf{E}[Y|A,W=1] - \mathbf{E}[Y|A,W=0] \right) + 
-#         \frac{P(A^c)}{2} \left( \mathbf{E}[Y|A^c,W=0] - \mathbf{E}[Y|A,W=1] \right),
+# \frac{P(A)}{2} \left( E[Y|A,W=1] - E[Y|A,W=0] \right) + 
+#         \frac{P(A^c)}{2} \left( E[Y|A^c,W=0] - E[Y|A,W=1] \right),
 # \end{align}
-# 
 # which suggests an estimator based on sample averages as above.
 
 # In[11]:
@@ -346,31 +350,36 @@ for i in range(0,2):
 # If we "naively" used the estimators based on sample averages above, the policy value estimate would be biased. Would the bias be upward or downward?
 # </font>
 # 
+# In randomized setting and observational settings with unconfoundedness and overlap, there exists estimates of policy values and differences that are more efficient (i.e., they have smaller variance in large samples) than their counterparts based on sample averages. These are based on the _AIPW scores_ that we studied in previous chapters. For example, to estimate the $E[Y_i(1)]$
 # 
-# 
-# In randomized setting and observational settings with unconfoundedness and overlap, there exists estimates of policy values and differences that are more efficient (i.e., they have smaller variance in large samples) than their counterparts based on sample averages. These are based on the _AIPW scores_ that we studied in previous chapters. For example, to estimate the $\mathbf{E}[Y_i(1)]$
-# 
-# \begin{align} \tag{5.10} \label{gamma-1}
+# $$
+# \begin{align} 
 #   \hat {\Gamma}_{i,1}
 #     &= \hat{\mu}^{-i}(X_i, 1) + \frac{W_i}{\hat{e}^{-i}(X_i)} \left(Y_i -\hat{\mu}^{-i}(X_i, 1)\right) 
 # \end{align}
+# $$ (gamma-1)
 # 
-# As we discussed in the chapter on ATE, averaging over AIPW scores \eqref{gamma-1} across individuals yields an unbiased / consistent estimator of $\mathbf{E}[Y_i(1)]$ provided that at least one of $\hat{\mu}^{-i}(x, 1)$ or $\hat{e}^{-i}(x)$ is an unbiased / consistent estimator of the outcome model $\mu(x,w) := \mathbf{E}[Y_i(w)|X_i=x]$ or propensity model $e(x) := P[W_i=1|X_i=x]$. Provided that these are estimates using non-parametric methods like forests or neural networks, consistency should be guaranteed, and in addition the resulting estimates should have smaller asymptotic variance. Therefore, barring computational issues, AIPW-based estimates are usually superior to estimates based on sample means, even in randomized settings (though, for completeness, the latter should still be reported when valid).
+# 
+# As we discussed in the chapter on ATE, averaging over AIPW scores {eq}`gamma-1` across individuals yields an unbiased / consistent estimator of $E[Y_i(1)]$ provided that at least one of $\hat{\mu}^{-i}(x, 1)$ or $\hat{e}^{-i}(x)$ is an unbiased / consistent estimator of the outcome model $\mu(x,w) := E[Y_i(w)|X_i=x]$ or propensity model $e(x) := P[W_i=1|X_i=x]$. Provided that these are estimates using non-parametric methods like forests or neural networks, consistency should be guaranteed, and in addition the resulting estimates should have smaller asymptotic variance. Therefore, barring computational issues, AIPW-based estimates are usually superior to estimates based on sample means, even in randomized settings (though, for completeness, the latter should still be reported when valid).
 # 
 # For the control, we have the following estimator based on AIPW scores,
 # 
-# \begin{align} \tag{5.11}  \label{gamma-0}
+# $$
+# \begin{align} 
 #   \hat {\Gamma}_{i,0} 
 #     &= \hat{\mu}^{-i}(X_i, 0) + \frac{1-W_i}{1-\hat{e}^{-i}(X_i)} \left(Y_i -\hat{\mu}^{-i}(X_i, 0)\right).
 # \end{align}
+# $$ (gamma-0)
 # 
-# To estimate the value of a binary policy $\pi$, we average over AIPW scores, selecting \eqref{gamma-1} or \eqref{gamma-0} for each individual depending on whether the policy dictates that the individual should be treated or not. That is, we estimate the value of a policy $\pi$ via the following average,
+# To estimate the value of a binary policy $\pi$, we average over AIPW scores, selecting {eq}`gamma-1` or {eq}`gamma-0` for each individual depending on whether the policy dictates that the individual should be treated or not. That is, we estimate the value of a policy $\pi$ via the following average,
 # 
+# $$
 # \begin{align} 
 #   \frac{1}{n} \sum_{i=1}^n \hat {\Gamma}_{i,\pi(X_i)} 
 #   \qquad  
 #   \hat {\Gamma}_{i,\pi(X_i)} := \pi(X_i) \hat {\Gamma}_{i,1} + (1 - \pi(X_i)) \hat {\Gamma}_{i,0}.
 # \end{align}
+# $$
 # 
 # The next snippet construct AIPW scores via causal forests. 
 
@@ -453,7 +462,7 @@ gamma_hat_1 = mu_hat_1 + W/W_hat * (Y - mu_hat_1)
 gamma_hat_0 = mu_hat_0 + (1-W)/(1-W_hat) * (Y - mu_hat_0)
 
 
-# Once we have computed AIPW scores, we can compute the value of any policy. Here's how to estimate the value of (5.1).
+# Once we have computed AIPW scores, we can compute the value of any policy. Here's how to estimate the value of {eq}`value_est`.
 
 # In[21]:
 
@@ -481,9 +490,11 @@ print(f"Value estimate:", value_estimate, "Std. Error:", value_stderr)
 
 # To estimate the difference in value between two policies $\pi$ and $\tilde{\pi}$, simply subtract the scores,
 # 
+# $$
 # \begin{align}
 #   \frac{1}{n} \sum_{i=1}^n \hat {\Gamma}_{i,\pi(X_i)} - \hat {\Gamma}_{i,\tilde{\pi}(X_i)}.
 # \end{align}
+# $$
 # 
 # For example, here we estimate the difference between policy and the "never treat" policy.
 
@@ -548,17 +559,17 @@ covariates = ["age", "polviews", "income", "educ", "marital", "sex"]
 
 # We'll take the following policy as an example. It asks individuals who are older (age > 50) or more conservative (`polviews` $\leq$ 4) if they think the government spends to much on "welfare", and it asks yonger and more liberal individuals if they think the government spends too much on "assistance to the poor".
 # 
-# \begin{equation} \tag{5.12} \label{polage}
+# $$
 #   \pi(x) =
 #     \begin{cases}
 #       1 \qquad \text{if }\texttt{polviews} \leq 4 \text{ OR } \texttt{age } > 50  \\
 #       0 \qquad \text{otherwise}
 #     \end{cases}
-# \end{equation}
+# $$ (polage)
 # 
 # We should expect that a higher number of individuals will answer 'yes' because, presumably, older and more conservative individuals in this sample may be more likely to be against welfare in the United States. 
 # 
-# We selected policy \eqref{polage} purely for illustrative purposes, but it's not hard to come up with examples where understanding how to word certain questions and prompts can be useful. For example, a non-profit that champions assistance to the poor may be able to obtain more donations if they advertise themselves as champions of "welfare" or "assistance to the poor" to different segments of the population.
+# We selected policy {eq}`polage` purely for illustrative purposes, but it's not hard to come up with examples where understanding how to word certain questions and prompts can be useful. For example, a non-profit that champions assistance to the poor may be able to obtain more donations if they advertise themselves as champions of "welfare" or "assistance to the poor" to different segments of the population.
 # 
 # Since this is a randomized setting, we can estimate its value via sample averages.
 
@@ -639,7 +650,7 @@ value_stderr = np.std(gamma_hat_pi) / np.sqrt(len(gamma_hat_pi))
 print(f"Value estimate:", value_estimate, "Std. Error:", value_stderr)
 
 
-# The next snippet estimates the value of policy (5.12) and a random policy that assigns to treatment and control with equal probability. 
+# The next snippet estimates the value of policy {eq}`polage` and a random policy that assigns to treatment and control with equal probability. 
 
 # In[29]:
 
@@ -655,7 +666,7 @@ diff_stderr = np.std(gamma_hat_pi_diff) / np.sqrt(len(gamma_hat_pi_diff))
 print(f"Difference estimate:", diff_estimate, "Std. Error:", diff_stderr)
 
 
-# The result suggests that assigning observations to treatment as in (5.12) produces 8\% more positive responses than assigning individuals at uniformly at random. 
+# The result suggests that assigning observations to treatment as in {eq}`polage` produces 8\% more positive responses than assigning individuals at uniformly at random. 
 
 # ## Further reading
 # 

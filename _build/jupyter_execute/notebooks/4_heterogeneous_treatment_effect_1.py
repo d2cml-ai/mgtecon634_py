@@ -38,19 +38,19 @@ warnings.filterwarnings('ignore')
 # 
 # In the previous chapter, we learned how to estimate the effect of a binary treatment averaged over the entire population. However, the average may obscure important details about how different individuals react to the treatment. In this chapter, we will learn how to estimate the **conditional average treatment effect (CATE)**,
 # 
-# \begin{equation} \label{eq:cate} \tag{4.1}
+# $$
 #   \tau(x) := \mathbf{E}[Y_i(1) - Y_i(0) | X_i = x],
-# \end{equation}
+# $$ (cate)
 # 
 # which is a "localized" version of the average treatment effect conditional on a vector of observable characteristics. 
 # 
-# It's often the case that \eqref{eq:cate} is too general to be immediately useful, especially when the observable covariates are high-dimensional. It can be hard to estimate reliably without making strong modeling assumptions, and hard to summarize in a useful manner after estimation. In such situations, we will instead try to estimate treatment effect averages for simpler groups
+# It's often the case that {eq}`cate` is too general to be immediately useful, especially when the observable covariates are high-dimensional. It can be hard to estimate reliably without making strong modeling assumptions, and hard to summarize in a useful manner after estimation. In such situations, we will instead try to estimate treatment effect averages for simpler groups
 # 
-# \begin{equation} \label{eq:cate-g} \tag{4.2}
+# $$
 #   \mathbf{E}[Y_i(1) - Y_i(0) | G_i = g],
-# \end{equation}
+# $$ (cate-g)
 # 
-# where $G_i$ indexes subgroups of interest. Below you'll learn how to estimate and test hypotheses about pre-defined subgroups, and also how to discover subgroups of interest from the data. In this tutorial, you will learn how to use estimates of \eqref{eq:cate} to suggest relevant subgroups $G_i$ (and in the next chapters you will find out other uses of \eqref{eq:cate} in policy learning and evaluation).
+# where $G_i$ indexes subgroups of interest. Below you'll learn how to estimate and test hypotheses about pre-defined subgroups, and also how to discover subgroups of interest from the data. In this tutorial, you will learn how to use estimates of {eq}`cate` to suggest relevant subgroups $G_i$ (and in the next chapters you will find out other uses of {eq}`cate` in policy learning and evaluation).
 # 
 # We'll continue using the abridged version of the General Social Survey (GSS) [(Smith, 2016)](https://gss.norc.org/Documents/reports/project-reports/GSSProject%20report32.pdf) dataset that was introduced in the previous chapter. In this dataset, individuals were sent to treatment or control with equal probability, so we are in a randomized setting. However, many of the techniques and code shown below should also work in an observational setting provided that unconfoundedness and overlap are satisfied (these assumptions were defined in the previous chapter).
 
@@ -77,18 +77,18 @@ covariates = ["age", "polviews", "income", "educ", "marital", "sex"]
 # 
 # We will begin by learning how to test pre-specified null hypotheses of the form
 # 
-# \begin{equation} \label{eq:hte-hyp} \tag{4.3}
+# $$
 #   H_{0}: \mathbf{E}[Y(1) - Y(0) | G_i = 1] = \mathbf{E}[Y(1) - Y(0) | G_i = 0].
-# \end{equation}
+# $$ (hte-hyp)
 # 
 # That is, that the treatment effect is the same regardless of membership to some group
 # $G_i$. Importantly, for now we’ll assume that the group $G_i$ was **pre-specified** -- it was decided _before_ looking at the data.
 # 
 # In a randomized setting, if the both the treatment  $W_i$ and group membership $G_i$ are binary, we can write
 # 
-# \begin{equation} \label{eq:linear} \tag{4.4}
+# $$
 #   \mathbf{E}[Y_i(W_i)|G_i] = \mathbf{E}[Y_i|W_i, G_i] = \beta_0 + \beta_w W_i + \beta_g G_i + \beta_{wg} W_i G_i
-# \end{equation}
+# $$ (linear)
 # 
 # <font size=1>
 # When $W_i$ and $G_i$ are binary, this decomposition is true without loss of generality. Why?
@@ -96,16 +96,16 @@ covariates = ["age", "polviews", "income", "educ", "marital", "sex"]
 # 
 # This allows us to write the average effects of $W_i$ and $G_i$ on $Y_i$ as
 # 
-# \begin{equation}  \label{eq:decomp} \tag{4.5}
-#   \begin{aligned} 
+# $$
+#   \begin{aligned}
 #     \mathbf{E}[Y(1) | G_i=1] &= \beta_0 + \beta_w W_i + \beta_g G_i + \beta_{wg} W_i G_i, \\
 #     \mathbf{E}[Y(1) | G_i=0] &= \beta_0 + \beta_w W_i,  \\
 #     \mathbf{E}[Y(0) | G_i=1] &= \beta_0 + \beta_g G_i,  \\
 #     \mathbf{E}[Y(0) | G_i=0] &= \beta_0.
 #   \end{aligned}
-# \end{equation}
+# $$ (decomp)
 # 
-# Rewriting the null hypothesis \eqref{eq:hte-hyp} in terms of the decomposition \eqref{eq:decomp}, we see that it boils down to a test about the coefficient in the interaction: $\beta_{xw} = 0$. Here’s an example that tests whether the treatment effect is the same for "conservative" (`polviews` < 4) and "liberal" (`polviews` $\geq$ 4) individuals.
+# Rewriting the null hypothesis {eq}`hte-hyp` in terms of the decomposition {eq}`decomp`, we see that it boils down to a test about the coefficient in the interaction: $\beta_{xw} = 0$. Here’s an example that tests whether the treatment effect is the same for "conservative" (`polviews` < 4) and "liberal" (`polviews` $\geq$ 4) individuals.
 
 # In[3]:
 
@@ -129,13 +129,14 @@ print(t_test.summary(xname=list(ols.summary2().tables[1].index)))
 # Interpret the results above. The coefficient $\beta_{xw}$ is denoted by `w:conservativeTRUE`. Can we detect a difference in treatment effect for conservative vs liberal individuals? For whom is the effect larger?
 # </font>
 # 
+# 
 # Sometimes there are many subgroups, leading to multiple hypotheses such as
 # 
-# \begin{equation} \label{eq:mult-hyp} \tag{4.6}
+# $$
 # H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i = g]
 # \qquad
 # \text{for many values of }g.
-# \end{equation}
+# $$ (mult-hyp)
 # 
 # In that case, we need to correct for the fact that we are testing for multiple hypotheses, or we will end up with many false positives. The **Bonferroni correction** [(wiki)](https://en.wikipedia.org/wiki/Bonferroni_correction) is a common method for dealing with multiple hypothesis testing, though it is often too conservative to be useful. It is available via the function `p.adjust` from base `R`. The next snippet of code tests whether the treatment effect at each level of `polviews` is different from the treatment effect from `polviews` equals one.
 
@@ -360,7 +361,7 @@ summary_rw_lm(ols, indices=interact)
 # 
 # The Bonferroni and Romano-Wolf methods control the **familywise error rate (FWER)**, which is the (asymptotic) probability of rejecting even one true null hypothesis. In other words, for a significance level $\alpha$, they guarantee that with probability $1 - \alpha$ we will make zero false discoveries. However, when the number of hypotheses being tested is very large, this criterion may be so stringent that it prevents us from being able to detect real effects. Instead, there exist alternative procedures that control the (asymptotic) **false discovery rate (FDR)**, defined as the expected proportion of true null hypotheses rejected among all hypotheses rejected. One such procedure is the Benjamini-Hochberg procedure, which is available in base R via `p.adjust(..., method="BH")`. For what remains we'll stick with FWER control, but keep in mind that FDR control can also useful in exploratory analyses or settings in which there's a very large number of hypotheses under consideration.
 # 
-# As in the previous chapter, when working with observational data under unconfoundedness and overlap, one can use AIPW scores  $\hat{\Gamma_i}$ in place of the raw outcomes  $Y_i$. In the next snippet, we construct AIPW scores using the `causal_forest` function from the `CausalForest` package.
+# As in the previous chapter, when working with observational data under unconfoundedness and overlap, one can use AIPW scores  $\hat{\Gamma}_i$ in place of the raw outcomes  $Y_i$. In the next snippet, we construct AIPW scores using the `causal_forest` function from the `grf` package.
 
 # ## Data-driven hypotheses
 # 
