@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: MGTECON 634 at Stanford (R scripts)
+title: MGTECON 634 at Stanford (Python scripts)
 author: Phd Susan Athey
 logo: figs/logo.jpg
 description: This tutorial will introduce key concepts in machine learning-based causal inference. This tutorial is used in the MGTECON 634 at Stanford. Scripts were translated into Python.
