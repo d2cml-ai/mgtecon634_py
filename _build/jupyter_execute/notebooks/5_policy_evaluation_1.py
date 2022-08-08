@@ -49,7 +49,7 @@ warnings.filterwarnings('ignore')
 # 
 # To fix ideas, we will begin assuming that we are in a _randomized_ setting. For concreteness, let's work with the following toy setting with two uniformly-distributed covariates and a continuous outcome.
 
-# In[3]:
+# In[6]:
 
 
 n = 1000
@@ -61,13 +61,13 @@ Y = 0.5*(X[:,0] - 0.5) + (X[:,1] - 0.5)*W + 0.1*norm.rvs(size=n)
 
 # Here is a scatterplot of the data. Each data point is represented by a square if untreated or by a circle if treated in the eperiment. The shade of the point indicates the strength of the outcome, with more negative values being zero and more positive values being darker. 
 
-# In[4]:
+# In[7]:
 
 
 y_norm = 1 - (Y - min(Y))/(max(Y) - min(Y)) # just for plotting
 
 
-# In[5]:
+# In[8]:
 
 
 plt.figure(figsize=(10,6))
@@ -87,7 +87,7 @@ plt.ylabel("x2",
 
 # Here’s a graph of each treated and untreated population separately. Remark two things about this plot. First, the covariate distribution between the two plots is the same --- which is what we should expect in a randomized setting. Second, observations with higher values of $X_2$ react positively to treatment (their blobs are darker than the untreated counterparts, which observations with lower values of $X_2$ react negatively (their blobs are lighter).
 
-# In[6]:
+# In[9]:
 
 
 f, axs = plt.subplots(1,2,
@@ -122,7 +122,7 @@ for i in range(0,2):
 #   A := \{ x : \pi(x) = 1 \} = \{x: x_{1} > .5, x_{2} > .5\}.
 # $$
 
-# In[7]:
+# In[10]:
 
 
 plt.figure(figsize=(10,6))
@@ -190,7 +190,7 @@ plt.text(0.65,0.7, 'TREAT (A)', fontdict=font)
 # 
 # where we denote the probability of drawn a covariate from $A$ as $P(A)$. In a randomized setting, we can estimate {eq}`pi-pop-value` by replacing population quantities by simple empirical counterparts based on sample averages; i.e., estimating $E[Y_i | A, W_i = 1]$ by the sample average of outcomes among treated individuals in region $A$, $E[Y_i | A^c, W_i = 0]$ by the sample average of outcomes among untreated individuals not in region $A$, and $P(A)$ and $P(A^c)$ by the proportions of individuals inside and outside of region $A$.
 
-# In[8]:
+# In[11]:
 
 
 # Only valid in randomized setting.
@@ -225,7 +225,7 @@ print(f"Value estimate:", value_estimate, "Std. Error", value_stderr)
 # 
 # which in a randomized setting can be estimated in a manner analogous to the previous example.
 
-# In[9]:
+# In[12]:
 
 
 # Only valid in randomized setting.
@@ -263,7 +263,7 @@ print(f"Value estimate:", value_estimate, "Std. Error", value_stderr)
 # 
 # Expression {eq}`diff-0-result` has the following intepretation. In region $A$, the policy  $\pi$ treats, and the "never treat" policy does not; thus the gain in region $A$ is the average treatment effect in that region, $E[Y_i(1) - Y_i(0)|A]$, which in a randomized setting equals the first term in parentheses. In region $A^{c}$, the policy $\pi$ does not treat, but neither does the "never treat" policy. Therefore, there the different is exactly zero. The expected difference in values equals the weighted average of the difference in values within each region.
 
-# In[10]:
+# In[13]:
 
 
 # Only valid in randomized settings.
@@ -293,7 +293,7 @@ print(f"Difference estimate:", diff_estimate, "Std. Error:", diff_stderr)
 # \end{align}
 # which suggests an estimator based on sample averages as above.
 
-# In[11]:
+# In[14]:
 
 
 # Only valid in randomized settings.
@@ -307,7 +307,7 @@ print(f"Difference estimate:", diff_estimate, "Std. Error:", diff_stderr)
 # 
 # In this section, we will use the following simulated _observational_ setting. Note how the probability of receiving treatment varies by individual, but it depends only on observable characteristics (ensuring unconfoundedness) and it is bounded away from zero and one (ensuring overlap). We assume that assignment probabilities are not known to the researcher.
 
-# In[12]:
+# In[15]:
 
 
 # An "observational" dataset satisfying unconfoundedness and overlap.
@@ -321,13 +321,13 @@ Y = 0.5*(X[:,0] - 0.5) + (X[:,1] - 0.5)*W + 0.1*norm.rvs(size=n)
 
 # The next plot illustrates how treatment assignment isn’t independent from observed covariates. Individuals with high values of $X_{i,1}$ and $X_{i,2}$ are more likely to be treated and to have higher outcomes. 
 
-# In[13]:
+# In[16]:
 
 
 y_norm = (Y - min(Y))/(max(Y) - min(Y))
 
 
-# In[14]:
+# In[17]:
 
 
 f, axs = plt.subplots(1,2,
@@ -383,13 +383,13 @@ for i in range(0,2):
 # 
 # The next snippet construct AIPW scores via causal forests. 
 
-# In[15]:
+# In[19]:
 
 
 # !pip install econml
 
 
-# In[16]:
+# In[20]:
 
 
 import econml
@@ -411,7 +411,7 @@ import patsy
 import seaborn as sns
 
 
-# In[17]:
+# In[25]:
 
 
 # Valid in observational and randomized settings
@@ -427,14 +427,14 @@ forest = CausalForestDML(model_t=RegressionForest(),
                        verbose=0, random_state=123)
 
 
-# In[18]:
+# In[26]:
 
 
 forest.tune(Y, W, X=X)
 forest.fit(Y, W, X=X)
 
 
-# In[19]:
+# In[47]:
 
 
 # Estimate a causal forest
@@ -450,7 +450,7 @@ Y_hat = Y - Y_res
 # T = beta_hat*X + e , beta_hat*X = T_hat = T-e
 
 
-# In[20]:
+# In[52]:
 
 
 # Estimate outcome model for treated and propen
@@ -464,7 +464,7 @@ gamma_hat_0 = mu_hat_0 + (1-W)/(1-W_hat) * (Y - mu_hat_0)
 
 # Once we have computed AIPW scores, we can compute the value of any policy. Here's how to estimate the value of {eq}`value_est`.
 
-# In[21]:
+# In[74]:
 
 
 # Valid in observational and randomized settings
@@ -477,7 +477,7 @@ print(f"Value estimate:", value_estimate, "Std. Error:", value_stderr)
 
 # The next snippet estimates the value of a random policy that treats with 75\% probability.
 
-# In[22]:
+# In[73]:
 
 
 # Valid in observational and randomized settings
@@ -498,7 +498,7 @@ print(f"Value estimate:", value_estimate, "Std. Error:", value_stderr)
 # 
 # For example, here we estimate the difference between policy and the "never treat" policy.
 
-# In[23]:
+# In[77]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness + overlap
@@ -526,14 +526,14 @@ print(f"Diff estimate:", diff_estimate, "Std. Error:", diff_stderr)
 # (Please note that we have inverted the definitions of treatment and control)
 # </font>
 
-# In[24]:
+# In[2]:
 
 
 import  csv
 import pandas as pd
 
 
-# In[25]:
+# In[3]:
 
 
 # Read in data
@@ -573,7 +573,7 @@ covariates = ["age", "polviews", "income", "educ", "marital", "sex"]
 # 
 # Since this is a randomized setting, we can estimate its value via sample averages.
 
-# In[26]:
+# In[109]:
 
 
 # Only valid in randomized setting
@@ -592,7 +592,7 @@ print(f"Value estimate:", value_estimate, "Std. Error", value_stderr)
 # 
 # The next snippet uses AIPW-based estimates, which would also have been valid had the data been collected in an observational setting with unconfoundedness and overlap.
 
-# In[27]:
+# In[112]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness + overlap
@@ -640,7 +640,7 @@ gamma_hat_0 = mu_hat_0 + (1-T)/(1-T_hat) * (Y - mu_hat_0)
 
 # As expected, the results are very similar (as they should be since they are both valid in a randomized seting).
 
-# In[28]:
+# In[113]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness + overlap
@@ -652,7 +652,7 @@ print(f"Value estimate:", value_estimate, "Std. Error:", value_stderr)
 
 # The next snippet estimates the value of policy {eq}`polage` and a random policy that assigns to treatment and control with equal probability. 
 
-# In[29]:
+# In[115]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness + overlap

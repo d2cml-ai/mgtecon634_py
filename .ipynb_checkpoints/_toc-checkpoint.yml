@@ -13,4 +13,5 @@ parts:
   - file: notebooks/4_heterogeneous_treatment_effect_1
   - file: notebooks/5_policy_evaluation_1
   - file: notebooks/6_policy_learning_1
+  - file: notebooks/8_WGANs_for_simulation
   

@@ -676,6 +676,7 @@ W = None
 # In[91]:
 
 
+
 def cluster_causal_forest(X,T,Y, cluster):        
         
         base = pd.concat([Y,T], axis = 1)
@@ -906,7 +907,6 @@ order = [5,1,2,3,4] # setting column's order
 forest_ate = forest_ate[[forest_ate.columns[i] for i in order]]
 forest_ate.rename({'Coef.': 'Estimate', 'Std.Err.': 'se', 'ranking': 'Comparative'}, axis=1, inplace = True) 
 forest_ate
-
 
 
 # In[99]:

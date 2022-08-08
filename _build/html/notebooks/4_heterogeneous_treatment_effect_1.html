@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>4. HTE I: Binary treatment &#8212; MGTECON 634 at Stanford (Python scripts)</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,19 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -38,21 +37,21 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5. Policy Evaluation I - Binary Treatment" href="5_policy_evaluation_1.html" />
@@ -64,7 +63,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +86,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -93,14 +107,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../md/intro.html">
-   Machine Learning-Based Causal Inference
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../md/intro.html">
+                    Machine Learning-Based Causal Inference
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Topics
  </span>
@@ -136,120 +151,270 @@ const thebe_selector_output = ".output, .cell_output"
    6. Policy Learning I - Binary Treatment
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_WGANs_for_simulation.html">
+   7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/notebooks/4_heterogeneous_treatment_effect_1.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/d2cml-ai/mgtecon634_python"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/4_heterogeneous_treatment_effect_1.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/4_heterogeneous_treatment_effect_1.ipynb"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/4_heterogeneous_treatment_effect_1.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/4_heterogeneous_treatment_effect_1.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        <button type="button" class="btn btn-secondary topbarbtn"
-            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
-                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/4_heterogeneous_treatment_effect_1.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/4_heterogeneous_treatment_effect_1.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/4_heterogeneous_treatment_effect_1.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/4_heterogeneous_treatment_effect_1.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/4_heterogeneous_treatment_effect_1.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pre-specified-hypotheses">
    4.1. Pre-specified hypotheses
@@ -296,12 +461,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>HTE I: Binary treatment</h1>
@@ -364,7 +528,8 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="cell docutils container">
@@ -399,9 +564,15 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\sandr\anaconda3\lib\site-packages\statsmodels\tsa\base\tsa_model.py:7: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import (to_datetime, Int64Index, DatetimeIndex, Period,
+C:\Users\sandr\anaconda3\lib\site-packages\statsmodels\tsa\base\tsa_model.py:7: FutureWarning: pandas.Float64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import (to_datetime, Int64Index, DatetimeIndex, Period,
+</pre></div>
+</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_5932</span><span class="o">/</span><span class="mf">683896246.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_14772</span><span class="o">/</span><span class="mf">683896246.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">SyncRNG</span> <span class="kn">import</span> <span class="n">SyncRNG</span>
 <span class="g g-Whitespace">     </span><span class="mi">17</span> 
 <span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">CTL.causal_tree_learn</span> <span class="kn">import</span> <span class="n">CausalTree</span>
@@ -413,18 +584,18 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="hte-i-binary-treatment">
-<h1><span class="section-number">4. </span>HTE I: Binary treatment<a class="headerlink" href="#hte-i-binary-treatment" title="Permalink to this headline">¶</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="hte-i-binary-treatment">
+<h1><span class="section-number">4. </span>HTE I: Binary treatment<a class="headerlink" href="#hte-i-binary-treatment" title="Permalink to this headline">#</a></h1>
 <p>Source RMD file: <a class="reference external" href="https://docs.google.com/uc?export=download&amp;id=1FSUi4WLfYYKnvWsNWypiQORhkqf5IlFP">link</a></p>
 <p>In the previous chapter, we learned how to estimate the effect of a binary treatment averaged over the entire population. However, the average may obscure important details about how different individuals react to the treatment. In this chapter, we will learn how to estimate the <strong>conditional average treatment effect (CATE)</strong>,</p>
 <div class="math notranslate nohighlight" id="equation-cate">
-<span class="eqno">(4.1)<a class="headerlink" href="#equation-cate" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-cate" title="Permalink to this equation">#</a></span>\[
   \tau(x) := \mathbf{E}[Y_i(1) - Y_i(0) | X_i = x],
 \]</div>
 <p>which is a “localized” version of the average treatment effect conditional on a vector of observable characteristics.</p>
 <p>It’s often the case that <a class="reference internal" href="6_policy_learning_1.html#equation-cate">(6.1)</a> is too general to be immediately useful, especially when the observable covariates are high-dimensional. It can be hard to estimate reliably without making strong modeling assumptions, and hard to summarize in a useful manner after estimation. In such situations, we will instead try to estimate treatment effect averages for simpler groups</p>
 <div class="math notranslate nohighlight" id="equation-cate-g">
-<span class="eqno">(4.2)<a class="headerlink" href="#equation-cate-g" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-cate-g" title="Permalink to this equation">#</a></span>\[
   \mathbf{E}[Y_i(1) - Y_i(0) | G_i = g],
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(G_i\)</span> indexes subgroups of interest. Below you’ll learn how to estimate and test hypotheses about pre-defined subgroups, and also how to discover subgroups of interest from the data. In this tutorial, you will learn how to use estimates of <a class="reference internal" href="6_policy_learning_1.html#equation-cate">(6.1)</a> to suggest relevant subgroups <span class="math notranslate nohighlight">\(G_i\)</span> (and in the next chapters you will find out other uses of <a class="reference internal" href="6_policy_learning_1.html#equation-cate">(6.1)</a> in policy learning and evaluation).</p>
@@ -448,18 +619,18 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="pre-specified-hypotheses">
-<h2><span class="section-number">4.1. </span>Pre-specified hypotheses<a class="headerlink" href="#pre-specified-hypotheses" title="Permalink to this headline">¶</a></h2>
+<section id="pre-specified-hypotheses">
+<h2><span class="section-number">4.1. </span>Pre-specified hypotheses<a class="headerlink" href="#pre-specified-hypotheses" title="Permalink to this headline">#</a></h2>
 <p>We will begin by learning how to test pre-specified null hypotheses of the form</p>
 <div class="math notranslate nohighlight" id="equation-hte-hyp">
-<span class="eqno">(4.3)<a class="headerlink" href="#equation-hte-hyp" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-hte-hyp" title="Permalink to this equation">#</a></span>\[
   H_{0}: \mathbf{E}[Y(1) - Y(0) | G_i = 1] = \mathbf{E}[Y(1) - Y(0) | G_i = 0].
 \]</div>
 <p>That is, that the treatment effect is the same regardless of membership to some group
 <span class="math notranslate nohighlight">\(G_i\)</span>. Importantly, for now we’ll assume that the group <span class="math notranslate nohighlight">\(G_i\)</span> was <strong>pre-specified</strong> – it was decided <em>before</em> looking at the data.</p>
 <p>In a randomized setting, if the both the treatment  <span class="math notranslate nohighlight">\(W_i\)</span> and group membership <span class="math notranslate nohighlight">\(G_i\)</span> are binary, we can write</p>
 <div class="math notranslate nohighlight" id="equation-linear">
-<span class="eqno">(4.4)<a class="headerlink" href="#equation-linear" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(4.4)<a class="headerlink" href="#equation-linear" title="Permalink to this equation">#</a></span>\[
   \mathbf{E}[Y_i(W_i)|G_i] = \mathbf{E}[Y_i|W_i, G_i] = \beta_0 + \beta_w W_i + \beta_g G_i + \beta_{wg} W_i G_i
 \]</div>
 <font size=1>
@@ -467,7 +638,7 @@ When $W_i$ and $G_i$ are binary, this decomposition is true without loss of gene
 </font>
 <p>This allows us to write the average effects of <span class="math notranslate nohighlight">\(W_i\)</span> and <span class="math notranslate nohighlight">\(G_i\)</span> on <span class="math notranslate nohighlight">\(Y_i\)</span> as</p>
 <div class="math notranslate nohighlight" id="equation-decomp">
-<span class="eqno">(4.5)<a class="headerlink" href="#equation-decomp" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-decomp" title="Permalink to this equation">#</a></span>\[\begin{split}
   \begin{aligned}
     \mathbf{E}[Y(1) | G_i=1] &amp;= \beta_0 + \beta_w W_i + \beta_g G_i + \beta_{wg} W_i G_i, \\
     \mathbf{E}[Y(1) | G_i=0] &amp;= \beta_0 + \beta_w W_i,  \\
@@ -513,7 +684,7 @@ Interpret the results above. The coefficient $\beta_{xw}$ is denoted by `w:conse
 </font>
 <p>Sometimes there are many subgroups, leading to multiple hypotheses such as</p>
 <div class="math notranslate nohighlight" id="equation-mult-hyp">
-<span class="eqno">(4.6)<a class="headerlink" href="#equation-mult-hyp" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-mult-hyp" title="Permalink to this equation">#</a></span>\[
 H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i = g]
 \qquad
 \text{for many values of }g.
@@ -905,12 +1076,12 @@ Compare the adjusted p-values under Romano-Wolf with those obtained via Bonferro
 </font>
 <p>The Bonferroni and Romano-Wolf methods control the <strong>familywise error rate (FWER)</strong>, which is the (asymptotic) probability of rejecting even one true null hypothesis. In other words, for a significance level <span class="math notranslate nohighlight">\(\alpha\)</span>, they guarantee that with probability <span class="math notranslate nohighlight">\(1 - \alpha\)</span> we will make zero false discoveries. However, when the number of hypotheses being tested is very large, this criterion may be so stringent that it prevents us from being able to detect real effects. Instead, there exist alternative procedures that control the (asymptotic) <strong>false discovery rate (FDR)</strong>, defined as the expected proportion of true null hypotheses rejected among all hypotheses rejected. One such procedure is the Benjamini-Hochberg procedure, which is available in base R via <code class="docutils literal notranslate"><span class="pre">p.adjust(...,</span> <span class="pre">method=&quot;BH&quot;)</span></code>. For what remains we’ll stick with FWER control, but keep in mind that FDR control can also useful in exploratory analyses or settings in which there’s a very large number of hypotheses under consideration.</p>
 <p>As in the previous chapter, when working with observational data under unconfoundedness and overlap, one can use AIPW scores  <span class="math notranslate nohighlight">\(\hat{\Gamma}_i\)</span> in place of the raw outcomes  <span class="math notranslate nohighlight">\(Y_i\)</span>. In the next snippet, we construct AIPW scores using the <code class="docutils literal notranslate"><span class="pre">causal_forest</span></code> function from the <code class="docutils literal notranslate"><span class="pre">grf</span></code> package.</p>
-</div>
-<div class="section" id="data-driven-hypotheses">
-<h2><span class="section-number">4.2. </span>Data-driven hypotheses<a class="headerlink" href="#data-driven-hypotheses" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="data-driven-hypotheses">
+<h2><span class="section-number">4.2. </span>Data-driven hypotheses<a class="headerlink" href="#data-driven-hypotheses" title="Permalink to this headline">#</a></h2>
 <p>Pre-specifying hypotheses prior to looking at the data is in general good practice to avoid “p-hacking” (e.g., slicing the data into different subgroups until a significant result is found). However, valid tests can also be attained if by <strong>sample splitting</strong>: we can use a subset of the sample to find promising subgroups, then test hypotheses about these subgroups in the remaining sample. This kind of sample splitting for hypothesis testing is called <strong>honesty</strong>.</p>
-<div class="section" id="via-causal-trees">
-<h3><span class="section-number">4.2.1. </span>Via causal trees<a class="headerlink" href="#via-causal-trees" title="Permalink to this headline">¶</a></h3>
+<section id="via-causal-trees">
+<h3><span class="section-number">4.2.1. </span>Via causal trees<a class="headerlink" href="#via-causal-trees" title="Permalink to this headline">#</a></h3>
 <p><strong>Causal trees</strong> [(Athey and Imbens)](PNAS, 2016)](<a class="reference external" href="https://www.pnas.org/content/pnas/113/27/7353.full.pdf">https://www.pnas.org/content/pnas/113/27/7353.full.pdf</a>) are an intuitive algorithm that is available in the randomized setting to discover subgroups with different treatment effects.</p>
 <p>At a high level, the idea is to divide the sample into three subsets (not necessarily of equal size). The <code class="docutils literal notranslate"><span class="pre">splitting</span></code> subset is used to fit a decision tree whose objective is modified to maximize heterogeneity in treatment effect estimates across leaves. The <code class="docutils literal notranslate"><span class="pre">estimation</span></code> subset is then used to produce a valid estimate of the treatment effect at each leaf of the fitted tree. Finally, a <code class="docutils literal notranslate"><span class="pre">test</span></code> subset can be used to validate the tree estimates.</p>
 <p>The next snippet uses <code class="docutils literal notranslate"><span class="pre">honest.causalTree</span></code> function from the <a class="reference external" href="https://github.com/susanathey/causalTree"><code class="docutils literal notranslate"><span class="pre">causalTree</span></code></a> package. For more details, see the <a class="reference external" href="https://github.com/susanathey/causalTree/blob/master/briefintro.pdf">causalTree documentation</a>.</p>
@@ -1165,10 +1336,10 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 </div>
 <font size=1>
 Interpret the heatmap above. What describes the subgroups with strongest and weakest estimated treatment effect?
-</font></div>
-</div>
-<div class="section" id="causal-forest">
-<h2><span class="section-number">4.3. </span>Causal Forest<a class="headerlink" href="#causal-forest" title="Permalink to this headline">¶</a></h2>
+</font></section>
+</section>
+<section id="causal-forest">
+<h2><span class="section-number">4.3. </span>Causal Forest<a class="headerlink" href="#causal-forest" title="Permalink to this headline">#</a></h2>
 <p>The function <code class="docutils literal notranslate"><span class="pre">causal_forest</span></code> from the package <code class="docutils literal notranslate"><span class="pre">CausalForest</span></code> allows us to get estimates of the CATE  (4.1).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1339,8 +1510,8 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 </table>
 </div></div></div>
 </div>
-<div class="section" id="data-driven-subgroups">
-<h3><span class="section-number">4.3.1. </span>Data-driven subgroups<a class="headerlink" href="#data-driven-subgroups" title="Permalink to this headline">¶</a></h3>
+<section id="data-driven-subgroups">
+<h3><span class="section-number">4.3.1. </span>Data-driven subgroups<a class="headerlink" href="#data-driven-subgroups" title="Permalink to this headline">#</a></h3>
 <p>Just as with causal trees, we can use causal forests to divide our observations into subgroups. In place of leaves, we’ll rank observation into (say) quintiles according to their estimated CATE prediction; see, e.g., <a class="reference external" href="https://arxiv.org/abs/1712.04802">Chernozhukov, Demirer, Duflo, Fernández-Val (2020)</a> for similar ideas.</p>
 <p>There’s a subtle but important point that needs to be addressed here. As we have mentioned before, when predicting the conditional average treatment effect <span class="math notranslate nohighlight">\(\tau(X_i)\)</span> for observation <span class="math notranslate nohighlight">\(i\)</span> we should in general avoid using a model that was fitted using observation <span class="math notranslate nohighlight">\(i\)</span>. This sort of sample splitting (which we called <strong>honesty</strong> above) is one of the required ingredients to get unbiased estimates of the CATE using the methods described here. However, when ranking estimates of two observations <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>, we need something a little stronger: we must ensure that the model was not fit using <em>either</em> <span class="math notranslate nohighlight">\(i\)</span> <em>or</em> <span class="math notranslate nohighlight">\(j\)</span>’s data.</p>
 <p>One way of overcoming this obstacle is simple. First, divide the data into <span class="math notranslate nohighlight">\(K\)</span> folds (subsets). Then, cycle through the folds, fitting a CATE model on <span class="math notranslate nohighlight">\(K-1\)</span> folds. Next, for each held-out fold, <em>separately</em> rank the unseen observations into <span class="math notranslate nohighlight">\(Q\)</span> groups based on their prediction  (i.e., if <span class="math notranslate nohighlight">\(Q=5\)</span>, then we rank observations by estimated CATE into “top quintile”, “second quintile”, and so on). After concatenating the independent rankings together, we can study the differences in observations in each rank-group.</p>
@@ -1966,9 +2137,9 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 <img alt="../_images/4_heterogeneous_treatment_effect_1_46_2.png" src="../_images/4_heterogeneous_treatment_effect_1_46_2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="best-linear-projection">
-<h3><span class="section-number">4.3.2. </span>Best linear projection<a class="headerlink" href="#best-linear-projection" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="best-linear-projection">
+<h3><span class="section-number">4.3.2. </span>Best linear projection<a class="headerlink" href="#best-linear-projection" title="Permalink to this headline">#</a></h3>
 <p>This function provides a doubly robust fit to the linear model <span class="math notranslate nohighlight">\(\widehat{\tau}(X_i) = \beta_0 + A_i'\beta_1\)</span>, where <span class="math notranslate nohighlight">\(A_i\)</span> can be a subset of the covariate columns. The coefficients in this regression are suggestive of general trends, but they should not be interpret as partial effects – that would only be true if the true model were really linear in covariates, and that’s an assumption we shouldn’t be willing to make in general</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2074,9 +2245,9 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="partial-dependence">
-<h3><span class="section-number">4.3.3. </span>Partial dependence<a class="headerlink" href="#partial-dependence" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="partial-dependence">
+<h3><span class="section-number">4.3.3. </span>Partial dependence<a class="headerlink" href="#partial-dependence" title="Permalink to this headline">#</a></h3>
 <p>It may also be interesting to examine how our CATE estimates behave when we change a single covariate, while keeping all the other covariates at a some fixed value. In the plot below we evaluate a variable of interest across quantiles, while keeping all other covariates at their median.</p>
 <p>It is important to recognize that by keeping some variables at their median we may be evaluating the CATE at <span class="math notranslate nohighlight">\(x\)</span> values in regions where there are few or no data points. Also, it may be the case that varying some particular variable while keeping others fixed may just not be very interesting.</p>
 <p>In what follows we’ll again use <code class="docutils literal notranslate"><span class="pre">causal_forest</span></code> predictions, along with their variance estimates (set <code class="docutils literal notranslate"><span class="pre">estimate.variances=TRUE</span></code> when predicting to we get estimates of the asymptotic variance of the prediction for each point). Since <code class="docutils literal notranslate"><span class="pre">grf</span></code> predictions are asymptotically normal, we can construct 95% confidence intervals in the usual manner (i.e., <span class="math notranslate nohighlight">\(\hat{\tau}(x) \pm 1.96\sqrt{\widehat{\text{Var}}(\hat{\tau}(x))}\)</span>).</p>
@@ -2258,14 +2429,14 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 <img alt="../_images/4_heterogeneous_treatment_effect_1_53_1.png" src="../_images/4_heterogeneous_treatment_effect_1_53_1.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="further-reading">
-<h2><span class="section-number">4.4. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="further-reading">
+<h2><span class="section-number">4.4. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">#</a></h2>
 <p>A readable summary of different method for hypothesis testing correction is laid out in the introduction to <a class="reference external" href="http://ftp.iza.org/dp12845.pdf">Clarke, Romano and Wolf (2009)</a>.</p>
 <p><a class="reference external" href="https://arxiv.org/abs/1902.07409">Athey and Wager (2019)</a> shows an application of causal forests to heterogeity analysis in a setting with clustering.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2289,9 +2460,11 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="3_average_treatment_effect_1.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2307,23 +2480,27 @@ The frame.append method is deprecated and will be removed from pandas in a futur
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Phd Susan Athey<br/>
+  
+</p>
+        </footer>
+    </div>
     
-      By Phd Susan Athey<br/>
-    
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

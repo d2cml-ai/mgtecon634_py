@@ -1,19 +1,19 @@
 Traceback (most recent call last):
-  File "C:\Users\sandr\anaconda3\envs\renv\lib\site-packages\jupyter_cache\executors\utils.py", line 56, in single_nb_execution
-    record_timing=False,
-  File "C:\Users\sandr\anaconda3\envs\renv\lib\site-packages\nbclient\client.py", line 1204, in execute
+  File "C:\Users\sandr\anaconda3\lib\site-packages\jupyter_cache\executors\utils.py", line 51, in single_nb_execution
+    executenb(
+  File "C:\Users\sandr\anaconda3\lib\site-packages\nbclient\client.py", line 1112, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "C:\Users\sandr\anaconda3\envs\renv\lib\site-packages\nbclient\util.py", line 84, in wrapped
+  File "C:\Users\sandr\anaconda3\lib\site-packages\nbclient\util.py", line 74, in wrapped
     return just_run(coro(*args, **kwargs))
-  File "C:\Users\sandr\anaconda3\envs\renv\lib\site-packages\nbclient\util.py", line 62, in just_run
+  File "C:\Users\sandr\anaconda3\lib\site-packages\nbclient\util.py", line 53, in just_run
     return loop.run_until_complete(coro)
-  File "C:\Users\sandr\anaconda3\envs\renv\lib\asyncio\base_events.py", line 587, in run_until_complete
+  File "C:\Users\sandr\anaconda3\lib\asyncio\base_events.py", line 642, in run_until_complete
     return future.result()
-  File "C:\Users\sandr\anaconda3\envs\renv\lib\site-packages\nbclient\client.py", line 664, in async_execute
-    cell, index, execution_count=self.code_cells_executed + 1
-  File "C:\Users\sandr\anaconda3\envs\renv\lib\site-packages\nbclient\client.py", line 965, in async_execute_cell
-    await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "C:\Users\sandr\anaconda3\envs\renv\lib\site-packages\nbclient\client.py", line 862, in _check_raise_for_error
+  File "C:\Users\sandr\anaconda3\lib\site-packages\nbclient\client.py", line 553, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\sandr\anaconda3\lib\site-packages\nbclient\client.py", line 857, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "C:\Users\sandr\anaconda3\lib\site-packages\nbclient\client.py", line 760, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
@@ -52,14 +52,42 @@ np.random.seed(12)
 ------------------
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-[1;32m~\AppData\Local\Temp/ipykernel_16640/2945750771.py[0m in [0;36m<module>[1;34m[0m
-[0;32m     27[0m [1;32mfrom[0m [0meconml[0m[1;33m.[0m[0mpolicy[0m [1;32mimport[0m [0mPolicyForest[0m[1;33m,[0m [0mPolicyTree[0m[1;33m[0m[1;33m[0m[0m
-[0;32m     28[0m [1;31m## Users function[0m[1;33m[0m[1;33m[0m[1;33m[0m[0m
-[1;32m---> 29[1;33m [1;32mfrom[0m [0mmain[0m [1;32mimport[0m [1;33m*[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m     30[0m [1;33m[0m[0m
-[0;32m     31[0m [0mrandom[0m[1;33m.[0m[0mseed[0m[1;33m([0m[1;36m12[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[1;31mImportError[0m                               Traceback (most recent call last)
+[1;32m~\AppData\Local\Temp/ipykernel_19644/2945750771.py[0m in [0;36m<module>[1;34m[0m
+[0;32m      6[0m [1;32mimport[0m [0mwarnings[0m[1;33m[0m[1;33m[0m[0m
+[0;32m      7[0m [0mwarnings[0m[1;33m.[0m[0mfilterwarnings[0m[1;33m([0m[1;34m'ignore'[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[1;32m----> 8[1;33m [1;32mimport[0m [0mseaborn[0m [1;32mas[0m [0msns[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m      9[0m [1;32mimport[0m [0mmatplotlib[0m[1;33m.[0m[0mpyplot[0m [1;32mas[0m [0mplt[0m[1;33m[0m[1;33m[0m[0m
+[0;32m     10[0m [1;32mimport[0m [0mrandom[0m[1;33m[0m[1;33m[0m[0m
 
-[1;31mModuleNotFoundError[0m: No module named 'main'
-ModuleNotFoundError: No module named 'main'
+[1;32m~\anaconda3\lib\site-packages\seaborn\__init__.py[0m in [0;36m<module>[1;34m[0m
+[0;32m      1[0m [1;31m# Import seaborn objects[0m[1;33m[0m[1;33m[0m[0m
+[1;32m----> 2[1;33m [1;32mfrom[0m [1;33m.[0m[0mrcmod[0m [1;32mimport[0m [1;33m*[0m  [1;31m# noqa: F401,F403[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m      3[0m [1;32mfrom[0m [1;33m.[0m[0mutils[0m [1;32mimport[0m [1;33m*[0m  [1;31m# noqa: F401,F403[0m[1;33m[0m[1;33m[0m[0m
+[0;32m      4[0m [1;32mfrom[0m [1;33m.[0m[0mpalettes[0m [1;32mimport[0m [1;33m*[0m  [1;31m# noqa: F401,F403[0m[1;33m[0m[1;33m[0m[0m
+[0;32m      5[0m [1;32mfrom[0m [1;33m.[0m[0mrelational[0m [1;32mimport[0m [1;33m*[0m  [1;31m# noqa: F401,F403[0m[1;33m[0m[1;33m[0m[0m
+
+[1;32m~\anaconda3\lib\site-packages\seaborn\rcmod.py[0m in [0;36m<module>[1;34m[0m
+[0;32m      3[0m [1;32mimport[0m [0mfunctools[0m[1;33m[0m[1;33m[0m[0m
+[0;32m      4[0m [1;32mfrom[0m [0mdistutils[0m[1;33m.[0m[0mversion[0m [1;32mimport[0m [0mLooseVersion[0m[1;33m[0m[1;33m[0m[0m
+[1;32m----> 5[1;33m [1;32mimport[0m [0mmatplotlib[0m [1;32mas[0m [0mmpl[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m      6[0m [1;32mfrom[0m [0mcycler[0m [1;32mimport[0m [0mcycler[0m[1;33m[0m[1;33m[0m[0m
+[0;32m      7[0m [1;32mfrom[0m [1;33m.[0m [1;32mimport[0m [0mpalettes[0m[1;33m[0m[1;33m[0m[0m
+
+[1;32m~\anaconda3\lib\site-packages\matplotlib\__init__.py[0m in [0;36m<module>[1;34m[0m
+[0;32m    105[0m [1;31m# cbook must import matplotlib only within function[0m[1;33m[0m[1;33m[0m[0m
+[0;32m    106[0m [1;31m# definitions, so it is safe to import from it here.[0m[1;33m[0m[1;33m[0m[0m
+[1;32m--> 107[1;33m [1;32mfrom[0m [1;33m.[0m [1;32mimport[0m [0m_api[0m[1;33m,[0m [0mcbook[0m[1;33m,[0m [0mdocstring[0m[1;33m,[0m [0mrcsetup[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m    108[0m [1;32mfrom[0m [0mmatplotlib[0m[1;33m.[0m[0mcbook[0m [1;32mimport[0m [0mMatplotlibDeprecationWarning[0m[1;33m,[0m [0msanitize_sequence[0m[1;33m[0m[1;33m[0m[0m
+[0;32m    109[0m [1;32mfrom[0m [0mmatplotlib[0m[1;33m.[0m[0mcbook[0m [1;32mimport[0m [0mmplDeprecation[0m  [1;31m# deprecated[0m[1;33m[0m[1;33m[0m[0m
+
+[1;32m~\anaconda3\lib\site-packages\matplotlib\rcsetup.py[0m in [0;36m<module>[1;34m[0m
+[0;32m     22[0m [1;32mimport[0m [0mnumpy[0m [1;32mas[0m [0mnp[0m[1;33m[0m[1;33m[0m[0m
+[0;32m     23[0m [1;33m[0m[0m
+[1;32m---> 24[1;33m [1;32mfrom[0m [0mmatplotlib[0m [1;32mimport[0m [0m_api[0m[1;33m,[0m [0manimation[0m[1;33m,[0m [0mcbook[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m     25[0m [1;32mfrom[0m [0mmatplotlib[0m[1;33m.[0m[0mcbook[0m [1;32mimport[0m [0mls_mapper[0m[1;33m[0m[1;33m[0m[0m
+[0;32m     26[0m [1;32mfrom[0m [0mmatplotlib[0m[1;33m.[0m[0mcolors[0m [1;32mimport[0m [0mColormap[0m[1;33m,[0m [0mis_color_like[0m[1;33m[0m[1;33m[0m[0m
+
+[1;31mImportError[0m: cannot import name 'animation' from partially initialized module 'matplotlib' (most likely due to a circular import) (C:\Users\sandr\anaconda3\lib\site-packages\matplotlib\__init__.py)
+ImportError: cannot import name 'animation' from partially initialized module 'matplotlib' (most likely due to a circular import) (C:\Users\sandr\anaconda3\lib\site-packages\matplotlib\__init__.py)
 

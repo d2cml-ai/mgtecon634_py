@@ -188,8 +188,7 @@ data_exp = data.copy()
 data.shape
 
 # defining the group that we will be dropped with some high probability
-grp = ((data.w == 1) & ((data.age > 45) | (data.polviews < 5) )) | \
-        ((data.w == 0) &  # if untreated AND
+grp = ((data.w == 1) & ((data.age > 45) | (data.polviews < 5) )) |         ((data.w == 0) &  # if untreated AND
         (
             (data.age < 45) |   # belongs a younger group OR
             (data.polviews > 4)  # more liberal
@@ -627,7 +626,7 @@ ate_results
 # The next snippet provides an implementation of the AIPW estimator where outcome and propensity models are estimated using generalized linear models with splines (via `glmnet` and `splines` packages).
 # 
 
-# In[19]:
+# In[33]:
 
 
 # Available in randomized settings and observational settings with unconfoundedness+overlap
@@ -703,7 +702,7 @@ ate_results
 
 # Here’s another example of AIPW-based estimation using random forests via the package `grf`. The function `average_treatment_effect` computes the AIPW estimate of the treatment effect, and uses forest-based estimates of the outcome model and propensity scores (unless those are passed directly via the arguments `Y.hat` and `W.hat`). Also, because forests are an ensemble method, cross-fitting is accomplished via [_out-of-bag_](https://github.com/grf-labs/grf/blob/master/REFERENCE.md#out-of-bag-prediction) predictions – that is, predictions for observation $i$ are computed using trees that were not constructed using observation $i$.
 
-# In[20]:
+# In[34]:
 
 
 import econml
@@ -725,7 +724,7 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 import patsy
 
 
-# In[21]:
+# In[35]:
 
 
 fmla = 'age+polviews+income+educ+marital+sex'
@@ -739,7 +738,7 @@ X = matrix
 W = None 
 
 
-# In[22]:
+# In[36]:
 
 
 # Estimate a causal forest.
@@ -750,7 +749,7 @@ est2 = CausalForest(n_estimators=100, min_samples_leaf=5,
 est2.fit(X, T, Y)
 
 
-# In[23]:
+# In[42]:
 
 
 # Get residuals  and propensity 
@@ -777,7 +776,7 @@ m_hat = regr.fit(X, Y).predict(X).flatten() # E[Y|X]
 # 
 # where $\bar{Z}_1$ and $\bar{Z}_0$ are sample averages of $Z_i$, and $s_1$ and $s_0$ are standard deviations of $Z_i$ for the two samples of treated and untreated individuals. Next, we can check the same quantity for their weighted counterparts $Z_{i}W_i/\hat{e}(X_i)$ and $Z_i(1-W_i)/(1-\hat{e}(X_i))$. If our propensity scores are well-calibrated, the ASMD for the weighted version should be close to zero. 
 
-# In[24]:
+# In[43]:
 
 
 # Here, adding covariates and their interactions, though there are many other possibilities.
@@ -804,7 +803,7 @@ T = None
 pp = matrix.shape[1]
 
 
-# In[25]:
+# In[44]:
 
 
 # Unadjusted covariate means, variances and standardized abs mean differences
@@ -817,7 +816,7 @@ var_ctrl = XX[W == 0].var()
 std = np.sqrt((var_treat + var_ctrl))
 
 
-# In[26]:
+# In[45]:
 
 
 # Adjusted covariate means, variances and standardized abs mean differences
@@ -830,7 +829,7 @@ var_ctrl_adj = (XX*(pd.DataFrame((1-W)/(1-e_hat)).values)).var()
 std_adj = np.sqrt((var_treat_adj + var_ctrl_adj))
 
 
-# In[27]:
+# In[46]:
 
 
 # Create dataframe to make plots 
@@ -842,7 +841,7 @@ result.reset_index(inplace=True)
 result = result.rename(columns = {'index':'vars'})
 
 
-# In[28]:
+# In[47]:
 
 
 # Plotting 
@@ -859,7 +858,7 @@ plt.title("Standardized absolute mean differences")
 # 
 # In addition to the above, we can check the entire distribution of covariates (and their transformations). The next snippet plots histograms for treated and untreated individuals with and without adjustment. Note how the adjusted histograms are very similar -- that is what we should expect. 
 
-# In[29]:
+# In[48]:
 
 
 data_2 = matrix[["age", "polviews", "age:polviews", "educ",]]
@@ -869,7 +868,7 @@ data_3 = pd.merge(data_2, W, right_index = True,
 data_3["IPW"] = np.where(data_3["w"] == 1, 1/e_hat, 1 / (1 - e_hat))
 
 
-# In[30]:
+# In[49]:
 
 
 # Covariate histograms (unajusted)
@@ -879,7 +878,7 @@ sns.displot(data_3, x="age:polviews", hue="w", bins=30)
 sns.displot(data_3, x="educ", hue="w", bins=30)
 
 
-# In[31]:
+# In[50]:
 
 
 # Covariate histograms (ajusted)
@@ -895,7 +894,7 @@ sns.displot(data_3, x="educ", hue="w", bins= 30, weights=np.array(data_3["IPW"])
 # 
 # It's also important to check the estimated propensity scores. If they seem to cluster at zero or one, we should expect IPW and AIPW estimators to behave very poorly. Here, the propensity score is trimodal because of our sample modification procedure in Section (3.3): some observations are untouched and therefore remain with assignment probability $0.5$, some are dropped (kept) with probability 15\% (85\%).
 
-# In[32]:
+# In[51]:
 
 
 g = sns.displot(e_hat, bins=100)

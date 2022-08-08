@@ -24,7 +24,7 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 
 # In this section, we will use simulated data. In the next section we’ll load a real dataset.
 
-# In[2]:
+# In[501]:
 
 
 # Simulating data
@@ -45,7 +45,7 @@ data = pd.DataFrame(np.array([x,y]).T, columns=['x','y'])
 
 # The following shows how the two variables `x` and `y` relate. Note that the relationship is nonlinear.
 
-# In[3]:
+# In[502]:
 
 
 plt.figure(figsize=(15,6))
@@ -90,7 +90,7 @@ plt.ylabel("Outcome y")
 # 
 # To illustrate, in the figure below we let the degree be  $q=10$ but use only the first few data points. The fitted model is shown in green, and the original data points are in red.
 
-# In[4]:
+# In[503]:
 
 
 X = data.loc[:,'x'].values.reshape(-1, 1)
@@ -134,7 +134,7 @@ plt.ylabel('Outcome y')
 # 
 # To illustrate underfitting, in the figure below we set $q=1$ (a linear fit).
 
-# In[5]:
+# In[504]:
 
 
 lin = LinearRegression()
@@ -162,7 +162,7 @@ plt.ylabel('Outcome y')
 # 
 # One data-driven way of deciding an appropriate level of complexity is to divide the available data into a training set (where the model is fit) and the validation set (where the model is evaluated). The next snippet of code uses the first half of the data to fit a polynomial of order $q$, and then evaluates that polynomial on the second half. The training MSE estimate decreases monotonically with the polynomial degree, because the model is better able to fit on the training data; the test MSE estimate starts increasing after a while reflecting that the model no longer generalizes well.
 
-# In[6]:
+# In[560]:
 
 
 degrees =np.arange(3,21)
@@ -190,7 +190,7 @@ for d in degrees:
     test_mse.append(mse_test)
 
 
-# In[7]:
+# In[606]:
 
 
 fig, ax = plt.subplots(figsize=(14,6))
@@ -209,7 +209,7 @@ ax.annotate("High bias \n Low Variance", xy=(5.3, 1.30), xycoords='data', xytext
 
 # To make better use of the data we will often divide the data into $K$ subsets, or _folds_. Then one fits $K$ models, each using  $K-1$ folds and then evaluation the fitted model on the remaining fold. This is called **k-fold cross-validation**.
 
-# In[8]:
+# In[607]:
 
 
 from sklearn.model_selection import GridSearchCV
@@ -230,7 +230,7 @@ for d in degrees:
     mse.append(mse_test)
 
 
-# In[9]:
+# In[608]:
 
 
 plt.figure(figsize=(12,6))
@@ -245,7 +245,7 @@ plt.title('MSE estimate (K-fold cross validation)', fontsize =16)
 
 # A final remark is that, in machine learning applications, the complexity of the model often is allowed to increase with the available data. In the example above, even though we weren’t very successful when fitting a high-dimensional model on very little data, if we had much more data perhaps such a model would be appropriate. The next figure again fits a high order polynomial model, but this time on many data points. Note how, at least in data-rich regions, the model is much better behaved, and tracks the average outcome reasonably well without trying to interpolate wildly of the data points. 
 
-# In[10]:
+# In[609]:
 
 
 X = data.loc[:,'x'].values.reshape(-1, 1)
@@ -295,7 +295,7 @@ plt.ylabel('Outcome')
 # 
 # For the remainder of the chapter we will use a real dataset. Each row in this data set represents the characteristics of a owner-occupied housing unit. Our goal is to predict the (log) price of the housing unit (`LOGVALUE`, our outcome variable) from features such as the size of the lot (`LOT`) and square feet area (`UNITSF`), number of bedrooms (`BEDRMS`) and bathrooms (`BATHS`), year in which it was built (`BUILT`) etc. This dataset comes from the American Housing Survey and was used in [Mullainathan and Spiess (2017, JEP)](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87). In addition, we will append to this data columns that are pure noise. Ideally, our fitted model should not take them into acccount.
 
-# In[11]:
+# In[3]:
 
 
 import requests
@@ -336,7 +336,7 @@ p = len(covariates)
 
 # Here's the correlation between the first few covariates. Note how, most variables are positively correlated, which is expected since houses with more bedrooms will usually also have more bathrooms, larger area, etc.
 
-# In[12]:
+# In[3]:
 
 
 data.loc[:,covariates[0:8]].corr()
@@ -373,14 +373,14 @@ data.loc[:,covariates[0:8]].corr()
 # Finally, although here we are focusing on regression problems, other generalized linear models such as logistic regression can also be similarly modified by adding a Lasso, Ridge, or Elastic Net-type penalty to similar consequences.
 # 
 
-# In[13]:
+# In[8]:
 
 
 X = data.loc[:,covariates]
 Y = data.loc[:,outcome]
 
 
-# In[14]:
+# In[36]:
 
 
 from sklearn.linear_model import Lasso
@@ -401,14 +401,14 @@ scores_std = clf.cv_results_["std_test_score"]
 
 # The next figure plots the average estimated MSE for each lambda. The red dots are the averages across all folds, and the error bars are based on the variability of mse estimates across folds. The vertical dashed lines show the (log) lambda with smallest estimated MSE (left) and the one whose mse is at most one standard error from the first (right).
 
-# In[15]:
+# In[37]:
 
 
 data_lasso = pd.DataFrame([pd.Series(alphas, name= "alphas"), pd.Series(scores, name = "scores")]).T
 best = data_lasso[data_lasso["scores"] == np.min(data_lasso["scores"])]
 
 
-# In[16]:
+# In[38]:
 
 
 plt.figure().set_size_inches(8, 6)
@@ -431,7 +431,7 @@ plt.xlim([alphas[0], alphas[-1]])
 
 # Here are the first few estimated coefficients at the $\lambda$ value that minimizes cross-validated MSE. Note that many estimated coefficients them are exactly zero.
 
-# In[17]:
+# In[39]:
 
 
 lasso = Lasso(alpha=best.iloc[0,0])
@@ -445,7 +445,7 @@ table[0,4] = lasso.coef_[3]
 pd.DataFrame(table, columns=['(Intercept)','LOT','UNITSF','BUILT','BATHS'], index=['Coef.'])
 
 
-# In[18]:
+# In[40]:
 
 
 print("Number of nonzero coefficients at optimal lambda:", len(lasso.coef_[lasso.coef_ != 0]), "out of " , len(lasso.coef_)) 
@@ -454,7 +454,7 @@ print("Number of nonzero coefficients at optimal lambda:", len(lasso.coef_[lasso
 # Predictions and estimated MSE for the selected model are retrieved as follows.
 # 
 
-# In[19]:
+# In[41]:
 
 
 # Retrieve predictions at best lambda regularization parameter
@@ -469,7 +469,7 @@ print("glmnet MSE estimate (k-fold cross-validation):", mse_lasso)
 # The next command plots estimated coefficients as a function of the regularization parameter $\lambda$.
 # 
 
-# In[20]:
+# In[42]:
 
 
 coefs = []
@@ -479,7 +479,7 @@ for a in alphas:
     coefs.append(lasso.coef_)
 
 
-# In[21]:
+# In[43]:
 
 
 from matplotlib.pyplot import figure
@@ -497,7 +497,7 @@ plt.title('Lasso coefficients as a function of alpha');
 # 
 # It's tempting to try to interpret the coefficients obtained via Lasso. Unfortunately, that can be very difficult, because by dropping covariates Lasso introduces a form of **omitted variable bias** ([wikipedia](https://en.wikipedia.org/wiki/Omitted-variable_bias)). To understand this form of bias, consider the following toy example. We have two positively correlated independent variables, `x.1` and `x.2`, that are linearly related to the outcome `y`. Linear regression of `y` on `x1` and `x2` gives us the correct coefficients. However, if we _omit_ `x2` from the estimation model, the coefficient on `x1` increases. This is because `x1` is now "picking up" the effect of the variable that was left out. In other words, the effect of `x1` seems stronger because we aren't controlling for some other confounding variable. Note that the second model this still works for prediction, but we cannot interpret the coefficient as a measure of strength of the causal relationship between `x1` and `y`.
 
-# In[22]:
+# In[44]:
 
 
 mean = [0.0,0.0]
@@ -510,7 +510,7 @@ data_sim = pd.DataFrame(np.array([x1,x2,y]).T,columns=['x1','x2','y'] )
 print('Correct Model')
 
 
-# In[23]:
+# In[45]:
 
 
 import statsmodels.formula.api as smf
@@ -519,7 +519,7 @@ result = smf.ols('y ~ x1 + x2', data = data_sim).fit()
 print(result.summary())
 
 
-# In[24]:
+# In[46]:
 
 
 print("Model with omitted variable bias")
@@ -535,7 +535,7 @@ print(result.summary())
 # 
 # We illustrate this next. We observe the path of the estimated coefficient on the number of bathroooms (`BATHS`) as we increase $\lambda$.
 
-# In[25]:
+# In[48]:
 
 
 from sklearn.preprocessing import StandardScaler
@@ -590,7 +590,7 @@ plt.xlabel('lambda')
 
 # The OLS coefficients are not penalized, so they remain constant. Ridge estimates decrease monotonically as $\lambda$ grows. Also, for this dataset, Lasso estimates first increase and then decrease. Meanwhile, the post-lasso coefficient estimates seem to behave somewhat erratically with $lambda$. To understand this behavior, let's see what happens to the magnitude of other selected variables that are correlated with `BATHS`. 
 
-# In[26]:
+# In[49]:
 
 
 scale_X = StandardScaler().fit(X).transform(X)
@@ -605,7 +605,7 @@ for a in lamdas:
     DINING_coef.append(lasso.coef_[5])
 
 
-# In[27]:
+# In[50]:
 
 
 plt.figure(figsize=(18,5))
@@ -621,7 +621,7 @@ plt.xlabel('lambda')
 # 
 # Another problem with Lasso coefficients is their instability. When multiple variables are highly correlated we may spuriously drop several of them. To get a sense of the amount of variability, in the next snippet we fix $\lambda$ and then look at the lasso coefficients estimated during cross-validation. We see that by simply removing one fold we can get a very different set of coefficients (nonzero coefficients are in black in the heatmap below). This is because there may be many choices of coefficients with similar predictive power, so the set of nonzero coefficients we end up with can be quite unstable.
 
-# In[28]:
+# In[70]:
 
 
 import itertools
@@ -643,7 +643,7 @@ list_2 = [*range(0, nobs, 1)]
 I = split(list_2, foldid)
 
 
-# In[29]:
+# In[71]:
 
 
 from sklearn.linear_model import LassoCV
@@ -664,7 +664,7 @@ for b in range(0,len(I)):
        
 
 
-# In[30]:
+# In[72]:
 
 
 index_val = ['Fold-1','Fold-2','Fold-3','Fold-4','Fold-5','Fold-6','Fold-7','Fold-8','Fold-9','Fold-10']
@@ -674,7 +674,7 @@ df.style.applymap(lambda x: "background-color: white" if x==0 else "background-c
 
 # As we have seen above, any interpretation needs to take into account the joint distribution of covariates. One possible heuristic is to consider **data-driven subgroups**. For example, we can analyze what differentiates observations whose predictions are high from those whose predictions are low. The following code estimates a flexible Lasso model with splines, ranks the observations into a few subgroups according to their predicted outcomes, and then estimates the average covariate value for each subgroup.  
 
-# In[31]:
+# In[124]:
 
 
 import itertools
@@ -711,7 +711,7 @@ for b in range(0,len(I)):
         lasso_pred.append(lassocv.predict(scale_X[mask]))
 
 
-# In[32]:
+# In[125]:
 
 
 y_hat = lasso_pred
@@ -729,7 +729,7 @@ df_1.rename(columns={0:'ranking'}, inplace=True)
 df_1 =df_1.reset_index().drop(columns=['index'])
 
 
-# In[33]:
+# In[126]:
 
 
 import statsmodels.api as sm
@@ -737,7 +737,7 @@ from scipy.stats import norm
 import statsmodels.formula.api as smf
 
 
-# In[34]:
+# In[127]:
 
 
 y = X
@@ -748,7 +748,7 @@ y['ranking'] = x
 data = y
 
 
-# In[35]:
+# In[128]:
 
 
 data_frame = pd.DataFrame()
@@ -776,7 +776,7 @@ for var_name in covariates:
 data_frame;
 
 
-# In[36]:
+# In[129]:
 
 
 labels_data = pd.DataFrame()
@@ -790,7 +790,7 @@ labels_data
 
 # The next heatmap visualizes the results. Note how observations ranked higher (i.e., were predicted to have higher prices) have more bedrooms and baths, were built more recently, have fewer cracks, and so on. The next snippet of code displays the average covariate per group along with each standard errors. The rows are ordered according to $Var(E[X_{ij} | G_i) / Var(X_i)$, where $G_i$ denotes the ranking. This is a rough normalized measure of how much variation is "explained" by group membership $G_i$. Brighter colors indicate larger values.
 
-# In[37]:
+# In[130]:
 
 
 new_data = pd.DataFrame()
@@ -801,7 +801,7 @@ for i in range(0,4):
 new_data;
 
 
-# In[38]:
+# In[131]:
 
 
 features = covariates
@@ -865,7 +865,7 @@ plt.show()
 # At prediction time, to find the predictions for some point $x$, we just follow the tree we just built, going left or right according to the selected variables and split points, until we reach a terminal node. Then, for regression problems, the predicted value at some point $x$ is the average outcome of the observations in the same partition as the point $x$. For classification problems, we output the majority class in the node.
 # 
 
-# In[39]:
+# In[4]:
 
 
 from sklearn.tree import DecisionTreeRegressor
