@@ -3,29 +3,29 @@ matplotlib
 numpy
 pandas
 seaborn
-random
-math
-warnings
+# random
+# math
+# warnings
 sklearn
-SynRNG
-request
-io
+# SynRNG
+# request
+# io
 statsmodels
-itertools
+# itertools
 scipy
 graphviz
 simple_colors
 patsy
-string
+# string
 econml
-re
+# re
 CTL
 plotnine
-csv
-time
+# csv
+# time
 rpy2
 imageio
-png
-PIL
+# png
+# PIL
 pypng
-wgan
+# wgan
