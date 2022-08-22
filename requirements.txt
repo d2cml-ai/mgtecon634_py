@@ -1,3 +1,32 @@
 jupyter-book
 matplotlib
 numpy
+pandas
+seaborn
+# random
+# math
+# warnings
+sklearn
+# SynRNG
+# request
+# io
+statsmodels
+# itertools
+scipy
+graphviz
+simple_colors
+patsy
+# string
+econml
+# re
+CTL
+plotnine
+# csv
+# time
+rpy2
+imageio
+# png
+# PIL
+pypng
+# wgan
+ghp-import
