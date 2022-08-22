@@ -29,3 +29,4 @@ imageio
 # PIL
 pypng
 # wgan
+ghp-import
