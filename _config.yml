@@ -3,7 +3,7 @@
 
 title: MGTECON 634 at Stanford (Python scripts)
 author: Phd Susan Athey
-logo: figs/logo.jpg
+logo: figs/logo.png
 description: This tutorial will introduce key concepts in machine learning-based causal inference. This tutorial is used in the MGTECON 634 at Stanford. Scripts were translated into Python.
 
 parse:
