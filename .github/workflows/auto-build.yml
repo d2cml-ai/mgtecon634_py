@@ -4,7 +4,7 @@ name: auto_build
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: ["main", "auto-bulid"]
+    branches: ["main", "auto-build"]
   # pull_request:
     # branches: [ "main" ]
 
