@@ -96,7 +96,7 @@ const thebe_selector_output = ".output, .cell_output"
         
       
       
-      <img src="../_static/logo.jpg" class="logo" alt="logo">
+      <img src="../_static/logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
@@ -815,8 +815,8 @@ title="Print to PDF"
 \]</div>
 <p>Here’s how to interpret <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a>. In region <span class="math notranslate nohighlight">\(A\)</span>, policy <span class="math notranslate nohighlight">\(\pi\)</span> treats everyone, obtaining average value <span class="math notranslate nohighlight">\(E[Y_i(1)|A]\)</span>; meanwhile, policy <span class="math notranslate nohighlight">\(\pi'\)</span> treats half the observations (i.e., it treats each individual with one-half probability), obtaining average value <span class="math notranslate nohighlight">\((E[Y_i(1) + Y_i(0)|A])/2\)</span>. Subtracting the two gives the term multiplying <span class="math notranslate nohighlight">\(P(A)\)</span> in <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a>. In region <span class="math notranslate nohighlight">\(A^c\)</span>, policy <span class="math notranslate nohighlight">\(\pi\)</span> treats no one, obtaining average value <span class="math notranslate nohighlight">\(E[Y_i(0)|A]\)</span>; meanwhile, policy <span class="math notranslate nohighlight">\(\pi'\)</span> still obtains <span class="math notranslate nohighlight">\((E[Y_i(1) + Y_i(0)|A^c])/2\)</span> for the same reasons as above. Subtracting the two gives the term multiplying <span class="math notranslate nohighlight">\(P(A^c)\)</span> <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a>. Expression <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a> is the average of these two terms weighted by the size of each region.</p>
 <p>Finally, in a randomized setting, <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a> is equivalent to</p>
-<div class="amsmath math notranslate nohighlight" id="equation-50feeb85-f105-42f9-bfb2-f56a958827cd">
-<span class="eqno">(5.10)<a class="headerlink" href="#equation-50feeb85-f105-42f9-bfb2-f56a958827cd" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-126d574e-1a06-48e5-a25a-03d5a180ffce">
+<span class="eqno">(5.10)<a class="headerlink" href="#equation-126d574e-1a06-48e5-a25a-03d5a180ffce" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{P(A)}{2} \left( E[Y|A,W=1] - E[Y|A,W=0] \right) + 
         \frac{P(A^c)}{2} \left( E[Y|A^c,W=0] - E[Y|A,W=1] \right),
 \end{align}\]</div>
