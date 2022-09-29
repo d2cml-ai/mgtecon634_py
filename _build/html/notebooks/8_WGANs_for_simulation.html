@@ -50,10 +50,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research." href="9_surrogate_py.html" />
     <link rel="prev" title="6. Policy Learning I - Binary Treatment" href="6_policy_learning_1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -153,6 +154,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_surrogate_py.html">
+   8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
   </a>
  </li>
 </ul>
@@ -437,8 +443,8 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#application-of-the-simulated-data-to-the-code-of-chapter-2">
-   7.2. Application of the simulated data to the code of chapter 2.
+  <a class="reference internal nav-link" href="#application-of-the-simulated-data-to-the-code-of-chapter-3">
+   7.2. Application of the simulated data to the code of chapter 3.
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -534,8 +540,8 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#application-of-the-simulated-data-to-the-code-of-chapter-2">
-   7.2. Application of the simulated data to the code of chapter 2.
+  <a class="reference internal nav-link" href="#application-of-the-simulated-data-to-the-code-of-chapter-3">
+   7.2. Application of the simulated data to the code of chapter 3.
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -606,7 +612,39 @@ title="Print to PDF"
 <p>We install the wgan package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip3 install git+https://github.com/gsbDBI/ds-wgan</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip3 install git+https://github.com/gsbDBI/ds-wgan
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting git+https://github.com/gsbDBI/ds-wgan
+  Cloning https://github.com/gsbDBI/ds-wgan to /tmp/pip-req-build-2t5bv7xa
+  Running command git clone --filter=blob:none --quiet https://github.com/gsbDBI/ds-wgan /tmp/pip-req-build-2t5bv7xa
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Resolved https://github.com/gsbDBI/ds-wgan to commit a65686832ea5bba27f1c6175c252769dc00b2cc3
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Preparing metadata (setup.py) ... ?25l- done
+?25hRequirement already satisfied: numpy in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from wgan==0.2) (1.23.3)
+Requirement already satisfied: torch&gt;=1.1.0 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from wgan==0.2) (1.12.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from wgan==0.2) (1.5.0)
+Requirement already satisfied: matplotlib in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from wgan==0.2) (3.6.0)
+Requirement already satisfied: typing-extensions in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from torch&gt;=1.1.0-&gt;wgan==0.2) (4.3.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from matplotlib-&gt;wgan==0.2) (4.37.3)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from matplotlib-&gt;wgan==0.2) (21.3)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from matplotlib-&gt;wgan==0.2) (3.0.9)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from matplotlib-&gt;wgan==0.2) (2.8.2)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from matplotlib-&gt;wgan==0.2) (9.2.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from matplotlib-&gt;wgan==0.2) (1.4.4)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from matplotlib-&gt;wgan==0.2) (1.0.5)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from matplotlib-&gt;wgan==0.2) (0.11.0)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from pandas-&gt;wgan==0.2) (2022.2.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;wgan==0.2) (1.16.0)
 </pre></div>
 </div>
 </div>
@@ -647,21 +685,12 @@ To keep the code concise, we will put the two versions of every obejct type into
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_2688</span><span class="o">/</span><span class="mf">3945527973.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">wgan</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">io</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">requests</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;wgan&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(28653, 9)
 </pre></div>
 </div>
 </div>
 </div>
-<p>The data we are trying to replicate here is the one we used in Chapter 2.</p>
+<p>The data we are trying to replicate here is the one we used in Chapter 3.</p>
 <p>After loading in our data as <code class="docutils literal notranslate"><span class="pre">df</span></code>, we will build from it second dataframe called <code class="docutils literal notranslate"><span class="pre">df_balanced</span></code>, by sampling treated and controls with similar probability from <code class="docutils literal notranslate"><span class="pre">df</span></code>. We will train our WGAN on <code class="docutils literal notranslate"><span class="pre">df_balanced</span></code>, which makes sure the quality of the generated outcomes is similar for both treatment groups.</p>
 <p>We will need to differentiate categorical from continous variable so we need to identify which variables are continous and categorical.</p>
 <div class="cell docutils container">
@@ -719,8 +748,8 @@ Maximum number of years of education
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>settings: {&#39;optimizer&#39;: &lt;class &#39;torch.optim.adam.Adam&#39;&gt;, &#39;critic_d_hidden&#39;: [128, 128, 128], &#39;critic_dropout&#39;: 0, &#39;critic_steps&#39;: 15, &#39;critic_lr&#39;: 0.001, &#39;critic_gp_factor&#39;: 5, &#39;generator_d_hidden&#39;: [128, 128, 128], &#39;generator_dropout&#39;: 0.1, &#39;generator_lr&#39;: 0.001, &#39;generator_d_noise&#39;: 28, &#39;generator_optimizer&#39;: &#39;optimizer&#39;, &#39;max_epochs&#39;: 1000, &#39;batch_size&#39;: 6000, &#39;test_set_size&#39;: 16, &#39;load_checkpoint&#39;: None, &#39;save_checkpoint&#39;: None, &#39;save_every&#39;: 100, &#39;print_every&#39;: 100, &#39;device&#39;: &#39;cuda&#39;}
-settings: {&#39;optimizer&#39;: &lt;class &#39;torch.optim.adam.Adam&#39;&gt;, &#39;critic_d_hidden&#39;: [128, 128, 128], &#39;critic_dropout&#39;: 0, &#39;critic_steps&#39;: 15, &#39;critic_lr&#39;: 0.001, &#39;critic_gp_factor&#39;: 5, &#39;generator_d_hidden&#39;: [128, 128, 128], &#39;generator_dropout&#39;: 0.1, &#39;generator_lr&#39;: 0.001, &#39;generator_d_noise&#39;: 2, &#39;generator_optimizer&#39;: &#39;optimizer&#39;, &#39;max_epochs&#39;: 1000, &#39;batch_size&#39;: 6000, &#39;test_set_size&#39;: 16, &#39;load_checkpoint&#39;: None, &#39;save_checkpoint&#39;: None, &#39;save_every&#39;: 100, &#39;print_every&#39;: 100, &#39;device&#39;: &#39;cuda&#39;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>settings: {&#39;optimizer&#39;: &lt;class &#39;torch.optim.adam.Adam&#39;&gt;, &#39;critic_d_hidden&#39;: [128, 128, 128], &#39;critic_dropout&#39;: 0, &#39;critic_steps&#39;: 15, &#39;critic_lr&#39;: 0.001, &#39;critic_gp_factor&#39;: 5, &#39;generator_d_hidden&#39;: [128, 128, 128], &#39;generator_dropout&#39;: 0.1, &#39;generator_lr&#39;: 0.001, &#39;generator_d_noise&#39;: 28, &#39;generator_optimizer&#39;: &#39;optimizer&#39;, &#39;max_epochs&#39;: 1000, &#39;batch_size&#39;: 6000, &#39;test_set_size&#39;: 16, &#39;load_checkpoint&#39;: None, &#39;save_checkpoint&#39;: None, &#39;save_every&#39;: 100, &#39;print_every&#39;: 100, &#39;device&#39;: &#39;cpu&#39;}
+settings: {&#39;optimizer&#39;: &lt;class &#39;torch.optim.adam.Adam&#39;&gt;, &#39;critic_d_hidden&#39;: [128, 128, 128], &#39;critic_dropout&#39;: 0, &#39;critic_steps&#39;: 15, &#39;critic_lr&#39;: 0.001, &#39;critic_gp_factor&#39;: 5, &#39;generator_d_hidden&#39;: [128, 128, 128], &#39;generator_dropout&#39;: 0.1, &#39;generator_lr&#39;: 0.001, &#39;generator_d_noise&#39;: 2, &#39;generator_optimizer&#39;: &#39;optimizer&#39;, &#39;max_epochs&#39;: 1000, &#39;batch_size&#39;: 6000, &#39;test_set_size&#39;: 16, &#39;load_checkpoint&#39;: None, &#39;save_checkpoint&#39;: None, &#39;save_every&#39;: 100, &#39;print_every&#39;: 100, &#39;device&#39;: &#39;cpu&#39;}
 </pre></div>
 </div>
 </div>
@@ -739,16 +768,34 @@ settings: {&#39;optimizer&#39;: &lt;class &#39;torch.optim.adam.Adam&#39;&gt;, &
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0 | step 6 | WD_test 0.12 | WD_train 0.05 | sec passed 7 |
-epoch 100 | step 506 | WD_test 1.33 | WD_train 1.37 | sec passed 28 |
-epoch 200 | step 1006 | WD_test 0.94 | WD_train 1.08 | sec passed 26 |
-epoch 300 | step 1506 | WD_test 0.6 | WD_train 0.8 | sec passed 27 |
-epoch 400 | step 2006 | WD_test 0.58 | WD_train 0.68 | sec passed 27 |
-epoch 500 | step 2506 | WD_test 0.52 | WD_train 0.63 | sec passed 26 |
-epoch 600 | step 3006 | WD_test 0.54 | WD_train 0.62 | sec passed 27 |
-epoch 700 | step 3506 | WD_test 0.62 | WD_train 0.55 | sec passed 27 |
-epoch 800 | step 4006 | WD_test 1.93 | WD_train 1.78 | sec passed 27 |
-epoch 900 | step 4506 | WD_test 0.76 | WD_train 0.76 | sec passed 28 |
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0 | step 6 | WD_test 0.13 | WD_train 0.05 | sec passed 1 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 100 | step 506 | WD_test 1.39 | WD_train 1.39 | sec passed 52 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 200 | step 1006 | WD_test 1.06 | WD_train 1.06 | sec passed 52 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 300 | step 1506 | WD_test 0.86 | WD_train 0.83 | sec passed 53 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 400 | step 2006 | WD_test 0.86 | WD_train 0.71 | sec passed 53 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 500 | step 2506 | WD_test 0.61 | WD_train 0.66 | sec passed 52 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 600 | step 3006 | WD_test 0.65 | WD_train 0.63 | sec passed 52 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 700 | step 3506 | WD_test 0.6 | WD_train 0.63 | sec passed 52 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 800 | step 4006 | WD_test 1.25 | WD_train 1.21 | sec passed 52 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 900 | step 4506 | WD_test 1.4 | WD_train 1.02 | sec passed 52 |
 </pre></div>
 </div>
 </div>
@@ -762,16 +809,34 @@ epoch 900 | step 4506 | WD_test 0.76 | WD_train 0.76 | sec passed 28 |
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0 | step 6 | WD_test 0.09 | WD_train 0.03 | sec passed 0 |
-epoch 100 | step 506 | WD_test 0.26 | WD_train 0.37 | sec passed 28 |
-epoch 200 | step 1006 | WD_test 0.26 | WD_train 0.36 | sec passed 28 |
-epoch 300 | step 1506 | WD_test 0.26 | WD_train 0.3 | sec passed 29 |
-epoch 400 | step 2006 | WD_test 0.06 | WD_train 0.07 | sec passed 27 |
-epoch 500 | step 2506 | WD_test 0.04 | WD_train 0.04 | sec passed 26 |
-epoch 600 | step 3006 | WD_test 0.1 | WD_train 0.03 | sec passed 28 |
-epoch 700 | step 3506 | WD_test -0.05 | WD_train 0.04 | sec passed 28 |
-epoch 800 | step 4006 | WD_test 0.08 | WD_train 0.05 | sec passed 29 |
-epoch 900 | step 4506 | WD_test 0.2 | WD_train 0.07 | sec passed 26 |
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0 | step 6 | WD_test 0.04 | WD_train 0.01 | sec passed 1 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 100 | step 506 | WD_test 0.25 | WD_train 0.37 | sec passed 50 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 200 | step 1006 | WD_test 0.27 | WD_train 0.37 | sec passed 49 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 300 | step 1506 | WD_test 0.26 | WD_train 0.37 | sec passed 49 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 400 | step 2006 | WD_test 0.3 | WD_train 0.37 | sec passed 50 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 500 | step 2506 | WD_test 0.25 | WD_train 0.23 | sec passed 49 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 600 | step 3006 | WD_test 0.19 | WD_train 0.04 | sec passed 48 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 700 | step 3506 | WD_test -0.01 | WD_train 0.03 | sec passed 48 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 800 | step 4006 | WD_test 0.19 | WD_train 0.04 | sec passed 48 |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 900 | step 4506 | WD_test 0.19 | WD_train 0.06 | sec passed 48 |
 </pre></div>
 </div>
 </div>
@@ -801,24 +866,24 @@ epoch 900 | step 4506 | WD_test 0.2 | WD_train 0.07 | sec passed 26 |
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-------------comparison of means-------------
 source        fake      real
 X         17552.04  17552.04
-y             0.24      0.25
+y             0.23      0.25
 w             0.53      0.53
-age          45.07     45.30
-polviews      3.99      4.11
-income       11.22     10.60
-educ         12.58     13.29
-marital       2.46      2.40
-sex           1.57      1.55
+age          46.24     45.30
+polviews      3.87      4.11
+income       11.17     10.60
+educ         13.31     13.29
+marital       2.35      2.40
+sex           1.53      1.55
 -------------comparison of stds-------------
 source        fake      real
 X         10789.54  10789.54
-y             0.43      0.44
+y             0.42      0.44
 w             0.50      0.50
-age          16.99     16.85
-polviews      1.21      1.39
-income        1.56      2.47
-educ          3.36      2.98
-marital       1.72      1.64
+age          15.30     16.85
+polviews      1.16      1.39
+income        1.46      2.47
+educ          2.77      2.98
+marital       1.69      1.64
 sex           0.50      0.50
 </pre></div>
 </div>
@@ -846,7 +911,7 @@ sex           0.50      0.50
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f00e1297b90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f43a34a39a0&gt;
 </pre></div>
 </div>
 <img alt="../_images/8_WGANs_for_simulation_23_1.png" src="../_images/8_WGANs_for_simulation_23_1.png" />
@@ -862,9 +927,9 @@ sex           0.50      0.50
 </div>
 </section>
 </section>
-<section id="application-of-the-simulated-data-to-the-code-of-chapter-2">
-<h2><span class="section-number">7.2. </span>Application of the simulated data to the code of chapter 2.<a class="headerlink" href="#application-of-the-simulated-data-to-the-code-of-chapter-2" title="Permalink to this headline">#</a></h2>
-<p>Now we can use this new simulated data in the code from chapter 2 which evaluate the Average Treatment Effect (ATE) in Binary treatment. So we can first recall some of the notations and definitions from the original data because these new simulated data are supposed to have the same definitions.</p>
+<section id="application-of-the-simulated-data-to-the-code-of-chapter-3">
+<h2><span class="section-number">7.2. </span>Application of the simulated data to the code of chapter 3.<a class="headerlink" href="#application-of-the-simulated-data-to-the-code-of-chapter-3" title="Permalink to this headline">#</a></h2>
+<p>Now we can use this new simulated data in the code from chapter 3 which evaluate the Average Treatment Effect (ATE) in Binary treatment. So we can first recall some of the notations and definitions from the original data because these new simulated data are supposed to have the same definitions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pip install pypng</span>
@@ -888,7 +953,7 @@ sex           0.50      0.50
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#First we import the necesary packages to use in chapter 2 code</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#First we import the necesary packages to use in chapter 3 code</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
@@ -916,8 +981,16 @@ sex           0.50      0.50
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/dist-packages/statsmodels/tools/_testing.py:19: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  import pandas.util.testing as tm
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">matplotlib.mlab</span> <span class="k">as</span> <span class="nn">mlab</span>
+<span class="ne">---&gt; </span><span class="mi">11</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">import</span> <span class="nn">random</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">import</span> <span class="nn">string</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
 </pre></div>
 </div>
 </div>
@@ -1110,7 +1183,7 @@ sex           0.50      0.50
   </div>
 </div></div>
 </div>
-<p>And this are the results from original data in chapter 2.</p>
+<p>And this are the results from original data in chapter 3.</p>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1758,8 +1831,8 @@ WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RG
 <section id="direct-estimation">
 <h3><span class="section-number">7.2.4. </span>Direct estimation<a class="headerlink" href="#direct-estimation" title="Permalink to this headline">#</a></h3>
 <p>Our first estimator is suggested by the following decomposition of the ATE, which is possible due to unconfoundedness (3.3).</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1e70fdb0-fba3-4826-aeec-9d28f1ea6ef8">
-<span class="eqno">(7.5)<a class="headerlink" href="#equation-1e70fdb0-fba3-4826-aeec-9d28f1ea6ef8" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6888e287-6de2-45d4-836c-f760d7b899b1">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-6888e287-6de2-45d4-836c-f760d7b899b1" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \mathbf{E}[Y_i(1) - Y_i(0)]
   = \mathbf{E}[\mathbf{E}[Y_i | X_i, W_i=1]] - \mathbf{E}[\mathbf{E}[Y_i | X_i, W_i=0]]
 \end{equation}\]</div>
@@ -1772,8 +1845,8 @@ WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RG
 <li><p>Predict <span class="math notranslate nohighlight">\(\hat{\mu}(X_i, 1)\)</span> and <span class="math notranslate nohighlight">\(\hat{\mu}(X_i, 0)\)</span> for each observation in the data.</p></li>
 <li><p>Average out the predictions and subtract them.</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-cd071b46-48dd-4281-ade8-f39040532d31">
-<span class="eqno">(7.6)<a class="headerlink" href="#equation-cd071b46-48dd-4281-ade8-f39040532d31" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-7f778de9-2515-468d-b528-6b09bb13a67a">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-7f778de9-2515-468d-b528-6b09bb13a67a" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \hat{\tau}^{DM} := \frac{1}{n} \sum_{i=1}^{n} \hat{\mu}(X_i, 1) - \hat{\mu}(X_i, 0)
 \end{equation}\]</div>
 <div class="cell docutils container">
@@ -2609,6 +2682,13 @@ From original data set:
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title"><span class="section-number">6. </span>Policy Learning I - Binary Treatment</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="9_surrogate_py.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>

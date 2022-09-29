@@ -220,9 +220,11 @@ message_b = "Std. Error: "
 c_1 = a & (W == 1)
 c_0 = a != 1 & (W == 0)
 
-value_estimate = np.mean(Y[c_1] - cost) * np.mean(a) +                            np.mean(Y[c_0]) * np.mean(a != 1)
+value_estimate = np.mean(Y[c_1] - cost) * np.mean(a) +  \
+                          np.mean(Y[c_0]) * np.mean(a != 1)
 
-value_stderr = np.sqrt(np.var(Y[c_1]) / sum(c_1) * np.mean(a ** 2) +     np.var(Y[c_0]) / sum(c_0) * np.mean(a != 1**2))
+value_stderr = np.sqrt(np.var(Y[c_1]) / sum(c_1) * np.mean(a ** 2) + \
+    np.var(Y[c_0]) / sum(c_0) * np.mean(a != 1**2))
 
 print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 
@@ -291,9 +293,11 @@ a = pi_hat == 1
 c_1 = a & (w == 1)
 c_0 = a != 1 & (w == 0)
 
-value_estimate = np.mean(y[c_1] - cost) * np.mean(a) +                            np.mean(y[c_0]) * np.mean(a != 1)
+value_estimate = np.mean(y[c_1] - cost) * np.mean(a) +  \
+                          np.mean(y[c_0]) * np.mean(a != 1)
 
-value_stderr = np.sqrt(np.var(y[c_1]) / sum(c_1) * np.mean(a ** 2) +     np.var(y[c_0]) / sum(c_0) * np.mean(a != 1**2))
+value_stderr = np.sqrt(np.var(y[c_1]) / sum(c_1) * np.mean(a ** 2) + \
+    np.var(y[c_0]) / sum(c_0) * np.mean(a != 1**2))
 
 print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 
@@ -412,7 +416,8 @@ x_train, x_test = simple_split(x, train)
 gamma_mtrx_train, gamma_mtrx_test = simple_split(gamma_mtrx, train)
 
 # Estimate the policy on the training subset 
-policy = PolicyTree(max_depth = 2, random_state = 21)        .fit(x_train, gamma_mtrx_train)
+policy = PolicyTree(max_depth = 2, random_state = 21)\
+        .fit(x_train, gamma_mtrx_train)
 
 ## Predict on the test subsets
 pi_hat = policy.predict(x_test)
@@ -449,9 +454,11 @@ a = pi_hat == 1
 c_1 = a & (w_test == 1)
 c_0 = a != 1 & (w_test == 0)
 
-value_estimate = np.mean(y_test[c_1] - cost) * np.mean(a) +                            np.mean(y_test[c_0]) * np.mean(a != 1)
+value_estimate = np.mean(y_test[c_1] - cost) * np.mean(a) +  \
+                          np.mean(y_test[c_0]) * np.mean(a != 1)
 
-value_stderr = np.sqrt(np.var(y_test[c_1]) / sum(c_1) * np.mean(a ** 2) +     np.var(y_test[c_0]) / sum(c_0) * np.mean(a != 1**2))
+value_stderr = np.sqrt(np.var(y_test[c_1]) / sum(c_1) * np.mean(a ** 2) + \
+    np.var(y_test[c_0]) / sum(c_0) * np.mean(a != 1**2))
 
 print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 
@@ -589,9 +596,11 @@ c_0 = a != 1 & (w_test == 0)
 # Obly valid for randomized setting
 # Note the -cost!=0 here!
 
-value_estimate = np.mean(y_test[c_1] - cost) * np.mean(a) +                            np.mean(y_test[c_0]) * np.mean(a != 1)
+value_estimate = np.mean(y_test[c_1] - cost) * np.mean(a) +  \
+                          np.mean(y_test[c_0]) * np.mean(a != 1)
 
-value_stderr = np.sqrt(np.var(y_test[c_1]) / sum(c_1) * np.mean(a ** 2) +     np.var(y_test[c_0]) / sum(c_0) * np.mean(a != 1**2))
+value_stderr = np.sqrt(np.var(y_test[c_1]) / sum(c_1) * np.mean(a ** 2) + \
+    np.var(y_test[c_0]) / sum(c_0) * np.mean(a != 1**2))
 
 print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 

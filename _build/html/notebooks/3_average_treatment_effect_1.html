@@ -50,8 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4. HTE I: Binary treatment" href="4_heterogeneous_treatment_effect_1.html" />
@@ -154,6 +154,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="8_WGANs_for_simulation.html">
    7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_surrogate_py.html">
+   8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
   </a>
  </li>
 </ul>
@@ -575,78 +580,16 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\sandr\anaconda3\lib\site-packages\statsmodels\tsa\base\tsa_model.py:7: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
-  from pandas import (to_datetime, Int64Index, DatetimeIndex, Period,
-C:\Users\sandr\anaconda3\lib\site-packages\statsmodels\tsa\base\tsa_model.py:7: FutureWarning: pandas.Float64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
-  from pandas import (to_datetime, Int64Index, DatetimeIndex, Period,
-</pre></div>
-</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_13288</span><span class="o">/</span><span class="mf">2044807973.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">SyncRNG</span> <span class="kn">import</span> <span class="n">SyncRNG</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">patsy</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">14</span>
 <span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">import</span> <span class="nn">matplotlib.mlab</span> <span class="k">as</span> <span class="nn">mlab</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">---&gt; </span><span class="mi">14</span> <span class="kn">import</span> <span class="nn">pyreadr</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">import</span> <span class="nn">random</span>
 
-<span class="nn">~\anaconda3\lib\site-packages\IPython\core\interactiveshell.py</span> in <span class="ni">run_line_magic</span><span class="nt">(self, magic_name, line, _stack_depth)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2349</span>                 <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_ns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_scope</span><span class="p">(</span><span class="n">stack_depth</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2350</span>             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">builtin_trap</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2351</span>                 <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2352</span>             <span class="k">return</span> <span class="n">result</span>
-<span class="g g-Whitespace">   </span><span class="mi">2353</span> 
-
-<span class="nn">~\anaconda3\lib\site-packages\decorator.py</span> in <span class="ni">fun</span><span class="nt">(*args, **kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">230</span>             <span class="k">if</span> <span class="ow">not</span> <span class="n">kwsyntax</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">231</span>                 <span class="n">args</span><span class="p">,</span> <span class="n">kw</span> <span class="o">=</span> <span class="n">fix</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">232</span>             <span class="k">return</span> <span class="n">caller</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">extras</span> <span class="o">+</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">233</span>     <span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span>
-<span class="g g-Whitespace">    </span><span class="mi">234</span>     <span class="n">fun</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span>
-
-<span class="nn">~\anaconda3\lib\site-packages\IPython\core\magic.py</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(f, *a, **k)</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="c1"># but it&#39;s overkill for just that one bit of state.</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span>     <span class="k">def</span> <span class="nf">magic_deco</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">187</span>         <span class="n">call</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">188</span> 
-<span class="g g-Whitespace">    </span><span class="mi">189</span>         <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-
-<span class="nn">~\anaconda3\lib\site-packages\IPython\core\magics\pylab.py</span> in <span class="ni">matplotlib</span><span class="nt">(self, line)</span>
-<span class="g g-Whitespace">     </span><span class="mi">97</span>             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available matplotlib backends: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">backends_list</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">98</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">99</span>             <span class="n">gui</span><span class="p">,</span> <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">enable_matplotlib</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">100</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_show_matplotlib_backend</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="p">,</span> <span class="n">backend</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">101</span> 
-
-<span class="nn">~\anaconda3\lib\site-packages\IPython\core\interactiveshell.py</span> in <span class="ni">enable_matplotlib</span><span class="nt">(self, gui)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3518</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">3519</span><span class="s2">         from IPython.core import pylabtools as pt</span>
-<span class="ne">-&gt; </span><span class="mi">3520</span><span class="s2">         from matplotlib_inline.backend_inline import configure_inline_support</span>
-<span class="g g-Whitespace">   </span><span class="mi">3521</span><span class="s2">         gui, backend = pt.find_gui_and_backend(gui, self.pylab_gui_select)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3522</span><span class="s2"> </span>
-
-<span class="s2">~</span><span class="se">\a</span><span class="s2">naconda3\lib\site-packages\matplotlib_inline</span><span class="se">\b</span><span class="s2">ackend_inline.py in &lt;module&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="s2"> # Distributed under the terms of the BSD 3-Clause License.</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span><span class="s2"> </span>
-<span class="ne">----&gt; </span><span class="mi">6</span><span class="s2"> import matplotlib</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span><span class="s2"> from matplotlib.backends.backend_agg import (  # noqa</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span><span class="s2">     new_figure_manager,</span>
-
-<span class="s2">~</span><span class="se">\a</span><span class="s2">naconda3\lib\site-packages\matplotlib\__init__.py in &lt;module&gt;</span>
-<span class="g g-Whitespace">    </span><span class="mi">105</span><span class="s2"> # cbook must import matplotlib only within function</span>
-<span class="g g-Whitespace">    </span><span class="mi">106</span><span class="s2"> # definitions, so it is safe to import from it here.</span>
-<span class="ne">--&gt; </span><span class="mi">107</span><span class="s2"> from . import _api, cbook, docstring, rcsetup</span>
-<span class="g g-Whitespace">    </span><span class="mi">108</span><span class="s2"> from matplotlib.cbook import MatplotlibDeprecationWarning, sanitize_sequence</span>
-<span class="g g-Whitespace">    </span><span class="mi">109</span><span class="s2"> from matplotlib.cbook import mplDeprecation  # deprecated</span>
-
-<span class="s2">~</span><span class="se">\a</span><span class="s2">naconda3\lib\site-packages\matplotlib</span><span class="se">\r</span><span class="s2">csetup.py in &lt;module&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span><span class="s2"> import numpy as np</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span><span class="s2"> </span>
-<span class="ne">---&gt; </span><span class="mi">24</span><span class="s2"> from matplotlib import _api, animation, cbook</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span><span class="s2"> from matplotlib.cbook import ls_mapper</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span><span class="s2"> from matplotlib.colors import Colormap, is_color_like</span>
-
-<span class="ne">ImportError</span>: cannot import name &#39;animation&#39; from partially initialized module &#39;matplotlib&#39; (most likely due to a circular import) (C:\Users\sandr\anaconda3\lib\site-packages\matplotlib\__init__.py)
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pyreadr&#39;
 </pre></div>
 </div>
 </div>
@@ -674,7 +617,7 @@ C:\Users\sandr\anaconda3\lib\site-packages\statsmodels\tsa\base\tsa_model.py:7: 
   Y_i(1), Y_i(0) \perp W_i.
 \]</div>
 <p>This precludes situations in which individuals may self-select into or out of treatment. The canonical failure example is a job training program in which workers enroll more often if they are more likely to benefit from treatment because in that case <span class="math notranslate nohighlight">\(W_i\)</span> and <span class="math notranslate nohighlight">\(Y_i(1) - Y_i(0)\)</span> would be positively correlated.</p>
-<p>When condition <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf">(8.2)</a> is violated, we say that we are in an <strong>observational</strong> setting. This is a more complex setting encompassing several different scenarios: sometimes it’s still possible to estimate the ATE under additional assumptions, sometimes the researcher can exploit other sources of variation to obtain other interesting estimands. Here, we will focus on ATE estimation under the following assumption:</p>
+<p>When condition <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf">(7.2)</a> is violated, we say that we are in an <strong>observational</strong> setting. This is a more complex setting encompassing several different scenarios: sometimes it’s still possible to estimate the ATE under additional assumptions, sometimes the researcher can exploit other sources of variation to obtain other interesting estimands. Here, we will focus on ATE estimation under the following assumption:</p>
 <div class="math notranslate nohighlight" id="equation-unconf-1">
 <span class="eqno">(3.3)<a class="headerlink" href="#equation-unconf-1" title="Permalink to this equation">#</a></span>\[
   Y_i(1), Y_i(0) \perp W_i \ | \ X_i.
@@ -1025,11 +968,11 @@ Name: w, dtype: float64
 </table>
 </div></div></div>
 </div>
-<p>Note that the dataset created above still satisfies unconfoundedness <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf-1">(8.3)</a>, since discrepancies in treatment assignment probability are described by observable covariates (<code class="docutils literal notranslate"><span class="pre">age</span></code> and <code class="docutils literal notranslate"><span class="pre">polviews</span></code>). Moreover, it also satisfies the overlap assumption <a class="reference internal" href="8_WGANs_for_simulation.html#equation-overlap">(8.4)</a>, since never completely dropped all treated or all untreated observations in any region of the covariate space. This is important because, in what follows, we’ll consider different estimators of the ATE that are available in observational settings under unconfoundedness and overlap.</p>
+<p>Note that the dataset created above still satisfies unconfoundedness <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf-1">(7.3)</a>, since discrepancies in treatment assignment probability are described by observable covariates (<code class="docutils literal notranslate"><span class="pre">age</span></code> and <code class="docutils literal notranslate"><span class="pre">polviews</span></code>). Moreover, it also satisfies the overlap assumption <a class="reference internal" href="8_WGANs_for_simulation.html#equation-overlap">(7.4)</a>, since never completely dropped all treated or all untreated observations in any region of the covariate space. This is important because, in what follows, we’ll consider different estimators of the ATE that are available in observational settings under unconfoundedness and overlap.</p>
 </section>
 <section id="direct-estimation">
 <h2><span class="section-number">3.4. </span>Direct estimation<a class="headerlink" href="#direct-estimation" title="Permalink to this headline">#</a></h2>
-<p>Our first estimator is suggested by the following decomposition of the ATE, which is possible due to unconfoundedness <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf-1">(8.3)</a>.</p>
+<p>Our first estimator is suggested by the following decomposition of the ATE, which is possible due to unconfoundedness <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf-1">(7.3)</a>.</p>
 <div class="math notranslate nohighlight">
 \[
   \mathbf{E}[Y_i(1) - Y_i(0)]
@@ -1210,7 +1153,7 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:189: Runtime
 <img alt="../_images/3_average_treatment_effect_1_30_2.png" src="../_images/3_average_treatment_effect_1_30_2.png" />
 </div>
 </div>
-<p>Next, we’ll manipulate the expression <a class="reference internal" href="8_WGANs_for_simulation.html#equation-agg">(8.7)</a>. This next derivation can be a bit overwhelming, but please keep in mind that we’re simply doing algebraic manipulations, as well as establishing some common and useful notation. First, note that we can rewrite the average for school A in <a class="reference internal" href="8_WGANs_for_simulation.html#equation-agg">(8.7)</a> as</p>
+<p>Next, we’ll manipulate the expression <a class="reference internal" href="8_WGANs_for_simulation.html#equation-agg">(7.7)</a>. This next derivation can be a bit overwhelming, but please keep in mind that we’re simply doing algebraic manipulations, as well as establishing some common and useful notation. First, note that we can rewrite the average for school A in <a class="reference internal" href="8_WGANs_for_simulation.html#equation-agg">(7.7)</a> as</p>
 <div class="math notranslate nohighlight" id="equation-avg1">
 <span class="eqno">(3.7)<a class="headerlink" href="#equation-avg1" title="Permalink to this equation">#</a></span>\[\begin{split}
     \left (\frac{1}{n_{A, 1}}\right) 
@@ -1220,7 +1163,7 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:189: Runtime
     =
     \frac{1}{n_A} \sum_{i \in A} \frac{W_i}{(n_{A,1} / n_A)} Y_i,
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(W_i\)</span> is the treatment indicator. Plugging <a class="reference internal" href="8_WGANs_for_simulation.html#equation-avg1">(8.8)</a> back into <a class="reference internal" href="8_WGANs_for_simulation.html#equation-agg">(8.7)</a>,</p>
+<p>where <span class="math notranslate nohighlight">\(W_i\)</span> is the treatment indicator. Plugging <a class="reference internal" href="8_WGANs_for_simulation.html#equation-avg1">(7.8)</a> back into <a class="reference internal" href="8_WGANs_for_simulation.html#equation-agg">(7.7)</a>,</p>
 <div class="math notranslate nohighlight">
 \[
   \left ({\frac{n_{A}}{n}}\right) 
@@ -1229,14 +1172,14 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:189: Runtime
  \left ({\frac{n_{B}}{n}}\right) 
 \frac{1}{n_B} \sum_{i \in B} \frac{W_i}{(n_{B,1} / n_B)} Y_i.
 \]</div>
-<p>Note that the <span class="math notranslate nohighlight">\(n_A\)</span> and <span class="math notranslate nohighlight">\(n_B\)</span> will cancel out. Finally, if we denote the sample proportion of treated students in school <span class="math notranslate nohighlight">\(A\)</span> by <span class="math notranslate nohighlight">\(\hat{e}(A_i) \approx n_{A,1}/n_A\)</span> and similar for school <span class="math notranslate nohighlight">\(B\)</span>, <a class="reference internal" href="8_WGANs_for_simulation.html#equation-agg">(8.7)</a> can be written compactly as</p>
+<p>Note that the <span class="math notranslate nohighlight">\(n_A\)</span> and <span class="math notranslate nohighlight">\(n_B\)</span> will cancel out. Finally, if we denote the sample proportion of treated students in school <span class="math notranslate nohighlight">\(A\)</span> by <span class="math notranslate nohighlight">\(\hat{e}(A_i) \approx n_{A,1}/n_A\)</span> and similar for school <span class="math notranslate nohighlight">\(B\)</span>, <a class="reference internal" href="8_WGANs_for_simulation.html#equation-agg">(7.7)</a> can be written compactly as</p>
 <div class="math notranslate nohighlight" id="equation-ipw-treated">
 <span class="eqno">(3.8)<a class="headerlink" href="#equation-ipw-treated" title="Permalink to this equation">#</a></span>\[
   \frac{1}{n} \sum_{i=1}^{n}  \frac{W_i}{\hat{e}(X_i)} Y_i,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(X_i \in \{A, B\}\)</span> denotes the school membership. Quantity <span class="math notranslate nohighlight">\(\hat{e}(X_i)\)</span> is an estimate of the probability of treatment given the control variable <span class="math notranslate nohighlight">\(e(X_i) = \mathbb{P}[W_i=1 | X_i ]\)</span>, also called the <strong>propensity score</strong>. Because <a class="reference internal" href="8_WGANs_for_simulation.html#equation-ipw-treated">(8.9)</a> is a weighted average with weights <span class="math notranslate nohighlight">\(W_i/\hat{e}(X_i)\)</span>, when written in this form we say that it is an <strong>inverse propensity-weighted estimator</strong> (IPW).</p>
-<p>The IPW estimator is also defined for the case of continuous covariates. In that case, we must estimate the assignment probability given some model, for example using logistic regression, forests, etc. With respect to modeling, the behavior of the IPW estimator is similar to the direct estimator: if <span class="math notranslate nohighlight">\(\hat{e}(X_i)\)</span> is an unbiased estimate of <span class="math notranslate nohighlight">\(e(X_i)\)</span>, then <a class="reference internal" href="8_WGANs_for_simulation.html#equation-ipw-treated">(8.9)</a> is an unbiased estimate of <span class="math notranslate nohighlight">\(E[Y(1)]\)</span>; and we can show that if <span class="math notranslate nohighlight">\(\hat{e}(X_i)\)</span> is a consistent estimator of <span class="math notranslate nohighlight">\(e(X_i)\)</span>, then <a class="reference internal" href="8_WGANs_for_simulation.html#equation-ipw-treated">(8.9)</a> is consistent for <span class="math notranslate nohighlight">\(E[Y(1)]\)</span>.</p>
-<p>Another important point is that when the estimated treatment propensity <span class="math notranslate nohighlight">\(\hat{e}(X_i)\)</span> is small, the summands in <a class="reference internal" href="8_WGANs_for_simulation.html#equation-ipw-treated">(8.9)</a> can be very large. In particular, if <span class="math notranslate nohighlight">\(\hat{e}(x)\)</span> is exactly zero, then this estimator is undefined. That is why, in addition to requiring conditional unconfoundedness <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf-1">(8.3)</a>, it also requires the overlap condition <a class="reference internal" href="8_WGANs_for_simulation.html#equation-overlap">(8.4)</a>. In any case, when overlap is small (i.e., <span class="math notranslate nohighlight">\(\hat{e}(x)\)</span> is very close to zero for many <span class="math notranslate nohighlight">\(x\)</span>), IPW becomes an unattractive estimator due to its high variance. We’ll see in the next section an improved estimator that builds upon IPW but is strictly superior and should be used instead.</p>
+<p>where <span class="math notranslate nohighlight">\(X_i \in \{A, B\}\)</span> denotes the school membership. Quantity <span class="math notranslate nohighlight">\(\hat{e}(X_i)\)</span> is an estimate of the probability of treatment given the control variable <span class="math notranslate nohighlight">\(e(X_i) = \mathbb{P}[W_i=1 | X_i ]\)</span>, also called the <strong>propensity score</strong>. Because <a class="reference internal" href="8_WGANs_for_simulation.html#equation-ipw-treated">(7.9)</a> is a weighted average with weights <span class="math notranslate nohighlight">\(W_i/\hat{e}(X_i)\)</span>, when written in this form we say that it is an <strong>inverse propensity-weighted estimator</strong> (IPW).</p>
+<p>The IPW estimator is also defined for the case of continuous covariates. In that case, we must estimate the assignment probability given some model, for example using logistic regression, forests, etc. With respect to modeling, the behavior of the IPW estimator is similar to the direct estimator: if <span class="math notranslate nohighlight">\(\hat{e}(X_i)\)</span> is an unbiased estimate of <span class="math notranslate nohighlight">\(e(X_i)\)</span>, then <a class="reference internal" href="8_WGANs_for_simulation.html#equation-ipw-treated">(7.9)</a> is an unbiased estimate of <span class="math notranslate nohighlight">\(E[Y(1)]\)</span>; and we can show that if <span class="math notranslate nohighlight">\(\hat{e}(X_i)\)</span> is a consistent estimator of <span class="math notranslate nohighlight">\(e(X_i)\)</span>, then <a class="reference internal" href="8_WGANs_for_simulation.html#equation-ipw-treated">(7.9)</a> is consistent for <span class="math notranslate nohighlight">\(E[Y(1)]\)</span>.</p>
+<p>Another important point is that when the estimated treatment propensity <span class="math notranslate nohighlight">\(\hat{e}(X_i)\)</span> is small, the summands in <a class="reference internal" href="8_WGANs_for_simulation.html#equation-ipw-treated">(7.9)</a> can be very large. In particular, if <span class="math notranslate nohighlight">\(\hat{e}(x)\)</span> is exactly zero, then this estimator is undefined. That is why, in addition to requiring conditional unconfoundedness <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf-1">(7.3)</a>, it also requires the overlap condition <a class="reference internal" href="8_WGANs_for_simulation.html#equation-overlap">(7.4)</a>. In any case, when overlap is small (i.e., <span class="math notranslate nohighlight">\(\hat{e}(x)\)</span> is very close to zero for many <span class="math notranslate nohighlight">\(x\)</span>), IPW becomes an unattractive estimator due to its high variance. We’ll see in the next section an improved estimator that builds upon IPW but is strictly superior and should be used instead.</p>
 <p>Finally, we just derived an estimator of the average treated outcome, but we could repeat the argument for control units instead. Subtracting the two estimators leads to the following inverse propensity-weighted estimate of the treatment effect:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1390,7 +1333,7 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:189: Runtime
 </section>
 <section id="augmented-inverse-propensity-weighted-aipw-estimator">
 <h2><span class="section-number">3.6. </span>Augmented inverse propensity-weighted (AIPW) estimator<a class="headerlink" href="#augmented-inverse-propensity-weighted-aipw-estimator" title="Permalink to this headline">#</a></h2>
-<p>The next <strong>augmented inverse propensity-weighted estimator</strong> (AIPW) of the treatment effect is available under unconfoundedness <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf-1">(8.3)</a> and overlap <a class="reference internal" href="8_WGANs_for_simulation.html#equation-overlap">(8.4)</a>:</p>
+<p>The next <strong>augmented inverse propensity-weighted estimator</strong> (AIPW) of the treatment effect is available under unconfoundedness <a class="reference internal" href="8_WGANs_for_simulation.html#equation-unconf-1">(7.3)</a> and overlap <a class="reference internal" href="8_WGANs_for_simulation.html#equation-overlap">(7.4)</a>:</p>
 <div class="math notranslate nohighlight" id="equation-aipw">
 <span class="eqno">(3.9)<a class="headerlink" href="#equation-aipw" title="Permalink to this equation">#</a></span>\[\begin{split}
   \begin{aligned}
@@ -1403,9 +1346,9 @@ C:\Users\Roberto\anaconda3\lib\site-packages\numpy\core\_methods.py:189: Runtime
       \frac{1-W}{1-\hat{e}^{-i}(X_i)}  \left ({ Y_i - \hat{\mu}^{-i}(X_i, 0)} \right)
     \end{aligned}
 \end{split}\]</div>
-<p>Let’s parse <a class="reference internal" href="8_WGANs_for_simulation.html#equation-aipw">(8.10)</a>. Ignoring the superscripts for now, the first two terms correspond to an estimate of the treatment effect obtained via direct estimation. The next two terms resemble the IPW estimator, except that we replaced the outcome <span class="math notranslate nohighlight">\(Y_i\)</span> with the residuals <span class="math notranslate nohighlight">\(Y_i - \hat{\mu}(X_i, W_i)\)</span>. At a high level, the last two terms estimate and subtract an estimate of the bias of the first.</p>
+<p>Let’s parse <a class="reference internal" href="8_WGANs_for_simulation.html#equation-aipw">(7.10)</a>. Ignoring the superscripts for now, the first two terms correspond to an estimate of the treatment effect obtained via direct estimation. The next two terms resemble the IPW estimator, except that we replaced the outcome <span class="math notranslate nohighlight">\(Y_i\)</span> with the residuals <span class="math notranslate nohighlight">\(Y_i - \hat{\mu}(X_i, W_i)\)</span>. At a high level, the last two terms estimate and subtract an estimate of the bias of the first.</p>
 <p>The superscripts have to do with a technicality called <strong>cross-fitting</strong> that is required to prevent a specific form of overfitting and allow certain desirable asymptotic properties to hold. That is, we need to fit the outcome and propensity models using one portion of the data, and compute predictions on the remaining portion. An easy way of accomplishing this is to divide the data into K folds, and then estimate <span class="math notranslate nohighlight">\(K\)</span> models that are fitted on <span class="math notranslate nohighlight">\(K-1\)</span> folds, and then compute predictions on the remaining Kth fold. The example below does that with <span class="math notranslate nohighlight">\(K=5\)</span>. Note that this is different from cross-validation: the goal of cross-validation is to obtain accurate estimates of the loss function for model selection, whereas the goal of cross-fitting is simply to not use the same observation to fit the model and produce predictions.</p>
-<p>The AIPW estimator <a class="reference internal" href="8_WGANs_for_simulation.html#equation-aipw">(8.10)</a> has several desirable properties. First, it will be unbiased provided that either <span class="math notranslate nohighlight">\(\hat{\mu}(X_i, w)\)</span> or <span class="math notranslate nohighlight">\(\hat{e}(X_i, w)\)</span> is unbiased. Second, it will be consistent provided that either  <span class="math notranslate nohighlight">\(\hat{\mu}(X_i, w)\)</span> or <span class="math notranslate nohighlight">\(\hat{e}(X_i, w)\)</span> is consistent. This property is called <strong>double robustness (DR)</strong>, because only one of the outcome or propensity score models needs to be correctly specified, so the estimator is “robust” to misspecification in the remaining model. Under mild assumptions, it is also asymptotically normal and it is efficient, that is has the smallest asymptotic variance than any other estimator. In fact, it even has smaller variance than the difference-in-means estimators in the <em>randomized</em> setting and is therefore superior to it.</p>
+<p>The AIPW estimator <a class="reference internal" href="8_WGANs_for_simulation.html#equation-aipw">(7.10)</a> has several desirable properties. First, it will be unbiased provided that either <span class="math notranslate nohighlight">\(\hat{\mu}(X_i, w)\)</span> or <span class="math notranslate nohighlight">\(\hat{e}(X_i, w)\)</span> is unbiased. Second, it will be consistent provided that either  <span class="math notranslate nohighlight">\(\hat{\mu}(X_i, w)\)</span> or <span class="math notranslate nohighlight">\(\hat{e}(X_i, w)\)</span> is consistent. This property is called <strong>double robustness (DR)</strong>, because only one of the outcome or propensity score models needs to be correctly specified, so the estimator is “robust” to misspecification in the remaining model. Under mild assumptions, it is also asymptotically normal and it is efficient, that is has the smallest asymptotic variance than any other estimator. In fact, it even has smaller variance than the difference-in-means estimators in the <em>randomized</em> setting and is therefore superior to it.</p>
 <p>The next snippet provides an implementation of the AIPW estimator where outcome and propensity models are estimated using generalized linear models with splines (via <code class="docutils literal notranslate"><span class="pre">glmnet</span></code> and <code class="docutils literal notranslate"><span class="pre">splines</span></code> packages).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
