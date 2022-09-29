@@ -12,7 +12,7 @@
 # In[1]:
 
 
-#!pip3 install git+https://github.com/gsbDBI/ds-wgan
+get_ipython().system('pip3 install git+https://github.com/gsbDBI/ds-wgan')
 
 
 # We want to simulate a rdata so we neeed pyreadr library.
@@ -54,7 +54,7 @@ df = pd.read_csv("https://docs.google.com/uc?id=1kSxrVci_EUcSr_Lg1JKk1l7Xd5I9zfR
 df.shape
 
 
-# The data we are trying to replicate here is the one we used in Chapter 2.
+# The data we are trying to replicate here is the one we used in Chapter 3.
 
 # After loading in our data as `df`, we will build from it second dataframe called `df_balanced`, by sampling treated and controls with similar probability from `df`. We will train our WGAN on `df_balanced`, which makes sure the quality of the generated outcomes is similar for both treatment groups.
 # 
@@ -129,7 +129,7 @@ wgan.train(generators[1], critics[1], x, context, specs[1])
 
 # ### Steps 6 & 8
 
-# In[8]:
+# In[7]:
 
 
 # simulate data with conditional WGANs
@@ -137,7 +137,7 @@ df_generated1 = data_wrappers[0].apply_generator(generators[0], df)
 df_generated1 = data_wrappers[1].apply_generator(generators[1], df_generated1)
 
 
-# In[9]:
+# In[8]:
 
 
 #Compare fake and real data
@@ -146,7 +146,7 @@ wgan.compare_dfs(df, df_generated1,
                  figsize=3)
 
 
-# In[10]:
+# In[9]:
 
 
 fig, ax = plt.subplots(1,2, figsize=(12, 4))
@@ -167,38 +167,38 @@ ax[1].legend(["Fake","Real"])
 
 # As we can observe, the means, standard error, correlation matrix and distributions (histograms) of the real and simulated data are pretty similar.
 
-# In[11]:
+# In[10]:
 
 
 data = df_generated1.drop("source", axis=1)
 
 
-# ## Application of the simulated data to the code of chapter 2.
+# ## Application of the simulated data to the code of chapter 3.
 
-# Now we can use this new simulated data in the code from chapter 2 which evaluate the Average Treatment Effect (ATE) in Binary treatment. So we can first recall some of the notations and definitions from the original data because these new simulated data are supposed to have the same definitions.
+# Now we can use this new simulated data in the code from chapter 3 which evaluate the Average Treatment Effect (ATE) in Binary treatment. So we can first recall some of the notations and definitions from the original data because these new simulated data are supposed to have the same definitions.
 
-# In[13]:
+# In[11]:
 
 
 #pip install pypng
 
 
-# In[16]:
+# In[12]:
 
 
 #pip install requests
 
 
-# In[46]:
+# In[13]:
 
 
 #pip install econml
 
 
-# In[17]:
+# In[14]:
 
 
-#First we import the necesary packages to use in chapter 2 code
+#First we import the necesary packages to use in chapter 3 code
 from scipy import stats
 from scipy.stats import norm
 import statsmodels.api as sm
@@ -306,7 +306,7 @@ ate_results = pd.DataFrame( { "estimate" : [ate_est],
 ate_results
 
 
-# And this are the results from original data in chapter 2.
+# And this are the results from original data in chapter 3.
 # <table border="1" class="dataframe">
 #   <thead>
 #     <tr style="text-align: right;">
@@ -425,7 +425,8 @@ data_exp = data.copy()
 data.shape
 
 # defining the group that we will be dropped with some high probability
-grp = ((data.w == 1) & ((data.age > 45) | (data.polviews < 5) )) |         ((data.w == 0) &  # if untreated AND
+grp = ((data.w == 1) & ((data.age > 45) | (data.polviews < 5) )) | \
+        ((data.w == 0) &  # if untreated AND
         (
             (data.age < 45) |   # belongs a younger group OR
             (data.polviews > 4)  # more liberal

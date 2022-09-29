@@ -188,7 +188,8 @@ data_exp = data.copy()
 data.shape
 
 # defining the group that we will be dropped with some high probability
-grp = ((data.w == 1) & ((data.age > 45) | (data.polviews < 5) )) |         ((data.w == 0) &  # if untreated AND
+grp = ((data.w == 1) & ((data.age > 45) | (data.polviews < 5) )) | \
+        ((data.w == 0) &  # if untreated AND
         (
             (data.age < 45) |   # belongs a younger group OR
             (data.polviews > 4)  # more liberal
