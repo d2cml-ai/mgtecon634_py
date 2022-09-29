@@ -14,4 +14,4 @@ parts:
   - file: notebooks/5_policy_evaluation_1
   - file: notebooks/6_policy_learning_1
   - file: notebooks/8_WGANs_for_simulation
-  - file: notebooks/81_surrogate
+  - file: notebooks/9_surrogate_py

@@ -1,7 +1,7 @@
 jupyter-book
-matplotlib
+pandas  
 numpy
-pandas
+matplotlib
 patsy
 statsmodels
 SyncRNG
