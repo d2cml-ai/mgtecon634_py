@@ -3,6 +3,10 @@ pandas
 numpy
 matplotlib
 patsy
+CTL
+seaborn
 statsmodels
+scikit-learn
 SyncRNG
 ghp_import
+pyreadr

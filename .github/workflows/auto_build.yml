@@ -4,16 +4,14 @@ name: auto_build
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: ["main", "auto-build"]
+    branches: ["main", "auto-build", "review"]
   # pull_request:
-    # branches: [ "main" ]
+  # branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-
-
 
 jobs:
   BuildJB:
@@ -22,22 +20,22 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
     steps:
-
       # Install dependencies Pyhton
       - uses: actions/checkout@v2
       - id: Python_pip
         name: Python dependencies
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
-          cache: 'pip'
+          python-version: "3.8"
+          cache: "pip"
       - run: pip install git+https://github.com/gsbDBI/ds-wgan
       - run: pip install -r requirements.txt
 
       # Build book
       - id: Build_book
-        name: Build 
-        run: jb clean -a . ; jb build .
+        name: Build
+        # run: jb clean -a . ; jb build .
+        run: jb build .
         shell: bash
 
       # Update book in gh-pages branch
@@ -47,17 +45,16 @@ jobs:
         run: ghp-import -n -p -f _build/html
         shell: bash
 
-      # Push in main 
+      # Push in main
 
       - id: commit
         name: Commit files
-        run:
-          git config --local user.name action-user
+        run: git config --local user.name action-user
 
           git config --local user.email "actions@github.com"
 
           git add -A
-          
+
           git commit -m "update files"
 
           git push origin main
