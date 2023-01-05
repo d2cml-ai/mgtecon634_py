@@ -1,6 +1,6 @@
 jupyter-book
 pandas  
-numpy
+numpy==1.23.5
 matplotlib
 plotnine
 patsy
