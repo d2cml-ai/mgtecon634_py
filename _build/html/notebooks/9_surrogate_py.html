@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research. &#8212; MGTECON 634 at Stanford (Python scripts)</title>
+    <title>7. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research. &#8212; MGTECON 634 at Stanford (Python scripts)</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="7. Tutorial to simulate data using WGANs" href="8_WGANs_for_simulation.html" />
+    <link rel="prev" title="6. Policy Learning I - Binary Treatment" href="6_policy_learning_1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -150,14 +150,9 @@ const thebe_selector_output = ".output, .cell_output"
    6. Policy Learning I - Binary Treatment
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="8_WGANs_for_simulation.html">
-   7. Tutorial to simulate data using WGANs
-  </a>
- </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
+   7. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
   </a>
  </li>
 </ul>
@@ -421,37 +416,37 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setup">
-   8.1. Setup
+   7.1. Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#identification">
-   8.2. Identification
+   7.2. Identification
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#unconfoundedness">
-     8.2.1. Unconfoundedness
+     7.2.1. Unconfoundedness
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#surrogacy-and-the-surrogate-index">
-     8.2.2. Surrogacy and the Surrogate Index
+     7.2.2. Surrogacy and the Surrogate Index
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#deffinition-1">
-       8.2.2.1. Deffinition 1:
+       7.2.2.1. Deffinition 1:
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#definition-2">
-       8.2.2.2. Definition 2
+       7.2.2.2. Definition 2
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#proposition-1">
-       8.2.2.3. Proposition 1
+       7.2.2.3. Proposition 1
       </a>
      </li>
     </ul>
@@ -460,76 +455,76 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#comparibility">
-   8.3. Comparibility
+   7.3. Comparibility
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#proposition-2">
-     8.3.1. Proposition 2
+     7.3.1. Proposition 2
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#definition-3">
-     8.3.2. Definition 3
+     7.3.2. Definition 3
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id1">
-     8.3.3. Identification
+     7.3.3. Identification
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#import-modules">
-   8.4. Import modules
+   7.4. Import modules
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#data-wrangling">
-   8.5. Data Wrangling
+   7.5. Data Wrangling
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#tables">
-   8.6. Tables
+   7.6. Tables
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#appendix-table-1">
-     8.6.1. Appendix Table 1
+     7.6.1. Appendix Table 1
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#appendix-table-2">
-     8.6.2. Appendix Table 2
+     7.6.2. Appendix Table 2
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#figures">
-   8.7. Figures
+   7.7. Figures
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter">
-     8.7.1. Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter
+     7.7.1. Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years">
-     8.7.2. Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years
+     7.7.2. Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon">
-     8.7.3. Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon
+     7.7.3. Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index">
-     8.7.4. Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index
+     7.7.4. Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index
     </a>
    </li>
   </ul>
@@ -555,37 +550,37 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setup">
-   8.1. Setup
+   7.1. Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#identification">
-   8.2. Identification
+   7.2. Identification
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#unconfoundedness">
-     8.2.1. Unconfoundedness
+     7.2.1. Unconfoundedness
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#surrogacy-and-the-surrogate-index">
-     8.2.2. Surrogacy and the Surrogate Index
+     7.2.2. Surrogacy and the Surrogate Index
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#deffinition-1">
-       8.2.2.1. Deffinition 1:
+       7.2.2.1. Deffinition 1:
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#definition-2">
-       8.2.2.2. Definition 2
+       7.2.2.2. Definition 2
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#proposition-1">
-       8.2.2.3. Proposition 1
+       7.2.2.3. Proposition 1
       </a>
      </li>
     </ul>
@@ -594,76 +589,76 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#comparibility">
-   8.3. Comparibility
+   7.3. Comparibility
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#proposition-2">
-     8.3.1. Proposition 2
+     7.3.1. Proposition 2
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#definition-3">
-     8.3.2. Definition 3
+     7.3.2. Definition 3
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id1">
-     8.3.3. Identification
+     7.3.3. Identification
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#import-modules">
-   8.4. Import modules
+   7.4. Import modules
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#data-wrangling">
-   8.5. Data Wrangling
+   7.5. Data Wrangling
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#tables">
-   8.6. Tables
+   7.6. Tables
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#appendix-table-1">
-     8.6.1. Appendix Table 1
+     7.6.1. Appendix Table 1
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#appendix-table-2">
-     8.6.2. Appendix Table 2
+     7.6.2. Appendix Table 2
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#figures">
-   8.7. Figures
+   7.7. Figures
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter">
-     8.7.1. Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter
+     7.7.1. Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years">
-     8.7.2. Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years
+     7.7.2. Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon">
-     8.7.3. Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon
+     7.7.3. Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index">
-     8.7.4. Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index
+     7.7.4. Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index
     </a>
    </li>
   </ul>
@@ -679,11 +674,11 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="athey-s-chetty-r-imbens-g-w-kang-h-2019-the-surrogate-index-combining-short-term-proxies-to-estimate-long-term-treatment-effects-more-rapidly-and-precisely-no-w26463-national-bureau-of-economic-research">
-<h1><span class="section-number">8. </span>Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.<a class="headerlink" href="#athey-s-chetty-r-imbens-g-w-kang-h-2019-the-surrogate-index-combining-short-term-proxies-to-estimate-long-term-treatment-effects-more-rapidly-and-precisely-no-w26463-national-bureau-of-economic-research" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">7. </span>Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.<a class="headerlink" href="#athey-s-chetty-r-imbens-g-w-kang-h-2019-the-surrogate-index-combining-short-term-proxies-to-estimate-long-term-treatment-effects-more-rapidly-and-precisely-no-w26463-national-bureau-of-economic-research" title="Permalink to this headline">#</a></h1>
 <p><a class="reference external" href="https://opportunityinsights.org/wp-content/uploads/2019/11/surrogate_paper.pdf">Reference_paper</a></p>
 <p><a class="reference external" href="https://github.com/OpportunityInsights/Surrogates-Replication-Code">Reference code</a></p>
 <section id="setup">
-<h2><span class="section-number">8.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h2>
 <p>Consider a setting with two samples: an Experimental (<span class="math notranslate nohighlight">\(E\)</span>) sample and an Observational (<span class="math notranslate nohighlight">\(O\)</span>)
 sample. The experimental and observational sample contain observations on <span class="math notranslate nohighlight">\(N_E\)</span> and <span class="math notranslate nohighlight">\(N_O\)</span> units,
 respectively. It is convenient to view the data as consisting of a single sample of size <span class="math notranslate nohighlight">\(N =
@@ -727,7 +722,7 @@ average causal effect of the treatment on the surrogates, <span class="math notr
 interest only insofar as it aids in estimation of <span class="math notranslate nohighlight">\(\tau\)</span>.</p>
 </section>
 <section id="identification">
-<h2><span class="section-number">8.2. </span>Identification<a class="headerlink" href="#identification" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.2. </span>Identification<a class="headerlink" href="#identification" title="Permalink to this headline">#</a></h2>
 <p>In this section, we discuss three assumptions that together allow us to combine the observational
 and experimental samples and estimate the causal effect of the treatment on the primary outcome
 using a set of intermediate outcomes. The first assumption is unconfoundedness or ignorability,
@@ -740,7 +735,7 @@ After stating these three assumptions, we present our main identification result
 the ATE on the primary outcome can be identified by combining intermediate outcomes under
 these assumptions.</p>
 <section id="unconfoundedness">
-<h3><span class="section-number">8.2.1. </span>Unconfoundedness<a class="headerlink" href="#unconfoundedness" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.2.1. </span>Unconfoundedness<a class="headerlink" href="#unconfoundedness" title="Permalink to this headline">#</a></h3>
 <p>For the individuals in the experimental group, define the propensity score as the conditional
 probability of receiving the treatment: <span class="math notranslate nohighlight">\(e(x) = \mathrm{pr}\left(Wi = 1 | X_i = x, P_i = E\right)\)</span>. We assume that for individuals in the experimental group, treatment assignment is unconfounded and we have overlap in the distribution of pre-treatment variables between the treatment and control groups (Rosenbaum and Rubin 1983).</p>
 <p><strong>Assumption 1.</strong> (Unconfounded Treatment Assignment / Strong Ignorability)</p>
@@ -750,7 +745,7 @@ probability of receiving the treatment: <span class="math notranslate nohighligh
 effect of the treatment on the outcome <span class="math notranslate nohighlight">\(Y_i\)</span> by adjusting for pre-treatment variables, if the <span class="math notranslate nohighlight">\(Y_i\)</span> were measured.</p>
 </section>
 <section id="surrogacy-and-the-surrogate-index">
-<h3><span class="section-number">8.2.2. </span>Surrogacy and the Surrogate Index<a class="headerlink" href="#surrogacy-and-the-surrogate-index" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.2.2. </span>Surrogacy and the Surrogate Index<a class="headerlink" href="#surrogacy-and-the-surrogate-index" title="Permalink to this headline">#</a></h3>
 <p>Because the primary outcome is not measured in the experimental group, we exploit surrogates
 to identify the treatment effect of <span class="math notranslate nohighlight">\(W\)</span> on <span class="math notranslate nohighlight">\(Y\)</span> . The defining property of these surrogates <span class="math notranslate nohighlight">\(S_i\)</span> is the following condition</p>
 <p><strong>Assumption 2</strong> (Surrogacy)</p>
@@ -791,7 +786,7 @@ through <span class="math notranslate nohighlight">\(S\)</span>.</p>
 <p>We exploit the availability of multiple intermediate outcomes by defining two concepts: the
 surrogate index and surrogate score.</p>
 <section id="deffinition-1">
-<h4><span class="section-number">8.2.2.1. </span>Deffinition 1:<a class="headerlink" href="#deffinition-1" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">7.2.2.1. </span>Deffinition 1:<a class="headerlink" href="#deffinition-1" title="Permalink to this headline">#</a></h4>
 <p>The surrogate Index: <em>The surrogate index is the conditional expectation
 of the primary outcome given the surrogate outcomes and the pre-treatment variables in the
 observational sample:</em></p>
@@ -802,7 +797,7 @@ h_0(s, x) = \mathbb{E}[Y_i|S_i = s, X_i = x, P_i = O]
 <p>The surrogate index <span class="math notranslate nohighlight">\(h_0(s, x)\)</span> is estimable because we observe the triple <span class="math notranslate nohighlight">\(\left(Y_i, S_i, X_i\right)\)</span> in the observational sample. In a linear model, the surrogate index is simply a linear combination of the individual intermediate outcomes – the predicted value from a regression of the primary outcome on the intermediate outcomes.</p>
 </section>
 <section id="definition-2">
-<h4><span class="section-number">8.2.2.2. </span>Definition 2<a class="headerlink" href="#definition-2" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">7.2.2.2. </span>Definition 2<a class="headerlink" href="#definition-2" title="Permalink to this headline">#</a></h4>
 <p>The Surrogate Score: <em>The surrogate score is the conditional probability of
 having received the treatment given the value for the surrogate outcomes and the covariates:</em></p>
 <div class="math notranslate nohighlight">
@@ -814,7 +809,7 @@ only for scalar differences in other variables, irrespective of the dimension of
 surrogates.</p>
 </section>
 <section id="proposition-1">
-<h4><span class="section-number">8.2.2.3. </span>Proposition 1<a class="headerlink" href="#proposition-1" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">7.2.2.3. </span>Proposition 1<a class="headerlink" href="#proposition-1" title="Permalink to this headline">#</a></h4>
 <p>Surrogate Score: <em>Suppose Assumption 2 holds. Then:</em></p>
 <div class="math notranslate nohighlight">
 \[
@@ -824,7 +819,7 @@ W_i \perp Y_i \mid r(S_i, X_i, P_i) = \mathrm{E}
 </section>
 </section>
 <section id="comparibility">
-<h2><span class="section-number">8.3. </span>Comparibility<a class="headerlink" href="#comparibility" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.3. </span>Comparibility<a class="headerlink" href="#comparibility" title="Permalink to this headline">#</a></h2>
 <p>Surrogacy and unconfoundedness by themselves are not sufficient for consistent estimation of <span class="math notranslate nohighlight">\(\tau\)</span>
 by itself because they do not place restrictions on how the relationship between <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(S\)</span> in the
 observational sample compares to that in the experimental sample. The final assumption we
@@ -859,7 +854,7 @@ to take the relationship between <span class="math notranslate nohighlight">\(Y\
 the experimental sample. In effect, comparability and surrogacy together allow us to impute the
 missing primary outcomes in the experimental sample, as shown by the following proposition.</p>
 <section id="proposition-2">
-<h3><span class="section-number">8.3.1. </span>Proposition 2<a class="headerlink" href="#proposition-2" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.3.1. </span>Proposition 2<a class="headerlink" href="#proposition-2" title="Permalink to this headline">#</a></h3>
 <p>Surrogate Index:</p>
 <p><em>(i) Suppose Assumption 2 holds. Then:</em></p>
 <div class="math notranslate nohighlight">
@@ -884,7 +879,7 @@ Let <span class="math notranslate nohighlight">\(q = N_E/(N_E + N_O)\)</span> de
 be in the experimental sample <span class="math notranslate nohighlight">\(P_i = E\)</span> as follows:</p>
 </section>
 <section id="definition-3">
-<h3><span class="section-number">8.3.2. </span>Definition 3<a class="headerlink" href="#definition-3" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.3.2. </span>Definition 3<a class="headerlink" href="#definition-3" title="Permalink to this headline">#</a></h3>
 <p>Sampling Score</p>
 <div class="math notranslate nohighlight">
 \[
@@ -902,7 +897,7 @@ t(s, x) = \mathrm{pr}\left(P_ = E| S_i = s, X_i = x\right) = \frac{
 \[t(s, x) &lt; 1 \text{ for all } x \in \mathbb{S} \text{ and } x \in \mathbb{X}\]</div>
 </section>
 <section id="id1">
-<h3><span class="section-number">8.3.3. </span>Identification<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.3.3. </span>Identification<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
 <p>We now present our central identification result. We present three different representations of the
 average treatment effect that lead to three estimation strategies. The motivation for developing
 the different representations is that estimators corresponding to those different representations
@@ -969,7 +964,7 @@ score can be used to obtain efficient estimators for <span class="math notransla
 </section>
 </section>
 <section id="import-modules">
-<h2><span class="section-number">8.4. </span>Import modules<a class="headerlink" href="#import-modules" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.4. </span>Import modules<a class="headerlink" href="#import-modules" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data wrangling</span>
@@ -989,7 +984,7 @@ score can be used to obtain efficient estimators for <span class="math notransla
 </div>
 </section>
 <section id="data-wrangling">
-<h2><span class="section-number">8.5. </span>Data Wrangling<a class="headerlink" href="#data-wrangling" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.5. </span>Data Wrangling<a class="headerlink" href="#data-wrangling" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import Data</span>
@@ -1193,7 +1188,7 @@ score can be used to obtain efficient estimators for <span class="math notransla
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">37</span><span class="p">):</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;emp_cm1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;emp1&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
         
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">37</span><span class="p">):</span>
     <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">i</span>
@@ -1241,9 +1236,9 @@ score can be used to obtain efficient estimators for <span class="math notransla
 </div>
 </section>
 <section id="tables">
-<h2><span class="section-number">8.6. </span>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.6. </span>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">#</a></h2>
 <section id="appendix-table-1">
-<h3><span class="section-number">8.6.1. </span>Appendix Table 1<a class="headerlink" href="#appendix-table-1" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.6.1. </span>Appendix Table 1<a class="headerlink" href="#appendix-table-1" title="Permalink to this headline">#</a></h3>
 <p>Estimates of Treatment Effects on Employment and Earnings Over Nine Years,
 Varying Quarters of Data Used to Construct Surrogate Index</p>
 <div class="cell docutils container">
@@ -1357,7 +1352,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </section>
 <section id="appendix-table-2">
-<h3><span class="section-number">8.6.2. </span>Appendix Table 2<a class="headerlink" href="#appendix-table-2" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.6.2. </span>Appendix Table 2<a class="headerlink" href="#appendix-table-2" title="Permalink to this headline">#</a></h3>
 <p>Estimates of Treatment Effects on Employment and Earnings Over Nine Years,
 Varying Quarters of Data Used to Construct Surrogate Index</p>
 <div class="cell docutils container">
@@ -1391,9 +1386,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 		   (0.008)	   (.)
 9 		   0.08	    .
 		   (0.008)	   (.)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 		   0.0783	    .
+10 		   0.0783	    .
 		   (0.008)	   (.)
 11 		   0.0799	    .
 		   (0.008)	   (.)
@@ -1403,9 +1396,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 		   (0.009)	   (.)
 14 		   0.0786	    .
 		   (0.009)	   (.)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15 		   0.0788	    .
+15 		   0.0788	    .
 		   (0.009)	   (.)
 16 		   0.0712	    .
 		   (0.009)	   (.)
@@ -1425,9 +1416,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 		   (0.01)	   (.)
 24 		   0.0737	    .
 		   (0.01)	   (.)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25 		   0.0727	    .
+25 		   0.0727	    .
 		   (0.01)	   (.)
 26 		   0.0686	    .
 		   (0.01)	   (.)
@@ -1435,11 +1424,11 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 		   (0.01)	   (.)
 28 		   0.0653	    .
 		   (0.01)	   (.)
-29 		   0.0645	    .
-		   (0.01)	   (.)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30 		   0.0634	    .
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>29 		   0.0645	    .
+		   (0.01)	   (.)
+30 		   0.0634	    .
 		   (0.011)	   (.)
 31 		   0.0647	    .
 		   (0.011)	   (.)
@@ -1460,7 +1449,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </section>
 </section>
 <section id="figures">
-<h2><span class="section-number">8.7. </span>Figures<a class="headerlink" href="#figures" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.7. </span>Figures<a class="headerlink" href="#figures" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Colours</span>
@@ -1471,7 +1460,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </div>
 <section id="figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter">
-<h3><span class="section-number">8.7.1. </span>Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter<a class="headerlink" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.7.1. </span>Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter<a class="headerlink" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -1513,7 +1502,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </section>
 <section id="figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years">
-<h3><span class="section-number">8.7.2. </span>Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years<a class="headerlink" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.7.2. </span>Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years<a class="headerlink" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
@@ -1566,7 +1555,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </section>
 <section id="figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon">
-<h3><span class="section-number">8.7.3. </span>Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon<a class="headerlink" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.7.3. </span>Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon<a class="headerlink" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Estimated treatment effect six tweleve</span>
@@ -1575,7 +1564,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
     <span class="c1"># print(f&quot;emp_cm{i}&quot;)</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;emp_cm1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;emp1&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">37</span><span class="p">):</span>
     <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;emp_cm</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">i</span>
 </pre></div>
@@ -1628,7 +1617,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </section>
 <section id="figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index">
-<h3><span class="section-number">8.7.4. </span>Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index<a class="headerlink" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.7.4. </span>Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index<a class="headerlink" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Bias</span>
@@ -1723,11 +1712,11 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="8_WGANs_for_simulation.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="6_policy_learning_1.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">7. </span>Tutorial to simulate data using WGANs</p>
+            <p class="prev-next-title"><span class="section-number">6. </span>Policy Learning I - Binary Treatment</p>
         </div>
     </a>
 </div>

@@ -57,7 +57,7 @@ jobs:
 
           git commit -m "update files"
 
-          git push origin main
+          git push origin review
 
         env:
           REPO_KEY: ${{secrets.GITHUB_TOKEN}}

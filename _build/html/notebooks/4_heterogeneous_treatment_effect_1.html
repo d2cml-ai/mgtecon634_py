@@ -152,13 +152,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="8_WGANs_for_simulation.html">
-   7. Tutorial to simulate data using WGANs
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="9_surrogate_py.html">
-   8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
+   7. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
   </a>
  </li>
 </ul>
@@ -540,45 +535,27 @@ title="Print to PDF"
   <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
 
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
-<span class="kn">import</span> <span class="nn">patsy</span>
-<span class="kn">from</span> <span class="nn">SyncRNG</span> <span class="kn">import</span> <span class="n">SyncRNG</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">statsmodels.sandbox.stats.multicomp</span> <span class="kn">import</span> <span class="n">multipletests</span>
+
+<span class="kn">import</span> <span class="nn">patsy</span><span class="o">,</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 
-<span class="kn">from</span> <span class="nn">SyncRNG</span> <span class="kn">import</span> <span class="n">SyncRNG</span>
-
-<span class="kn">from</span> <span class="nn">CTL.causal_tree_learn</span> <span class="kn">import</span> <span class="n">CausalTree</span>
+<span class="c1"># from CTL.causal_tree_learn import CausalTree</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">import</span> <span class="nn">plotnine</span> <span class="k">as</span> <span class="nn">p</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">18</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">SyncRNG</span> <span class="kn">import</span> <span class="n">SyncRNG</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">CTL.causal_tree_learn</span> <span class="kn">import</span> <span class="n">CausalTree</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="kn">import</span> <span class="nn">plotnine</span> <span class="k">as</span> <span class="nn">p</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;CTL&#39;
 </pre></div>
 </div>
 </div>
@@ -799,7 +776,7 @@ H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i 
 <span class="c1"># dimensional column vector</span>
 
 <span class="k">def</span> <span class="nf">cvec</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Turn a list or vector-like object into a proper column vector</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Turn a list or vector-like object into a proper column vector</span>
 <span class="sd">    Input</span>
 <span class="sd">    a: List or vector-like object, has to be a potential input for np.array()</span>
 <span class="sd">    Output</span>
@@ -824,7 +801,7 @@ H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">add_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">homoskedastic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Calculates OLS variance estimator based on X and residuals</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Calculates OLS variance estimator based on X and residuals</span>
 <span class="sd">    Inputs</span>
 <span class="sd">    X: n by k matrix, RHS variables</span>
 <span class="sd">    e: n by 1 vector or vector-like, residuals from an OLS regression</span>
@@ -922,15 +899,13 @@ H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i 
 <span class="c1"># Adapted from the p_adjust from from the hdm package, written by Philipp Bach.</span>
 <span class="c1"># https://github.com/PhilippBach/hdm_prev/blob/master/R/p_adjust.R</span>
 
-<span class="k">def</span> <span class="nf">summary_rw_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cov_type</span><span class="o">=</span><span class="s2">&quot;HC2&quot;</span><span class="p">,</span> <span class="n">num_boot</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
-    <span class="n">SyncRNG</span><span class="p">(</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">123456</span><span class="p">)</span>  
-
+<span class="k">def</span> <span class="nf">summary_rw_lm</span><span class="p">(</span><span class="n">model_ols</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cov_type</span><span class="o">=</span><span class="s2">&quot;HC2&quot;</span><span class="p">,</span> <span class="n">num_boot</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
     <span class="c1"># OLS without correction</span>
 
     <span class="c1"># Grab the original t values.</span>
-    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">ols</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="n">ols</span><span class="p">[</span><span class="n">ols</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]))]</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">model_ols</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">ols</span><span class="p">[</span><span class="n">ols</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]))]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">t_orig</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
 
     <span class="c1"># Null resampling.</span>
@@ -941,9 +916,9 @@ H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i 
     <span class="c1">#  - Draw beta.boot ~ N(0, Sigma-hat) --- note the 0 here, this is what makes it a *null* t-value.</span>
     <span class="c1">#  - Compute t.boot = beta.boot / sqrt(diag(Sigma.hat))</span>
 
-    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="n">cov_type</span><span class="p">)</span>
-    <span class="n">ols_exog</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">exog</span>
-    <span class="n">ols_res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span><span class="o">.</span><span class="n">resid</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">model_ols</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="n">cov_type</span><span class="p">)</span>
+    <span class="n">ols_exog</span> <span class="o">=</span> <span class="n">model_ols</span><span class="o">.</span><span class="n">exog</span>
+    <span class="n">ols_res</span> <span class="o">=</span> <span class="n">model_ols</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span><span class="o">.</span><span class="n">resid</span>
     <span class="n">Sigma_hat</span> <span class="o">=</span> <span class="n">get_cov</span><span class="p">(</span><span class="n">ols_exog</span><span class="p">,</span> <span class="n">ols_res</span><span class="p">,</span> <span class="n">add_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="n">se_orig</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Sigma_hat</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()))</span>
@@ -955,12 +930,13 @@ H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i 
                 <span class="n">mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_coef</span><span class="p">),</span> <span class="n">cov</span><span class="o">=</span><span class="n">Sigma_hat</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_boot</span><span class="p">))</span>
 
     <span class="n">t_boot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">beta_boot</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span> <span class="o">/</span> <span class="n">se_orig</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">t_boot</span> <span class="o">=</span> <span class="n">t_boot</span><span class="o">.</span><span class="n">T</span><span class="p">[(</span><span class="nb">len</span><span class="p">(</span><span class="n">ols_1</span><span class="p">)</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">t_orig</span><span class="p">)):</span><span class="nb">len</span><span class="p">(</span><span class="n">ols_1</span><span class="p">)]</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">ols_1</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">t_boot</span> <span class="o">=</span> <span class="n">t_boot</span><span class="o">.</span><span class="n">T</span><span class="p">[(</span><span class="nb">len</span><span class="p">(</span><span class="n">ols_1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_orig</span><span class="p">))</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">ols_1</span><span class="p">)]</span><span class="o">.</span><span class="n">T</span>
 
     <span class="n">p_adj</span> <span class="o">=</span> <span class="n">romano_wolf_correction</span><span class="p">(</span><span class="n">t_orig</span><span class="p">,</span> <span class="n">t_boot</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span><span class="s1">&#39;Coef.&#39;</span><span class="p">,</span><span class="s1">&#39;Std.Err.&#39;</span><span class="p">,</span><span class="s1">&#39;P&gt;|t|&#39;</span><span class="p">]]</span>
     <span class="n">result</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;P&gt;|t|&#39;</span><span class="p">:</span> <span class="s1">&#39;Orig.p-value&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Adj. p-value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_adj</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Adj_p_value</span> <span class="o">=</span> <span class="n">p_adj</span><span class="p">)</span>
 
     <span class="k">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
@@ -971,9 +947,9 @@ H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i 
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This linear regression is only valid in a randomized setting.</span>
 <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;y ~ w*C(polviews)&#39;</span>
-<span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">interact</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ols_1</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">)]</span>
+<span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">ols_1</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">interact</span> <span class="o">=</span> <span class="n">ols_1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ols_1</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">)]</span>
 
 <span class="c1"># Applying the romano-wolf correction.</span>
 <span class="n">summary_rw_lm</span><span class="p">(</span><span class="n">ols</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">interact</span><span class="p">)</span>
@@ -981,17 +957,6 @@ H_0: \mathbf{E}[Y(1) - Y(0) \ | \  G_i = 1] = \mathbf{E}[Y(1) - Y(0) \ | \  G_i 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Roberto\AppData\Local\Temp\ipykernel_19960\909325009.py:48: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-C:\Users\Roberto\AppData\Local\Temp\ipykernel_19960\909325009.py:49: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-</pre></div>
-</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1014,7 +979,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <th>Coef.</th>
       <th>Std.Err.</th>
       <th>Orig.p-value</th>
-      <th>Adj. p-value</th>
+      <th>Adj_p_value</th>
     </tr>
   </thead>
   <tbody>
@@ -1024,7 +989,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <td>-0.024242</td>
       <td>0.030348</td>
       <td>4.244098e-01</td>
-      <td>0.4235</td>
+      <td>0.4176</td>
     </tr>
     <tr>
       <th>9</th>
@@ -1032,7 +997,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <td>-0.059623</td>
       <td>0.030150</td>
       <td>4.798896e-02</td>
-      <td>0.0764</td>
+      <td>0.0756</td>
     </tr>
     <tr>
       <th>10</th>
@@ -1118,91 +1083,346 @@ Compare the adjusted p-values under Romano-Wolf with those obtained via Bonferro
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">split</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">),</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span> <span class="s2">&quot;https://docs.google.com/uc?id=1kSxrVci_EUcSr_Lg1JKk1l7Xd5I9zfRC&amp;export=download&quot;</span><span class="p">)</span>
+<span class="c1"># Convert marital as categorical, and substract 1 to sex</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;marital&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;marital&quot;</span><span class="p">])</span>
+<span class="c1"># Define the output and treatment variables.</span>
 
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">],[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;polviews&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span><span class="s1">&#39;educ&#39;</span><span class="p">,</span><span class="s1">&#39;marital&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">]]</span> 
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> 
-<span class="n">T_train</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> 
+<span class="c1"># Treatment: does the the gov&#39;t spend too much on &quot;welfare&quot; (1) or &quot;assistance to the poor&quot; (0)</span>
+<span class="n">treatment</span> <span class="o">=</span> <span class="s2">&quot;w&quot;</span>
 
-<span class="n">X_est</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">],[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;polviews&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span><span class="s1">&#39;educ&#39;</span><span class="p">,</span><span class="s1">&#39;marital&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">]]</span> 
-<span class="n">y_est</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> 
-<span class="n">T_est</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> 
+<span class="c1"># Outcome: 1 for &#39;yes&#39;, 0 for &#39;no&#39;</span>
+<span class="n">outcome</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
 
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">2</span><span class="p">],[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;polviews&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span><span class="s1">&#39;educ&#39;</span><span class="p">,</span><span class="s1">&#39;marital&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">]]</span> 
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> 
-<span class="n">T_test</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> 
+<span class="c1"># Additional covariates</span>
+<span class="c1"># drops `marital`</span>
+<span class="n">covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;polviews&quot;</span><span class="p">,</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span> <span class="s2">&quot;educ&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]</span>
+
+<span class="c1"># New covariates</span>
+<span class="n">covariates</span> <span class="o">=</span> <span class="n">covariates</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Married&quot;</span><span class="p">,</span> <span class="s2">&quot;Widowed&quot;</span><span class="p">,</span> <span class="s2">&quot;Divorced&quot;</span><span class="p">,</span> <span class="s2">&quot;Separated&quot;</span><span class="p">,</span> <span class="s2">&quot;Never_Married&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preparing data to fit a causal forest</span>
-
-<span class="c1">#fmla = &#39;0+age+polviews+income+educ+marital+sex&#39;</span>
-<span class="c1">#matrix = patsy.dmatrix(fmla, data, return_type = &quot;dataframe&quot;)</span>
-
-<span class="c1">#T = data.loc[ : ,&quot;w&quot;]</span>
-<span class="c1">#Y = data.loc[ : ,&quot;y&quot;]X = matrix</span>
-
-
-<span class="c1"># Estimate a causal tree using Causal Forest library</span>
-
-<span class="n">ctree</span> <span class="o">=</span> <span class="n">CausalForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">170</span><span class="p">,</span>
-                       <span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">inference</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                       <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span><span class="n">subforest_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="n">ctree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">T_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## replace values</span>
+<span class="n">marital_val</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Married&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;Widowed&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Divorced&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Separated&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;Never_Married&quot;</span><span class="p">}</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;marital&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;marital&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">marital_val</span><span class="p">))</span>
+<span class="c1"># Get new columns</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">prefix_sep</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="c1">## In this case, we remove the marital column and get </span>
+<span class="c1"># the columns [&quot;Married&quot;, &quot;Widowed&quot;, &quot;Divorced&quot;, &quot;Separated&quot;, &quot;Never_Married&quot;]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CausalForest(inference=False, max_depth=50, min_samples_leaf=170,
-             n_estimators=1, random_state=123, subforest_size=1)
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>y</th>
+      <th>w</th>
+      <th>age</th>
+      <th>polviews</th>
+      <th>income</th>
+      <th>educ</th>
+      <th>sex</th>
+      <th>Married</th>
+      <th>Widowed</th>
+      <th>Divorced</th>
+      <th>Separated</th>
+      <th>Never_Married</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>28</td>
+      <td>4</td>
+      <td>11</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>54</td>
+      <td>6</td>
+      <td>12</td>
+      <td>16</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>44</td>
+      <td>2</td>
+      <td>12</td>
+      <td>16</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data into train, estimation, testing </span>
+<span class="n">split_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">data_train</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split_row</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">data_est</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split_row</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">data_test</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">split_row</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_leaves</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ctree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_est</span><span class="p">)))</span> <span class="c1"># number of leaves </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### econml.dml import CausalForest </span>
+<span class="c1">## PlotTree</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a `econ.ml.CausalForest`  object and estimate the model with </span>
+<span class="c1"># training data</span>
+<span class="n">ctree</span> <span class="o">=</span> <span class="n">CausalForest</span><span class="p">(</span>
+    <span class="n">n_estimators</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">170</span><span class="p">,</span>
+    <span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">inference</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span><span class="n">subforest_size</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">num_leaves</span><span class="p">)</span>
-
-<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">ctree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_est</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="c1"># convert from N- array to 1-array</span>
-
-<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tau_hat</span> <span class="p">))</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">]</span> <span class="c1"># label by each leaf </span>
-
-<span class="c1"># Prediction grouped by each leaf</span>
-
-<span class="n">predict1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">],:]</span>
-<span class="n">predict1</span><span class="p">[</span><span class="s1">&#39;tau_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau_hat</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="n">predict1</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">tau_hat</span><span class="p">)</span>
-<span class="n">predict1</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predict1</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">ctree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">data_train</span><span class="p">[</span><span class="n">covariates</span><span class="p">],</span> 
+    <span class="n">data_train</span><span class="p">[</span><span class="n">treatment</span><span class="p">],</span> 
+    <span class="n">data_train</span><span class="p">[</span><span class="n">outcome</span><span class="p">]</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>CausalForest(inference=False, max_depth=50, min_samples_leaf=170,
+             n_estimators=1, random_state=123, subforest_size=1)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">CausalForest</label><div class="sk-toggleable__content"><pre>CausalForest(inference=False, max_depth=50, min_samples_leaf=170,
+             n_estimators=1, random_state=123, subforest_size=1)</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">plot_tree</span>
+<span class="c1"># Get the trees from the mode</span>
+<span class="n">trees</span> <span class="o">=</span> <span class="n">ctree</span><span class="o">.</span><span class="n">estimators_</span>
+
+<span class="c1"># Plot each tree</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tree</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trees</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plot_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">covariates</span><span class="p">,</span> <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4_heterogeneous_treatment_effect_1_22_0.png" src="../_images/4_heterogeneous_treatment_effect_1_22_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the unique values of prediction (numbers of leaf)</span>
+<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">ctree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data_est</span><span class="p">[</span><span class="n">covariates</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="n">leaves</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tau_hat</span> <span class="p">))</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)]</span>
+<span class="n">num_leaves</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tau_hat</span><span class="p">))</span>
+<span class="n">ctree</span><span class="o">.</span><span class="n">decision_path</span><span class="p">(</span><span class="n">data_est</span><span class="p">[</span><span class="n">covariates</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of leaves:&quot;</span><span class="p">,</span> <span class="n">num_leaves</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of leaves: 9
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prediction grouped by each leaf in data_est</span>
+<span class="n">data_est</span> <span class="o">=</span> <span class="n">data_est</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tau_hat</span> <span class="o">=</span> <span class="n">tau_hat</span><span class="p">,</span> <span class="n">leaves</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">tau_hat</span><span class="p">))</span>
+<span class="n">data_est</span><span class="p">[</span><span class="s2">&quot;leaves&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_est</span><span class="p">[</span><span class="s2">&quot;leaves&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span><span class="n">leaves</span><span class="p">)</span>
+<span class="n">data_est</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>y</th>
+      <th>w</th>
+      <th>age</th>
+      <th>polviews</th>
+      <th>income</th>
+      <th>educ</th>
+      <th>sex</th>
+      <th>Married</th>
+      <th>Widowed</th>
+      <th>Divorced</th>
+      <th>Separated</th>
+      <th>Never_Married</th>
+      <th>tau_hat</th>
+      <th>leaves</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>9551</th>
+      <td>11008</td>
+      <td>0</td>
+      <td>1</td>
+      <td>52</td>
+      <td>2</td>
+      <td>12</td>
+      <td>16</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-0.230728</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>9552</th>
+      <td>11009</td>
+      <td>0</td>
+      <td>1</td>
+      <td>68</td>
+      <td>4</td>
+      <td>10</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-0.459965</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>9553</th>
+      <td>11011</td>
+      <td>0</td>
+      <td>1</td>
+      <td>47</td>
+      <td>3</td>
+      <td>10</td>
+      <td>13</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-0.366840</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>9554</th>
+      <td>11012</td>
+      <td>1</td>
+      <td>1</td>
+      <td>20</td>
+      <td>5</td>
+      <td>12</td>
+      <td>13</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-0.456471</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>9555</th>
+      <td>11014</td>
+      <td>1</td>
+      <td>0</td>
+      <td>21</td>
+      <td>2</td>
+      <td>12</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-0.230728</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1215,59 +1435,132 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span class="k">elif</span> <span class="n">num_leaves</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">:</span>
     
     <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;y ~ w*C(leaves)&#39;</span>
-    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">predict1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">ols</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ols</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">)]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span><span class="s1">&#39;Coef.&#39;</span><span class="p">,</span><span class="s1">&#39;Std.Err.&#39;</span><span class="p">,</span><span class="s1">&#39;P&gt;|t|&#39;</span><span class="p">]]</span>
-    <span class="n">result</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;P&gt;|t|&#39;</span><span class="p">:</span> <span class="s1">&#39;Orig.p-value&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_est</span><span class="p">)</span>
+    <span class="n">ols_1</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">ols_1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ols_1</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">)]</span>
+    <span class="n">new_summary</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span><span class="s1">&#39;Coef.&#39;</span><span class="p">,</span><span class="s1">&#39;Std.Err.&#39;</span><span class="p">,</span><span class="s1">&#39;P&gt;|t|&#39;</span><span class="p">]]</span>
+    <span class="n">new_summary</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;P&gt;|t|&#39;</span><span class="p">:</span> <span class="s1">&#39;Orig.p-value&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     
 <span class="k">else</span><span class="p">:</span>
     
 <span class="c1"># This linear regression is only valid in a randomized setting.</span>
 
     <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;y ~ w*C(leaves)&#39;</span>
-    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">predict1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">ols</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="n">interact</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ols</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">)]</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_est</span><span class="p">)</span>
+    <span class="n">ols_1</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">interact</span> <span class="o">=</span> <span class="n">ols_1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ols_1</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">)]</span>
 
     <span class="c1"># Applying the romano-wolf correction.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">summary_rw_lm</span><span class="p">(</span><span class="n">ols</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">interact</span><span class="p">))</span>
+    <span class="n">new_summary</span> <span class="o">=</span> <span class="n">summary_rw_lm</span><span class="p">(</span><span class="n">ols</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">interact</span><span class="p">)</span>
+
+<span class="n">new_summary</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               index     Coef.  Std.Err.  Orig.p-value  Adj. p-value
-10  w:C(leaves)[T.2] -0.006448  0.030429      0.832177        0.9931
-11  w:C(leaves)[T.3] -0.013501  0.037021      0.715365        0.9972
-12  w:C(leaves)[T.4]  0.015477  0.030218      0.608546        0.9957
-13  w:C(leaves)[T.5] -0.018966  0.036730      0.605610        0.9965
-14  w:C(leaves)[T.6]  0.001973  0.030663      0.948692        0.9960
-15  w:C(leaves)[T.7]  0.002009  0.031635      0.949363        0.9455
-16  w:C(leaves)[T.8] -0.011408  0.042844      0.790039        0.9966
-17  w:C(leaves)[T.9] -0.019500  0.039154      0.618466        0.9923
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A value is trying to be set on a copy of a slice from a DataFrame
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>Coef.</th>
+      <th>Std.Err.</th>
+      <th>Orig.p-value</th>
+      <th>Adj_p_value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td>w:C(leaves)[T.2]</td>
+      <td>-0.058192</td>
+      <td>0.032219</td>
+      <td>0.070928</td>
+      <td>0.2636</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>w:C(leaves)[T.3]</td>
+      <td>-0.088462</td>
+      <td>0.038953</td>
+      <td>0.023169</td>
+      <td>0.1075</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>w:C(leaves)[T.4]</td>
+      <td>0.010557</td>
+      <td>0.031984</td>
+      <td>0.741349</td>
+      <td>0.7458</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>w:C(leaves)[T.5]</td>
+      <td>0.027489</td>
+      <td>0.038912</td>
+      <td>0.479928</td>
+      <td>0.7048</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>w:C(leaves)[T.6]</td>
+      <td>0.048055</td>
+      <td>0.032493</td>
+      <td>0.139188</td>
+      <td>0.3255</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>w:C(leaves)[T.7]</td>
+      <td>0.130652</td>
+      <td>0.033514</td>
+      <td>0.000097</td>
+      <td>0.0009</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>w:C(leaves)[T.8]</td>
+      <td>0.075424</td>
+      <td>0.045365</td>
+      <td>0.096426</td>
+      <td>0.2939</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>w:C(leaves)[T.9]</td>
+      <td>0.183812</td>
+      <td>0.041424</td>
+      <td>0.000009</td>
+      <td>0.0000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we can plot the average value for each leaf, in this case, we have 9 leaf</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">covariates</span><span class="p">:</span>
-    <span class="n">form2</span> <span class="o">=</span> <span class="n">var_name</span> <span class="o">+</span> <span class="s2">&quot; ~ &quot;</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span> <span class="o">+</span> <span class="s2">&quot;C(leaves)&quot;</span>
-    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">form2</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">predict1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="s1">&#39;HC2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
-    
-    
+    <span class="n">form2</span> <span class="o">=</span>  <span class="n">var_name</span> <span class="o">+</span> <span class="s2">&quot; ~ &quot;</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span> <span class="o">+</span> <span class="s2">&quot;C(leaves)&quot;</span>
+    <span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">form2</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_est</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="s1">&#39;HC2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        
     <span class="c1"># Retrieve results</span>
     <span class="n">toget_index</span> <span class="o">=</span> <span class="n">ols</span><span class="p">[</span><span class="s2">&quot;Coef.&quot;</span><span class="p">]</span>
     <span class="n">index</span> <span class="o">=</span> <span class="n">toget_index</span><span class="o">.</span><span class="n">index</span>
@@ -1276,7 +1569,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
     <span class="n">stderr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">ols</span><span class="p">[</span><span class="s2">&quot;Std.Err.&quot;</span><span class="p">],</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;stderr&quot;</span><span class="p">)</span>
     <span class="n">leaves</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">num_leaves</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;leaves&quot;</span><span class="p">)</span>
     <span class="n">scaling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">avg</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">avg</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">avg</span><span class="p">)),</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;scaling&quot;</span><span class="p">)</span>
-    <span class="n">data2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="n">covariates</span><span class="p">)</span>
+    <span class="n">data2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_est</span><span class="p">[</span><span class="n">covariates</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span> <span class="n">covariates</span><span class="p">)</span>
     <span class="n">variation1</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">avg</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data2</span><span class="p">[</span><span class="n">var_name</span><span class="p">])</span>
     <span class="n">variation</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">variation1</span><span class="p">,</span> <span class="n">num_leaves</span><span class="p">),</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;variation&quot;</span><span class="p">)</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">avg</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="nb">round</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;labels&quot;</span><span class="p">)</span>
@@ -1284,12 +1577,79 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
     <span class="c1"># Tally up results</span>
     <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">cova1</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">stderr</span><span class="p">,</span> <span class="n">leaves</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">variation</span><span class="p">,</span> <span class="n">labels</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
-
+    
 <span class="c1"># a small optional trick to ensure heatmap will be in decreasing order of &#39;variation&#39;</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;variation&quot;</span><span class="p">,</span> <span class="s2">&quot;covariate&quot;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:(</span><span class="mi">8</span><span class="o">*</span><span class="n">num_leaves</span><span class="p">),</span> <span class="p">:]</span>
-<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s2">&quot;covariate&quot;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s2">&quot;leaves&quot;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;scaling&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>covariate</th>
+      <th>avg</th>
+      <th>stderr</th>
+      <th>leaves</th>
+      <th>scaling</th>
+      <th>variation</th>
+      <th>labels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C(leaves)[1]</th>
+      <td>Separated</td>
+      <td>0.025974</td>
+      <td>0.004533</td>
+      <td>1</td>
+      <td>0.359343</td>
+      <td>0.179456</td>
+      <td>0.03\n(0.0)</td>
+    </tr>
+    <tr>
+      <th>C(leaves)[2]</th>
+      <td>income</td>
+      <td>11.292781</td>
+      <td>0.027519</td>
+      <td>2</td>
+      <td>0.680968</td>
+      <td>1.115738</td>
+      <td>11.29\n(0.03)</td>
+    </tr>
+    <tr>
+      <th>C(leaves)[8]</th>
+      <td>Never_Married</td>
+      <td>0.099788</td>
+      <td>0.013825</td>
+      <td>8</td>
+      <td>0.261485</td>
+      <td>0.454283</td>
+      <td>0.1\n(0.01)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s2">&quot;covariate&quot;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s2">&quot;leaves&quot;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;scaling&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 <span class="n">labels</span> <span class="o">=</span>  <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s2">&quot;covariate&quot;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s2">&quot;leaves&quot;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
 <span class="c1"># plot heatmap</span>
@@ -1306,31 +1666,12 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Average covariate values within each leaf&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span><span class="p">)</span>
-<span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Leaf1&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf2&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf3&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf4&quot;</span><span class="p">,</span><span class="s2">&quot;Leaf5&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf6&quot;</span><span class="p">,</span><span class="s2">&quot;Leaf7&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf8&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf9&quot;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span>
+<span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Leaf1&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf2&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf3&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf4&quot;</span><span class="p">,</span><span class="s2">&quot;Leaf5&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf6&quot;</span><span class="p">,</span><span class="s2">&quot;Leaf7&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf8&quot;</span><span class="p">,</span> <span class="s2">&quot;Leaf9&quot;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Leaf1&#39;),
- Text(1.5, 0, &#39;Leaf2&#39;),
- Text(2.5, 0, &#39;Leaf3&#39;),
- Text(3.5, 0, &#39;Leaf4&#39;),
- Text(4.5, 0, &#39;Leaf5&#39;),
- Text(5.5, 0, &#39;Leaf6&#39;),
- Text(6.5, 0, &#39;Leaf7&#39;),
- Text(7.5, 0, &#39;Leaf8&#39;),
- Text(8.5, 0, &#39;Leaf9&#39;)]
-</pre></div>
-</div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_21_2.png" src="../_images/4_heterogeneous_treatment_effect_1_21_2.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_27_0.png" src="../_images/4_heterogeneous_treatment_effect_1_27_0.png" />
 </div>
 </div>
 <font size=1>
@@ -1365,19 +1706,132 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span> <span class="s2">&quot;https://docs.google.com/uc?id=1kSxrVci_EUcSr_Lg1JKk1l7Xd5I9zfRC&amp;export=download&quot;</span><span class="p">)</span>
+<span class="c1"># Convert marital as categorical, and substract 1 to sex</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;marital&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;marital&quot;</span><span class="p">])</span>
+<span class="c1"># Define the output and treatment variables.</span>
+
+<span class="c1"># Treatment: does the the gov&#39;t spend too much on &quot;welfare&quot; (1) or &quot;assistance to the poor&quot; (0)</span>
+<span class="n">treatment</span> <span class="o">=</span> <span class="s2">&quot;w&quot;</span>
+
+<span class="c1"># Outcome: 1 for &#39;yes&#39;, 0 for &#39;no&#39;</span>
+<span class="n">outcome</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+
+<span class="c1"># Additional covariates</span>
+<span class="c1"># drops `marital`</span>
+<span class="n">covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;polviews&quot;</span><span class="p">,</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span> <span class="s2">&quot;educ&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]</span>
+
+<span class="c1"># New covariates</span>
+<span class="n">covariates</span> <span class="o">=</span> <span class="n">covariates</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Married&quot;</span><span class="p">,</span> <span class="s2">&quot;Widowed&quot;</span><span class="p">,</span> <span class="s2">&quot;Divorced&quot;</span><span class="p">,</span> <span class="s2">&quot;Separated&quot;</span><span class="p">,</span> <span class="s2">&quot;Never_Married&quot;</span><span class="p">]</span>
+<span class="c1">## replace values</span>
+<span class="n">marital_val</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Married&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;Widowed&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Divorced&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Separated&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;Never_Married&quot;</span><span class="p">}</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;marital&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;marital&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">marital_val</span><span class="p">))</span>
+<span class="c1"># Get new columns</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">prefix_sep</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="c1">## In this case, we remove the marital column and get </span>
+<span class="c1"># the columns [&quot;Married&quot;, &quot;Widowed&quot;, &quot;Divorced&quot;, &quot;Separated&quot;, &quot;Never_Married&quot;]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>y</th>
+      <th>w</th>
+      <th>age</th>
+      <th>polviews</th>
+      <th>income</th>
+      <th>educ</th>
+      <th>sex</th>
+      <th>Married</th>
+      <th>Widowed</th>
+      <th>Divorced</th>
+      <th>Separated</th>
+      <th>Never_Married</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>28</td>
+      <td>4</td>
+      <td>11</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>54</td>
+      <td>6</td>
+      <td>12</td>
+      <td>16</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>44</td>
+      <td>2</td>
+      <td>12</td>
+      <td>16</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preparing data to fit a causal forest</span>
 
-<span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;0+age+polviews+income+educ+marital+sex&#39;</span>
-<span class="n">desc</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">ModelDesc</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="n">fmla</span><span class="p">)</span>
-<span class="n">desc</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-<span class="n">matrix</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
-
-<span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">]</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">matrix</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="n">treatment</span><span class="p">]</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="n">outcome</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">covariates</span><span class="p">]</span> 
 
 <span class="c1"># Estimate a causal forest.</span>
-<span class="n">est1</span> <span class="o">=</span> <span class="n">CausalForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="n">est1</span> <span class="o">=</span> <span class="n">CausalForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                        <span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
                        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 
@@ -1391,7 +1845,7 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get residuals  and propensity </span>
-<span class="n">regr</span> <span class="o">=</span> <span class="n">RegressionForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="n">regr</span> <span class="o">=</span> <span class="n">RegressionForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                        <span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
                        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 
@@ -1409,15 +1863,12 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">Prop</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;p_score&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Treatment&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;&#39;)
-</pre></div>
-</div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_28_1.png" src="../_images/4_heterogeneous_treatment_effect_1_28_1.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_35_0.png" src="../_images/4_heterogeneous_treatment_effect_1_35_0.png" />
 </div>
 </div>
 <p>Having fit a non-parametric method such as a causal forest, a researcher may (incorrectly) start by looking at the distribution of its predictions of the treatment effect. One might be tempted to think: “if the histogram is concentrated at a point, then there is no heterogeneity; if the histogram is spread out, then our estimator has found interesting heterogeneity.” However, this may be false.</p>
@@ -1425,15 +1876,12 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do not use this for assessing heterogeneity. See text above.</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span> <span class="n">tau_hat</span><span class="p">,</span> <span class="n">stat</span> <span class="o">=</span> <span class="s2">&quot;percent&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;CATE estimates&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;CATE estimates&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;CATE estimates&#39;)
-</pre></div>
-</div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_30_1.png" src="../_images/4_heterogeneous_treatment_effect_1_30_1.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_37_0.png" src="../_images/4_heterogeneous_treatment_effect_1_37_0.png" />
 </div>
 </div>
 <p>If the histogram is concentrated at a point, we may simply be underpowered: our method was not able to detect any heterogeneity, but maybe it would detect it if we had more data. If the histogram is spread out, we may be overfitting: our model is producing very noisy estimates <span class="math notranslate nohighlight">\(\widehat{\tau}(x)\)</span>, but in fact the true  <span class="math notranslate nohighlight">\(\tau(x)\)</span> can be much smoother as a function of <span class="math notranslate nohighlight">\(x\)</span>.</p>
@@ -1441,13 +1889,7 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">importance</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;covariaties&quot;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="s2">&quot;values&quot;</span> <span class="p">:</span> <span class="n">est1</span><span class="o">.</span><span class="n">feature_importances</span><span class="p">()})</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">importance</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;values&#39;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">importance</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;values&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1478,32 +1920,52 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
     <tr>
       <th>1</th>
       <td>polviews</td>
-      <td>0.676524</td>
+      <td>0.680699</td>
     </tr>
     <tr>
       <th>2</th>
       <td>income</td>
-      <td>0.222522</td>
+      <td>0.215333</td>
     </tr>
     <tr>
       <th>3</th>
       <td>educ</td>
-      <td>0.053710</td>
+      <td>0.054562</td>
     </tr>
     <tr>
       <th>0</th>
       <td>age</td>
-      <td>0.036800</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>marital</td>
-      <td>0.007500</td>
+      <td>0.038011</td>
     </tr>
     <tr>
       <th>5</th>
+      <td>Married</td>
+      <td>0.004465</td>
+    </tr>
+    <tr>
+      <th>4</th>
       <td>sex</td>
-      <td>0.002944</td>
+      <td>0.002636</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Never_Married</td>
+      <td>0.002303</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Divorced</td>
+      <td>0.001143</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Widowed</td>
+      <td>0.000678</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Separated</td>
+      <td>0.000172</td>
     </tr>
   </tbody>
 </table>
@@ -1515,20 +1977,6 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 <p>There’s a subtle but important point that needs to be addressed here. As we have mentioned before, when predicting the conditional average treatment effect <span class="math notranslate nohighlight">\(\tau(X_i)\)</span> for observation <span class="math notranslate nohighlight">\(i\)</span> we should in general avoid using a model that was fitted using observation <span class="math notranslate nohighlight">\(i\)</span>. This sort of sample splitting (which we called <strong>honesty</strong> above) is one of the required ingredients to get unbiased estimates of the CATE using the methods described here. However, when ranking estimates of two observations <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>, we need something a little stronger: we must ensure that the model was not fit using <em>either</em> <span class="math notranslate nohighlight">\(i\)</span> <em>or</em> <span class="math notranslate nohighlight">\(j\)</span>’s data.</p>
 <p>One way of overcoming this obstacle is simple. First, divide the data into <span class="math notranslate nohighlight">\(K\)</span> folds (subsets). Then, cycle through the folds, fitting a CATE model on <span class="math notranslate nohighlight">\(K-1\)</span> folds. Next, for each held-out fold, <em>separately</em> rank the unseen observations into <span class="math notranslate nohighlight">\(Q\)</span> groups based on their prediction  (i.e., if <span class="math notranslate nohighlight">\(Q=5\)</span>, then we rank observations by estimated CATE into “top quintile”, “second quintile”, and so on). After concatenating the independent rankings together, we can study the differences in observations in each rank-group.</p>
 <p><a class="reference external" href="https://gist.github.com/halflearned/bea4e5137c0c81fd18a75f682da466c8">This gist</a> computes the above for <code class="docutils literal notranslate"><span class="pre">grf</span></code>, and it should not be hard to modify it so as to replace forests by any other non-parametric method. However, for <code class="docutils literal notranslate"><span class="pre">grf</span></code> specifically, there’s a small trick that allows us to obtain a valid ranking: we can pass a vector of fold indices to the argument <code class="docutils literal notranslate"><span class="pre">clusters</span></code> and rank observations within each fold. This works because estimates for each fold (“cluster”)   trees are computed using trees that were not fit using observations from that fold. Here’s how to do it.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;0+age+polviews+income+educ+marital+sex&#39;</span>
-<span class="n">desc</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">ModelDesc</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="n">fmla</span><span class="p">)</span>
-<span class="n">matrix</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
-
-<span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">]</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">matrix</span>
-<span class="n">W</span> <span class="o">=</span> <span class="kc">None</span> 
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cluster_causal_forest</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">cluster</span><span class="p">):</span>        
@@ -1543,7 +1991,7 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
             <span class="n">Y</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">),:]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">T</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">),:]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">XX</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">),:]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-            <span class="n">causal</span> <span class="o">=</span> <span class="n">CausalForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">causal</span> <span class="o">=</span> <span class="n">CausalForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                        <span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
                        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
             <span class="n">causal</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
@@ -1572,18 +2020,6 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 <span class="c1"># Note: read the comments below carefully. </span>
 <span class="c1"># In randomized settings, do not estimate forest.e and e.hat; use known assignment probs.</span>
 
-<span class="c1">#</span>
-<span class="c1"># Prepare dataset</span>
-<span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;0+age+polviews+income+educ+marital+sex&#39;</span>
-<span class="n">desc</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">ModelDesc</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="n">fmla</span><span class="p">)</span>
-<span class="n">matrix</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
-
-<span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">]</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">:</span> <span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">matrix</span>
-<span class="n">W</span> <span class="o">=</span> <span class="kc">None</span> 
-
-
 <span class="c1"># Number of rankings that the predictions will be ranking on </span>
 <span class="c1"># (e.g., 2 for above/below median estimated CATE, 5 for estimated CATE quintiles, etc.)</span>
 <span class="n">num_rankings</span> <span class="o">=</span> <span class="mi">5</span>  
@@ -1591,7 +2027,7 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 <span class="c1"># Prepare for data.splitting</span>
 <span class="c1"># Assign a fold number to each observation.</span>
 <span class="c1"># The argument &#39;clusters&#39; in the next step will mimick K-fold cross-fitting.</span>
-<span class="n">num_folds</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">num_folds</span> <span class="o">=</span> <span class="mi">5</span>
 
 <span class="c1"># Estimate a causal forest.</span>
 
@@ -1599,18 +2035,13 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 
 <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ranking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">num_folds</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_folds</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">split</span> <span class="o">=</span> <span class="n">tau_hat_cluster</span><span class="o">.</span><span class="n">Cluster</span> <span class="o">==</span> <span class="n">i</span>
     <span class="n">index</span> <span class="o">=</span> <span class="n">tau_hat_cluster</span><span class="p">[</span><span class="n">split</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
     <span class="n">tau_quantile</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">tau_hat_cluster</span><span class="p">[</span><span class="n">split</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)))</span>
     <span class="n">labels</span> <span class="o">=</span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span>
     <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span> <span class="p">,</span> <span class="p">[</span><span class="s2">&quot;ranking&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">tau_hat_cluster</span><span class="p">[</span><span class="n">split</span><span class="p">][</span><span class="s2">&quot;tau_hat&quot;</span><span class="p">],</span> 
                                                <span class="n">tau_quantile</span> <span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
 </pre></div>
 </div>
 </div>
@@ -1672,36 +2103,36 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
       <th>5</th>
       <td>ols</td>
       <td>Q1</td>
-      <td>-0.434987</td>
-      <td>0.011334</td>
+      <td>-0.431685</td>
+      <td>0.011379</td>
     </tr>
     <tr>
       <th>6</th>
       <td>ols</td>
       <td>Q2</td>
-      <td>-0.395820</td>
-      <td>0.011269</td>
+      <td>-0.392867</td>
+      <td>0.011175</td>
     </tr>
     <tr>
       <th>7</th>
       <td>ols</td>
       <td>Q3</td>
-      <td>-0.364954</td>
-      <td>0.010913</td>
+      <td>-0.366579</td>
+      <td>0.010835</td>
     </tr>
     <tr>
       <th>8</th>
       <td>ols</td>
       <td>Q4</td>
-      <td>-0.322345</td>
-      <td>0.010519</td>
+      <td>-0.327798</td>
+      <td>0.010636</td>
     </tr>
     <tr>
       <th>9</th>
       <td>ols</td>
       <td>Q5</td>
-      <td>-0.220181</td>
-      <td>0.009833</td>
+      <td>-0.218043</td>
+      <td>0.009887</td>
     </tr>
   </tbody>
 </table>
@@ -1712,7 +2143,7 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Computing AIPW scores.</span>
 
 <span class="n">regr</span> <span class="o">=</span> <span class="n">RegressionForest</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
-                        <span class="n">n_estimators</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+                        <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 
 <span class="n">e_hat</span> <span class="o">=</span> <span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="c1"># P[W=1|X]</span>
 <span class="n">m_hat</span> <span class="o">=</span> <span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="c1"># E[Y|X]</span>
@@ -1772,36 +2203,36 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
       <th>0</th>
       <td>apiw</td>
       <td>Q1</td>
-      <td>-0.434726</td>
-      <td>0.010768</td>
+      <td>-0.431326</td>
+      <td>0.010762</td>
     </tr>
     <tr>
       <th>1</th>
       <td>apiw</td>
       <td>Q2</td>
-      <td>-0.399149</td>
-      <td>0.010537</td>
+      <td>-0.392591</td>
+      <td>0.010596</td>
     </tr>
     <tr>
       <th>2</th>
       <td>apiw</td>
       <td>Q3</td>
-      <td>-0.362827</td>
-      <td>0.010320</td>
+      <td>-0.366548</td>
+      <td>0.010255</td>
     </tr>
     <tr>
       <th>3</th>
       <td>apiw</td>
       <td>Q4</td>
-      <td>-0.321187</td>
-      <td>0.009990</td>
+      <td>-0.326766</td>
+      <td>0.010084</td>
     </tr>
     <tr>
       <th>4</th>
       <td>apiw</td>
       <td>Q5</td>
-      <td>-0.216252</td>
-      <td>0.009182</td>
+      <td>-0.215687</td>
+      <td>0.009216</td>
     </tr>
   </tbody>
 </table>
@@ -1851,7 +2282,7 @@ Interpret the heatmap above. What describes the subgroups with strongest and wea
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4_heterogeneous_treatment_effect_1_41_0.png" src="../_images/4_heterogeneous_treatment_effect_1_41_0.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_46_0.png" src="../_images/4_heterogeneous_treatment_effect_1_46_0.png" />
 </div>
 </div>
 <p>When there isn’t much detectable heterogeneity, the plot above can end up being non-monotonic. This can mean that the number of observations is too small for us to be able to detect subgroups with relevant differences in treatment effect.</p>
@@ -1866,10 +2297,10 @@ As an exercise, try running the previous two snippets on few data points (e.g., 
 <span class="c1"># y ~ ranking + w + ranking:w</span>
 
 <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;y ~  C(ranking) + w + w:C(ranking)&#39;</span>
-<span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 
 <span class="c1"># Retrieve the interaction coefficients</span>
-<span class="n">ols_1</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">ols_1</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">interact</span> <span class="o">=</span> <span class="n">ols_1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ols_1</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">)]</span>
 <span class="n">ols_ate</span> <span class="o">=</span> <span class="n">summary_rw_lm</span><span class="p">(</span><span class="n">ols</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">interact</span><span class="p">)</span>
 <span class="n">ols_ate</span><span class="p">[</span><span class="s1">&#39;ranking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Rank </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1"> - Rank 1&#39;</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span>
@@ -1881,25 +2312,6 @@ As an exercise, try running the previous two snippets on few data points (e.g., 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-</pre></div>
-</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1922,40 +2334,40 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <th>Estimate</th>
       <th>se</th>
       <th>Orig.p-value</th>
-      <th>Adj. p-value</th>
+      <th>Adj_p_value</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>6</th>
       <td>Rank 2 - Rank 1</td>
-      <td>0.039167</td>
-      <td>0.014772</td>
-      <td>8.021603e-03</td>
-      <td>0.0084</td>
+      <td>0.038818</td>
+      <td>0.014782</td>
+      <td>8.644055e-03</td>
+      <td>0.0096</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Rank 3 - Rank 1</td>
-      <td>0.070032</td>
-      <td>0.014765</td>
-      <td>2.114420e-06</td>
-      <td>0.0000</td>
+      <td>0.065106</td>
+      <td>0.014778</td>
+      <td>1.058332e-05</td>
+      <td>0.0001</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Rank 4 - Rank 1</td>
-      <td>0.112642</td>
-      <td>0.014758</td>
-      <td>2.368220e-14</td>
+      <td>0.103887</td>
+      <td>0.014777</td>
+      <td>2.106964e-12</td>
       <td>0.0000</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Rank 5 - Rank 1</td>
-      <td>0.214805</td>
-      <td>0.014772</td>
-      <td>9.849671e-48</td>
+      <td>0.213642</td>
+      <td>0.014789</td>
+      <td>3.882145e-47</td>
       <td>0.0000</td>
     </tr>
   </tbody>
@@ -1970,10 +2382,10 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span class="c1"># Using AIPW scores computed above</span>
 
 <span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;aipw_scores ~  1 + C(ranking)&#39;</span>
-<span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 
 <span class="c1"># Retrieve the interaction coefficients</span>
-<span class="n">ols_1</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">ols_1</span> <span class="o">=</span> <span class="n">ols</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">interact</span> <span class="o">=</span> <span class="n">ols_1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">num_rankings</span> <span class="o">+</span><span class="mi">1</span> <span class="p">,:]</span>
 <span class="n">forest_ate</span> <span class="o">=</span> <span class="n">summary_rw_lm</span><span class="p">(</span><span class="n">ols</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">interact</span><span class="p">)</span>
 <span class="n">forest_ate</span><span class="p">[</span><span class="s1">&#39;ranking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Rank </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1"> - Rank 1&#39;</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span>
@@ -1985,25 +2397,6 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-</pre></div>
-</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2026,40 +2419,40 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <th>Estimate</th>
       <th>se</th>
       <th>Orig.p-value</th>
-      <th>Adj. p-value</th>
+      <th>Adj_p_value</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>1</th>
       <td>Rank 2 - Rank 1</td>
-      <td>0.035577</td>
-      <td>0.014387</td>
-      <td>1.341193e-02</td>
-      <td>0.0142</td>
+      <td>0.038735</td>
+      <td>0.014420</td>
+      <td>7.232526e-03</td>
+      <td>0.0068</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Rank 3 - Rank 1</td>
-      <td>0.071899</td>
-      <td>0.014391</td>
-      <td>5.884874e-07</td>
+      <td>0.064778</td>
+      <td>0.014420</td>
+      <td>7.072799e-06</td>
       <td>0.0000</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Rank 4 - Rank 1</td>
-      <td>0.113539</td>
-      <td>0.014392</td>
-      <td>3.157459e-15</td>
+      <td>0.104560</td>
+      <td>0.014422</td>
+      <td>4.276357e-13</td>
       <td>0.0000</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Rank 5 - Rank 1</td>
-      <td>0.218474</td>
-      <td>0.014396</td>
-      <td>8.118727e-52</td>
+      <td>0.215639</td>
+      <td>0.014422</td>
+      <td>2.348739e-50</td>
       <td>0.0000</td>
     </tr>
   </tbody>
@@ -2095,7 +2488,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span class="c1"># a small optional trick to ensure heatmap will be in decreasing order of &#39;variation&#39;</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;variation&quot;</span><span class="p">,</span> <span class="s2">&quot;covariate&quot;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:(</span><span class="mi">8</span><span class="o">*</span><span class="n">num_rankings</span><span class="p">),</span> <span class="p">:]</span>
+<span class="c1"># df = df.iloc[0:(8*num_rankings), :]</span>
 <span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s2">&quot;covariate&quot;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s2">&quot;ranking&quot;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;scaling&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 <span class="n">labels</span> <span class="o">=</span>  <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s2">&quot;covariate&quot;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s2">&quot;ranking&quot;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
@@ -2113,27 +2506,12 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;CATE estimate ranking&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Average covariate values within group (based on CATE estimate ranking)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span><span class="p">)</span>
-<span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q2&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">,</span> <span class="s2">&quot;Q4&quot;</span><span class="p">,</span><span class="s2">&quot;Q5&quot;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span>
+<span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q2&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">,</span> <span class="s2">&quot;Q4&quot;</span><span class="p">,</span><span class="s2">&quot;Q5&quot;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Q1&#39;),
- Text(1.5, 0, &#39;Q2&#39;),
- Text(2.5, 0, &#39;Q3&#39;),
- Text(3.5, 0, &#39;Q4&#39;),
- Text(4.5, 0, &#39;Q5&#39;)]
-</pre></div>
-</div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_46_2.png" src="../_images/4_heterogeneous_treatment_effect_1_46_2.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_51_0.png" src="../_images/4_heterogeneous_treatment_effect_1_51_0.png" />
 </div>
 </div>
 </section>
@@ -2145,7 +2523,8 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dataset for best linear proyection</span>
 <span class="n">X</span><span class="p">[</span><span class="s1">&#39;tau_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau_hat</span>
 
-<span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;tau_hat ~ age+polviews+income+educ+marital+sex&#39;</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="s1">&#39;HC3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># smf.ols(&#39;tau_hat ~ age+polviews+income+educ+marital+sex&#39;, X).fit(cov_type = &#39;HC3&#39;).summary2().tables[1]</span>
+<span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;tau_hat ~ &quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">covariates</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span> <span class="o">=</span> <span class="s1">&#39;HC3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -2179,66 +2558,102 @@ The frame.append method is deprecated and will be removed from pandas in a futur
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>-0.194487</td>
-      <td>0.004157</td>
-      <td>-46.784878</td>
+      <td>-0.147851</td>
+      <td>0.003092</td>
+      <td>-47.810330</td>
       <td>0.000000e+00</td>
-      <td>-0.202635</td>
-      <td>-0.186340</td>
+      <td>-0.153912</td>
+      <td>-0.141790</td>
     </tr>
     <tr>
       <th>age</th>
-      <td>0.001362</td>
-      <td>0.000031</td>
-      <td>43.386983</td>
-      <td>0.000000e+00</td>
-      <td>0.001300</td>
-      <td>0.001423</td>
+      <td>0.001382</td>
+      <td>0.000037</td>
+      <td>37.628493</td>
+      <td>7.354851e-310</td>
+      <td>0.001310</td>
+      <td>0.001454</td>
     </tr>
     <tr>
       <th>polviews</th>
-      <td>-0.033850</td>
-      <td>0.000367</td>
-      <td>-92.257380</td>
+      <td>-0.034262</td>
+      <td>0.000376</td>
+      <td>-91.059871</td>
       <td>0.000000e+00</td>
-      <td>-0.034569</td>
-      <td>-0.033131</td>
+      <td>-0.034999</td>
+      <td>-0.033524</td>
     </tr>
     <tr>
       <th>income</th>
-      <td>-0.019321</td>
-      <td>0.000205</td>
-      <td>-94.304034</td>
+      <td>-0.019836</td>
+      <td>0.000216</td>
+      <td>-91.805814</td>
       <td>0.000000e+00</td>
-      <td>-0.019723</td>
-      <td>-0.018920</td>
+      <td>-0.020260</td>
+      <td>-0.019413</td>
     </tr>
     <tr>
       <th>educ</th>
-      <td>0.008714</td>
-      <td>0.000193</td>
-      <td>45.253903</td>
+      <td>0.009118</td>
+      <td>0.000198</td>
+      <td>45.998986</td>
       <td>0.000000e+00</td>
-      <td>0.008336</td>
-      <td>0.009091</td>
-    </tr>
-    <tr>
-      <th>marital</th>
-      <td>0.008870</td>
-      <td>0.000317</td>
-      <td>27.986121</td>
-      <td>2.397396e-172</td>
-      <td>0.008249</td>
-      <td>0.009491</td>
+      <td>0.008730</td>
+      <td>0.009507</td>
     </tr>
     <tr>
       <th>sex</th>
-      <td>-0.004628</td>
-      <td>0.000981</td>
-      <td>-4.720433</td>
-      <td>2.353431e-06</td>
-      <td>-0.006550</td>
-      <td>-0.002707</td>
+      <td>-0.003347</td>
+      <td>0.001022</td>
+      <td>-3.275140</td>
+      <td>1.056097e-03</td>
+      <td>-0.005350</td>
+      <td>-0.001344</td>
+    </tr>
+    <tr>
+      <th>Married</th>
+      <td>-0.039025</td>
+      <td>0.001123</td>
+      <td>-34.760960</td>
+      <td>9.466548e-265</td>
+      <td>-0.041225</td>
+      <td>-0.036825</td>
+    </tr>
+    <tr>
+      <th>Widowed</th>
+      <td>-0.036478</td>
+      <td>0.001861</td>
+      <td>-19.598062</td>
+      <td>1.606245e-85</td>
+      <td>-0.040126</td>
+      <td>-0.032829</td>
+    </tr>
+    <tr>
+      <th>Divorced</th>
+      <td>-0.040625</td>
+      <td>0.001316</td>
+      <td>-30.880800</td>
+      <td>2.162806e-209</td>
+      <td>-0.043204</td>
+      <td>-0.038047</td>
+    </tr>
+    <tr>
+      <th>Separated</th>
+      <td>-0.032953</td>
+      <td>0.001990</td>
+      <td>-16.557442</td>
+      <td>1.414824e-61</td>
+      <td>-0.036854</td>
+      <td>-0.029052</td>
+    </tr>
+    <tr>
+      <th>Never_Married</th>
+      <td>0.001230</td>
+      <td>0.001112</td>
+      <td>1.106449</td>
+      <td>2.685323e-01</td>
+      <td>-0.000949</td>
+      <td>0.003409</td>
     </tr>
   </tbody>
 </table>
@@ -2252,13 +2667,211 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 <p>In what follows we’ll again use <code class="docutils literal notranslate"><span class="pre">causal_forest</span></code> predictions, along with their variance estimates (set <code class="docutils literal notranslate"><span class="pre">estimate.variances=TRUE</span></code> when predicting to we get estimates of the asymptotic variance of the prediction for each point). Since <code class="docutils literal notranslate"><span class="pre">grf</span></code> predictions are asymptotically normal, we can construct 95% confidence intervals in the usual manner (i.e., <span class="math notranslate nohighlight">\(\hat{\tau}(x) \pm 1.96\sqrt{\widehat{\text{Var}}(\hat{\tau}(x))}\)</span>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>polviews</th>
+      <th>income</th>
+      <th>educ</th>
+      <th>sex</th>
+      <th>Married</th>
+      <th>Widowed</th>
+      <th>Divorced</th>
+      <th>Separated</th>
+      <th>Never_Married</th>
+      <th>tau_hat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>28</td>
+      <td>4</td>
+      <td>11</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-0.283484</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>54</td>
+      <td>6</td>
+      <td>12</td>
+      <td>16</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-0.403646</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>44</td>
+      <td>2</td>
+      <td>12</td>
+      <td>16</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-0.255245</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>47</td>
+      <td>1</td>
+      <td>5</td>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>-0.181683</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>19</td>
+      <td>4</td>
+      <td>9</td>
+      <td>10</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-0.162657</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>28648</th>
+      <td>62</td>
+      <td>5</td>
+      <td>12</td>
+      <td>16</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-0.342756</td>
+    </tr>
+    <tr>
+      <th>28649</th>
+      <td>66</td>
+      <td>7</td>
+      <td>9</td>
+      <td>12</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-0.512080</td>
+    </tr>
+    <tr>
+      <th>28650</th>
+      <td>54</td>
+      <td>3</td>
+      <td>11</td>
+      <td>12</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>-0.291155</td>
+    </tr>
+    <tr>
+      <th>28651</th>
+      <td>57</td>
+      <td>3</td>
+      <td>6</td>
+      <td>16</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-0.178513</td>
+    </tr>
+    <tr>
+      <th>28652</th>
+      <td>30</td>
+      <td>4</td>
+      <td>12</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>-0.464467</td>
+    </tr>
+  </tbody>
+</table>
+<p>28653 rows × 11 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_covariate</span> <span class="o">=</span> <span class="s2">&quot;polviews&quot;</span>
-<span class="n">other_covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span> <span class="s2">&quot;educ&quot;</span><span class="p">,</span> <span class="s2">&quot;marital&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]</span>
+<span class="n">other_covariates</span> <span class="o">=</span> <span class="n">covariates</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">covariates</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
 <span class="c1"># Fitting a forest </span>
 <span class="c1"># (commented for convenience; no need re-fit if already fitted above)</span>
-<span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;0+age+polviews+income+educ+marital+sex&#39;</span>
-
+<span class="c1"># fmla = &#39;0+age+polviews+income+educ+marital+sex&#39;</span>
+<span class="n">fmla</span> <span class="o">=</span> <span class="s2">&quot;0 + &quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">covariates</span><span class="p">)</span>
 
 <span class="n">grid_size</span> <span class="o">=</span> <span class="mi">7</span> 
 
@@ -2267,7 +2880,7 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 
 <span class="c1"># Take median of other covariates </span>
 
-<span class="n">median</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">other_covariates</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">median</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">other_covariates</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_covariates</span><span class="p">))</span>
 
 <span class="c1"># duplicates rows </span>
 
@@ -2286,37 +2899,7 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_covariate</span> <span class="o">=</span> <span class="s2">&quot;polviews&quot;</span>
-<span class="n">other_covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span> <span class="s2">&quot;educ&quot;</span><span class="p">,</span> <span class="s2">&quot;marital&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]</span>
-
-<span class="c1"># Fitting a forest </span>
-<span class="c1"># (commented for convenience; no need re-fit if already fitted above)</span>
-<span class="n">fmla</span> <span class="o">=</span> <span class="s1">&#39;0+age+polviews+income+educ+marital+sex&#39;</span>
-
-
-<span class="n">grid_size</span> <span class="o">=</span> <span class="mi">7</span> 
-
-
-<span class="n">covariate_grid</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">selected_covariate</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="n">grid_size</span><span class="p">)</span>
-
-<span class="c1"># Take median of other covariates </span>
-
-<span class="n">median</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">other_covariates</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-
-<span class="c1"># duplicates rows </span>
-
-<span class="n">data_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">median</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">other_covariates</span><span class="p">)]</span><span class="o">*</span><span class="n">grid_size</span><span class="p">)</span>
-<span class="n">data_grid</span><span class="p">[</span><span class="n">selected_covariate</span> <span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">covariate_grid</span><span class="p">]</span>
-
-<span class="c1"># Expand the data</span>
-<span class="n">X_grid</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data_grid</span><span class="p">,</span> <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
-
-<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
-<span class="n">tau_hat_ci</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict_interval</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span> 
-<span class="n">tau_hat_se</span>  <span class="o">=</span> <span class="p">((</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
-
-<span class="mi">1</span><span class="c1"># Plot predictions for each group and 95% confidence intervals around them.</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data_grid</span><span class="p">[</span><span class="n">selected_covariate</span><span class="p">],</span> 
@@ -2334,46 +2917,30 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_linestyle</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Predicted treatment effect varying </span><span class="si">{</span><span class="n">selected_covariate</span><span class="si">}</span><span class="s2"> (other variables fixed at median)&quot;</span><span class="p">,</span>
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span><span class="p">)</span>
-<span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>FixedFormatter should only be used together with FixedLocator
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.0, 0, &#39;0&#39;),
- Text(1.0, 0, &#39;1&#39;),
- Text(2.0, 0, &#39;2&#39;),
- Text(3.0, 0, &#39;3&#39;),
- Text(4.0, 0, &#39;4&#39;),
- Text(5.0, 0, &#39;5&#39;),
- Text(6.0, 0, &#39;6&#39;),
- Text(7.0, 0, &#39;7&#39;),
- Text(8.0, 0, &#39;&#39;)]
-</pre></div>
-</div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_51_2.png" src="../_images/4_heterogeneous_treatment_effect_1_51_2.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_57_0.png" src="../_images/4_heterogeneous_treatment_effect_1_57_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;polviews&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span> <span class="p">]</span>
-<span class="n">other_covariates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;income&quot;</span><span class="p">,</span> <span class="s2">&quot;educ&quot;</span><span class="p">,</span> <span class="s2">&quot;marital&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]</span>
+<span class="n">other_covariates</span> <span class="o">=</span> <span class="n">covariates</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+<span class="c1"># Take median of other covariates</span>
+<span class="n">median</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">other_covariates</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
 <span class="c1"># Compute a grid of values appropriate for the selected covariate</span>
 <span class="c1"># See other options for constructing grids in the snippet above.</span>
 
-<span class="n">x1_grid_size</span> <span class="o">=</span> <span class="mi">7</span>
-<span class="n">x2_grid_size</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">x1_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">selected_covariate</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="n">grid_size</span><span class="p">)</span>
-<span class="n">x2_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">selected_covariates</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)))</span>
-
-<span class="c1"># Take median of other covariates </span>
-
-<span class="n">median</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">other_covariates</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">x1_grid_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">selected_covariates</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
+<span class="n">x2_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">selected_covariates</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)))</span>
+<span class="n">x2_grid_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x2_grid</span><span class="p">)</span>
 
 <span class="c1"># duplicates rows </span>
-
 <span class="n">data_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">median</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">other_covariates</span><span class="p">)]</span><span class="o">*</span><span class="p">(</span><span class="n">x1_grid_size</span><span class="p">))</span>
 <span class="n">data_grid</span><span class="p">[</span><span class="n">selected_covariates</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span>  <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">covariate_grid</span><span class="p">]</span>
 <span class="n">data_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data_grid</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">x2_grid_size</span><span class="p">))</span>
@@ -2381,51 +2948,52 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 
 <span class="c1"># Expand the data</span>
 <span class="n">X_grid</span> <span class="o">=</span> <span class="n">patsy</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="n">fmla</span><span class="p">,</span> <span class="n">data_grid</span><span class="p">,</span> <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
+<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">X_grid</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="n">tau_hat_ci</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict_interval</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">X_grid</span><span class="p">)</span>
+<span class="n">tau_hat_se</span> <span class="o">=</span> <span class="p">((</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
 
-<span class="n">tau_hat</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
-<span class="n">tau_hat_ci</span> <span class="o">=</span> <span class="n">est1</span><span class="o">.</span><span class="n">predict_interval</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_grid</span><span class="p">)</span> 
-<span class="n">tau_hat_se</span>  <span class="o">=</span> <span class="p">((</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tau_hat_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> 
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">X_grid</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">X_grid</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tau_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau_hat</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tau_hat_se&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau_hat_se</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>As documented in the original paper on generalized random forests <a class="reference external" href="https://arxiv.org/abs/1610.01271">Athey, Tibshirani and Wager, 2019</a>, the coverage of <code class="docutils literal notranslate"><span class="pre">grf</span></code> confidence intervals can drop if the signal is too dense or too complex relative to the number of observations. Also, to a point, it’s possible to get tighter confidence intervals by increasing the number of trees; see this short vignette for more information.</p>
+<p>We can vary more than one variable at a time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># order dataset</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;polviews&quot;</span><span class="p">,</span><span class="s2">&quot;age&quot;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span><span class="kc">True</span><span class="p">])</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">tau_hat</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">tau_hat_se</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
-<span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># reshape labels </span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&quot;polviews&quot;</span><span class="p">,</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="s2">&quot;tau_hat&quot;</span><span class="p">)</span> <span class="c1"># reshape dataset</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;polviews&quot;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-
-<span class="n">cbar_ticks</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span><span class="o">-</span><span class="mf">0.35</span><span class="p">,</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span><span class="o">-</span><span class="mf">0.25</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x1_grid_size</span><span class="p">,</span> <span class="n">x2_grid_size</span><span class="p">)</span> <span class="c1"># reshape labels </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&quot;polviews&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;tau_hat&quot;</span><span class="p">)</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df</span><span class="p">,</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span>
                  <span class="n">annot</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
                  <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s2">&quot;k&quot;</span><span class="p">},</span>
                  <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
                  <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;plasma&quot;</span><span class="p">,</span>
                  <span class="n">linewidths</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pad&quot;</span><span class="p">:</span><span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;ticks&quot;</span><span class="p">:</span> <span class="n">cbar_ticks</span><span class="p">})</span>
+                <span class="p">)</span>
 <span class="n">cbar</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">colorbar</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([</span><span class="s1">&#39;- 0.4&#39;</span><span class="p">,</span> <span class="s1">&#39;- 0.35&#39;</span><span class="p">,</span> <span class="s1">&#39;- 0.3&#39;</span><span class="p">,</span> <span class="s1">&#39;- 0.25&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Polviews&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Predicted treatment effect varying </span><span class="si">{</span><span class="n">selected_covariates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> and</span><span class="si">{</span><span class="n">selected_covariates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> (other variables fixed at median)&quot;</span><span class="p">,</span>
-             <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Predicted treatment effect varying polviews andage (other variables fixed at median)&#39;)
-</pre></div>
-</div>
-<img alt="../_images/4_heterogeneous_treatment_effect_1_53_1.png" src="../_images/4_heterogeneous_treatment_effect_1_53_1.png" />
+<img alt="../_images/4_heterogeneous_treatment_effect_1_61_0.png" src="../_images/4_heterogeneous_treatment_effect_1_61_0.png" />
 </div>
 </div>
 </section>
@@ -2433,7 +3001,7 @@ The frame.append method is deprecated and will be removed from pandas in a futur
 <section id="further-reading">
 <h2><span class="section-number">4.4. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">#</a></h2>
 <p>A readable summary of different method for hypothesis testing correction is laid out in the introduction to <a class="reference external" href="http://ftp.iza.org/dp12845.pdf">Clarke, Romano and Wolf (2009)</a>.</p>
-<p><a class="reference external" href="https://arxiv.org/abs/1902.07409">Athey and Wager (2019)</a> shows an application of causal forests to heterogeity analysis in a setting with clustering.</p>
+<p><a class="reference external" href="https://arxiv.org/abs/1902.07409shows">Athey and Wager (2019)</a> an application of causal forests to heterogeity analysis in a setting with clustering.</p>
 </section>
 </section>
 

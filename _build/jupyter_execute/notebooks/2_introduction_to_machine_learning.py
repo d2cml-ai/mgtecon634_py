@@ -24,7 +24,7 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 
 # In this section, we will use simulated data. In the next section we’ll load a real dataset.
 
-# In[501]:
+# In[2]:
 
 
 # Simulating data
@@ -42,19 +42,22 @@ y = mu + 1*np.random.normal(size =n)
 # collecting observations in a data.frame object
 data = pd.DataFrame(np.array([x,y]).T, columns=['x','y'])
 
+data = data.assign(mu = mu)
+data = data.sort_values("x")
+
 
 # The following shows how the two variables `x` and `y` relate. Note that the relationship is nonlinear.
 
-# In[502]:
+# In[3]:
 
 
 plt.figure(figsize=(15,6))
-sns.scatterplot(x,y, color = 'red', label = 'Data')
-sns.lineplot(x,mu, color = 'black', label = "Ground truth E[Y|X=x]")
+plt.scatter("x", "y", data = data, color = 'red', label = 'Data')
+plt.plot("x", "mu", data = data, label = "Ground truth E[Y|X = x]")
 plt.yticks(np.arange(-4,4,1))
 plt.legend()
 plt.xlabel("X")
-plt.ylabel("Outcome y")
+plt.ylabel("Outcome y");
 
 
 # Note: If you’d like to run the code below on a different dataset, you can replace the dataset above with another `data.frame` of your choice, and redefine the key variable identifiers (`outcome`, `covariates`) accordingly. Although we try to make the code as general as possible, you may also need to make a few minor changes to the code below; read the comments carefully.
@@ -90,7 +93,7 @@ plt.ylabel("Outcome y")
 # 
 # To illustrate, in the figure below we let the degree be  $q=10$ but use only the first few data points. The fitted model is shown in green, and the original data points are in red.
 
-# In[503]:
+# In[4]:
 
 
 X = data.loc[:,'x'].values.reshape(-1, 1)
@@ -127,7 +130,7 @@ sns.scatterplot(data.loc[subset,'x'],data.loc[subset,'y'], color = 'red', label 
 plt.plot(xgrid, yhat, color = 'green', label = 'Estimate')
 plt.title('Example of overfitting')
 plt.xlabel('X')
-plt.ylabel('Outcome y')
+plt.ylabel('Outcome y');
 
 
 # On the other hand, when $q$ is too small relative to our data, we permit only very simple models and may suffer from misspecification bias. We call this **underfitting**. The main feature of underfitting is **high bias** -- the selected model just isn't complex enough to accurately capture the relationship between input and output variables.
@@ -916,7 +919,7 @@ tree1 = dt.fit(x_train,y_train)
 
 from sklearn import tree
 plt.figure(figsize=(18,5))
-tree.plot_tree(dt)
+tree.plot_tree(dt);
 
 
 # 
@@ -1126,12 +1129,12 @@ tree1 = dt.fit(x_train,y_train)
 # Plotting the pruned tree. See also the package [rpart.plot](http://www.milbo.org/rpart-plot/prp.pdf) for more advanced plotting capabilities.
 # ```{r}
 
-# In[121]:
+# In[ ]:
 
 
 from sklearn import tree
 plt.figure(figsize=(25,16))
-tree.plot_tree(dt, filled=True, rounded=True, feature_names = XX.columns)
+tree.plot_tree(dt, filled=True, rounded=True, feature_names = XX.columns);
 
 
 # Finally, here’s how to extract predictions and mse estimates from the pruned tree.

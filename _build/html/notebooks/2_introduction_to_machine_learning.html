@@ -152,13 +152,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="8_WGANs_for_simulation.html">
-   7. Tutorial to simulate data using WGANs
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="9_surrogate_py.html">
-   8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
+   7. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
   </a>
  </li>
 </ul>
@@ -533,20 +528,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">random</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">math</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <p>In this section, we will use simulated data. In the next section we’ll load a real dataset.</p>
 <div class="cell docutils container">
@@ -565,6 +546,9 @@ title="Print to PDF"
 
 <span class="c1"># collecting observations in a data.frame object</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -573,20 +557,17 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Data&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Ground truth E[Y|X=x]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Ground truth E[Y|X = x]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Outcome y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Outcome y&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome y&#39;)
-</pre></div>
-</div>
-<img alt="../_images/2_introduction_to_machine_learning_6_1.png" src="../_images/2_introduction_to_machine_learning_6_1.png" />
+<img alt="../_images/2_introduction_to_machine_learning_6_0.png" src="../_images/2_introduction_to_machine_learning_6_0.png" />
 </div>
 </div>
 <p>Note: If you’d like to run the code below on a different dataset, you can replace the dataset above with another <code class="docutils literal notranslate"><span class="pre">data.frame</span></code> of your choice, and redefine the key variable identifiers (<code class="docutils literal notranslate"><span class="pre">outcome</span></code>, <code class="docutils literal notranslate"><span class="pre">covariates</span></code>) accordingly. Although we try to make the code as general as possible, you may also need to make a few minor changes to the code below; read the comments carefully.</p>
@@ -649,15 +630,26 @@ title="Print to PDF"
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xgrid</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Estimate&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Example of overfitting&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Outcome y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Outcome y&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome y&#39;)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">31</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="c1"># Visualising the Polynomial Regression results</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="ne">---&gt; </span><span class="mi">31</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">subset</span><span class="p">,</span><span class="s1">&#39;x&#39;</span><span class="p">],</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">subset</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Data&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xgrid</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Estimate&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Example of overfitting&#39;</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: scatterplot() takes from 0 to 1 positional arguments but 2 were given
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_10_1.png" src="../_images/2_introduction_to_machine_learning_10_1.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1800x600 with 0 Axes&gt;
+</pre></div>
+</div>
 </div>
 </div>
 <p>On the other hand, when <span class="math notranslate nohighlight">\(q\)</span> is too small relative to our data, we permit only very simple models and may suffer from misspecification bias. We call this <strong>underfitting</strong>. The main feature of underfitting is <strong>high bias</strong> – the selected model just isn’t complex enough to accurately capture the relationship between input and output variables.</p>
@@ -2685,7 +2677,7 @@ Notes:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -3921,35 +3913,9 @@ Notes:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rounded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">feature_names</span> <span class="o">=</span> <span class="n">XX</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rounded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">feature_names</span> <span class="o">=</span> <span class="n">XX</span><span class="o">.</span><span class="n">columns</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.65, 0.9, &#39;NUNIT2 &lt;= 3.5\nsquared_error = 1.01\nsamples = 20108\nvalue = 11.812&#39;),
- Text(0.4, 0.7, &#39;UNITSF &lt;= 2436.5\nsquared_error = 0.823\nsamples = 19378\nvalue = 11.884&#39;),
- Text(0.2, 0.5, &#39;BATHS &lt;= 1.5\nsquared_error = 0.698\nsamples = 13909\nvalue = 11.68&#39;),
- Text(0.1, 0.3, &#39;KITCH &lt;= 0.5\nsquared_error = 0.782\nsamples = 5112\nvalue = 11.38&#39;),
- Text(0.05, 0.1, &#39;squared_error = 0.0\nsamples = 1\nvalue = 0.0&#39;),
- Text(0.15, 0.1, &#39;squared_error = 0.757\nsamples = 5111\nvalue = 11.382&#39;),
- Text(0.3, 0.3, &#39;UNITSF &lt;= 1692.0\nsquared_error = 0.567\nsamples = 8797\nvalue = 11.854&#39;),
- Text(0.25, 0.1, &#39;squared_error = 0.533\nsamples = 3227\nvalue = 11.684&#39;),
- Text(0.35, 0.1, &#39;squared_error = 0.56\nsamples = 5570\nvalue = 11.953&#39;),
- Text(0.6, 0.5, &#39;BATHS &lt;= 2.5\nsquared_error = 0.768\nsamples = 5469\nvalue = 12.402&#39;),
- Text(0.5, 0.3, &#39;BATHS &lt;= 1.5\nsquared_error = 0.739\nsamples = 2839\nvalue = 12.156&#39;),
- Text(0.45, 0.1, &#39;squared_error = 1.112\nsamples = 328\nvalue = 11.625&#39;),
- Text(0.55, 0.1, &#39;squared_error = 0.649\nsamples = 2511\nvalue = 12.225&#39;),
- Text(0.7, 0.3, &#39;UNITSF &lt;= 3999.0\nsquared_error = 0.664\nsamples = 2630\nvalue = 12.667&#39;),
- Text(0.65, 0.1, &#39;squared_error = 0.538\nsamples = 1645\nvalue = 12.495&#39;),
- Text(0.75, 0.1, &#39;squared_error = 0.742\nsamples = 985\nvalue = 12.954&#39;),
- Text(0.9, 0.7, &#39;MOBILTYP &lt;= 1.5\nsquared_error = 2.186\nsamples = 730\nvalue = 9.901&#39;),
- Text(0.85, 0.5, &#39;UNITSF &lt;= 15977.5\nsquared_error = 2.4\nsamples = 417\nvalue = 9.372&#39;),
- Text(0.8, 0.3, &#39;squared_error = 2.194\nsamples = 416\nvalue = 9.394&#39;),
- Text(0.9, 0.3, &#39;squared_error = -0.0\nsamples = 1\nvalue = 0.0&#39;),
- Text(0.95, 0.5, &#39;squared_error = 1.031\nsamples = 313\nvalue = 10.606&#39;)]
-</pre></div>
-</div>
-<img alt="../_images/2_introduction_to_machine_learning_85_1.png" src="../_images/2_introduction_to_machine_learning_85_1.png" />
 </div>
 </div>
 <p>Finally, here’s how to extract predictions and mse estimates from the pruned tree.</p>

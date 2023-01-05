@@ -44,14 +44,36 @@ from scipy.stats import norm, expon, binom
 from econml.grf import RegressionForest, CausalForest, CausalIVForest as instrumental_forest
 # from econml.dml import CausalForestDML as causal_forest
 from econml.policy import PolicyForest, PolicyTree 
-## Users function
-from main import *
+import rpy2
 
 random.seed(12)
 np.random.seed(12)
 
 
 # In[2]:
+
+
+# aditionas functions
+## see more functions in: 
+# https://github.com/alexanderquispe/ml_ci_tutorial/blob/main/Python_tutorials/main.py
+covariates = ['x_1', 'x_2', 'x_3', 'x_4']
+
+def bs_x(x_n, d_f = 5, add = True):
+    bs_n = " bs(" + covariates[x_n] + " , df = " + str(d_f) + ") * w "
+    if add:
+        bs_n = "+" + bs_n
+    return bs_n
+def simple_split(df, train_size = .5):
+    
+    n_row = len(df)
+    n_train = int(n_row * train_size)
+    
+    train = df.iloc[ : n_train]
+    test = df.iloc[n_train : ]
+    return train, test
+
+
+# In[3]:
 
 
 ## Simulate R, random data
@@ -84,7 +106,7 @@ set.seed(
 )
 
 
-# In[3]:
+# In[4]:
 
 
 # Simulating data
@@ -130,7 +152,7 @@ outcome, treatment, covariates = "y", "w", list(data.columns)[0:4]
 # 
 # The next snippet estimates the conditional treatment effect function via a Lasso model with splines. Note the data splitting.
 
-# In[4]:
+# In[5]:
 
 
 # Preparing to run a regression with splines (\\piecewise polynomials).
@@ -203,7 +225,7 @@ e_hat = np.repeat(.5, n_row)
 # 
 # 
 
-# In[5]:
+# In[6]:
 
 
 # Only valid in randomized settings.
@@ -233,7 +255,7 @@ print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 
 # In randomized settings and observational settings with unconfoundedness, an estimator of the policy value based on AIPW scores is available. In large samples, it should have smaller variance than the one based on sample averages.
 
-# In[6]:
+# In[7]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness and overlap.
@@ -254,7 +276,7 @@ print(f"Value estimate: {ve}\nStd.Error: {std}")
 
 # Above we used a flexible linear model, but in fact we can also use any other non-parametric method. The next example uses `econml.grf`. An advantage of using `econ.grf` is that we can leverage [out-of-bag predictions](https://github.com/grf-labs/grf/blob/master/REFERENCE.md#out-of-bag-prediction), so explicit data splitting is not necessary.
 
-# In[7]:
+# In[8]:
 
 
 # Using the entire data
@@ -283,7 +305,7 @@ pi_hat = tau_hat_oob > 0
 # 
 # 
 
-# In[8]:
+# In[9]:
 
 
 # Only valid in randomized settings.
@@ -309,7 +331,7 @@ print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 # 
 # 
 
-# In[9]:
+# In[10]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness and overlap.
@@ -376,7 +398,7 @@ print(f"Value estimate: {ve}\nStd.Error: {std}")
 # Let's walk through an example for the data simulated above. The first step is to construct AIPW scores {eq}`aipw`. 
 # 
 
-# In[10]:
+# In[11]:
 
 
 # Randomized setting: pass the known treatment assignment as an argument.
@@ -405,7 +427,7 @@ gamma_mtrx = pd.DataFrame({"gamma_hat_0" : gamma_hat_0,"gamma_hat_1": gamma_hat_
 # 
 # 
 
-# In[11]:
+# In[12]:
 
 
 # Set train size
@@ -428,7 +450,7 @@ set(pi_hat) # in R return c(2, 1) => pi_hat = predict(policy, x_test) - 1
 # We can plot the tree.
 # 
 
-# In[12]:
+# In[13]:
 
 
 get_ipython().run_line_magic('matplotlib', 'inline')
@@ -442,7 +464,7 @@ plt.show()
 # To evaluate the policy, we again use what we learned in the previous chapter, remembering that we can only use the test set for evaluation. In randomized settings, we can use the following estimator based on sample averages.
 # 
 
-# In[13]:
+# In[14]:
 
 
 # Only valid for randomized setting!
@@ -467,7 +489,7 @@ print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 # 
 # 
 
-# In[14]:
+# In[15]:
 
 
 # Using the remaining AIPW scores produces an estimate that, in large samples, has smaller standard error.
@@ -485,7 +507,7 @@ print(f"Value estimate: {ve}\nStd.Error: {std}")
 # 
 # Let's apply the methods above to our `welfare` dataset, as used in previous chapters.
 
-# In[15]:
+# In[16]:
 
 
 # Read in data
@@ -514,7 +536,7 @@ covariates = ["age", "polviews", "income", "educ", "marital", "sex"]
 # In this dataset, however, the effect seems to be mostly positive throughout. That is, i.e., most individuals respond "yes" more often when they are asked about "welfare" than about "assistance to the poor". To make the problem more interesting, we'll artificially modify the problem by introducing a cost of asking about welfare. This is just for illustration here, although there are natural examples in which treatment is indeed costly. Note in the code below how we subtract a cost of `.3` from the AIPW scores associated with treatment.
 # 
 
-# In[16]:
+# In[17]:
 
 
 # Prepare data
@@ -570,7 +592,7 @@ num_leave = len(set(leaf))
 # policy.pre leaf by obsservacion
 
 
-# In[17]:
+# In[18]:
 
 
 plt.figure(figsize=(25, 5))
@@ -582,7 +604,7 @@ plt.show()
 # 
 # 
 
-# In[18]:
+# In[19]:
 
 
 a = pi_hat == 1
@@ -609,7 +631,7 @@ print(f"{message_a} {value_estimate}\n{message_b}{value_stderr}")
 # extr_val_sd(y_test, w_test, a, cost = cost, message_a="Estimate [Sample avg]", message_b="Std. Error [avg]:")# Declaring the cost of treatment
 
 
-# In[19]:
+# In[20]:
 
 
 # Valid in both randomized and obs setting with unconf + overlap.
@@ -627,7 +649,7 @@ print(f"Estimate [AIPW]: {ve}\nStd.Error [AIPW]: {std}")
 # 
 # 
 
-# In[20]:
+# In[21]:
 
 
 # Only valid for randomized setting.
@@ -659,7 +681,7 @@ print(f"Diference estimate [AIPW]: {diff_estimate}\t ({diff_strerr})")
 # 
 # 
 
-# In[21]:
+# In[22]:
 
 
 ## Olny from randomized settings
@@ -679,7 +701,7 @@ ols_coef['Coef.'] = ols_coef['Coef.'] - cost
 ols_coef.iloc[2:4, 0:3]
 
 
-# In[22]:
+# In[23]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness+overlap
@@ -700,7 +722,7 @@ ols
 #   H_0: \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \text{Leaf} = 1] = \mathop{\mathrm{E}}[Y_i(1) - Y_i(0)| \text{Leaf} = \ell] \qquad \text{for }\ell \geq 2
 # $$
 
-# In[23]:
+# In[24]:
 
 
 # Only valid in randomized settings.
@@ -713,7 +735,7 @@ ols_coef = ols.summary2().tables[1].reset_index()
 ols_coef.loc[ols_coef["index"].str.contains(":")].iloc[:, 0:3]
 
 
-# In[24]:
+# In[25]:
 
 
 # Valid in randomized settings and observational settings with unconfoundedness+overlap.
@@ -729,7 +751,7 @@ ols.iloc[:, 0:3]
 #   H_0: \mathop{\mathrm{E}}[X_{ij} | \hat{\pi}(X_i) = 1] = \mathop{\mathrm{E}}[X_{ij} | \hat{\pi}(X_i) = 0] \qquad \text{for each covariate }j
 # $$
 
-# In[36]:
+# In[26]:
 
 
 df = pd.DataFrame()
@@ -804,7 +826,7 @@ plt.title("Average covariate values within each leaf")
 # 
 # Let's put the above into practice. For illustration, we will generate random costs for our data. We'll assume that the costs of treatment are drawn from a conditionally Exponential distribution, and that there are no costs for no treating.
 
-# In[26]:
+# In[27]:
 
 
 # Import random costs, and cost to data.
@@ -816,7 +838,7 @@ data['cost'] = cost
 # 
 # 
 
-# In[27]:
+# In[28]:
 
 
 # Assuming that the assignment probability is known.
@@ -896,7 +918,7 @@ treatment_value_direct = np.cumsum(t_ipw_di) / np.sum(treatment_ipw)
 treatment_cost_direct = np.cumsum(c_ipw_di) / np.sum(cost_ipw)
 
 
-# In[28]:
+# In[29]:
 
 
 plt.plot(treatment_cost_ignore, treatment_value_ignore, '#0d5413', label='Ignoring costs')
@@ -927,7 +949,7 @@ plt.show()
 # 
 # As readers with a little more background in causal inference may note, {eq}`rho-iv` coincides with the definition of the conditional local average treatment effect (LATE) if we _were_ to take $W_i$ as an "instrumental variable" and $C_i$ as the "treatment". In fact, instrumental variable methods require different assumptions, so the connection with instrumental variables is tenuous (see the paper for details), but mechanically {eq}`rho-iv` provides us with an estimation procedure: we can use any method used to estimate conditional LATE to produce an estimate $\hat{\rho}$.
 
-# In[29]:
+# In[30]:
 
 
 # Estimating rho(x) directly via instrumental forests.
@@ -943,7 +965,7 @@ treatment_value_iv = np.cumsum(t_v_iv) / np.sum(t_v_iv)
 treatment_cost_iv = np.cumsum(t_c_iv) / np.sum(t_c_iv)
 
 
-# In[30]:
+# In[31]:
 
 
 plt.plot(treatment_cost_ignore, treatment_value_ignore, '#0d5413', label='Ignoring costs')
@@ -959,7 +981,7 @@ plt.show()
 
 # In this example, both the “direct ratio” and the solution based on instrumental forests have similar performance. This isn’t always the case. When the ratio $\rho(x)$ is simpler relative to $\tau(x)$ and $\gamma(x)$, the solution based on instrumental forests may perform better since it is estimating $\rho(x)$ directly, where the “direct ratio” solution needs to estimate the more complicated objects $\tau(x)$ and $\gamma(x)$ separately. At a high level, we should expect $\rho(x)$ to be relatively simpler when there is a strong relationship between $\tau(x)$ and $\gamma(x)$. Here, our simulated costs seem to be somewhat related to CATE (see the plot below), but perhaps not strongly enough to make the instrumental forest solution noticeably better than the one based on ratios.
 
-# In[34]:
+# In[32]:
 
 
 # plot
@@ -972,7 +994,7 @@ plt.ylabel("Esimated CATE (normalized)")
 # 
 # 
 
-# In[32]:
+# In[33]:
 
 
 t_c_i_c = pd.Series(np.array(treatment_cost_ignore))

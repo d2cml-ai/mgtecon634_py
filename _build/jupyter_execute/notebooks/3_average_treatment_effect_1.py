@@ -627,83 +627,96 @@ ate_results
 # The next snippet provides an implementation of the AIPW estimator where outcome and propensity models are estimated using generalized linear models with splines (via `glmnet` and `splines` packages).
 # 
 
-# In[33]:
+# In[19]:
 
 
 # Available in randomized settings and observational settings with unconfoundedness+overlap
 
 # A list of vectors indicating the left-out subset
-#n = data.shape[0]
-#n_folds = 5 
+n = data.shape[0]
+n_folds = 5 
+# We define the value of k folds in 5
+I_nd = np.arange(1, n + 1) % n_folds
+I_nd.sort()
+part = []
 
-#def split(x, f):
-#    return list(itertools.compress(x, f)), list(itertools.compress(x, (not i for i in f)))
+for i in np.unique(I_nd):
+  part.append(sum(I_nd == i))
 
-#a = range( 1, data.shape[0] )
-#b = np.sort(np.arange( 1, n+1 ) % n_folds).tolist()
-#indices = split(a, b)
+indices = np.split(np.arange(1, n+1), np.cumsum(part))
 
-#fmla_xw = "0 + bs(age, df = 3) * w + bs(polviews, df = 3) * w + bs(income, df = 3) * w + bs(educ, df = 3) * w + bs(marital, df = 3) * w + bs(sex, df = 3) * w"
-
-# Preparing data
-#W = data.loc[ : , treatment].reset_index( drop = True ).copy()
-#Y = data.loc[ : , outcome].reset_index( drop = True ).copy()
 
 # Matrix of (transformed) covariates used to estimate E[Y|X,W]
-#fmla_xw = formula(paste("~ 0 +", paste0("bs(", covariates, ", df=3)", "*", treatment, collapse=" + ")))
-#XW = model_matrix(fmla_xw, data)
-
+fmla_xw = "0 + " + " + ".join([ f"bs( {c} , df = 3 ) * w" for c in covariates])
+XW = patsy.dmatrix(fmla_xw, data, return_type="dataframe")
 # Matrix of (transformed) covariates used to predict E[Y|X,W=w] for each w in {0, 1}
-#data_1 = data
-#data_1[:,treatment] = 1
-#XW1 = model_matrix(fmla_xw, data_1)  # setting W=1
-#data_0 = data
-#data_0[:,treatment] = 0
-#XW0 = model_matrix(fmla_xw, data_0)  # setting W=0
+data_1 = data.copy()
+data_1[treatment] = 1
+XW1 = patsy.dmatrix(fmla_xw, data_1, return_type = "dataframe")
+data_0 = data.copy()
+data_0[treatment] = 0
+XW0 = patsy.dmatrix(fmla_xw, data_0, return_type = "dataframe")
 
 # Matrix of (transformed) covariates used to estimate and predict e(X) = P[W=1|X]
-#fmla_x = formula(paste(" ~ 0 + ", paste0("bs(", covariates, ", df=3)", collapse=" + ")))
-#XX = model_matrix(fmla_x, data)
+fmla_x = "0 + " + " + ".join([ f"bs( {c} , df = 3)" for c in covariates])
+XX = patsy.dmatrix(fmla_x, data, return_type = "dataframe")
 
-# (Optional) Not penalizing the main effect (the coefficient on W)
-#penalty_factor = rep(1, ncol(XW))
-#penalty_factor[colnames(XW) == treatment] = 0
+
+# Compute mu_hat_1, mu_hat_0, e_hat, via `lassoCV`
+W = data[treatment]
+Y = data[outcome]
 
 # Cross-fitted estimates of E[Y|X,W=1], E[Y|X,W=0] and e(X) = P[W=1|X]
-#mu_hat_1 = rep(NA, n)
-#mu_hat_0 = rep(NA, n)
-#e_hat = rep(NA, n)
+
+mu_hat_1, mu_hat_0, e_hat = [], [], []
+for idx in range(n_folds):
+  new_rows = np.delete(np.arange(n), indices[idx] - 1)
+
+  ############# Preparing data
+  ## Not indices[idx]
+  new_xw = XW.iloc[new_rows, :]
+  new_y = data.iloc[new_rows, :][outcome]
+  new_w = data.iloc[new_rows, :][treatment]
+  new_xx = XX.iloc[new_rows, :]
+  ## Indices[idx]  
+  new_xx_1 = XX.iloc[indices[idx] - 1, :]
+  new_xw1 = XW1.iloc[indices[idx] - 1, :]
+  new_xw0 = XW0.iloc[indices[idx] - 1, :]
+
+  outcome_model = LassoCV(cv = 10, random_state = 1)
+  outcome_model.fit(new_xw, new_y)
+
+  propensity_model = LassoCV(cv = 10, random_state = 1)
+  propensity_model.fit(new_xx, new_w)
 
 
-#for (idx in indices) {
-  # Estimate outcome model and propensity models
-  # Note how cross-validation is done (via cv_glmnet) within cross-fitting! 
-  #outcome_model = cv_glmnet(x=XW[-idx,], y=Y[-idx], family="gaussian", penalty_factor=penalty_factor)
-  #propensity_model = cv_glmnet(x=XX[-idx,], y=W[-idx], family="binomial")
+  mu_hat_1.append(outcome_model.predict(new_xw1))
+  mu_hat_0.append(outcome_model.predict(new_xw0))
+  e_hat.append(propensity_model.predict(new_xx_1))
 
-  # Predict with cross-fitting
-  #mu_hat_1[idx] = predict(outcome_model, newx=XW1[idx,], type="response")
-  #mu_hat_0[idx] = predict(outcome_model, newx=XW0[idx,], type="response")
-  #e_hat[idx] = predict(propensity_model, newx=XX[idx,], type="response")
-#}
+mu_hat_1 = np.concatenate(mu_hat_1)
+mu_hat_0 = np.concatenate(mu_hat_0)
+e_hat= np.concatenate(e_hat)
+
+
+# In[20]:
+
 
 # Commpute the summand in AIPW estimator
-#aipw_scores = (mu_hat_1 - mu_hat_0
-                #+ W / e_hat * (Y -  mu_hat_1)
-                #- (1 - W) / (1 - e_hat) * (Y -  mu_hat_0))
+aipw_scores = (mu_hat_1 - mu_hat_0 + W / e_hat * (Y -  mu_hat_1) \
+                - (1 - W) / (1 - e_hat) * (Y -  mu_hat_0))
 
-# Tally up results
-#ate_aipw_est = mean(aipw_scores)
-#ate_aipw_se = sd(aipw_scores) / sqrt(n)
-#ate_aipw_tstat = ate_aipw_est / ate_aipw_se
-#ate_aipw_pvalue = 2*(pnorm(1 - abs(ate_aipw_tstat)))
-#ate_aipw_results = c(estimate=ate_aipw_est, std_error=ate_aipw_se, t_stat=ate_aipw_tstat, pvalue=ate_aipw_pvalue)
-#print(ate_aipw_results)
+# # Tally up results
+ate_aipw_est = np.mean(aipw_scores)
+ate_aipw_se = np.std(aipw_scores) / np.sqrt(n)
+ate_aipw_tstat = ate_aipw_est / ate_aipw_se
+
+print(f"Estimate: {ate_aipw_est}", f"\nstd.error: {ate_aipw_se}", f"\nt.stat {ate_aipw_tstat}")
 
 
 # Here’s another example of AIPW-based estimation using random forests via the package `grf`. The function `average_treatment_effect` computes the AIPW estimate of the treatment effect, and uses forest-based estimates of the outcome model and propensity scores (unless those are passed directly via the arguments `Y.hat` and `W.hat`). Also, because forests are an ensemble method, cross-fitting is accomplished via [_out-of-bag_](https://github.com/grf-labs/grf/blob/master/REFERENCE.md#out-of-bag-prediction) predictions – that is, predictions for observation $i$ are computed using trees that were not constructed using observation $i$.
 
-# In[34]:
+# In[21]:
 
 
 import econml
@@ -725,7 +738,7 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 import patsy
 
 
-# In[35]:
+# In[22]:
 
 
 fmla = 'age+polviews+income+educ+marital+sex'
@@ -739,18 +752,35 @@ X = matrix
 W = None 
 
 
-# In[36]:
+# In[23]:
 
 
 # Estimate a causal forest.
-est2 = CausalForest(n_estimators=100, min_samples_leaf=5,
-                       max_depth=50,
-                       verbose=0, random_state=123)
+ctree = CausalForest(
+    n_estimators=1, min_samples_leaf=170,
+    max_depth=50, inference = False,
+    verbose=0, random_state=123,subforest_size=1
+    )
 
-est2.fit(X, T, Y)
+ctree.fit(X, T, Y)
 
 
-# In[42]:
+# In[24]:
+
+
+# from sklearn.tree import plot_tree
+# # Get the trees from the mode
+# splits = ctree.estimators_
+
+# # Plot each tree
+# for i, tree in enumerate(splits):
+#     plt.figure()
+#     plot_tree(tree, feature_names=covariates, filled=True, max_depth=4)
+#     plt.show()
+    
+
+
+# In[25]:
 
 
 # Get residuals  and propensity 
@@ -777,7 +807,7 @@ m_hat = regr.fit(X, Y).predict(X).flatten() # E[Y|X]
 # 
 # where $\bar{Z}_1$ and $\bar{Z}_0$ are sample averages of $Z_i$, and $s_1$ and $s_0$ are standard deviations of $Z_i$ for the two samples of treated and untreated individuals. Next, we can check the same quantity for their weighted counterparts $Z_{i}W_i/\hat{e}(X_i)$ and $Z_i(1-W_i)/(1-\hat{e}(X_i))$. If our propensity scores are well-calibrated, the ASMD for the weighted version should be close to zero. 
 
-# In[43]:
+# In[26]:
 
 
 # Here, adding covariates and their interactions, though there are many other possibilities.
@@ -804,7 +834,7 @@ T = None
 pp = matrix.shape[1]
 
 
-# In[44]:
+# In[27]:
 
 
 # Unadjusted covariate means, variances and standardized abs mean differences
@@ -817,7 +847,7 @@ var_ctrl = XX[W == 0].var()
 std = np.sqrt((var_treat + var_ctrl))
 
 
-# In[45]:
+# In[28]:
 
 
 # Adjusted covariate means, variances and standardized abs mean differences
@@ -830,7 +860,7 @@ var_ctrl_adj = (XX*(pd.DataFrame((1-W)/(1-e_hat)).values)).var()
 std_adj = np.sqrt((var_treat_adj + var_ctrl_adj))
 
 
-# In[46]:
+# In[29]:
 
 
 # Create dataframe to make plots 
@@ -842,7 +872,7 @@ result.reset_index(inplace=True)
 result = result.rename(columns = {'index':'vars'})
 
 
-# In[47]:
+# In[30]:
 
 
 # Plotting 
@@ -859,7 +889,7 @@ plt.title("Standardized absolute mean differences")
 # 
 # In addition to the above, we can check the entire distribution of covariates (and their transformations). The next snippet plots histograms for treated and untreated individuals with and without adjustment. Note how the adjusted histograms are very similar -- that is what we should expect. 
 
-# In[48]:
+# In[31]:
 
 
 data_2 = matrix[["age", "polviews", "age:polviews", "educ",]]
@@ -869,7 +899,7 @@ data_3 = pd.merge(data_2, W, right_index = True,
 data_3["IPW"] = np.where(data_3["w"] == 1, 1/e_hat, 1 / (1 - e_hat))
 
 
-# In[49]:
+# In[32]:
 
 
 # Covariate histograms (unajusted)
@@ -879,7 +909,7 @@ sns.displot(data_3, x="age:polviews", hue="w", bins=30)
 sns.displot(data_3, x="educ", hue="w", bins=30)
 
 
-# In[50]:
+# In[33]:
 
 
 # Covariate histograms (ajusted)
@@ -895,7 +925,7 @@ sns.displot(data_3, x="educ", hue="w", bins= 30, weights=np.array(data_3["IPW"])
 # 
 # It's also important to check the estimated propensity scores. If they seem to cluster at zero or one, we should expect IPW and AIPW estimators to behave very poorly. Here, the propensity score is trimodal because of our sample modification procedure in Section (3.3): some observations are untouched and therefore remain with assignment probability $0.5$, some are dropped (kept) with probability 15\% (85\%).
 
-# In[51]:
+# In[34]:
 
 
 g = sns.displot(e_hat, bins=100)

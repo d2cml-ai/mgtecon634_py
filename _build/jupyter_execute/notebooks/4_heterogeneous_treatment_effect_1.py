@@ -5,26 +5,22 @@
 
 
 import random
-import pandas as pd
-import numpy as np
+import pandas as pd, numpy as np
 from scipy.stats import norm
 
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
-import patsy
-from SyncRNG import SyncRNG
-import numpy as np
-import re
 from statsmodels.sandbox.stats.multicomp import multipletests
+
+import patsy, re
 from scipy import linalg
 from itertools import chain
 
-from SyncRNG import SyncRNG
-
-from CTL.causal_tree_learn import CausalTree
+# from CTL.causal_tree_learn import CausalTree
 from sklearn.model_selection import train_test_split
 import plotnine as p
 import seaborn as sns
+
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
@@ -299,15 +295,13 @@ def romano_wolf_correction(t_orig, t_boot):
 # Adapted from the p_adjust from from the hdm package, written by Philipp Bach.
 # https://github.com/PhilippBach/hdm_prev/blob/master/R/p_adjust.R
 
-def summary_rw_lm(model, indices='', cov_type="HC2", num_boot=10000):
-    SyncRNG(seed = 123456)  
-
+def summary_rw_lm(model_ols, indices='', cov_type="HC2", num_boot=10000):
     # OLS without correction
 
     # Grab the original t values.
-    ols = smf.ols(fmla, data=data).fit()
-    ols = ols.summary2().tables[1].reset_index()
-    summary = ols[ols['index'].isin(list(indices["index"]))]
+    ols = model_ols
+    ols = ols.fit().summary2().tables[1].reset_index()
+    summary = ols[ols['index'].isin(list(indices["index"]))].copy()
     t_orig = summary['t']
 
     # Null resampling.
@@ -318,9 +312,9 @@ def summary_rw_lm(model, indices='', cov_type="HC2", num_boot=10000):
     #  - Draw beta.boot ~ N(0, Sigma-hat) --- note the 0 here, this is what makes it a *null* t-value.
     #  - Compute t.boot = beta.boot / sqrt(diag(Sigma.hat))
 
-    ols = smf.ols(fmla, data=data).fit(cov_type = cov_type)
-    ols_exog = smf.ols(fmla, data=data).exog
-    ols_res = smf.ols(fmla, data=data).fit().resid
+    ols = model_ols.fit(cov_type = cov_type)
+    ols_exog = model_ols.exog
+    ols_res = model_ols.fit().resid
     Sigma_hat = get_cov(ols_exog, ols_res, add_intercept=False)
 
     se_orig = pd.Series(np.sqrt(Sigma_hat.diagonal()))
@@ -332,12 +326,13 @@ def summary_rw_lm(model, indices='', cov_type="HC2", num_boot=10000):
                 mean=np.repeat(0, num_coef), cov=Sigma_hat, size=num_boot))
 
     t_boot = np.array(beta_boot.apply(lambda row: row / se_orig, axis=1))
-    t_boot = t_boot.T[(len(ols_1)-len(t_orig)):len(ols_1)].T
+    ols_1 = ols.summary2().tables[1].reset_index().copy()
+    t_boot = t_boot.T[(len(ols_1) - len(t_orig)) : len(ols_1)].T
 
     p_adj = romano_wolf_correction(t_orig, t_boot)
     result = summary[['index','Coef.','Std.Err.','P>|t|']]
     result.rename(columns={'P>|t|': 'Orig.p-value'}, inplace=True)
-    result['Adj. p-value'] = p_adj
+    result = result.assign(Adj_p_value = p_adj)
 
     return(result)
 
@@ -347,9 +342,9 @@ def summary_rw_lm(model, indices='', cov_type="HC2", num_boot=10000):
 
 # This linear regression is only valid in a randomized setting.
 fmla = 'y ~ w*C(polviews)'
-ols = smf.ols(fmla, data=data).fit()
-ols = ols.summary2().tables[1].reset_index()
-interact = ols.loc[ols_1["index"].str.contains("w:")]
+ols = smf.ols(fmla, data=data)
+ols_1 = ols.fit().summary2().tables[1].reset_index()
+interact = ols_1.loc[ols_1["index"].str.contains("w:")]
 
 # Applying the romano-wolf correction.
 summary_rw_lm(ols, indices=interact)
@@ -405,65 +400,114 @@ from scipy.sparse import csr_matrix
 from scipy import sparse
 
 
-# In[119]:
+# In[12]:
 
 
-split = np.array_split(list(data.index),3)
+data = pd.read_csv( "https://docs.google.com/uc?id=1kSxrVci_EUcSr_Lg1JKk1l7Xd5I9zfRC&export=download")
+# Convert marital as categorical, and substract 1 to sex
+data['sex'] -= 1
+data["marital"] = pd.Categorical(data["marital"])
+# Define the output and treatment variables.
 
-X_train = data.loc[split[0],['age','polviews', 'income','educ','marital','sex']] 
-y_train = data.loc[split[0],'y'] 
-T_train =data.loc[split[0],'w'] 
+# Treatment: does the the gov't spend too much on "welfare" (1) or "assistance to the poor" (0)
+treatment = "w"
 
-X_est = data.loc[split[1],['age','polviews', 'income','educ','marital','sex']] 
-y_est = data.loc[split[1],'y'] 
-T_est =data.loc[split[1],'w'] 
+# Outcome: 1 for 'yes', 0 for 'no'
+outcome = "y"
 
-X_test = data.loc[split[2],['age','polviews', 'income','educ','marital','sex']] 
-y_test = data.loc[split[2],'y'] 
-T_test =data.loc[split[2],'w'] 
+# Additional covariates
+# drops `marital`
+covariates = ["age", "polviews", "income", "educ", "sex"]
 
-
-# In[124]:
-
-
-# Preparing data to fit a causal forest
-
-#fmla = '0+age+polviews+income+educ+marital+sex'
-#matrix = patsy.dmatrix(fmla, data, return_type = "dataframe")
-
-#T = data.loc[ : ,"w"]
-#Y = data.loc[ : ,"y"]X = matrix
+# New covariates
+covariates = covariates + ["Married", "Widowed", "Divorced", "Separated", "Never_Married"]
 
 
-# Estimate a causal tree using Causal Forest library
-
-ctree = CausalForest(n_estimators=1, min_samples_leaf=170,
-                       max_depth=50, inference = False,
-                       verbose=0, random_state=123,subforest_size=1)
-
-ctree.fit(X_train, T_train, y_train)
+# In[13]:
 
 
-# In[140]:
+## replace values
+marital_val = {1: "Married", 2: "Widowed", 3: "Divorced", 4: "Separated", 5: "Never_Married"}
+data['marital'] = pd.Categorical(data['marital'].map(marital_val))
+# Get new columns
+data = pd.get_dummies(data, prefix = "", prefix_sep = "")
+## In this case, we remove the marital column and get 
+# the columns ["Married", "Widowed", "Divorced", "Separated", "Never_Married"]
+data.head(3)
 
 
-num_leaves = len(np.unique(ctree.predict(X_est))) # number of leaves 
-
-print(num_leaves)
-
-tau_hat = ctree.predict(X_est).flatten() # convert from N- array to 1-array
-
-labels = [i for i in range(1,len(np.unique(tau_hat )) + 1 ) ] # label by each leaf 
-
-# Prediction grouped by each leaf
-
-predict1 = data.iloc[split[1],:]
-predict1['tau_hat'] = tau_hat.tolist()
-predict1['leaves'] = pd.Categorical(tau_hat)
-predict1['leaves'] = predict1['leaves'].cat.rename_categories(labels)
+# In[14]:
 
 
-# In[143]:
+# Split data into train, estimation, testing 
+split_row = np.array_split(list(data.index), 3)
+
+data_train = data.loc[split_row[0]]
+data_est = data.loc[split_row[1]]
+data_test = data.loc[split_row[2]]
+
+
+# In[15]:
+
+
+### econml.dml import CausalForest 
+## PlotTree
+
+
+# In[16]:
+
+
+# Create a `econ.ml.CausalForest`  object and estimate the model with 
+# training data
+ctree = CausalForest(
+    n_estimators=1, min_samples_leaf=170,
+    max_depth=50, inference = False,
+    verbose=0, random_state=123,subforest_size=1
+    )
+
+ctree.fit(
+    data_train[covariates], 
+    data_train[treatment], 
+    data_train[outcome]
+    )
+
+
+# In[17]:
+
+
+from sklearn.tree import plot_tree
+# Get the trees from the mode
+trees = ctree.estimators_
+
+# Plot each tree
+for i, tree in enumerate(trees):
+    plt.figure()
+    plot_tree(tree, feature_names=covariates, filled=True)
+    plt.show()
+    
+
+
+# In[18]:
+
+
+# print the unique values of prediction (numbers of leaf)
+tau_hat = ctree.predict(data_est[covariates]).flatten()
+leaves = [i for i in range(1,len(np.unique(tau_hat )) + 1 )]
+num_leaves = len(np.unique(tau_hat))
+ctree.decision_path(data_est[covariates])
+print("Number of leaves:", num_leaves)
+
+
+# In[19]:
+
+
+# Prediction grouped by each leaf in data_est
+data_est = data_est.assign(tau_hat = tau_hat, leaves = pd.Categorical(tau_hat))
+data_est["leaves"] = data_est["leaves"].cat.rename_categories(leaves)
+data_est.head()
+
+
+# In[20]:
 
 
 # This is only valid in randomized datasets.
@@ -475,35 +519,37 @@ if num_leaves == 1 :
 elif num_leaves == 2 :
     
     fmla = 'y ~ w*C(leaves)'
-    ols = smf.ols(fmla, data=predict1).fit()
-    ols = ols.summary2().tables[1].reset_index()
-    summary = ols.loc[ols["index"].str.contains("w:")]
-    result = summary[['index','Coef.','Std.Err.','P>|t|']]
-    result.rename(columns={'P>|t|': 'Orig.p-value'}, inplace=True)
+    ols = smf.ols(fmla, data=data_est)
+    ols_1 = ols.summary2().tables[1].reset_index()
+    summary = ols_1.loc[ols_1["index"].str.contains("w:")]
+    new_summary = summary[['index','Coef.','Std.Err.','P>|t|']]
+    new_summary.rename(columns={'P>|t|': 'Orig.p-value'}, inplace=True)
     
 else:
     
 # This linear regression is only valid in a randomized setting.
 
     fmla = 'y ~ w*C(leaves)'
-    ols = smf.ols(fmla, data=predict1).fit()
-    ols = ols.summary2().tables[1].reset_index()
-    interact = ols.loc[ols["index"].str.contains("w:")]
+    ols = smf.ols(fmla, data=data_est)
+    ols_1 = ols.fit().summary2().tables[1].reset_index()
+    interact = ols_1.loc[ols_1["index"].str.contains("w:")]
 
     # Applying the romano-wolf correction.
-    print(summary_rw_lm(ols, indices=interact))
+    new_summary = summary_rw_lm(ols, indices=interact)
+
+new_summary
 
 
-# In[144]:
+# In[21]:
 
 
+# we can plot the average value for each leaf, in this case, we have 9 leaf
 df = pd.DataFrame()
 
 for var_name in covariates:
-    form2 = var_name + " ~ " + "0" + "+" + "C(leaves)"
-    ols = smf.ols(formula=form2, data=predict1).fit(cov_type = 'HC2').summary2().tables[1].iloc[:, 0:2]
-    
-    
+    form2 =  var_name + " ~ " + "0" + "+" + "C(leaves)"
+    ols = smf.ols(formula=form2, data=data_est).fit(cov_type = 'HC2').summary2().tables[1].iloc[:, 0:2]
+        
     # Retrieve results
     toget_index = ols["Coef."]
     index = toget_index.index
@@ -512,7 +558,7 @@ for var_name in covariates:
     stderr = pd.Series(ols["Std.Err."], name = "stderr")
     leaves = pd.Series(np.arange(1,num_leaves+1), index = index, name = "leaves")
     scaling = pd.Series(norm.cdf((avg - np.mean(avg))/np.std(avg)), index = index, name = "scaling")
-    data2 = pd.DataFrame(data=X, columns= covariates)
+    data2 = pd.DataFrame(data=data_est[covariates], columns= covariates)
     variation1= np.std(avg) / np.std(data2[var_name])
     variation = pd.Series(np.repeat(variation1, num_leaves), index = index, name = "variation")
     labels = pd.Series(round(avg,2).astype('str') + "\n" + "(" + round(stderr, 2).astype('str') + ")", index = index, name = "labels")
@@ -520,11 +566,15 @@ for var_name in covariates:
     # Tally up results
     df1 = pd.DataFrame(data = [cova1, avg, stderr, leaves, scaling, variation, labels]).T
     df = df.append(df1)
-
+    
 # a small optional trick to ensure heatmap will be in decreasing order of 'variation'
 df = df.sort_values(by = ["variation", "covariate"], ascending = False)
+df.sample(3)
 
-df = df.iloc[0:(8*num_leaves), :]
+
+# In[22]:
+
+
 df1 = df.pivot(index = "covariate", columns = "leaves", values = ["scaling"]).astype(float)
 labels =  df.pivot(index = "covariate", columns = "leaves", values = ["labels"]).to_numpy()
 
@@ -542,7 +592,7 @@ plt.tick_params( axis='x', labelsize=15, length=0, labelrotation=0)
 plt.xlabel("")
 plt.ylabel("")
 ax.set_title("Average covariate values within each leaf", fontsize=18, fontweight = "bold")
-(ax.set_xticklabels(["Leaf1", "Leaf2", "Leaf3", "Leaf4","Leaf5", "Leaf6","Leaf7", "Leaf8", "Leaf9"], size=15))
+(ax.set_xticklabels(["Leaf1", "Leaf2", "Leaf3", "Leaf4","Leaf5", "Leaf6","Leaf7", "Leaf8", "Leaf9"], size=15));
 
 
 # <font size=1>
@@ -553,7 +603,7 @@ ax.set_title("Average covariate values within each leaf", fontsize=18, fontweigh
 
 # The function `causal_forest` from the package `CausalForest` allows us to get estimates of the CATE  (4.1). 
 
-# In[82]:
+# In[23]:
 
 
 import econml
@@ -575,22 +625,48 @@ import patsy
 import seaborn as sns
 
 
-# In[83]:
+# In[24]:
+
+
+data = pd.read_csv( "https://docs.google.com/uc?id=1kSxrVci_EUcSr_Lg1JKk1l7Xd5I9zfRC&export=download")
+# Convert marital as categorical, and substract 1 to sex
+data['sex'] -= 1
+data["marital"] = pd.Categorical(data["marital"])
+# Define the output and treatment variables.
+
+# Treatment: does the the gov't spend too much on "welfare" (1) or "assistance to the poor" (0)
+treatment = "w"
+
+# Outcome: 1 for 'yes', 0 for 'no'
+outcome = "y"
+
+# Additional covariates
+# drops `marital`
+covariates = ["age", "polviews", "income", "educ", "sex"]
+
+# New covariates
+covariates = covariates + ["Married", "Widowed", "Divorced", "Separated", "Never_Married"]
+## replace values
+marital_val = {1: "Married", 2: "Widowed", 3: "Divorced", 4: "Separated", 5: "Never_Married"}
+data['marital'] = pd.Categorical(data['marital'].map(marital_val))
+# Get new columns
+data = pd.get_dummies(data, prefix = "", prefix_sep = "")
+## In this case, we remove the marital column and get 
+# the columns ["Married", "Widowed", "Divorced", "Separated", "Never_Married"]
+data.head(3)
+
+
+# In[25]:
 
 
 # Preparing data to fit a causal forest
 
-fmla = '0+age+polviews+income+educ+marital+sex'
-desc = patsy.ModelDesc.from_formula(fmla)
-desc.describe()
-matrix = patsy.dmatrix(fmla, data, return_type = "dataframe")
-
-T = data.loc[ : ,"w"]
-Y = data.loc[ : ,"y"]
-X = matrix
+T = data.loc[ : ,treatment]
+Y = data.loc[ : ,outcome]
+X = data[covariates] 
 
 # Estimate a causal forest.
-est1 = CausalForest(n_estimators=2000, min_samples_leaf=5,
+est1 = CausalForest(n_estimators=200, min_samples_leaf=5,
                        max_depth=50,
                        verbose=0, random_state=123)
 
@@ -599,18 +675,18 @@ est1.fit(X, T, Y)
 tau_hat = est1.predict(X).flatten()
 
 
-# In[84]:
+# In[26]:
 
 
 # Get residuals  and propensity 
-regr = RegressionForest(n_estimators=2000, min_samples_leaf=5,
+regr = RegressionForest(n_estimators=200, min_samples_leaf=5,
                        max_depth=50,
                        verbose=0, random_state=123)
 
 e_hat = regr.fit(X, T).predict(X).flatten()
 
 
-# In[85]:
+# In[27]:
 
 
 #Propensity score 
@@ -620,33 +696,28 @@ Prop = pd.DataFrame({"p_score":e_hat, "Treatment":T})
 sns.histplot(data=Prop, x="p_score", hue="Treatment", bins=40, alpha = 0.4)
 
 plt.ylabel('')
-plt.xlabel('')
+plt.xlabel('');
 
 
 # Having fit a non-parametric method such as a causal forest, a researcher may (incorrectly) start by looking at the distribution of its predictions of the treatment effect. One might be tempted to think: "if the histogram is concentrated at a point, then there is no heterogeneity; if the histogram is spread out, then our estimator has found interesting heterogeneity." However, this may be false.
 
-# In[86]:
+# In[28]:
 
 
 # Do not use this for assessing heterogeneity. See text above.
 sns.histplot( tau_hat, stat = "percent", bins = 10)
-plt.title("CATE estimates")
+plt.title("CATE estimates");
 
 
 # If the histogram is concentrated at a point, we may simply be underpowered: our method was not able to detect any heterogeneity, but maybe it would detect it if we had more data. If the histogram is spread out, we may be overfitting: our model is producing very noisy estimates $\widehat{\tau}(x)$, but in fact the true  $\tau(x)$ can be much smoother as a function of $x$.
 # 
 # The `CausalForest` package also produces a measure of variable importance that indicates how often a variable was used in a tree split. Again, much like the histogram above, this can be a rough diagnostic, but it should not be interpreted as indicating that, for example, variable with low importance is not related to heterogeneity. The reasoning is the same as the one presented in the causal trees section: if two covariates are highly correlated, the trees might split on one covariate but not the other, even though both (or maybe neither) are relevant in the true data-generating process.
 
-# In[88]:
+# In[29]:
 
 
 importance = pd.DataFrame({"covariaties" : list(X.columns), "values" : est1.feature_importances()})
-
-
-# In[89]:
-
-
-importance.sort_values('values', ascending = False)
+importance.sort_values("values", ascending=False)
 
 
 # #### Data-driven subgroups
@@ -660,20 +731,7 @@ importance.sort_values('values', ascending = False)
 # [This gist](https://gist.github.com/halflearned/bea4e5137c0c81fd18a75f682da466c8) computes the above for `grf`, and it should not be hard to modify it so as to replace forests by any other non-parametric method. However, for `grf` specifically, there's a small trick that allows us to obtain a valid ranking: we can pass a vector of fold indices to the argument `clusters` and rank observations within each fold. This works because estimates for each fold ("cluster")   trees are computed using trees that were not fit using observations from that fold. Here's how to do it. 
 # 
 
-# In[90]:
-
-
-fmla = '0+age+polviews+income+educ+marital+sex'
-desc = patsy.ModelDesc.from_formula(fmla)
-matrix = patsy.dmatrix(fmla, data, return_type = "dataframe")
-
-T = data.loc[ : ,"w"]
-Y = data.loc[ : ,"y"]
-X = matrix
-W = None 
-
-
-# In[91]:
+# In[30]:
 
 
 def cluster_causal_forest(X,T,Y, cluster):        
@@ -688,7 +746,7 @@ def cluster_causal_forest(X,T,Y, cluster):
             Y = base.drop(base.iloc[list(a),:].index).iloc[:,0]
             T = base.drop(base.iloc[list(a),:].index).iloc[:,1]
             XX = X.drop(X.iloc[list(a),:].index)
-            causal = CausalForest(n_estimators=2000, min_samples_leaf=5,
+            causal = CausalForest(n_estimators=200, min_samples_leaf=5,
                        max_depth=50,
                        verbose=0, random_state=123)
             causal.fit(XX,T,Y)
@@ -709,24 +767,12 @@ def cluster_causal_forest(X,T,Y, cluster):
         return tau_predict
 
 
-# In[92]:
+# In[31]:
 
 
 # Valid randomized data and observational data with unconfoundedness+overlap.
 # Note: read the comments below carefully. 
 # In randomized settings, do not estimate forest.e and e.hat; use known assignment probs.
-
-#
-# Prepare dataset
-fmla = '0+age+polviews+income+educ+marital+sex'
-desc = patsy.ModelDesc.from_formula(fmla)
-matrix = patsy.dmatrix(fmla, data, return_type = "dataframe")
-
-T = data.loc[ : ,"w"]
-Y = data.loc[ : ,"y"]
-X = matrix
-W = None 
-
 
 # Number of rankings that the predictions will be ranking on 
 # (e.g., 2 for above/below median estimated CATE, 5 for estimated CATE quintiles, etc.)
@@ -735,7 +781,7 @@ num_rankings = 5
 # Prepare for data.splitting
 # Assign a fold number to each observation.
 # The argument 'clusters' in the next step will mimick K-fold cross-fitting.
-num_folds = 10
+num_folds = 5
 
 # Estimate a causal forest.
 
@@ -743,7 +789,7 @@ tau_hat_cluster = cluster_causal_forest(X,T,Y,  cluster = num_folds)
 
 data['ranking'] = np.nan
 
-for i in range(1,num_folds+1):
+for i in range(1, num_folds+1):
     split = tau_hat_cluster.Cluster == i
     index = tau_hat_cluster[split].index
     tau_quantile = np.quantile(tau_hat_cluster[split].iloc[:,0], list(np.arange(0,1.1,0.2)))
@@ -752,7 +798,7 @@ for i in range(1,num_folds+1):
                                                tau_quantile , right=False, labels=labels)
 
 
-# In[93]:
+# In[32]:
 
 
 # Valid only in randomized settings.
@@ -771,20 +817,20 @@ order = [2,3,0,1] # setting column's order
 ols_ate = ols_ate[[ols_ate.columns[i] for i in order]]
 
 
-# In[94]:
+# In[33]:
 
 
 ols_ate.rename({'Coef.': 'Estimate', 'Std.Err.': 'se'}, axis=1, inplace = True) 
 ols_ate
 
 
-# In[95]:
+# In[34]:
 
 
 # Computing AIPW scores.
 
 regr = RegressionForest(max_depth=50, random_state=123,
-                        n_estimators=2000)
+                        n_estimators=200)
 
 e_hat = regr.fit(X, T).predict(X).flatten() # P[W=1|X]
 m_hat = regr.fit(X, Y).predict(X).flatten() # E[Y|X]
@@ -813,7 +859,7 @@ forest_ate.rename({'Coef.': 'Estimate', 'Std.Err.': 'se'}, axis=1, inplace = Tru
 forest_ate
 
 
-# In[96]:
+# In[35]:
 
 
 # Concatenate the two results.
@@ -864,7 +910,7 @@ plt.show()
 # 
 # Next, as we did for leaves in a causal tree, we can test e.g., if the prediction for groups 2, 3, etc. are larger than the one in the first group. Here's how to do it based on a difference-in-means estimator. Note the Romano-Wolf multiple-hypothesis testing correction.
 
-# In[97]:
+# In[36]:
 
 
 # Valid in randomized settings only.
@@ -872,10 +918,10 @@ plt.show()
 # y ~ ranking + w + ranking:w
 
 fmla = 'y ~  C(ranking) + w + w:C(ranking)'
-ols = smf.ols(fmla, data=data).fit()
+ols = smf.ols(fmla, data=data)
 
 # Retrieve the interaction coefficients
-ols_1 = ols.summary2().tables[1].reset_index()
+ols_1 = ols.fit().summary2().tables[1].reset_index()
 interact = ols_1.loc[ols_1["index"].str.contains("w:")]
 ols_ate = summary_rw_lm(ols, indices=interact)
 ols_ate['ranking'] = [f'Rank {j} - Rank 1' for j in range(2,6)]
@@ -887,7 +933,7 @@ ols_ate
 
 # Here's how to do it for AIPW-based estimates, again with Romano-Wolf correction for multiple hypothesis testing. 
 
-# In[98]:
+# In[37]:
 
 
 # Valid in randomized and observational settings with unconfoundedness+overlap.
@@ -895,10 +941,10 @@ ols_ate
 # Using AIPW scores computed above
 
 fmla = 'aipw_scores ~  1 + C(ranking)'
-ols = smf.ols(fmla, data=data).fit()
+ols = smf.ols(fmla, data=data)
 
 # Retrieve the interaction coefficients
-ols_1 = ols.summary2().tables[1].reset_index()
+ols_1 = ols.fit().summary2().tables[1].reset_index()
 interact = ols_1.loc[1:num_rankings +1 ,:]
 forest_ate = summary_rw_lm(ols, indices=interact)
 forest_ate['ranking'] = [f'Rank {j} - Rank 1' for j in range(2,6)]
@@ -909,7 +955,7 @@ forest_ate
 
 
 
-# In[99]:
+# In[38]:
 
 
 df = pd.DataFrame()
@@ -939,7 +985,7 @@ for var_name in covariates:
 # a small optional trick to ensure heatmap will be in decreasing order of 'variation'
 df = df.sort_values(by = ["variation", "covariate"], ascending = False)
 
-df = df.iloc[0:(8*num_rankings), :]
+# df = df.iloc[0:(8*num_rankings), :]
 df1 = df.pivot(index = "covariate", columns = "ranking", values = ["scaling"]).astype(float)
 labels =  df.pivot(index = "covariate", columns = "ranking", values = ["labels"]).to_numpy()
 
@@ -957,20 +1003,21 @@ plt.tick_params( axis='x', labelsize=15, length=0, labelrotation=0)
 plt.xlabel("CATE estimate ranking", fontsize= 10)
 plt.ylabel("")
 ax.set_title("Average covariate values within group (based on CATE estimate ranking)", fontsize=18, fontweight = "bold")
-(ax.set_xticklabels(["Q1", "Q2", "Q3", "Q4","Q5"], size=15))
+(ax.set_xticklabels(["Q1", "Q2", "Q3", "Q4","Q5"], size=15));
 
 
 # #### Best linear projection
 # 
 # This function provides a doubly robust fit to the linear model $\widehat{\tau}(X_i) = \beta_0 + A_i'\beta_1$, where $A_i$ can be a subset of the covariate columns. The coefficients in this regression are suggestive of general trends, but they should not be interpret as partial effects -- that would only be true if the true model were really linear in covariates, and that's an assumption we shouldn't be willing to make in general
 
-# In[101]:
+# In[39]:
 
 
 # dataset for best linear proyection
 X['tau_hat'] = tau_hat
 
-smf.ols('tau_hat ~ age+polviews+income+educ+marital+sex',d).fit(cov_type = 'HC3').summary2().tables[1]
+# smf.ols('tau_hat ~ age+polviews+income+educ+marital+sex', X).fit(cov_type = 'HC3').summary2().tables[1]
+smf.ols("tau_hat ~ " + "+".join(covariates), data = X).fit(cov_type = 'HC3').summary2().tables[1]
 
 
 # #### Partial dependence
@@ -981,16 +1028,22 @@ smf.ols('tau_hat ~ age+polviews+income+educ+marital+sex',d).fit(cov_type = 'HC3'
 # 
 # In what follows we'll again use `causal_forest` predictions, along with their variance estimates (set `estimate.variances=TRUE` when predicting to we get estimates of the asymptotic variance of the prediction for each point). Since `grf` predictions are asymptotically normal, we can construct 95\% confidence intervals in the usual manner (i.e., $\hat{\tau}(x) \pm 1.96\sqrt{\widehat{\text{Var}}(\hat{\tau}(x))}$).
 
-# In[102]:
+# In[40]:
+
+
+X
+
+
+# In[41]:
 
 
 selected_covariate = "polviews"
-other_covariates = ["age", "income", "educ", "marital", "sex"]
+other_covariates = covariates[:1] + covariates[2:]
 
 # Fitting a forest 
 # (commented for convenience; no need re-fit if already fitted above)
-fmla = '0+age+polviews+income+educ+marital+sex'
-
+# fmla = '0+age+polviews+income+educ+marital+sex'
+fmla = "0 + " + "+".join(covariates)
 
 grid_size = 7 
 
@@ -999,7 +1052,7 @@ covariate_grid  = np.array_split(data[selected_covariate].sort_values().unique()
 
 # Take median of other covariates 
 
-median = data[other_covariates].median(axis = 0).to_numpy().reshape(1,5)
+median = data[other_covariates].median(axis = 0).to_numpy().reshape(1, len(other_covariates))
 
 # duplicates rows 
 
@@ -1014,39 +1067,9 @@ tau_hat_ci = est1.predict_interval(X=X_grid)
 tau_hat_se  = ((tau_hat_ci[1]-tau_hat_ci[0])/2).flatten()
 
 
-# In[103]:
+# In[42]:
 
 
-selected_covariate = "polviews"
-other_covariates = ["age", "income", "educ", "marital", "sex"]
-
-# Fitting a forest 
-# (commented for convenience; no need re-fit if already fitted above)
-fmla = '0+age+polviews+income+educ+marital+sex'
-
-
-grid_size = 7 
-
-
-covariate_grid  = np.array_split(data[selected_covariate].sort_values().unique(),grid_size)
-
-# Take median of other covariates 
-
-median = data[other_covariates].median(axis = 0).to_numpy().reshape(1,5)
-
-# duplicates rows 
-
-data_grid = pd.concat([pd.DataFrame(median, columns = other_covariates)]*grid_size)
-data_grid[selected_covariate ] = [i[0] for i in covariate_grid]
-
-# Expand the data
-X_grid = patsy.dmatrix(fmla, data_grid, return_type = "dataframe")
-
-tau_hat = est1.predict(X=X_grid).flatten() 
-tau_hat_ci = est1.predict_interval(X=X_grid) 
-tau_hat_se  = ((tau_hat_ci[1]-tau_hat_ci[0])/2).flatten() 
-
-1# Plot predictions for each group and 95% confidence intervals around them.
 fig, ax = plt.subplots(figsize=(10, 6))
 
 
@@ -1065,28 +1088,26 @@ plt.ylim(-0.6, 0.1)
 plt.axhline(y=0, color = 'black').set_linestyle('--')
 ax.set_title(f"Predicted treatment effect varying {selected_covariate} (other variables fixed at median)",
              fontsize=11, fontweight = "bold")
-(ax.set_xticklabels(range(0,8), size=10))
+(ax.set_xticklabels(range(0,8), size=10));
 
 
-# In[104]:
+# In[43]:
 
 
 selected_covariates = ['polviews','age' ]
-other_covariates = ["income", "educ", "marital", "sex"]
+other_covariates = covariates[2:]
+# Take median of other covariates
+median = data[other_covariates].median(axis = 0).to_numpy().reshape(1, 8)
+
 # Compute a grid of values appropriate for the selected covariate
 # See other options for constructing grids in the snippet above.
 
-x1_grid_size = 7
-x2_grid_size = 5
 x1_grid = np.array_split(data[selected_covariate].sort_values().unique(),grid_size)
-x2_grid = np.quantile(data[selected_covariates[1]], list(np.arange(0,1.01,1/4)))
-
-# Take median of other covariates 
-
-median = data[other_covariates].median(axis = 0).to_numpy().reshape(1,4)
+x1_grid_size = len(np.unique(data[selected_covariates[0]]))
+x2_grid = np.quantile(data[selected_covariates[1]], list(np.arange(0, 1.01, 1/4)))
+x2_grid_size = len(x2_grid)
 
 # duplicates rows 
-
 data_grid = pd.concat([pd.DataFrame(median, columns = other_covariates)]*(x1_grid_size))
 data_grid[selected_covariates[0]] =  [i[0] for i in covariate_grid]
 data_grid = pd.concat([data_grid]*(x2_grid_size))
@@ -1094,46 +1115,50 @@ data_grid[selected_covariates[1]] =  list(pd.Series(x2_grid).repeat(7))
 
 # Expand the data
 X_grid = patsy.dmatrix(fmla, data_grid, return_type = "dataframe")
+tau_hat = est1.predict(X = X_grid).flatten()
+tau_hat_ci = est1.predict_interval(X = X_grid)
+tau_hat_se = ((tau_hat_ci[1]-tau_hat_ci[0])/2).flatten() 
 
-tau_hat = est1.predict(X=X_grid).flatten() 
-tau_hat_ci = est1.predict_interval(X=X_grid) 
-tau_hat_se  = ((tau_hat_ci[1]-tau_hat_ci[0])/2).flatten() 
 
-df = X_grid
+df = X_grid.copy()
 df['tau_hat'] = tau_hat
 df['tau_hat_se'] = tau_hat_se
 
 
-# In[105]:
+# As documented in the original paper on generalized random forests [Athey, Tibshirani and Wager, 2019](https://arxiv.org/abs/1610.01271), the coverage of `grf` confidence intervals can drop if the signal is too dense or too complex relative to the number of observations. Also, to a point, it’s possible to get tighter confidence intervals by increasing the number of trees; see this short vignette for more information.
+# 
+# We can vary more than one variable at a time.
+
+# In[44]:
 
 
 # order dataset
 df = df.sort_values(by = ["polviews","age"], ascending = [False,True])
 labels = np.array(round(df.tau_hat,2).astype('str') + "\n" + "(" + round(df.tau_hat_se, 2).astype('str') + ")")
-labels = labels.reshape(7,5) # reshape labels 
-df = df.pivot("polviews","age","tau_hat") # reshape dataset
-df = df.sort_values(by = ["polviews"], ascending = False)
+labels = labels.reshape(x1_grid_size, x2_grid_size) # reshape labels 
 
-cbar_ticks = [-0.4,-0.35,-0.3,-0.25]
+
+# In[45]:
+
+
+df1 = df.pivot("polviews", "age", "tau_hat")
 ax = plt.subplots(figsize=(10, 10))
 
-ax = sns.heatmap(df,
+ax = sns.heatmap(df1,
                  annot=labels,
                  annot_kws={"size": 12, 'color':"k"},
                  fmt = '',
                  cmap = "plasma",
                  linewidths=0,
-                cbar_kws={"pad":0.05, "ticks": cbar_ticks})
+                )
 cbar = ax.collections[0].colorbar
-cbar.set_ticklabels(['- 0.4', '- 0.35', '- 0.3', '- 0.25'])
 plt.xlabel("Age", fontsize= 10)
 plt.ylabel("Polviews", fontsize= 10)
 ax.set_title(f"Predicted treatment effect varying {selected_covariates[0]} and{selected_covariates[1]} (other variables fixed at median)",
-             fontsize=10, fontweight = "bold")
+             fontsize=10, fontweight = "bold");
 
 
 # ## Further reading
-# 
 # A readable summary of different method for hypothesis testing correction is laid out in the introduction to [Clarke, Romano and Wolf (2009)](http://ftp.iza.org/dp12845.pdf).
 # 
-# [Athey and Wager (2019)](https://arxiv.org/abs/1902.07409) shows an application of causal forests to heterogeity analysis in a setting with clustering.
+# [Athey and Wager (2019)](https://arxiv.org/abs/1902.07409shows) an application of causal forests to heterogeity analysis in a setting with clustering.

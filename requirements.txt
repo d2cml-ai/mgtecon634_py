@@ -2,11 +2,16 @@ jupyter-book
 pandas  
 numpy
 matplotlib
+plotnine
 patsy
 CTL
 seaborn
+econml
+causalml
 statsmodels
 scikit-learn
 SyncRNG
 ghp_import
 pyreadr
+imageio
+rpy2
