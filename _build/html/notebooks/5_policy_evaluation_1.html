@@ -152,8 +152,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="8_WGANs_for_simulation.html">
+   7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="9_surrogate_py.html">
-   7. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
+   8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
   </a>
  </li>
 </ul>
@@ -703,7 +708,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.12387522040346063 Std. Error 0.012655785409701399
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.1488018328881659 Std. Error 0.012247084059203857
 </pre></div>
 </div>
 </div>
@@ -740,7 +745,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: -0.01494384849038936 Std. Error 0.013422576297913809
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.01931511993295719 Std. Error 0.01392197679307761
 </pre></div>
 </div>
 </div>
@@ -780,7 +785,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference estimate: 0.05850933384786803 Std. Error: 0.0008952951361374395
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference estimate: 0.06380367348985341 Std. Error: 0.0009163862268741305
 </pre></div>
 </div>
 </div>
@@ -796,8 +801,8 @@ title="Print to PDF"
 \]</div>
 <p>Here’s how to interpret <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a>. In region <span class="math notranslate nohighlight">\(A\)</span>, policy <span class="math notranslate nohighlight">\(\pi\)</span> treats everyone, obtaining average value <span class="math notranslate nohighlight">\(E[Y_i(1)|A]\)</span>; meanwhile, policy <span class="math notranslate nohighlight">\(\pi'\)</span> treats half the observations (i.e., it treats each individual with one-half probability), obtaining average value <span class="math notranslate nohighlight">\((E[Y_i(1) + Y_i(0)|A])/2\)</span>. Subtracting the two gives the term multiplying <span class="math notranslate nohighlight">\(P(A)\)</span> in <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a>. In region <span class="math notranslate nohighlight">\(A^c\)</span>, policy <span class="math notranslate nohighlight">\(\pi\)</span> treats no one, obtaining average value <span class="math notranslate nohighlight">\(E[Y_i(0)|A]\)</span>; meanwhile, policy <span class="math notranslate nohighlight">\(\pi'\)</span> still obtains <span class="math notranslate nohighlight">\((E[Y_i(1) + Y_i(0)|A^c])/2\)</span> for the same reasons as above. Subtracting the two gives the term multiplying <span class="math notranslate nohighlight">\(P(A^c)\)</span> <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a>. Expression <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a> is the average of these two terms weighted by the size of each region.</p>
 <p>Finally, in a randomized setting, <a class="reference internal" href="#equation-pi-pip-diff-results">(5.9)</a> is equivalent to</p>
-<div class="amsmath math notranslate nohighlight" id="equation-abe2e66e-0dad-41a2-b126-52550aad127d">
-<span class="eqno">(5.10)<a class="headerlink" href="#equation-abe2e66e-0dad-41a2-b126-52550aad127d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-78d2c646-1638-4742-9d98-e3d8ae924297">
+<span class="eqno">(5.10)<a class="headerlink" href="#equation-78d2c646-1638-4742-9d98-e3d8ae924297" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{P(A)}{2} \left( E[Y|A,W=1] - E[Y|A,W=0] \right) + 
         \frac{P(A^c)}{2} \left( E[Y|A^c,W=0] - E[Y|A,W=1] \right),
 \end{align}\]</div>
@@ -813,7 +818,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference estimate: 0.08131881385552882 Std. Error: 0.006668001917334968
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference estimate: 0.08079483796588685 Std. Error: 0.006818389115408329
 </pre></div>
 </div>
 </div>
@@ -951,7 +956,7 @@ If we "naively" used the estimators based on sample averages above, the policy v
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;econml.dml.causal_forest.CausalForestDML at 0x19ac07299d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;econml.dml.causal_forest.CausalForestDML at 0x7f0c645307f0&gt;
 </pre></div>
 </div>
 </div>
@@ -999,7 +1004,7 @@ If we "naively" used the estimators based on sample averages above, the policy v
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.05615731869282408 Std. Error: 0.008900013784512483
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.05883498358775464 Std. Error: 0.00845170122089348
 </pre></div>
 </div>
 </div>
@@ -1017,7 +1022,7 @@ If we "naively" used the estimators based on sample averages above, the policy v
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.0007305898852344024 Std. Error: 0.00904966676757674
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: -0.006092982917374088 Std. Error: 0.008940643165594184
 </pre></div>
 </div>
 </div>
@@ -1051,7 +1056,7 @@ If we "naively" used the estimators based on sample averages above, the policy v
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Diff estimate: 0.06392853738061878 Std. Error: 0.00565926672162863
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Diff estimate: 0.05937858424192648 Std. Error: 0.004892741144402185
 </pre></div>
 </div>
 </div>
@@ -1190,7 +1195,7 @@ If we "naively" used the estimators based on sample averages above, the policy v
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.35257901741608594 Std. Error: 0.0040405242722014395
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.35230125873249823 Std. Error: 0.004048169355572199
 </pre></div>
 </div>
 </div>
@@ -1211,7 +1216,7 @@ If we "naively" used the estimators based on sample averages above, the policy v
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference estimate: 0.08601603985544198 Std. Error: 0.0025812746461917136
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference estimate: 0.08593895849701838 Std. Error: 0.0025876335840978515
 </pre></div>
 </div>
 </div>

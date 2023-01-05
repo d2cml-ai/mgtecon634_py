@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research." href="9_surrogate_py.html" />
+    <link rel="next" title="7. Tutorial to simulate data using WGANs" href="8_WGANs_for_simulation.html" />
     <link rel="prev" title="5. Policy Evaluation I - Binary Treatment" href="5_policy_evaluation_1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -152,8 +152,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="8_WGANs_for_simulation.html">
+   7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="9_surrogate_py.html">
-   7. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
+   8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.
   </a>
  </li>
 </ul>
@@ -604,11 +609,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unable to determine R home: [WinError 2] The system cannot find the file specified
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -866,7 +866,7 @@ Std. Error: 0.012849679486517862
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.11801583401051886
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value estimate: 0.11801583401051888
 Std.Error: 0.008382189838270512
 </pre></div>
 </div>
@@ -903,7 +903,7 @@ Std.Error: 0.008382189838270512
 \end{align}
 \end{split}\]</div>
 <p>Here we use shallow tree policies as our main example of parametric policies. The <code class="docutils literal notranslate"><span class="pre">R</span></code> package <code class="docutils literal notranslate"><span class="pre">policytree</span></code> to find a policy that solves <a class="reference internal" href="#equation-param-pi-problem">(6.3)</a>. In the example below, we’ll construct AIPW scores estimated using <code class="docutils literal notranslate"><span class="pre">grf</span></code>, though we could have used any other non-parametric method (with appropriate sample-splitting). See this short <a class="reference external" href="https://grf-labs.github.io/policytree/">tutorial</a> for other examples using these two packages.</p>
-<p>Let’s walk through an example for the data simulated above. The first step is to construct AIPW scores <a class="reference internal" href="#equation-aipw">(6.4)</a>.</p>
+<p>Let’s walk through an example for the data simulated above. The first step is to construct AIPW scores <a class="reference internal" href="8_WGANs_for_simulation.html#equation-aipw">(7.10)</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Randomized setting: pass the known treatment assignment as an argument.</span>
@@ -1201,7 +1201,7 @@ Std.Error [AIPW]: 0.007833306389541583
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference estimate [sample avg]: 0.07591367437788085	(0.016226366087598056)
-Diference estimate [AIPW]: 0.052300724732186735	 (0.003870420536734973)
+Diference estimate [AIPW]: 0.05230072473218675	 (0.003870420536734973)
 </pre></div>
 </div>
 </div>
@@ -1827,10 +1827,10 @@ Diference estimate [AIPW]: 0.052300724732186735	 (0.003870420536734973)
             <p class="prev-next-title"><span class="section-number">5. </span>Policy Evaluation I - Binary Treatment</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="9_surrogate_py.html" title="next page">
+    <a class='right-next' id="next-link" href="8_WGANs_for_simulation.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Tutorial to simulate data using WGANs</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
