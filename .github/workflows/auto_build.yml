@@ -31,6 +31,11 @@ jobs:
       - run: pip install git+https://github.com/gsbDBI/ds-wgan
       - run: pip install -r requirements.txt
 
+      - run: git clone https://github.com/uber/causalml.git
+      - run: cd causalml
+      - run: pip install -r requirements.txt --user
+      - run: pip install causalml
+
       # Build book
       - id: Build_book
         name: Build
