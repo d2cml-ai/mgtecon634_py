@@ -1,0 +1,1088 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Uplift Tree Visualization &#8212; MGTECON 634 at Stanford (Python scripts)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Machine Learning-Based Causal Inference
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Topics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/1_introduction_1.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/2_introduction_to_machine_learning.html">
+   2. Introduction to Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/3_average_treatment_effect_1.html">
+   3. ATE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/4_heterogeneous_treatment_effect_1.html">
+   4. HTE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/5_policy_evaluation_1.html">
+   5. Policy Evaluation I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/6_policy_learning_1.html">
+   6. Policy Learning I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/8_WGANs_for_simulation.html">
+   7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/9_surrogate_py.html">
+   8. The surrogate index Athey, S., et al. (2019).
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/causalml/examples/uplift_tree_visualization.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/causalml/examples/uplift_tree_visualization.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fcausalml/examples/uplift_tree_visualization.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/causalml/examples/uplift_tree_visualization.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/causalml/examples/uplift_tree_visualization.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supported-models">
+     Supported Models
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supported-usage">
+     Supported Usage
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-1-load-modules">
+   Step 1 Load Modules
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-causalml-modules">
+     Load CausalML modules
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-standard-modules">
+     Load standard modules
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#one-control-one-treatment-for-uplift-classification-tree">
+   One Control + One Treatment for Uplift Classification Tree
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-the-tree">
+     Read the tree
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-validation-tree-one-control-one-treatment-for-uplift-classification-tree">
+     Visualize Validation Tree: One Control + One Treatment for Uplift Classification Tree
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-a-tree-in-random-forest">
+     Visualize a Tree in Random Forest
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#fill-the-tree-with-validation-data">
+       Fill the tree with validation data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#one-control-multiple-treatments">
+   One Control + Multiple Treatments
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#save-the-plot">
+     Save the Plot
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Uplift Tree Visualization</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supported-models">
+     Supported Models
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supported-usage">
+     Supported Usage
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-1-load-modules">
+   Step 1 Load Modules
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-causalml-modules">
+     Load CausalML modules
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-standard-modules">
+     Load standard modules
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#one-control-one-treatment-for-uplift-classification-tree">
+   One Control + One Treatment for Uplift Classification Tree
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-the-tree">
+     Read the tree
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-validation-tree-one-control-one-treatment-for-uplift-classification-tree">
+     Visualize Validation Tree: One Control + One Treatment for Uplift Classification Tree
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-a-tree-in-random-forest">
+     Visualize a Tree in Random Forest
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#fill-the-tree-with-validation-data">
+       Fill the tree with validation data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#one-control-multiple-treatments">
+   One Control + Multiple Treatments
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#save-the-plot">
+     Save the Plot
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="uplift-tree-visualization">
+<h1>Uplift Tree Visualization<a class="headerlink" href="#uplift-tree-visualization" title="Permalink to this headline">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>This example notebooks illustrates how to visualize uplift trees for interpretation and diagnosis.</p>
+<section id="supported-models">
+<h3>Supported Models<a class="headerlink" href="#supported-models" title="Permalink to this headline">#</a></h3>
+<p>These visualization functions work only for tree-based algorithms:</p>
+<ul class="simple">
+<li><p>Uplift tree/random forests on KL divergence, Euclidean Distance, and Chi-Square</p></li>
+<li><p>Uplift tree/random forests on Contextual Treatment Selection</p></li>
+</ul>
+<p>Currently, they are NOT supporting Meta-learner algorithms</p>
+<ul class="simple">
+<li><p>S-learner</p></li>
+<li><p>T-learner</p></li>
+<li><p>X-learner</p></li>
+<li><p>R-learner</p></li>
+</ul>
+</section>
+<section id="supported-usage">
+<h3>Supported Usage<a class="headerlink" href="#supported-usage" title="Permalink to this headline">#</a></h3>
+<p>This notebook will show how to use visualization for:</p>
+<ul class="simple">
+<li><p>Uplift Tree and Uplift Random Forest</p>
+<ul>
+<li><p>Visualize a trained uplift classification tree model</p></li>
+<li><p>Visualize an uplift tree in a trained uplift random forests</p></li>
+</ul>
+</li>
+<li><p>Training and Validation Data</p>
+<ul>
+<li><p>Visualize the validation tree: fill the trained uplift classification tree with validation (or testing) data, and show the statistics for both training data and validation data</p></li>
+</ul>
+</li>
+<li><p>One Treatment Group and Multiple Treatment Groups</p>
+<ul>
+<li><p>Visualize the case where there are one control group and one treatment group</p></li>
+<li><p>Visualize the case where there are one control group and multiple treatment groups</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="step-1-load-modules">
+<h2>Step 1 Load Modules<a class="headerlink" href="#step-1-load-modules" title="Permalink to this headline">#</a></h2>
+<section id="load-causalml-modules">
+<h3>Load CausalML modules<a class="headerlink" href="#load-causalml-modules" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">causalml.dataset</span> <span class="kn">import</span> <span class="n">make_uplift_classification</span>
+<span class="kn">from</span> <span class="nn">causalml.inference.tree</span> <span class="kn">import</span> <span class="n">UpliftTreeClassifier</span><span class="p">,</span> <span class="n">UpliftRandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">causalml.inference.tree</span> <span class="kn">import</span> <span class="n">uplift_tree_string</span><span class="p">,</span> <span class="n">uplift_tree_plot</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-standard-modules">
+<h3>Load standard modules<a class="headerlink" href="#load-standard-modules" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="one-control-one-treatment-for-uplift-classification-tree">
+<h2>One Control + One Treatment for Uplift Classification Tree<a class="headerlink" href="#one-control-one-treatment-for-uplift-classification-tree" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data generation</span>
+<span class="n">df</span><span class="p">,</span> <span class="n">x_names</span> <span class="o">=</span> <span class="n">make_uplift_classification</span><span class="p">()</span>
+
+<span class="c1"># Rename features for easy interpretation of visualization</span>
+<span class="n">x_names_new</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;feature_</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_names</span><span class="p">))]</span>
+<span class="n">rename_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">x_names</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">x_names_new</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_names</span><span class="p">))}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rename_dict</span><span class="p">)</span>
+<span class="n">x_names</span> <span class="o">=</span> <span class="n">x_names_new</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;control&#39;</span><span class="p">,</span><span class="s1">&#39;treatment1&#39;</span><span class="p">])]</span>
+
+<span class="c1"># Look at the conversion rate and sample size in each group</span>
+<span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;conversion&#39;</span><span class="p">,</span>
+               <span class="n">index</span><span class="o">=</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">,</span>
+               <span class="n">aggfunc</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">],</span>
+               <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>size</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>conversion</th>
+      <th>conversion</th>
+    </tr>
+    <tr>
+      <th>treatment_group_key</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>control</th>
+      <td>0.5110</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <th>treatment1</th>
+      <td>0.5140</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>0.5125</td>
+      <td>2000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data to training and testing samples for model validation (next section)</span>
+<span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="c1"># Train uplift tree</span>
+<span class="n">uplift_model</span> <span class="o">=</span> <span class="n">UpliftTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">min_samples_leaf</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">min_samples_treatment</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">n_reg</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">evaluationFunction</span><span class="o">=</span><span class="s1">&#39;KL&#39;</span><span class="p">,</span> <span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+
+<span class="n">uplift_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="n">x_names</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">treatment</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;conversion&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print uplift tree as a string</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">uplift_tree_string</span><span class="p">(</span><span class="n">uplift_model</span><span class="o">.</span><span class="n">fitted_uplift_tree</span><span class="p">,</span> <span class="n">x_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>feature_17 &gt;= -0.44234212654232735?
+yes -&gt; feature_10 &gt;= 1.020659213325515?
+		yes -&gt; [0.3813559322033898, 0.6065573770491803]
+		no  -&gt; [0.5078125, 0.5267857142857143]
+no  -&gt; feature_9 &gt;= 0.8142773340486678?
+		yes -&gt; [0.4596774193548387, 0.61]
+		no  -&gt; feature_4 &gt;= 0.280545459525536?
+				yes -&gt; [0.5522875816993464, 0.4143302180685358]
+				no  -&gt; [0.5070422535211268, 0.5748031496062992]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="read-the-tree">
+<h3>Read the tree<a class="headerlink" href="#read-the-tree" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>First line: node split condition</p></li>
+<li><p>impurity: the value for the loss function</p></li>
+<li><p>total_sample: total sample size in this node</p></li>
+<li><p>group_sample: sample size by treatment group</p></li>
+<li><p>uplift score: the treatment effect between treatment and control (when there are multiple treatment groups, this is the maximum of the treatment effects)</p></li>
+<li><p>uplift p_value: the p_value for the treatment effect</p></li>
+<li><p>validation uplift score: when validation data is filled in the tree, this reflects the uplift score based on the - validation data. It can be compared with the uplift score (for training data) to check if there are over-fitting issue.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot uplift tree</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">uplift_tree_plot</span><span class="p">(</span><span class="n">uplift_model</span><span class="o">.</span><span class="n">fitted_uplift_tree</span><span class="p">,</span><span class="n">x_names</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">create_png</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/uplift_tree_visualization_12_0.png" src="../../_images/uplift_tree_visualization_12_0.png" />
+</div>
+</div>
+</section>
+<section id="visualize-validation-tree-one-control-one-treatment-for-uplift-classification-tree">
+<h3>Visualize Validation Tree: One Control + One Treatment for Uplift Classification Tree<a class="headerlink" href="#visualize-validation-tree-one-control-one-treatment-for-uplift-classification-tree" title="Permalink to this headline">#</a></h3>
+<p>Note the validation uplift score will update.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Fill the trained tree with testing data set </span>
+<span class="c1"># The uplift score based on testing dataset is shown as validation uplift score in the tree nodes</span>
+<span class="n">uplift_model</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">df_test</span><span class="p">[</span><span class="n">x_names</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">treatment</span><span class="o">=</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;conversion&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c1"># Plot uplift tree</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">uplift_tree_plot</span><span class="p">(</span><span class="n">uplift_model</span><span class="o">.</span><span class="n">fitted_uplift_tree</span><span class="p">,</span><span class="n">x_names</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">create_png</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/uplift_tree_visualization_14_0.png" src="../../_images/uplift_tree_visualization_14_0.png" />
+</div>
+</div>
+</section>
+<section id="visualize-a-tree-in-random-forest">
+<h3>Visualize a Tree in Random Forest<a class="headerlink" href="#visualize-a-tree-in-random-forest" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data to training and testing samples for model validation (next section)</span>
+<span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="c1"># Train uplift tree</span>
+<span class="n">uplift_model</span> <span class="o">=</span> <span class="n">UpliftRandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_depth</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">min_samples_leaf</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">min_samples_treatment</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">n_reg</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">evaluationFunction</span><span class="o">=</span><span class="s1">&#39;KL&#39;</span><span class="p">,</span> <span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+
+<span class="n">uplift_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="n">x_names</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">treatment</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;conversion&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify a tree in the random forest (the index can be any integer from 0 to n_estimators-1)</span>
+<span class="n">uplift_tree</span> <span class="o">=</span> <span class="n">uplift_model</span><span class="o">.</span><span class="n">uplift_forest</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># Print uplift tree as a string</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">uplift_tree_string</span><span class="p">(</span><span class="n">uplift_tree</span><span class="o">.</span><span class="n">fitted_uplift_tree</span><span class="p">,</span> <span class="n">x_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>feature_0 &gt;= -0.44907381030867755?
+yes -&gt; feature_6 &gt;= -0.0583060585067711?
+		yes -&gt; feature_9 &gt;= 0.03401322870693866?
+				yes -&gt; [0.4774193548387097, 0.5396825396825397]
+				no  -&gt; [0.34615384615384615, 0.6129032258064516]
+		no  -&gt; feature_12 &gt;= 0.4863045964698285?
+				yes -&gt; [0.48299319727891155, 0.5714285714285714]
+				no  -&gt; [0.582089552238806, 0.4452054794520548]
+no  -&gt; feature_10 &gt;= 1.0043523431178796?
+		yes -&gt; [0.4807692307692308, 0.35766423357664234]
+		no  -&gt; [0.5229357798165137, 0.5426356589147286]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot uplift tree</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">uplift_tree_plot</span><span class="p">(</span><span class="n">uplift_tree</span><span class="o">.</span><span class="n">fitted_uplift_tree</span><span class="p">,</span><span class="n">x_names</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">create_png</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/uplift_tree_visualization_18_0.png" src="../../_images/uplift_tree_visualization_18_0.png" />
+</div>
+</div>
+<section id="fill-the-tree-with-validation-data">
+<h4>Fill the tree with validation data<a class="headerlink" href="#fill-the-tree-with-validation-data" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Fill the trained tree with testing data set </span>
+<span class="c1"># The uplift score based on testing dataset is shown as validation uplift score in the tree nodes</span>
+<span class="n">uplift_tree</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">df_test</span><span class="p">[</span><span class="n">x_names</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">treatment</span><span class="o">=</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;conversion&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c1"># Plot uplift tree</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">uplift_tree_plot</span><span class="p">(</span><span class="n">uplift_tree</span><span class="o">.</span><span class="n">fitted_uplift_tree</span><span class="p">,</span><span class="n">x_names</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">create_png</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/uplift_tree_visualization_20_0.png" src="../../_images/uplift_tree_visualization_20_0.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="one-control-multiple-treatments">
+<h2>One Control + Multiple Treatments<a class="headerlink" href="#one-control-multiple-treatments" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data generation</span>
+<span class="n">df</span><span class="p">,</span> <span class="n">x_names</span> <span class="o">=</span> <span class="n">make_uplift_classification</span><span class="p">()</span>
+<span class="c1"># Look at the conversion rate and sample size in each group</span>
+<span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;conversion&#39;</span><span class="p">,</span>
+               <span class="n">index</span><span class="o">=</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">,</span>
+               <span class="n">aggfunc</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">],</span>
+               <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>size</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>conversion</th>
+      <th>conversion</th>
+    </tr>
+    <tr>
+      <th>treatment_group_key</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>control</th>
+      <td>0.511</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <th>treatment1</th>
+      <td>0.514</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <th>treatment2</th>
+      <td>0.559</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <th>treatment3</th>
+      <td>0.600</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>0.546</td>
+      <td>4000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data to training and testing samples for model validation (next section)</span>
+<span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="c1"># Train uplift tree</span>
+<span class="n">uplift_model</span> <span class="o">=</span> <span class="n">UpliftTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">min_samples_leaf</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">min_samples_treatment</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">n_reg</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">evaluationFunction</span><span class="o">=</span><span class="s1">&#39;KL&#39;</span><span class="p">,</span> <span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+
+<span class="n">uplift_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="n">x_names</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">treatment</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;conversion&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot uplift tree</span>
+<span class="c1"># The uplift score represents the best uplift score among all treatment effects</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">uplift_tree_plot</span><span class="p">(</span><span class="n">uplift_model</span><span class="o">.</span><span class="n">fitted_uplift_tree</span><span class="p">,</span><span class="n">x_names</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">create_png</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/uplift_tree_visualization_24_0.png" src="../../_images/uplift_tree_visualization_24_0.png" />
+</div>
+</div>
+<section id="save-the-plot">
+<h3>Save the Plot<a class="headerlink" href="#save-the-plot" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the graph as pdf</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">write_pdf</span><span class="p">(</span><span class="s2">&quot;tbc.pdf&quot;</span><span class="p">)</span>
+<span class="c1"># Save the graph as png</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">write_png</span><span class="p">(</span><span class="s2">&quot;tbc.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "d2cml-ai/mgtecon634_python",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./causalml/examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Phd Susan Athey<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

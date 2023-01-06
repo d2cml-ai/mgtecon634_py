@@ -1,0 +1,1494 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>TMLE Example Notebook &#8212; MGTECON 634 at Stanford (Python scripts)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Machine Learning-Based Causal Inference
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Topics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/1_introduction_1.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/2_introduction_to_machine_learning.html">
+   2. Introduction to Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/3_average_treatment_effect_1.html">
+   3. ATE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/4_heterogeneous_treatment_effect_1.html">
+   4. HTE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/5_policy_evaluation_1.html">
+   5. Policy Evaluation I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/6_policy_learning_1.html">
+   6. Policy Learning I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/8_WGANs_for_simulation.html">
+   7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/9_surrogate_py.html">
+   8. The surrogate index Athey, S., et al. (2019).
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/causalml/examples/validation_with_tmle.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/causalml/examples/validation_with_tmle.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fcausalml/examples/validation_with_tmle.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/causalml/examples/validation_with_tmle.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/causalml/examples/validation_with_tmle.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generating-synthetic-data">
+   Generating Synthetic Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-individual-treatment-effect-ite-cate">
+   Calculating Individual Treatment Effect (ITE/CATE)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#validating-cate-without-tmle">
+   Validating CATE without TMLE
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-curve-with-ground-truth">
+     Uplift Curve With Ground Truth
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-curve-without-ground-truth">
+     Uplift Curve Without Ground Truth
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tmle">
+   TMLE
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-curve-with-tmle-as-ground-truth">
+     Uplift Curve with TMLE as Ground Truth
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#uplift-curve-wihtout-ci">
+       Uplift Curve wihtout CI
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#auuc-score">
+       AUUC Score
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#uplift-curve-with-ci">
+       Uplift Curve with CI
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#qini-curve-with-tmle-as-ground-truth">
+     Qini Curve with TMLE as Ground Truth
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#qini-curve-without-ci">
+       Qini Curve without CI
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#qini-score">
+       Qini Score
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#qini-curve-with-ci">
+       Qini Curve with CI
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>TMLE Example Notebook</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generating-synthetic-data">
+   Generating Synthetic Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-individual-treatment-effect-ite-cate">
+   Calculating Individual Treatment Effect (ITE/CATE)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#validating-cate-without-tmle">
+   Validating CATE without TMLE
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-curve-with-ground-truth">
+     Uplift Curve With Ground Truth
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-curve-without-ground-truth">
+     Uplift Curve Without Ground Truth
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tmle">
+   TMLE
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-curve-with-tmle-as-ground-truth">
+     Uplift Curve with TMLE as Ground Truth
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#uplift-curve-wihtout-ci">
+       Uplift Curve wihtout CI
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#auuc-score">
+       AUUC Score
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#uplift-curve-with-ci">
+       Uplift Curve with CI
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#qini-curve-with-tmle-as-ground-truth">
+     Qini Curve with TMLE as Ground Truth
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#qini-curve-without-ci">
+       Qini Curve without CI
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#qini-score">
+       Qini Score
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#qini-curve-with-ci">
+       Qini Curve with CI
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="tmle-example-notebook">
+<h1>TMLE Example Notebook<a class="headerlink" href="#tmle-example-notebook" title="Permalink to this headline">#</a></h1>
+<p>This notebook demonstrates the issue of using uplift curves without knowing true treatment effect and how to solve it by using TMLE as a proxy of the true treatment effect.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">reload_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;../&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">base_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">KFold</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">lightgbm</span> <span class="kn">import</span> <span class="n">LGBMRegressor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">causalml</span>
+
+<span class="kn">from</span> <span class="nn">causalml.dataset</span> <span class="kn">import</span> <span class="n">synthetic_data</span>
+<span class="kn">from</span> <span class="nn">causalml.inference.meta</span> <span class="kn">import</span> <span class="n">BaseXRegressor</span><span class="p">,</span> <span class="n">TMLELearner</span>
+<span class="kn">from</span> <span class="nn">causalml.metrics.visualize</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">causalml.propensity</span> <span class="kn">import</span> <span class="n">calibrate</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">causalml</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;causalml&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="generating-synthetic-data">
+<h2>Generating Synthetic Data<a class="headerlink" href="#generating-synthetic-data" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate synthetic data using mode 1</span>
+<span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">treatment</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="n">synthetic_data</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">5.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">e_train</span><span class="p">,</span> <span class="n">e_test</span><span class="p">,</span> <span class="n">treatment_train</span><span class="p">,</span> <span class="n">treatment_test</span><span class="p">,</span> <span class="n">tau_train</span><span class="p">,</span> <span class="n">tau_test</span><span class="p">,</span> <span class="n">b_train</span><span class="p">,</span> <span class="n">b_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">treatment</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculating-individual-treatment-effect-ite-cate">
+<h2>Calculating Individual Treatment Effect (ITE/CATE)<a class="headerlink" href="#calculating-individual-treatment-effect-ite-cate" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># X Learner</span>
+<span class="n">learner_x</span> <span class="o">=</span> <span class="n">BaseXRegressor</span><span class="p">(</span><span class="n">learner</span><span class="o">=</span><span class="n">LGBMRegressor</span><span class="p">())</span>
+<span class="n">learner_x</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">treatment</span><span class="o">=</span><span class="n">treatment_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+<span class="n">cate_x_test</span> <span class="o">=</span> <span class="n">learner_x</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">e_test</span><span class="p">,</span> <span class="n">treatment</span><span class="o">=</span><span class="n">treatment_test</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="n">bins</span><span class="o">=</span><span class="mi">30</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cate_x_test</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;X Learner&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">tau_test</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of CATE Predictions by X-Learner and Actual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Individual Treatment Effect (ITE/CATE)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;# of Samples&#39;</span><span class="p">)</span>
+<span class="n">_</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_12_0.png" src="../../_images/validation_with_tmle_12_0.png" />
+</div>
+</div>
+</section>
+<section id="validating-cate-without-tmle">
+<h2>Validating CATE without TMLE<a class="headerlink" href="#validating-cate-without-tmle" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="n">treatment_test</span><span class="p">,</span> <span class="s1">&#39;tau&#39;</span><span class="p">:</span> <span class="n">tau_test</span><span class="p">,</span> <span class="s1">&#39;X-Learner&#39;</span><span class="p">:</span> <span class="n">cate_x_test</span><span class="p">,</span> <span class="s1">&#39;Actual&#39;</span><span class="p">:</span> <span class="n">tau_test</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="uplift-curve-with-ground-truth">
+<h3>Uplift Curve With Ground Truth<a class="headerlink" href="#uplift-curve-with-ground-truth" title="Permalink to this headline">#</a></h3>
+<p>If true treatment effect is known as in simulations, the uplift curve of a model uses the cumulative sum of the treatment effect sorted by model’s CATE estimate.</p>
+<p>In the figure below, the uplift curve of X-learner shows positive lift close to the optimal lift by the ground truth.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">treatment_effect_col</span><span class="o">=</span><span class="s1">&#39;tau&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_17_0.png" src="../../_images/validation_with_tmle_17_0.png" />
+</div>
+</div>
+</section>
+<section id="uplift-curve-without-ground-truth">
+<h3>Uplift Curve Without Ground Truth<a class="headerlink" href="#uplift-curve-without-ground-truth" title="Permalink to this headline">#</a></h3>
+<p>If true treatment effect is unknown as in practice, the uplift curve of a model uses the cumulative mean difference of outcome in the treatment and control group sorted by model’s CATE estimate.</p>
+<p>In the figure below, the uplift curves of X-learner as well as the ground truth show no lift incorrectly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_20_0.png" src="../../_images/validation_with_tmle_20_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="tmle">
+<h2>TMLE<a class="headerlink" href="#tmle" title="Permalink to this headline">#</a></h2>
+<section id="uplift-curve-with-tmle-as-ground-truth">
+<h3>Uplift Curve with TMLE as Ground Truth<a class="headerlink" href="#uplift-curve-with-tmle-as-ground-truth" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_fold</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_fold</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="n">treatment_test</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">e_test</span><span class="p">,</span> <span class="s1">&#39;X-Learner&#39;</span><span class="p">:</span> <span class="n">cate_x_test</span><span class="p">,</span> <span class="s1">&#39;Actual&#39;</span><span class="p">:</span> <span class="n">tau_test</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inference_cols</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;col_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">inference_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>y</th>
+      <th>w</th>
+      <th>p</th>
+      <th>X-Learner</th>
+      <th>Actual</th>
+      <th>col_0</th>
+      <th>col_1</th>
+      <th>col_2</th>
+      <th>col_3</th>
+      <th>col_4</th>
+      <th>col_5</th>
+      <th>col_6</th>
+      <th>col_7</th>
+      <th>col_8</th>
+      <th>col_9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6.808806</td>
+      <td>1</td>
+      <td>0.750090</td>
+      <td>0.909261</td>
+      <td>0.856218</td>
+      <td>0.911884</td>
+      <td>0.800551</td>
+      <td>0.637318</td>
+      <td>0.584033</td>
+      <td>0.041204</td>
+      <td>0.541312</td>
+      <td>0.183795</td>
+      <td>0.604942</td>
+      <td>0.802967</td>
+      <td>0.321925</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5.074509</td>
+      <td>1</td>
+      <td>0.828351</td>
+      <td>0.696708</td>
+      <td>0.613880</td>
+      <td>0.871032</td>
+      <td>0.356727</td>
+      <td>0.168573</td>
+      <td>0.291071</td>
+      <td>0.953692</td>
+      <td>0.838566</td>
+      <td>0.497353</td>
+      <td>0.777390</td>
+      <td>0.811558</td>
+      <td>0.076717</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-8.293643</td>
+      <td>0</td>
+      <td>0.230920</td>
+      <td>0.456776</td>
+      <td>0.335491</td>
+      <td>0.531401</td>
+      <td>0.139581</td>
+      <td>0.604482</td>
+      <td>0.051055</td>
+      <td>0.651872</td>
+      <td>0.878593</td>
+      <td>0.592694</td>
+      <td>0.695946</td>
+      <td>0.972597</td>
+      <td>0.178291</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.511347</td>
+      <td>0</td>
+      <td>0.306119</td>
+      <td>0.189546</td>
+      <td>0.388202</td>
+      <td>0.615514</td>
+      <td>0.160891</td>
+      <td>0.825520</td>
+      <td>0.544876</td>
+      <td>0.107617</td>
+      <td>0.746920</td>
+      <td>0.002706</td>
+      <td>0.963717</td>
+      <td>0.603323</td>
+      <td>0.506294</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.418169</td>
+      <td>0</td>
+      <td>0.293402</td>
+      <td>0.299151</td>
+      <td>0.476290</td>
+      <td>0.839696</td>
+      <td>0.112883</td>
+      <td>0.964546</td>
+      <td>0.336093</td>
+      <td>0.548355</td>
+      <td>0.649487</td>
+      <td>0.905765</td>
+      <td>0.249261</td>
+      <td>0.070978</td>
+      <td>0.947820</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmle_df</span> <span class="o">=</span> <span class="n">get_tmlegain</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+                       <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmle_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X-Learner</th>
+      <th>Actual</th>
+      <th>Random</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>0.2</th>
+      <td>0.137463</td>
+      <td>0.150106</td>
+      <td>0.095493</td>
+    </tr>
+    <tr>
+      <th>0.4</th>
+      <td>0.254839</td>
+      <td>0.267014</td>
+      <td>0.190986</td>
+    </tr>
+    <tr>
+      <th>0.6</th>
+      <td>0.346940</td>
+      <td>0.359990</td>
+      <td>0.286479</td>
+    </tr>
+    <tr>
+      <th>0.8</th>
+      <td>0.434913</td>
+      <td>0.447867</td>
+      <td>0.381972</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>0.477465</td>
+      <td>0.477465</td>
+      <td>0.477465</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="uplift-curve-wihtout-ci">
+<h4>Uplift Curve wihtout CI<a class="headerlink" href="#uplift-curve-wihtout-ci" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_tmlegain</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+              <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_32_0.png" src="../../_images/validation_with_tmle_32_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="n">tmle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+     <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_34_0.png" src="../../_images/validation_with_tmle_34_0.png" />
+</div>
+</div>
+</section>
+<section id="auuc-score">
+<h4>AUUC Score<a class="headerlink" href="#auuc-score" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">auuc_score</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tmle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+           <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>X-Learner    0.275270
+Actual       0.283740
+Random       0.238733
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="uplift-curve-with-ci">
+<h4>Uplift Curve with CI<a class="headerlink" href="#uplift-curve-with-ci" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmle_df</span> <span class="o">=</span> <span class="n">get_tmlegain</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+                       <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmle_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X-Learner</th>
+      <th>Actual</th>
+      <th>X-Learner LB</th>
+      <th>Actual LB</th>
+      <th>X-Learner UB</th>
+      <th>Actual UB</th>
+      <th>Random</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>0.2</th>
+      <td>0.145151</td>
+      <td>0.146628</td>
+      <td>0.127016</td>
+      <td>0.127210</td>
+      <td>0.163285</td>
+      <td>0.166046</td>
+      <td>0.096077</td>
+    </tr>
+    <tr>
+      <th>0.4</th>
+      <td>0.252563</td>
+      <td>0.255667</td>
+      <td>0.216629</td>
+      <td>0.218323</td>
+      <td>0.288496</td>
+      <td>0.293011</td>
+      <td>0.192154</td>
+    </tr>
+    <tr>
+      <th>0.6</th>
+      <td>0.352174</td>
+      <td>0.364541</td>
+      <td>0.300866</td>
+      <td>0.313233</td>
+      <td>0.403483</td>
+      <td>0.415850</td>
+      <td>0.288231</td>
+    </tr>
+    <tr>
+      <th>0.8</th>
+      <td>0.433351</td>
+      <td>0.446890</td>
+      <td>0.366285</td>
+      <td>0.380624</td>
+      <td>0.500417</td>
+      <td>0.513157</td>
+      <td>0.384308</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>0.480384</td>
+      <td>0.480384</td>
+      <td>0.441999</td>
+      <td>0.441999</td>
+      <td>0.518770</td>
+      <td>0.518770</td>
+      <td>0.480384</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_tmlegain</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+              <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_40_0.png" src="../../_images/validation_with_tmle_40_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="n">tmle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+     <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_41_0.png" src="../../_images/validation_with_tmle_41_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="qini-curve-with-tmle-as-ground-truth">
+<h3>Qini Curve with TMLE as Ground Truth<a class="headerlink" href="#qini-curve-with-tmle-as-ground-truth" title="Permalink to this headline">#</a></h3>
+<section id="qini-curve-without-ci">
+<h4>Qini Curve without CI<a class="headerlink" href="#qini-curve-without-ci" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qini</span> <span class="o">=</span> <span class="n">get_tmleqini</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+                    <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qini</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X-Learner</th>
+      <th>Actual</th>
+      <th>Random</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>100000.0</th>
+      <td>53513.373815</td>
+      <td>59840.329296</td>
+      <td>24964.329463</td>
+    </tr>
+    <tr>
+      <th>200000.0</th>
+      <td>92693.576894</td>
+      <td>104578.508000</td>
+      <td>49928.658925</td>
+    </tr>
+    <tr>
+      <th>300000.0</th>
+      <td>121232.782373</td>
+      <td>132653.427128</td>
+      <td>74892.988388</td>
+    </tr>
+    <tr>
+      <th>400000.0</th>
+      <td>136045.083604</td>
+      <td>145388.277994</td>
+      <td>99857.317851</td>
+    </tr>
+    <tr>
+      <th>500000.0</th>
+      <td>124821.647313</td>
+      <td>124821.647313</td>
+      <td>124821.647313</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_tmleqini</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+              <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_46_0.png" src="../../_images/validation_with_tmle_46_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;qini&#39;</span><span class="p">,</span> <span class="n">tmle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+     <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_48_0.png" src="../../_images/validation_with_tmle_48_0.png" />
+</div>
+</div>
+</section>
+<section id="qini-score">
+<h4>Qini Score<a class="headerlink" href="#qini-score" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qini_score</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tmle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+           <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>X-Learner    23814.998608
+Actual       33683.500462
+Random           0.000000
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="qini-curve-with-ci">
+<h4>Qini Curve with CI<a class="headerlink" href="#qini-curve-with-ci" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qini</span> <span class="o">=</span> <span class="n">get_tmleqini</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+                    <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qini</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X-Learner</th>
+      <th>Actual</th>
+      <th>X-Learner LB</th>
+      <th>Actual LB</th>
+      <th>X-Learner UB</th>
+      <th>Actual UB</th>
+      <th>Random</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>100000.0</th>
+      <td>53513.373815</td>
+      <td>59840.329296</td>
+      <td>46827.611036</td>
+      <td>51915.622165</td>
+      <td>60199.136594</td>
+      <td>67765.036427</td>
+      <td>24964.329463</td>
+    </tr>
+    <tr>
+      <th>200000.0</th>
+      <td>92693.576894</td>
+      <td>104578.508000</td>
+      <td>79515.426034</td>
+      <td>89298.783725</td>
+      <td>105871.727753</td>
+      <td>119858.232275</td>
+      <td>49928.658925</td>
+    </tr>
+    <tr>
+      <th>300000.0</th>
+      <td>121232.782373</td>
+      <td>132653.427128</td>
+      <td>103649.630931</td>
+      <td>113772.913012</td>
+      <td>138815.933816</td>
+      <td>151533.941243</td>
+      <td>74892.988388</td>
+    </tr>
+    <tr>
+      <th>400000.0</th>
+      <td>136045.083604</td>
+      <td>145388.277994</td>
+      <td>115586.643138</td>
+      <td>124194.530581</td>
+      <td>156503.524070</td>
+      <td>166582.025407</td>
+      <td>99857.317851</td>
+    </tr>
+    <tr>
+      <th>500000.0</th>
+      <td>124821.647313</td>
+      <td>124821.647313</td>
+      <td>124821.647313</td>
+      <td>124821.647313</td>
+      <td>124821.647313</td>
+      <td>124821.647313</td>
+      <td>124821.647313</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_tmleqini</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+              <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_54_0.png" src="../../_images/validation_with_tmle_54_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;qini&#39;</span><span class="p">,</span> <span class="n">tmle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inference_col</span><span class="o">=</span><span class="n">inference_cols</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+     <span class="n">n_segment</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">calibrate_propensity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/validation_with_tmle_55_0.png" src="../../_images/validation_with_tmle_55_0.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "d2cml-ai/mgtecon634_python",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./causalml/examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Phd Susan Athey<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

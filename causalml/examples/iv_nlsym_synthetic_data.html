@@ -1,0 +1,1256 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>2SLS Estimation Examples &#8212; MGTECON 634 at Stanford (Python scripts)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Machine Learning-Based Causal Inference
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Topics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/1_introduction_1.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/2_introduction_to_machine_learning.html">
+   2. Introduction to Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/3_average_treatment_effect_1.html">
+   3. ATE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/4_heterogeneous_treatment_effect_1.html">
+   4. HTE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/5_policy_evaluation_1.html">
+   5. Policy Evaluation I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/6_policy_learning_1.html">
+   6. Policy Learning I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/8_WGANs_for_simulation.html">
+   7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/9_surrogate_py.html">
+   8. The surrogate index Athey, S., et al. (2019).
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/causalml/examples/iv_nlsym_synthetic_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/causalml/examples/iv_nlsym_synthetic_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fcausalml/examples/iv_nlsym_synthetic_data.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/causalml/examples/iv_nlsym_synthetic_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/causalml/examples/iv_nlsym_synthetic_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semi-synthetic-data-from-nlsym">
+   Semi-Synthetic Data from NLSYM
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-loading">
+     Data Loading
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#semi-synthetic-data-generation">
+     Semi-Synthetic Data Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#estimation">
+     Estimation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pure-synthetic-data">
+   Pure Synthetic Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-generation">
+     Data Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Estimation
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>2SLS Estimation Examples</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semi-synthetic-data-from-nlsym">
+   Semi-Synthetic Data from NLSYM
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-loading">
+     Data Loading
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#semi-synthetic-data-generation">
+     Semi-Synthetic Data Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#estimation">
+     Estimation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pure-synthetic-data">
+   Pure Synthetic Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-generation">
+     Data Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Estimation
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="sls-estimation-examples">
+<h1>2SLS Estimation Examples<a class="headerlink" href="#sls-estimation-examples" title="Permalink to this headline">#</a></h1>
+<p>We demonstrate the use of 2SLS from the package to estimate the average treatment effect by semi-synthetic data and full synthetic data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">reload_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;../&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">base_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">causalml</span>
+<span class="kn">from</span> <span class="nn">causalml.inference.iv</span> <span class="kn">import</span> <span class="n">IVRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="semi-synthetic-data-from-nlsym">
+<h2>Semi-Synthetic Data from NLSYM<a class="headerlink" href="#semi-synthetic-data-from-nlsym" title="Permalink to this headline">#</a></h2>
+<p>The data generation mechanism is described in Syrgkanis et al “<em>Machine Learning Estimation of Heterogeneous Treatment Effects with Instruments</em>” (2019).</p>
+<section id="data-loading">
+<h3>Data Loading<a class="headerlink" href="#data-loading" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;examples/data/card.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>nearc2</th>
+      <th>nearc4</th>
+      <th>educ</th>
+      <th>age</th>
+      <th>fatheduc</th>
+      <th>motheduc</th>
+      <th>weight</th>
+      <th>momdad14</th>
+      <th>sinmom14</th>
+      <th>...</th>
+      <th>smsa66</th>
+      <th>wage</th>
+      <th>enroll</th>
+      <th>kww</th>
+      <th>iq</th>
+      <th>married</th>
+      <th>libcrd14</th>
+      <th>exper</th>
+      <th>lwage</th>
+      <th>expersq</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7</td>
+      <td>29</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>158413</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>548</td>
+      <td>0</td>
+      <td>15.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>16</td>
+      <td>6.306275</td>
+      <td>256</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>12</td>
+      <td>27</td>
+      <td>8.0</td>
+      <td>8.0</td>
+      <td>380166</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>481</td>
+      <td>0</td>
+      <td>35.0</td>
+      <td>93.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>9</td>
+      <td>6.175867</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>12</td>
+      <td>34</td>
+      <td>14.0</td>
+      <td>12.0</td>
+      <td>367470</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>721</td>
+      <td>0</td>
+      <td>42.0</td>
+      <td>103.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>16</td>
+      <td>6.580639</td>
+      <td>256</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>1</td>
+      <td>1</td>
+      <td>11</td>
+      <td>27</td>
+      <td>11.0</td>
+      <td>12.0</td>
+      <td>380166</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>250</td>
+      <td>0</td>
+      <td>25.0</td>
+      <td>88.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>10</td>
+      <td>5.521461</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>1</td>
+      <td>1</td>
+      <td>12</td>
+      <td>34</td>
+      <td>8.0</td>
+      <td>7.0</td>
+      <td>367470</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>729</td>
+      <td>0</td>
+      <td>34.0</td>
+      <td>108.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>16</td>
+      <td>6.591674</td>
+      <td>256</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 34 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;id&#39;, &#39;nearc2&#39;, &#39;nearc4&#39;, &#39;educ&#39;, &#39;age&#39;, &#39;fatheduc&#39;, &#39;motheduc&#39;,
+       &#39;weight&#39;, &#39;momdad14&#39;, &#39;sinmom14&#39;, &#39;step14&#39;, &#39;reg661&#39;, &#39;reg662&#39;,
+       &#39;reg663&#39;, &#39;reg664&#39;, &#39;reg665&#39;, &#39;reg666&#39;, &#39;reg667&#39;, &#39;reg668&#39;,
+       &#39;reg669&#39;, &#39;south66&#39;, &#39;black&#39;, &#39;smsa&#39;, &#39;south&#39;, &#39;smsa66&#39;, &#39;wage&#39;,
+       &#39;enroll&#39;, &#39;kww&#39;, &#39;iq&#39;, &#39;married&#39;, &#39;libcrd14&#39;, &#39;exper&#39;, &#39;lwage&#39;,
+       &#39;expersq&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_filter</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;educ&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">6</span>
+<span class="c1"># outcome variable</span>
+<span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">data_filter</span><span class="p">][</span><span class="s1">&#39;lwage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># treatment variable</span>
+<span class="n">treatment</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">data_filter</span><span class="p">][</span><span class="s1">&#39;educ&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># instrumental variable</span>
+<span class="n">w</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">data_filter</span><span class="p">][</span><span class="s1">&#39;nearc4&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">Xdf</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">data_filter</span><span class="p">][[</span><span class="s1">&#39;fatheduc&#39;</span><span class="p">,</span> <span class="s1">&#39;motheduc&#39;</span><span class="p">,</span> <span class="s1">&#39;momdad14&#39;</span><span class="p">,</span> <span class="s1">&#39;sinmom14&#39;</span><span class="p">,</span> <span class="s1">&#39;reg661&#39;</span><span class="p">,</span> <span class="s1">&#39;reg662&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;reg663&#39;</span><span class="p">,</span> <span class="s1">&#39;reg664&#39;</span><span class="p">,</span> <span class="s1">&#39;reg665&#39;</span><span class="p">,</span> <span class="s1">&#39;reg666&#39;</span><span class="p">,</span> <span class="s1">&#39;reg667&#39;</span><span class="p">,</span> <span class="s1">&#39;reg668&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;reg669&#39;</span><span class="p">,</span> <span class="s1">&#39;south66&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;smsa&#39;</span><span class="p">,</span> <span class="s1">&#39;south&#39;</span><span class="p">,</span> <span class="s1">&#39;smsa66&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;exper&#39;</span><span class="p">,</span> <span class="s1">&#39;expersq&#39;</span><span class="p">]]</span>
+<span class="n">Xdf</span><span class="p">[</span><span class="s1">&#39;fatheduc&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">Xdf</span><span class="p">[</span><span class="s1">&#39;fatheduc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">Xdf</span><span class="p">[</span><span class="s1">&#39;fatheduc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">Xdf</span><span class="p">[</span><span class="s1">&#39;motheduc&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">Xdf</span><span class="p">[</span><span class="s1">&#39;motheduc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">Xdf</span><span class="p">[</span><span class="s1">&#39;motheduc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">Xscale</span><span class="o">=</span><span class="n">Xdf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">Xscale</span><span class="p">[[</span><span class="s1">&#39;fatheduc&#39;</span><span class="p">,</span> <span class="s1">&#39;motheduc&#39;</span><span class="p">,</span> <span class="s1">&#39;exper&#39;</span><span class="p">,</span> <span class="s1">&#39;expersq&#39;</span><span class="p">]]</span><span class="o">=</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">Xscale</span><span class="p">[[</span><span class="s1">&#39;fatheduc&#39;</span><span class="p">,</span> <span class="s1">&#39;motheduc&#39;</span><span class="p">,</span> <span class="s1">&#39;exper&#39;</span><span class="p">,</span> <span class="s1">&#39;expersq&#39;</span><span class="p">]])</span>
+<span class="n">X</span><span class="o">=</span><span class="n">Xscale</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xscale</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fatheduc</th>
+      <th>motheduc</th>
+      <th>momdad14</th>
+      <th>sinmom14</th>
+      <th>reg661</th>
+      <th>reg662</th>
+      <th>reg663</th>
+      <th>reg664</th>
+      <th>reg665</th>
+      <th>reg666</th>
+      <th>reg667</th>
+      <th>reg668</th>
+      <th>reg669</th>
+      <th>south66</th>
+      <th>black</th>
+      <th>smsa</th>
+      <th>south</th>
+      <th>smsa66</th>
+      <th>exper</th>
+      <th>expersq</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>2.991000e+03</td>
+      <td>2.991000e+03</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2991.000000</td>
+      <td>2.991000e+03</td>
+      <td>2.991000e+03</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>-3.529069e-16</td>
+      <td>-1.704346e-15</td>
+      <td>0.790371</td>
+      <td>0.100301</td>
+      <td>0.046807</td>
+      <td>0.161484</td>
+      <td>0.196924</td>
+      <td>0.064527</td>
+      <td>0.205951</td>
+      <td>0.094952</td>
+      <td>0.109997</td>
+      <td>0.028419</td>
+      <td>0.090939</td>
+      <td>0.410899</td>
+      <td>0.231361</td>
+      <td>0.715145</td>
+      <td>0.400201</td>
+      <td>0.651622</td>
+      <td>4.285921e-16</td>
+      <td>3.040029e-17</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.000167e+00</td>
+      <td>1.000167e+00</td>
+      <td>0.407112</td>
+      <td>0.300451</td>
+      <td>0.211261</td>
+      <td>0.368039</td>
+      <td>0.397741</td>
+      <td>0.245730</td>
+      <td>0.404463</td>
+      <td>0.293197</td>
+      <td>0.312938</td>
+      <td>0.166193</td>
+      <td>0.287571</td>
+      <td>0.492079</td>
+      <td>0.421773</td>
+      <td>0.451421</td>
+      <td>0.490021</td>
+      <td>0.476536</td>
+      <td>1.000167e+00</td>
+      <td>1.000167e+00</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>-3.101056e+00</td>
+      <td>-3.502453e+00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-2.159127e+00</td>
+      <td>-1.147691e+00</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>-6.303764e-01</td>
+      <td>-4.656485e-01</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-6.858865e-01</td>
+      <td>-7.077287e-01</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000e+00</td>
+      <td>2.091970e-01</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>-1.948066e-01</td>
+      <td>-3.655360e-01</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>6.049634e-01</td>
+      <td>5.466197e-01</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>5.418134e-01</td>
+      <td>3.310707e-01</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>2.457973e+00</td>
+      <td>2.571156e+00</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>3.242753e+00</td>
+      <td>4.767355e+00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="semi-synthetic-data-generation">
+<h3>Semi-Synthetic Data Generation<a class="headerlink" href="#semi-synthetic-data-generation" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">semi_synth_nlsym</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
+    <span class="n">nobs</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">nv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">nobs</span><span class="p">)</span>
+    <span class="n">c0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">c0</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># Treatment compliance depends on mother education</span>
+    <span class="n">treatment</span> <span class="o">=</span> <span class="n">C</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">nv</span>
+    <span class="c1"># Treatment effect depends no mother education and single-mom family at age 14</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">X</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="c1"># Additional effect on the outcome from mother education</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">*</span> <span class="p">(</span><span class="n">treatment</span> <span class="o">+</span> <span class="n">nv</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">nobs</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">y</span><span class="p">,</span> <span class="n">treatment</span><span class="p">,</span> <span class="n">theta</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_sim</span><span class="p">,</span> <span class="n">treatment_sim</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">semi_synth_nlsym</span><span class="p">(</span><span class="n">Xdf</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="estimation">
+<h3>Estimation<a class="headerlink" href="#estimation" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># True value</span>
+<span class="n">theta</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6089706667314586
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2SLS estimate</span>
+<span class="n">iv_fit</span> <span class="o">=</span> <span class="n">IVRegressor</span><span class="p">()</span>
+<span class="n">iv_fit</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">treatment_sim</span><span class="p">,</span> <span class="n">y_sim</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="n">ate</span><span class="p">,</span> <span class="n">ate_sd</span> <span class="o">=</span> <span class="n">iv_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
+<span class="p">(</span><span class="n">ate</span><span class="p">,</span> <span class="n">ate_sd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.6611532131769402, 0.013922622951893662)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># OLS estimate</span>
+<span class="n">ols_fit</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_sim</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">treatment_sim</span><span class="p">,</span> <span class="n">X</span><span class="p">],</span> <span class="n">prepend</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="p">(</span><span class="n">ols_fit</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ols_fit</span><span class="o">.</span><span class="n">bse</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.7501211540497275, 0.012800163754977008)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pure-synthetic-data">
+<h2>Pure Synthetic Data<a class="headerlink" href="#pure-synthetic-data" title="Permalink to this headline">#</a></h2>
+<p>The data generation mechanism is described in Hong et al “<em>Semiparametric Efficiency in Nonlinear LATE Models</em>” (2010).</p>
+<section id="data-generation">
+<h3>Data Generation<a class="headerlink" href="#data-generation" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">synthetic_data</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
+    <span class="n">gamma0</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+    <span class="n">gamma1</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="p">(</span><span class="n">gamma0</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">gamma1</span> <span class="o">+</span> <span class="n">delta</span> <span class="o">+</span> <span class="n">v</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">d0</span> <span class="o">=</span> <span class="p">(</span><span class="n">gamma0</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">gamma1</span> <span class="o">+</span> <span class="n">v</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">lambda11</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">lambda00</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">xi1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">alpha</span><span class="o">+</span><span class="n">x</span><span class="o">*</span><span class="n">beta</span><span class="p">))</span>
+    <span class="n">xi2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">beta</span><span class="p">))</span>
+    <span class="n">xi3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lambda11</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">xi4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lambda00</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">xi1</span> <span class="o">+</span> <span class="n">xi3</span> <span class="o">*</span> <span class="p">((</span><span class="n">d1</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d0</span><span class="o">==</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">xi4</span> <span class="o">*</span> <span class="p">((</span><span class="n">d1</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d0</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">xi2</span> <span class="o">+</span> <span class="n">xi3</span> <span class="o">*</span> <span class="p">((</span><span class="n">d1</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d0</span><span class="o">==</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">xi4</span> <span class="o">*</span> <span class="p">((</span><span class="n">d1</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d0</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span>
+    
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">d1</span><span class="o">*</span><span class="n">z</span> <span class="o">+</span> <span class="n">d0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y1</span><span class="o">*</span><span class="n">d</span> <span class="o">+</span> <span class="n">y0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">d</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">y1</span><span class="p">[(</span><span class="n">d1</span><span class="o">&gt;</span><span class="n">d0</span><span class="p">)]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">-</span><span class="n">y0</span><span class="p">[(</span><span class="n">d1</span><span class="o">&gt;</span><span class="n">d0</span><span class="p">)]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">late</span> <span class="o">=</span> <span class="n">synthetic_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Estimation<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># True value</span>
+<span class="n">late</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.1789099526066353
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2SLS estimate</span>
+<span class="n">iv_fit</span> <span class="o">=</span> <span class="n">IVRegressor</span><span class="p">()</span>
+<span class="n">iv_fit</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="n">ate</span><span class="p">,</span> <span class="n">ate_sd</span> <span class="o">=</span> <span class="n">iv_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
+<span class="p">(</span><span class="n">ate</span><span class="p">,</span> <span class="n">ate_sd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2.1900472390231775, 0.2623695460540134)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># OLS estimate</span>
+<span class="n">ols_fit</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span> <span class="n">prepend</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="p">(</span><span class="n">ols_fit</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ols_fit</span><span class="o">.</span><span class="n">bse</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5.3482879532439975, 0.09201397327077365)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "d2cml-ai/mgtecon634_python",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./causalml/examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Phd Susan Athey<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
