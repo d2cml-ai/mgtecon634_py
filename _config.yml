@@ -26,6 +26,7 @@ parse:
 execute:
   execute_notebooks: cache 
   timeout: 2400
+  stderr_output: remove-warm
   
 
 
