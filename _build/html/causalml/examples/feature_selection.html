@@ -1,0 +1,2186 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Feature Selection for Uplift Modeling &#8212; MGTECON 634 at Stanford (Python scripts)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Machine Learning-Based Causal Inference
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Topics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/1_introduction_1.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/2_introduction_to_machine_learning.html">
+   2. Introduction to Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/3_average_treatment_effect_1.html">
+   3. ATE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/4_heterogeneous_treatment_effect_1.html">
+   4. HTE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/5_policy_evaluation_1.html">
+   5. Policy Evaluation I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/6_policy_learning_1.html">
+   6. Policy Learning I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/8_WGANs_for_simulation.html">
+   7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/9_surrogate_py.html">
+   8. The surrogate index Athey, S., et al. (2019).
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/causalml/examples/feature_selection.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/causalml/examples/feature_selection.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fcausalml/examples/feature_selection.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/causalml/examples/feature_selection.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/causalml/examples/feature_selection.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-filterselect-class-for-filter-methods">
+   Import FilterSelect class for Filter methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generate-dataset">
+   Generate dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#feature-selection-with-filter-methods">
+   Feature selection with Filter methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#method-f-f-filter">
+     method = F (F Filter)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#method-lr-likelihood-ratio-test">
+     method = LR (likelihood ratio test)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#method-kl-kl-divergence">
+     method = KL (KL divergence)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performance-evaluation">
+   Performance evaluation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-randomforest-classfier">
+     Uplift RandomForest Classfier
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#select-top-n-features-based-on-kl-filter">
+     Select top N features based on KL filter
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#train-the-uplift-model-again-with-top-n-features">
+       Train the Uplift model again with top N features
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#print-results-for-uplift-model">
+     Print results for Uplift model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#r-learner-as-base-and-feed-in-random-forest-regressor">
+     R Learner as base and feed in Random Forest Regressor
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#print-results-for-r-learner">
+     Print results for R Learner
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#s-learner-as-base-and-feed-in-random-forest-regressor">
+     S Learner as base and feed in Random Forest Regressor
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#print-results-for-s-learner">
+     Print results for S Learner
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Feature Selection for Uplift Modeling</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-filterselect-class-for-filter-methods">
+   Import FilterSelect class for Filter methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generate-dataset">
+   Generate dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#feature-selection-with-filter-methods">
+   Feature selection with Filter methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#method-f-f-filter">
+     method = F (F Filter)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#method-lr-likelihood-ratio-test">
+     method = LR (likelihood ratio test)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#method-kl-kl-divergence">
+     method = KL (KL divergence)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performance-evaluation">
+   Performance evaluation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-randomforest-classfier">
+     Uplift RandomForest Classfier
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#select-top-n-features-based-on-kl-filter">
+     Select top N features based on KL filter
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#train-the-uplift-model-again-with-top-n-features">
+       Train the Uplift model again with top N features
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#print-results-for-uplift-model">
+     Print results for Uplift model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#r-learner-as-base-and-feed-in-random-forest-regressor">
+     R Learner as base and feed in Random Forest Regressor
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#print-results-for-r-learner">
+     Print results for R Learner
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#s-learner-as-base-and-feed-in-random-forest-regressor">
+     S Learner as base and feed in Random Forest Regressor
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#print-results-for-s-learner">
+     Print results for S Learner
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="feature-selection-for-uplift-modeling">
+<h1>Feature Selection for Uplift Modeling<a class="headerlink" href="#feature-selection-for-uplift-modeling" title="Permalink to this headline">#</a></h1>
+<p>This notebook includes two sections:</p>
+<ul class="simple">
+<li><p><strong>Feature selection</strong>: demonstrate how to use Filter methods to select the most important numeric features</p></li>
+<li><p><strong>Performance evaluation</strong>: evaluate the AUUC performance with top features dataset</p></li>
+</ul>
+<p><em>(Paper reference: <a class="reference external" href="https://arxiv.org/abs/2005.03447">Zhao, Zhenyu, et al. “Feature Selection Methods for Uplift Modeling.” arXiv preprint arXiv:2005.03447 (2020).</a>)</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">causalml.dataset</span> <span class="kn">import</span> <span class="n">make_uplift_classification</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="import-filterselect-class-for-filter-methods">
+<h2>Import FilterSelect class for Filter methods<a class="headerlink" href="#import-filterselect-class-for-filter-methods" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">causalml.feature_selection.filters</span> <span class="kn">import</span> <span class="n">FilterSelect</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">causalml.inference.tree</span> <span class="kn">import</span> <span class="n">UpliftRandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">causalml.inference.meta</span> <span class="kn">import</span> <span class="n">BaseXRegressor</span><span class="p">,</span> <span class="n">BaseRRegressor</span><span class="p">,</span> <span class="n">BaseSRegressor</span><span class="p">,</span> <span class="n">BaseTRegressor</span>
+<span class="kn">from</span> <span class="nn">causalml.metrics</span> <span class="kn">import</span> <span class="n">plot_gain</span><span class="p">,</span> <span class="n">auuc_score</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;causalml&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="generate-dataset">
+<h2>Generate dataset<a class="headerlink" href="#generate-dataset" title="Permalink to this headline">#</a></h2>
+<p>Generate synthetic data using the built-in function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define parameters for simulation</span>
+
+<span class="n">y_name</span> <span class="o">=</span> <span class="s1">&#39;conversion&#39;</span>
+<span class="n">treatment_group_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;control&#39;</span><span class="p">,</span> <span class="s1">&#39;treatment1&#39;</span><span class="p">]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">n_classification_features</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">n_classification_informative</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">n_classification_repeated</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">n_uplift_increase_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;treatment1&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">}</span>
+<span class="n">n_uplift_decrease_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;treatment1&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+<span class="n">delta_uplift_increase_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;treatment1&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}</span>
+<span class="n">delta_uplift_decrease_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;treatment1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">}</span>
+
+<span class="n">random_seed</span> <span class="o">=</span> <span class="mi">20200808</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">,</span> <span class="n">X_names</span> <span class="o">=</span> <span class="n">make_uplift_classification</span><span class="p">(</span>
+    <span class="n">treatment_name</span><span class="o">=</span><span class="n">treatment_group_keys</span><span class="p">,</span>
+    <span class="n">y_name</span><span class="o">=</span><span class="n">y_name</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>
+    <span class="n">n_classification_features</span><span class="o">=</span><span class="n">n_classification_features</span><span class="p">,</span>
+    <span class="n">n_classification_informative</span><span class="o">=</span><span class="n">n_classification_informative</span><span class="p">,</span>
+    <span class="n">n_classification_repeated</span><span class="o">=</span><span class="n">n_classification_repeated</span><span class="p">,</span>
+    <span class="n">n_uplift_increase_dict</span><span class="o">=</span><span class="n">n_uplift_increase_dict</span><span class="p">,</span>
+    <span class="n">n_uplift_decrease_dict</span><span class="o">=</span><span class="n">n_uplift_decrease_dict</span><span class="p">,</span>
+    <span class="n">delta_uplift_increase_dict</span> <span class="o">=</span> <span class="n">delta_uplift_increase_dict</span><span class="p">,</span> 
+    <span class="n">delta_uplift_decrease_dict</span> <span class="o">=</span> <span class="n">delta_uplift_decrease_dict</span><span class="p">,</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="n">random_seed</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:numexpr.utils:Note: NumExpr detected 12 cores but &quot;NUMEXPR_MAX_THREADS&quot; not set, so enforcing safe limit of 8.
+INFO:numexpr.utils:NumExpr defaulting to 8 threads.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>treatment_group_key</th>
+      <th>x1_informative</th>
+      <th>x2_informative</th>
+      <th>x3_informative</th>
+      <th>x4_informative</th>
+      <th>x5_informative</th>
+      <th>x6_informative</th>
+      <th>x7_informative</th>
+      <th>x8_informative</th>
+      <th>x9_informative</th>
+      <th>...</th>
+      <th>x56_uplift_increase</th>
+      <th>x57_uplift_increase</th>
+      <th>x58_uplift_increase</th>
+      <th>x59_increase_mix</th>
+      <th>x60_uplift_decrease</th>
+      <th>x61_uplift_decrease</th>
+      <th>x62_uplift_decrease</th>
+      <th>x63_uplift_decrease</th>
+      <th>conversion</th>
+      <th>treatment_effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>treatment1</td>
+      <td>-4.004496</td>
+      <td>-1.250351</td>
+      <td>-2.800557</td>
+      <td>-0.368288</td>
+      <td>-0.115549</td>
+      <td>-2.492826</td>
+      <td>0.369516</td>
+      <td>0.290526</td>
+      <td>0.465153</td>
+      <td>...</td>
+      <td>0.496144</td>
+      <td>1.847680</td>
+      <td>-0.337894</td>
+      <td>-0.672058</td>
+      <td>1.180352</td>
+      <td>0.778013</td>
+      <td>0.931000</td>
+      <td>2.947160</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>treatment1</td>
+      <td>-3.170028</td>
+      <td>-0.135293</td>
+      <td>1.484246</td>
+      <td>-2.131584</td>
+      <td>-0.760103</td>
+      <td>1.764765</td>
+      <td>0.972124</td>
+      <td>1.407131</td>
+      <td>-1.027603</td>
+      <td>...</td>
+      <td>0.574955</td>
+      <td>3.578138</td>
+      <td>0.678118</td>
+      <td>-0.545227</td>
+      <td>-0.143942</td>
+      <td>-0.015188</td>
+      <td>1.189643</td>
+      <td>1.943692</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>treatment1</td>
+      <td>-0.763386</td>
+      <td>-0.785612</td>
+      <td>1.218781</td>
+      <td>-0.725835</td>
+      <td>1.044489</td>
+      <td>-1.521071</td>
+      <td>-2.266684</td>
+      <td>-1.614818</td>
+      <td>-0.113647</td>
+      <td>...</td>
+      <td>0.985076</td>
+      <td>1.079181</td>
+      <td>0.578092</td>
+      <td>0.574370</td>
+      <td>-0.477429</td>
+      <td>0.679070</td>
+      <td>1.650897</td>
+      <td>2.768897</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>control</td>
+      <td>0.887727</td>
+      <td>0.049095</td>
+      <td>-2.242776</td>
+      <td>1.530966</td>
+      <td>0.392623</td>
+      <td>-0.203071</td>
+      <td>-0.549329</td>
+      <td>0.107296</td>
+      <td>-0.542277</td>
+      <td>...</td>
+      <td>-0.175352</td>
+      <td>0.683330</td>
+      <td>0.567545</td>
+      <td>0.349622</td>
+      <td>-0.789203</td>
+      <td>2.315184</td>
+      <td>0.658607</td>
+      <td>1.734836</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>control</td>
+      <td>-1.672922</td>
+      <td>-1.156145</td>
+      <td>3.871476</td>
+      <td>-1.883713</td>
+      <td>-0.220122</td>
+      <td>-4.615669</td>
+      <td>0.141980</td>
+      <td>-0.933756</td>
+      <td>-0.765592</td>
+      <td>...</td>
+      <td>0.485798</td>
+      <td>-0.355315</td>
+      <td>0.982488</td>
+      <td>-0.007260</td>
+      <td>2.895155</td>
+      <td>0.261848</td>
+      <td>-1.337001</td>
+      <td>-0.639983</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 66 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at the conversion rate and sample size in each group</span>
+<span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;conversion&#39;</span><span class="p">,</span>
+               <span class="n">index</span><span class="o">=</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">,</span>
+               <span class="n">aggfunc</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">],</span>
+               <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>size</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>conversion</th>
+      <th>conversion</th>
+    </tr>
+    <tr>
+      <th>treatment_group_key</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>control</th>
+      <td>0.50180</td>
+      <td>10000</td>
+    </tr>
+    <tr>
+      <th>treatment1</th>
+      <td>0.59750</td>
+      <td>10000</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>0.54965</td>
+      <td>20000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_names</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;x1_informative&#39;,
+ &#39;x2_informative&#39;,
+ &#39;x3_informative&#39;,
+ &#39;x4_informative&#39;,
+ &#39;x5_informative&#39;,
+ &#39;x6_informative&#39;,
+ &#39;x7_informative&#39;,
+ &#39;x8_informative&#39;,
+ &#39;x9_informative&#39;,
+ &#39;x10_informative&#39;,
+ &#39;x11_irrelevant&#39;,
+ &#39;x12_irrelevant&#39;,
+ &#39;x13_irrelevant&#39;,
+ &#39;x14_irrelevant&#39;,
+ &#39;x15_irrelevant&#39;,
+ &#39;x16_irrelevant&#39;,
+ &#39;x17_irrelevant&#39;,
+ &#39;x18_irrelevant&#39;,
+ &#39;x19_irrelevant&#39;,
+ &#39;x20_irrelevant&#39;,
+ &#39;x21_irrelevant&#39;,
+ &#39;x22_irrelevant&#39;,
+ &#39;x23_irrelevant&#39;,
+ &#39;x24_irrelevant&#39;,
+ &#39;x25_irrelevant&#39;,
+ &#39;x26_irrelevant&#39;,
+ &#39;x27_irrelevant&#39;,
+ &#39;x28_irrelevant&#39;,
+ &#39;x29_irrelevant&#39;,
+ &#39;x30_irrelevant&#39;,
+ &#39;x31_irrelevant&#39;,
+ &#39;x32_irrelevant&#39;,
+ &#39;x33_irrelevant&#39;,
+ &#39;x34_irrelevant&#39;,
+ &#39;x35_irrelevant&#39;,
+ &#39;x36_irrelevant&#39;,
+ &#39;x37_irrelevant&#39;,
+ &#39;x38_irrelevant&#39;,
+ &#39;x39_irrelevant&#39;,
+ &#39;x40_irrelevant&#39;,
+ &#39;x41_irrelevant&#39;,
+ &#39;x42_irrelevant&#39;,
+ &#39;x43_irrelevant&#39;,
+ &#39;x44_irrelevant&#39;,
+ &#39;x45_irrelevant&#39;,
+ &#39;x46_irrelevant&#39;,
+ &#39;x47_irrelevant&#39;,
+ &#39;x48_irrelevant&#39;,
+ &#39;x49_irrelevant&#39;,
+ &#39;x50_irrelevant&#39;,
+ &#39;x51_uplift_increase&#39;,
+ &#39;x52_uplift_increase&#39;,
+ &#39;x53_uplift_increase&#39;,
+ &#39;x54_uplift_increase&#39;,
+ &#39;x55_uplift_increase&#39;,
+ &#39;x56_uplift_increase&#39;,
+ &#39;x57_uplift_increase&#39;,
+ &#39;x58_uplift_increase&#39;,
+ &#39;x59_increase_mix&#39;,
+ &#39;x60_uplift_decrease&#39;,
+ &#39;x61_uplift_decrease&#39;,
+ &#39;x62_uplift_decrease&#39;,
+ &#39;x63_uplift_decrease&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="feature-selection-with-filter-methods">
+<h2>Feature selection with Filter methods<a class="headerlink" href="#feature-selection-with-filter-methods" title="Permalink to this headline">#</a></h2>
+<section id="method-f-f-filter">
+<h3>method = F (F Filter)<a class="headerlink" href="#method-f-f-filter" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filter_method</span> <span class="o">=</span> <span class="n">FilterSelect</span><span class="p">()</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># F Filter with order 1</span>
+<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+<span class="n">f_imp</span> <span class="o">=</span> <span class="n">filter_method</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X_names</span><span class="p">,</span> <span class="n">y_name</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> 
+                      <span class="n">treatment_group</span> <span class="o">=</span> <span class="s1">&#39;treatment1&#39;</span><span class="p">)</span>
+<span class="n">f_imp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>method</th>
+      <th>feature</th>
+      <th>rank</th>
+      <th>score</th>
+      <th>p_value</th>
+      <th>misc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x53_uplift_increase</td>
+      <td>1.0</td>
+      <td>190.321410</td>
+      <td>4.262512e-43</td>
+      <td>df_num: 1.0, df_denom: 19996.0, order:1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x57_uplift_increase</td>
+      <td>2.0</td>
+      <td>127.136380</td>
+      <td>2.127676e-29</td>
+      <td>df_num: 1.0, df_denom: 19996.0, order:1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x3_informative</td>
+      <td>3.0</td>
+      <td>66.273458</td>
+      <td>4.152970e-16</td>
+      <td>df_num: 1.0, df_denom: 19996.0, order:1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x4_informative</td>
+      <td>4.0</td>
+      <td>59.407590</td>
+      <td>1.341417e-14</td>
+      <td>df_num: 1.0, df_denom: 19996.0, order:1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x62_uplift_decrease</td>
+      <td>5.0</td>
+      <td>3.957507</td>
+      <td>4.667636e-02</td>
+      <td>df_num: 1.0, df_denom: 19996.0, order:1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># F Filter with order 2</span>
+<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+<span class="n">f_imp</span> <span class="o">=</span> <span class="n">filter_method</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X_names</span><span class="p">,</span> <span class="n">y_name</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> 
+                      <span class="n">treatment_group</span> <span class="o">=</span> <span class="s1">&#39;treatment1&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">f_imp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>method</th>
+      <th>feature</th>
+      <th>rank</th>
+      <th>score</th>
+      <th>p_value</th>
+      <th>misc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x53_uplift_increase</td>
+      <td>1.0</td>
+      <td>107.368286</td>
+      <td>4.160720e-47</td>
+      <td>df_num: 2.0, df_denom: 19994.0, order:2</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x57_uplift_increase</td>
+      <td>2.0</td>
+      <td>70.138050</td>
+      <td>4.423736e-31</td>
+      <td>df_num: 2.0, df_denom: 19994.0, order:2</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x3_informative</td>
+      <td>3.0</td>
+      <td>36.499465</td>
+      <td>1.504356e-16</td>
+      <td>df_num: 2.0, df_denom: 19994.0, order:2</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x4_informative</td>
+      <td>4.0</td>
+      <td>31.780547</td>
+      <td>1.658731e-14</td>
+      <td>df_num: 2.0, df_denom: 19994.0, order:2</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x55_uplift_increase</td>
+      <td>5.0</td>
+      <td>27.494904</td>
+      <td>1.189886e-12</td>
+      <td>df_num: 2.0, df_denom: 19994.0, order:2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># F Filter with order 3</span>
+<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+<span class="n">f_imp</span> <span class="o">=</span> <span class="n">filter_method</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X_names</span><span class="p">,</span> <span class="n">y_name</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> 
+                      <span class="n">treatment_group</span> <span class="o">=</span> <span class="s1">&#39;treatment1&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">f_imp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>method</th>
+      <th>feature</th>
+      <th>rank</th>
+      <th>score</th>
+      <th>p_value</th>
+      <th>misc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x53_uplift_increase</td>
+      <td>1.0</td>
+      <td>72.064224</td>
+      <td>2.373628e-46</td>
+      <td>df_num: 3.0, df_denom: 19992.0, order:3</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x57_uplift_increase</td>
+      <td>2.0</td>
+      <td>46.841718</td>
+      <td>3.710784e-30</td>
+      <td>df_num: 3.0, df_denom: 19992.0, order:3</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x3_informative</td>
+      <td>3.0</td>
+      <td>24.089980</td>
+      <td>1.484634e-15</td>
+      <td>df_num: 3.0, df_denom: 19992.0, order:3</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x4_informative</td>
+      <td>4.0</td>
+      <td>23.097310</td>
+      <td>6.414267e-15</td>
+      <td>df_num: 3.0, df_denom: 19992.0, order:3</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>F filter</td>
+      <td>x55_uplift_increase</td>
+      <td>5.0</td>
+      <td>18.072880</td>
+      <td>1.044117e-11</td>
+      <td>df_num: 3.0, df_denom: 19992.0, order:3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="method-lr-likelihood-ratio-test">
+<h3>method = LR (likelihood ratio test)<a class="headerlink" href="#method-lr-likelihood-ratio-test" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LR Filter with order 1</span>
+<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;LR&#39;</span>
+<span class="n">lr_imp</span> <span class="o">=</span> <span class="n">filter_method</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X_names</span><span class="p">,</span> <span class="n">y_name</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> 
+                      <span class="n">treatment_group</span> <span class="o">=</span> <span class="s1">&#39;treatment1&#39;</span><span class="p">)</span>
+<span class="n">lr_imp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>method</th>
+      <th>feature</th>
+      <th>rank</th>
+      <th>score</th>
+      <th>p_value</th>
+      <th>misc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x53_uplift_increase</td>
+      <td>1.0</td>
+      <td>203.811674</td>
+      <td>0.000000e+00</td>
+      <td>df: 1, order: 1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x57_uplift_increase</td>
+      <td>2.0</td>
+      <td>133.175328</td>
+      <td>0.000000e+00</td>
+      <td>df: 1, order: 1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x3_informative</td>
+      <td>3.0</td>
+      <td>64.366711</td>
+      <td>9.992007e-16</td>
+      <td>df: 1, order: 1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x4_informative</td>
+      <td>4.0</td>
+      <td>52.389798</td>
+      <td>4.550804e-13</td>
+      <td>df: 1, order: 1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x62_uplift_decrease</td>
+      <td>5.0</td>
+      <td>4.064347</td>
+      <td>4.379760e-02</td>
+      <td>df: 1, order: 1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LR Filter with order 2</span>
+<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;LR&#39;</span>
+<span class="n">lr_imp</span> <span class="o">=</span> <span class="n">filter_method</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X_names</span><span class="p">,</span> <span class="n">y_name</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> 
+                      <span class="n">treatment_group</span> <span class="o">=</span> <span class="s1">&#39;treatment1&#39;</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lr_imp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>method</th>
+      <th>feature</th>
+      <th>rank</th>
+      <th>score</th>
+      <th>p_value</th>
+      <th>misc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x53_uplift_increase</td>
+      <td>1.0</td>
+      <td>277.639095</td>
+      <td>0.000000e+00</td>
+      <td>df: 2, order: 2</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x57_uplift_increase</td>
+      <td>2.0</td>
+      <td>156.134112</td>
+      <td>0.000000e+00</td>
+      <td>df: 2, order: 2</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x55_uplift_increase</td>
+      <td>3.0</td>
+      <td>71.478979</td>
+      <td>3.330669e-16</td>
+      <td>df: 2, order: 2</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x3_informative</td>
+      <td>4.0</td>
+      <td>44.938973</td>
+      <td>1.744319e-10</td>
+      <td>df: 2, order: 2</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x4_informative</td>
+      <td>5.0</td>
+      <td>29.179971</td>
+      <td>4.609458e-07</td>
+      <td>df: 2, order: 2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LR Filter with order 3</span>
+<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;LR&#39;</span>
+<span class="n">lr_imp</span> <span class="o">=</span> <span class="n">filter_method</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X_names</span><span class="p">,</span> <span class="n">y_name</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> 
+                      <span class="n">treatment_group</span> <span class="o">=</span> <span class="s1">&#39;treatment1&#39;</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">lr_imp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>method</th>
+      <th>feature</th>
+      <th>rank</th>
+      <th>score</th>
+      <th>p_value</th>
+      <th>misc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x53_uplift_increase</td>
+      <td>1.0</td>
+      <td>290.389201</td>
+      <td>0.000000e+00</td>
+      <td>df: 3, order: 3</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x57_uplift_increase</td>
+      <td>2.0</td>
+      <td>153.942614</td>
+      <td>0.000000e+00</td>
+      <td>df: 3, order: 3</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x55_uplift_increase</td>
+      <td>3.0</td>
+      <td>70.626667</td>
+      <td>3.108624e-15</td>
+      <td>df: 3, order: 3</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x3_informative</td>
+      <td>4.0</td>
+      <td>45.477851</td>
+      <td>7.323235e-10</td>
+      <td>df: 3, order: 3</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>LR filter</td>
+      <td>x4_informative</td>
+      <td>5.0</td>
+      <td>30.466528</td>
+      <td>1.100881e-06</td>
+      <td>df: 3, order: 3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="method-kl-kl-divergence">
+<h3>method = KL (KL divergence)<a class="headerlink" href="#method-kl-kl-divergence" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;KL&#39;</span>
+<span class="n">kl_imp</span> <span class="o">=</span> <span class="n">filter_method</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X_names</span><span class="p">,</span> <span class="n">y_name</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> 
+                      <span class="n">treatment_group</span> <span class="o">=</span> <span class="s1">&#39;treatment1&#39;</span><span class="p">,</span>
+                      <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">kl_imp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>method</th>
+      <th>feature</th>
+      <th>rank</th>
+      <th>score</th>
+      <th>p_value</th>
+      <th>misc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>KL filter</td>
+      <td>x53_uplift_increase</td>
+      <td>1.0</td>
+      <td>0.022997</td>
+      <td>None</td>
+      <td>number_of_bins: 10</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>KL filter</td>
+      <td>x57_uplift_increase</td>
+      <td>2.0</td>
+      <td>0.014884</td>
+      <td>None</td>
+      <td>number_of_bins: 10</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>KL filter</td>
+      <td>x4_informative</td>
+      <td>3.0</td>
+      <td>0.012103</td>
+      <td>None</td>
+      <td>number_of_bins: 10</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>KL filter</td>
+      <td>x3_informative</td>
+      <td>4.0</td>
+      <td>0.010179</td>
+      <td>None</td>
+      <td>number_of_bins: 10</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>KL filter</td>
+      <td>x55_uplift_increase</td>
+      <td>5.0</td>
+      <td>0.003836</td>
+      <td>None</td>
+      <td>number_of_bins: 10</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We found all these 3 filter methods were able to rank most of the <strong>informative</strong> and <strong>uplift increase</strong> features on the top.</p>
+</section>
+</section>
+<section id="performance-evaluation">
+<h2>Performance evaluation<a class="headerlink" href="#performance-evaluation" title="Permalink to this headline">#</a></h2>
+<p>Evaluate the AUUC (Area Under the Uplift Curve) score with several uplift models when using top features dataset</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train test split</span>
+<span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">111</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert treatment column to 1 (treatment1) and 0 (control)</span>
+<span class="n">treatments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;treatment1&#39;</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">treatments</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">][:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0 0 1 1 0 1 1 0 0 0]
+18998       control
+11536       control
+8552     treatment1
+2652     treatment1
+19671       control
+13244    treatment1
+3075     treatment1
+8746        control
+18530       control
+5066        control
+Name: treatment_group_key, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<section id="uplift-randomforest-classfier">
+<h3>Uplift RandomForest Classfier<a class="headerlink" href="#uplift-randomforest-classfier" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uplift_model</span> <span class="o">=</span> <span class="n">UpliftRandomForestClassifier</span><span class="p">(</span><span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using all features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">X_names</span> 
+<span class="n">uplift_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                 <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds</span> <span class="o">=</span> <span class="n">uplift_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="select-top-n-features-based-on-kl-filter">
+<h3>Select top N features based on KL filter<a class="headerlink" href="#select-top-n-features-based-on-kl-filter" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">top_10_features</span> <span class="o">=</span> <span class="n">kl_imp</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">][:</span><span class="n">top_n</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">top_10_features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    x53_uplift_increase
+0    x57_uplift_increase
+0         x4_informative
+0         x3_informative
+0    x55_uplift_increase
+0         x1_informative
+0    x56_uplift_increase
+0    x51_uplift_increase
+0         x38_irrelevant
+0    x58_uplift_increase
+Name: feature, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_n</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">top_15_features</span> <span class="o">=</span> <span class="n">kl_imp</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">][:</span><span class="n">top_n</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">top_15_features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    x53_uplift_increase
+0    x57_uplift_increase
+0         x4_informative
+0         x3_informative
+0    x55_uplift_increase
+0         x1_informative
+0    x56_uplift_increase
+0    x51_uplift_increase
+0         x38_irrelevant
+0    x58_uplift_increase
+0         x48_irrelevant
+0         x15_irrelevant
+0         x27_irrelevant
+0    x62_uplift_decrease
+0         x23_irrelevant
+Name: feature, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_n</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">top_20_features</span> <span class="o">=</span> <span class="n">kl_imp</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">][:</span><span class="n">top_n</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">top_20_features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    x53_uplift_increase
+0    x57_uplift_increase
+0         x4_informative
+0         x3_informative
+0    x55_uplift_increase
+0         x1_informative
+0    x56_uplift_increase
+0    x51_uplift_increase
+0         x38_irrelevant
+0    x58_uplift_increase
+0         x48_irrelevant
+0         x15_irrelevant
+0         x27_irrelevant
+0    x62_uplift_decrease
+0         x23_irrelevant
+0         x29_irrelevant
+0         x6_informative
+0         x45_irrelevant
+0         x40_irrelevant
+0         x25_irrelevant
+Name: feature, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<section id="train-the-uplift-model-again-with-top-n-features">
+<h4>Train the Uplift model again with top N features<a class="headerlink" href="#train-the-uplift-model-again-with-top-n-features" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using top 10 features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">top_10_features</span> 
+
+<span class="n">uplift_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                 <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds_t10</span> <span class="o">=</span> <span class="n">uplift_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using top 15 features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">top_15_features</span> 
+
+<span class="n">uplift_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                 <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds_t15</span> <span class="o">=</span> <span class="n">uplift_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using top 20 features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">top_20_features</span>
+
+<span class="n">uplift_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                 <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds_t20</span> <span class="o">=</span> <span class="n">uplift_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="print-results-for-uplift-model">
+<h3>Print results for Uplift model<a class="headerlink" href="#print-results-for-uplift-model" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_preds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">y_preds</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> 
+                         <span class="n">y_preds_t10</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                         <span class="n">y_preds_t15</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                         <span class="n">y_preds_t20</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                         <span class="n">treatments</span><span class="p">,</span>
+                         <span class="n">df_test</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()],</span>
+                        <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;All&#39;</span><span class="p">,</span> <span class="s1">&#39;Top 10&#39;</span><span class="p">,</span> <span class="s1">&#39;Top 15&#39;</span><span class="p">,</span> <span class="s1">&#39;Top 20&#39;</span><span class="p">,</span> <span class="s1">&#39;is_treated&#39;</span><span class="p">,</span> <span class="n">y_name</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">plot_gain</span><span class="p">(</span><span class="n">df_preds</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="n">y_name</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;is_treated&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_selection_42_0.png" src="../../_images/feature_selection_42_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">auuc_score</span><span class="p">(</span><span class="n">df_preds</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="n">y_name</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;is_treated&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All       0.773405
+Top 10    0.841204
+Top 15    0.816100
+Top 20    0.816252
+Random    0.506801
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="r-learner-as-base-and-feed-in-random-forest-regressor">
+<h3>R Learner as base and feed in Random Forest Regressor<a class="headerlink" href="#r-learner-as-base-and-feed-in-random-forest-regressor" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r_rf_learner</span> <span class="o">=</span> <span class="n">BaseRRegressor</span><span class="p">(</span>
+    <span class="n">RandomForestRegressor</span><span class="p">(</span>
+        <span class="n">n_estimators</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">max_depth</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="n">min_samples_leaf</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="p">),</span> 
+<span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using all features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">X_names</span> 
+<span class="n">r_rf_learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                 <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds</span> <span class="o">=</span> <span class="n">r_rf_learner</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:causalml:Generating propensity score
+INFO:causalml:Calibrating propensity scores.
+INFO:causalml:generating out-of-fold CV outcome estimates
+INFO:causalml:training the treatment effect model for treatment1 with R-loss
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using top 10 features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">top_10_features</span> 
+<span class="n">r_rf_learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                 <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds_t10</span> <span class="o">=</span> <span class="n">r_rf_learner</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:causalml:Generating propensity score
+INFO:causalml:Calibrating propensity scores.
+INFO:causalml:generating out-of-fold CV outcome estimates
+INFO:causalml:training the treatment effect model for treatment1 with R-loss
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using top 15 features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">top_15_features</span> 
+<span class="n">r_rf_learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                 <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds_t15</span> <span class="o">=</span> <span class="n">r_rf_learner</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:causalml:Generating propensity score
+INFO:causalml:Calibrating propensity scores.
+INFO:causalml:generating out-of-fold CV outcome estimates
+INFO:causalml:training the treatment effect model for treatment1 with R-loss
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using top 20 features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">top_20_features</span> 
+<span class="n">r_rf_learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                 <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds_t20</span> <span class="o">=</span> <span class="n">r_rf_learner</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:causalml:Generating propensity score
+INFO:causalml:Calibrating propensity scores.
+INFO:causalml:generating out-of-fold CV outcome estimates
+INFO:causalml:training the treatment effect model for treatment1 with R-loss
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="print-results-for-r-learner">
+<h3>Print results for R Learner<a class="headerlink" href="#print-results-for-r-learner" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_preds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">y_preds</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> 
+                         <span class="n">y_preds_t10</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                         <span class="n">y_preds_t15</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                         <span class="n">y_preds_t20</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                         <span class="n">treatments</span><span class="p">,</span>
+                         <span class="n">df_test</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()],</span>
+                        <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;All&#39;</span><span class="p">,</span> <span class="s1">&#39;Top 10&#39;</span><span class="p">,</span> <span class="s1">&#39;Top 15&#39;</span><span class="p">,</span> <span class="s1">&#39;Top 20&#39;</span><span class="p">,</span> <span class="s1">&#39;is_treated&#39;</span><span class="p">,</span> <span class="n">y_name</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">plot_gain</span><span class="p">(</span><span class="n">df_preds</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="n">y_name</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;is_treated&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_selection_51_0.png" src="../../_images/feature_selection_51_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print out AUUC score</span>
+<span class="n">auuc_score</span><span class="p">(</span><span class="n">df_preds</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="n">y_name</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;is_treated&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All       0.859891
+Top 10    0.865159
+Top 15    0.872650
+Top 20    0.870669
+Random    0.506801
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>(a relatively smaller enhancement on the AUUC is observed in this R Learner case)</p>
+</section>
+<section id="s-learner-as-base-and-feed-in-random-forest-regressor">
+<h3>S Learner as base and feed in Random Forest Regressor<a class="headerlink" href="#s-learner-as-base-and-feed-in-random-forest-regressor" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slearner_rf</span> <span class="o">=</span> <span class="n">BaseSRegressor</span><span class="p">(</span>
+    <span class="n">RandomForestRegressor</span><span class="p">(</span>
+        <span class="n">n_estimators</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">max_depth</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="n">min_samples_leaf</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="p">),</span> 
+    <span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using all features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">X_names</span> 
+<span class="n">slearner_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds</span> <span class="o">=</span> <span class="n">slearner_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using top 10 features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">top_10_features</span> 
+<span class="n">slearner_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds_t10</span> <span class="o">=</span> <span class="n">slearner_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using top 15 features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">top_15_features</span> 
+<span class="n">slearner_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds_t15</span> <span class="o">=</span> <span class="n">slearner_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using top 20 features</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">top_20_features</span> 
+<span class="n">slearner_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                <span class="n">treatment</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_preds_t20</span> <span class="o">=</span> <span class="n">slearner_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="print-results-for-s-learner">
+<h3>Print results for S Learner<a class="headerlink" href="#print-results-for-s-learner" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_preds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">y_preds</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> 
+                         <span class="n">y_preds_t10</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                         <span class="n">y_preds_t15</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                         <span class="n">y_preds_t20</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                         <span class="n">treatments</span><span class="p">,</span>
+                         <span class="n">df_test</span><span class="p">[</span><span class="n">y_name</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()],</span>
+                        <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;All&#39;</span><span class="p">,</span> <span class="s1">&#39;Top 10&#39;</span><span class="p">,</span> <span class="s1">&#39;Top 15&#39;</span><span class="p">,</span> <span class="s1">&#39;Top 20&#39;</span><span class="p">,</span> <span class="s1">&#39;is_treated&#39;</span><span class="p">,</span> <span class="n">y_name</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">plot_gain</span><span class="p">(</span><span class="n">df_preds</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="n">y_name</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;is_treated&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_selection_61_0.png" src="../../_images/feature_selection_61_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print out AUUC score</span>
+<span class="n">auuc_score</span><span class="p">(</span><span class="n">df_preds</span><span class="p">,</span> <span class="n">outcome_col</span><span class="o">=</span><span class="n">y_name</span><span class="p">,</span> <span class="n">treatment_col</span><span class="o">=</span><span class="s1">&#39;is_treated&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All       0.824483
+Top 10    0.832872
+Top 15    0.817835
+Top 20    0.816149
+Random    0.506801
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this notebook, we demonstrated how our Filter method functions are able to select important features and enhance the AUUC performance (while the results might vary among different datasets, models and hyper-parameters).</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "d2cml-ai/mgtecon634_python",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./causalml/examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Phd Susan Athey<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

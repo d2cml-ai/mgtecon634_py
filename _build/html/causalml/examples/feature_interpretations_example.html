@@ -1,0 +1,2240 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>S Learner &#8212; MGTECON 634 at Stanford (Python scripts)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Machine Learning-Based Causal Inference
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Topics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/1_introduction_1.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/2_introduction_to_machine_learning.html">
+   2. Introduction to Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/3_average_treatment_effect_1.html">
+   3. ATE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/4_heterogeneous_treatment_effect_1.html">
+   4. HTE I: Binary treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/5_policy_evaluation_1.html">
+   5. Policy Evaluation I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/6_policy_learning_1.html">
+   6. Policy Learning I - Binary Treatment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/8_WGANs_for_simulation.html">
+   7. Tutorial to simulate data using WGANs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/9_surrogate_py.html">
+   8. The surrogate index Athey, S., et al. (2019).
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/causalml/examples/feature_interpretations_example.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/causalml/examples/feature_interpretations_example.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fcausalml/examples/feature_interpretations_example.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/causalml/examples/feature_interpretations_example.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/causalml/examples/feature_interpretations_example.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   S Learner
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-importance-method-auto">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       auto
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-importance-method-permutation">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       permutation
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-importance-sklearn-inspection-permutation-importance">
+     Feature Importance (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sklearn.inspection.permutation_importance
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#shapley-values">
+     Shapley Values
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#t-learner">
+   T Learner
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       auto
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       permutation
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Feature Importance (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sklearn.inspection.permutation_importance
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Shapley Values
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#x-learner">
+   X Learner
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       auto
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       permutation
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     Feature Importance (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sklearn.inspection.permutation_importance
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     Shapley Values
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#r-learner">
+   R Learner
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       auto
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       permutation
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     Feature Importance (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sklearn.inspection.permutation_importance
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     Shapley Values
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#uplift-tree-forest">
+   Uplift Tree/Forest
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplifttreeclassifier">
+     UpliftTreeClassifier
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#upliftrandomforestclassifier">
+     UpliftRandomForestClassifier
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>S Learner</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   S Learner
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-importance-method-auto">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       auto
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-importance-method-permutation">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       permutation
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-importance-sklearn-inspection-permutation-importance">
+     Feature Importance (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sklearn.inspection.permutation_importance
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#shapley-values">
+     Shapley Values
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#t-learner">
+   T Learner
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       auto
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       permutation
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Feature Importance (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sklearn.inspection.permutation_importance
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Shapley Values
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#x-learner">
+   X Learner
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       auto
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       permutation
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     Feature Importance (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sklearn.inspection.permutation_importance
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     Shapley Values
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#r-learner">
+   R Learner
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       auto
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     Feature Importance (method =
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       permutation
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     Feature Importance (
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sklearn.inspection.permutation_importance
+      </span>
+     </code>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     Shapley Values
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#uplift-tree-forest">
+   Uplift Tree/Forest
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplifttreeclassifier">
+     UpliftTreeClassifier
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#upliftrandomforestclassifier">
+     UpliftRandomForestClassifier
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span><span class="p">,</span> <span class="n">GradientBoostingRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
+<span class="kn">from</span> <span class="nn">lightgbm</span> <span class="kn">import</span> <span class="n">LGBMRegressor</span>
+
+<span class="kn">from</span> <span class="nn">causalml.inference.meta</span> <span class="kn">import</span> <span class="n">BaseSRegressor</span><span class="p">,</span> <span class="n">BaseTRegressor</span><span class="p">,</span> <span class="n">BaseXRegressor</span><span class="p">,</span> <span class="n">BaseRRegressor</span>
+<span class="kn">from</span> <span class="nn">causalml.inference.tree</span> <span class="kn">import</span> <span class="n">UpliftTreeClassifier</span><span class="p">,</span> <span class="n">UpliftRandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">causalml.dataset.regression</span> <span class="kn">import</span> <span class="n">synthetic_data</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="kn">import</span> <span class="nn">shap</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">permutation_importance</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;KMP_DUPLICATE_LIB_OK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>  <span class="c1"># for lightgbm to work</span>
+
+<span class="o">%</span><span class="k">reload_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The sklearn.utils.testing module is  deprecated in version 0.22 and will be removed in version 0.24. The corresponding classes / functions should instead be imported from sklearn.utils. Anything that cannot be imported from sklearn.utils is now part of the private API.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_features</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="n">synthetic_data</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">n_features</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w_multi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;treatment_A&#39;</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;control&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">w</span><span class="p">])</span>
+<span class="n">e_multi</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;treatment_A&#39;</span><span class="p">:</span> <span class="n">e</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;stars&#39;</span><span class="p">,</span> <span class="s1">&#39;tiger&#39;</span><span class="p">,</span> <span class="s1">&#39;merciful&#39;</span><span class="p">,</span> <span class="s1">&#39;quixotic&#39;</span><span class="p">,</span> <span class="s1">&#39;fireman&#39;</span><span class="p">,</span> <span class="s1">&#39;dependent&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;shelf&#39;</span><span class="p">,</span> <span class="s1">&#39;touch&#39;</span><span class="p">,</span> <span class="s1">&#39;barbarous&#39;</span><span class="p">,</span> <span class="s1">&#39;clammy&#39;</span><span class="p">,</span> <span class="s1">&#39;playground&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;offer&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;cute&#39;</span><span class="p">,</span> <span class="s1">&#39;future&#39;</span><span class="p">,</span> <span class="s1">&#39;damp&#39;</span><span class="p">,</span> <span class="s1">&#39;nonchalant&#39;</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="s1">&#39;rigid&#39;</span><span class="p">,</span> <span class="s1">&#39;sweltering&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;eight&#39;</span><span class="p">,</span> <span class="s1">&#39;wrap&#39;</span><span class="p">,</span> <span class="s1">&#39;lethal&#39;</span><span class="p">,</span> <span class="s1">&#39;adhesive&#39;</span><span class="p">,</span> <span class="s1">&#39;lip&#39;</span><span class="p">]</span>  <span class="c1"># specify feature names</span>
+
+<span class="n">model_tau</span> <span class="o">=</span> <span class="n">LGBMRegressor</span><span class="p">(</span><span class="n">importance_type</span><span class="o">=</span><span class="s1">&#39;gain&#39;</span><span class="p">)</span>  <span class="c1"># specify model for model_tau</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="s-learner">
+<h1>S Learner<a class="headerlink" href="#s-learner" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_algo</span> <span class="o">=</span> <span class="n">LGBMRegressor</span><span class="p">()</span>
+<span class="c1"># base_algo = XGBRegressor()</span>
+<span class="c1"># base_algo = RandomForestRegressor()</span>
+<span class="c1"># base_algo = LinearRegression()</span>
+
+<span class="n">slearner</span> <span class="o">=</span> <span class="n">BaseSRegressor</span><span class="p">(</span><span class="n">base_algo</span><span class="p">,</span> <span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">slearner</span><span class="o">.</span><span class="n">estimate_ate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w_multi</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.56829617])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slearner_tau</span> <span class="o">=</span> <span class="n">slearner</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w_multi</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="feature-importance-method-auto">
+<h2>Feature Importance (method = <code class="docutils literal notranslate"><span class="pre">auto</span></code>)<a class="headerlink" href="#feature-importance-method-auto" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slearner</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                        <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">,</span>
+                        <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> 
+                        <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: tiger         0.419967
+ stars         0.413894
+ quixotic      0.072241
+ merciful      0.056910
+ fireman       0.032434
+ wrap          0.000407
+ clammy        0.000383
+ change        0.000306
+ lip           0.000299
+ touch         0.000281
+ adhesive      0.000253
+ playground    0.000235
+ sweltering    0.000233
+ offer         0.000232
+ rigid         0.000217
+ shelf         0.000208
+ barbarous     0.000192
+ damp          0.000192
+ rain          0.000184
+ dependent     0.000180
+ nonchalant    0.000171
+ lethal        0.000159
+ cute          0.000154
+ eight         0.000138
+ future        0.000131
+ dtype: float64}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slearner</span><span class="o">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                         <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">,</span> 
+                         <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> 
+                         <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_10_0.png" src="../../_images/feature_interpretations_example_10_0.png" />
+</div>
+</div>
+</section>
+<section id="feature-importance-method-permutation">
+<h2>Feature Importance (method = <code class="docutils literal notranslate"><span class="pre">permutation</span></code>)<a class="headerlink" href="#feature-importance-method-permutation" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slearner</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                        <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">,</span> 
+                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;permutation&#39;</span><span class="p">,</span> 
+                        <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> 
+                        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: tiger         0.963026
+ stars         0.869475
+ quixotic      0.163553
+ merciful      0.101724
+ fireman       0.065210
+ touch         0.000389
+ clammy        0.000370
+ adhesive      0.000180
+ wrap          0.000150
+ sweltering    0.000144
+ change        0.000104
+ lethal        0.000095
+ damp          0.000071
+ shelf         0.000040
+ rigid         0.000028
+ barbarous     0.000026
+ playground    0.000021
+ nonchalant   -0.000014
+ cute         -0.000020
+ rain         -0.000034
+ offer        -0.000046
+ eight        -0.000054
+ dependent    -0.000060
+ future       -0.000091
+ lip          -0.000097
+ dtype: float64}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">slearner</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                        <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">,</span> 
+                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;permutation&#39;</span><span class="p">,</span> 
+                        <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> 
+                        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%s</span><span class="s2"> seconds&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 37.788124799728394 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slearner</span><span class="o">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                         <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">,</span> 
+                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;permutation&#39;</span><span class="p">,</span> 
+                         <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> 
+                         <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_14_0.png" src="../../_images/feature_interpretations_example_14_0.png" />
+</div>
+</div>
+</section>
+<section id="feature-importance-sklearn-inspection-permutation-importance">
+<h2>Feature Importance (<code class="docutils literal notranslate"><span class="pre">sklearn.inspection.permutation_importance</span></code>)<a class="headerlink" href="#feature-importance-sklearn-inspection-permutation-importance" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">slearner_tau</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model_tau_fit</span> <span class="o">=</span> <span class="n">model_tau</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">perm_imp_test</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">model_tau_fit</span><span class="p">,</span> 
+    <span class="n">X</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> 
+    <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> 
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">importances_mean</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%s</span><span class="s2"> seconds&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 14.822510957717896 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tiger         0.963026
+stars         0.869475
+quixotic      0.163553
+merciful      0.101724
+fireman       0.065210
+touch         0.000389
+clammy        0.000370
+adhesive      0.000180
+wrap          0.000150
+sweltering    0.000144
+change        0.000104
+lethal        0.000095
+damp          0.000071
+shelf         0.000040
+rigid         0.000028
+barbarous     0.000026
+playground    0.000021
+nonchalant   -0.000014
+cute         -0.000020
+rain         -0.000034
+offer        -0.000046
+eight        -0.000054
+dependent    -0.000060
+future       -0.000091
+lip          -0.000097
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Test Set Permutation Importances&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Test Set Permutation Importances&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/feature_interpretations_example_18_1.png" src="../../_images/feature_interpretations_example_18_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">perm_imp_train</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">model_tau_fit</span><span class="p">,</span> 
+    <span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> 
+    <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> 
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">importances_mean</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_train</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tiger         0.912573
+stars         0.871412
+quixotic      0.164476
+merciful      0.104541
+fireman       0.064374
+lip           0.001931
+lethal        0.001112
+future        0.001104
+clammy        0.000977
+touch         0.000935
+damp          0.000868
+wrap          0.000868
+change        0.000824
+sweltering    0.000806
+adhesive      0.000732
+offer         0.000690
+rain          0.000652
+barbarous     0.000525
+rigid         0.000492
+eight         0.000458
+dependent     0.000438
+cute          0.000419
+nonchalant    0.000405
+shelf         0.000400
+playground    0.000354
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_train</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Training Set Permutation Importances&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Training Set Permutation Importances&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/feature_interpretations_example_20_1.png" src="../../_images/feature_interpretations_example_20_1.png" />
+</div>
+</div>
+</section>
+<section id="shapley-values">
+<h2>Shapley Values<a class="headerlink" href="#shapley-values" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shap_slearner</span> <span class="o">=</span> <span class="n">slearner</span><span class="o">.</span><span class="n">get_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">)</span>
+<span class="n">shap_slearner</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: array([[ 4.10078017e-02, -3.44817262e-02, -5.43404776e-03, ...,
+         -4.74545331e-04, -1.51053586e-03,  3.90095411e-03],
+        [-7.48726271e-02,  5.93780768e-02, -1.41883322e-02, ...,
+          7.46974369e-04, -4.48063259e-04, -1.89122689e-03],
+        [ 8.76198804e-02, -1.16128067e-02,  4.81884470e-03, ...,
+         -4.35674464e-04,  1.93345867e-03,  3.70921426e-03],
+        ...,
+        [ 1.97191229e-01,  1.04795472e-01,  6.66297704e-03, ...,
+         -4.94229406e-04,  1.23164980e-03, -1.94624556e-03],
+        [-2.51788728e-01,  1.66874562e-02,  3.63517776e-02, ...,
+         -4.77522143e-04,  1.13078435e-03,  1.69601440e-03],
+        [-3.20539506e-02,  2.13426166e-01, -7.80250031e-02, ...,
+         -1.84885894e-04,  1.69764654e-04, -3.78072076e-03]])}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">shap_slearner</span><span class="p">[</span><span class="s1">&#39;treatment_A&#39;</span><span class="p">]),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.13950704, 0.14386761, 0.02545777, 0.04069884, 0.02323508,
+       0.00065427, 0.00049449, 0.00085658, 0.00047613, 0.00106313,
+       0.00039083, 0.00039238, 0.0004238 , 0.00033561, 0.00080356,
+       0.00035307, 0.00024251, 0.0008808 , 0.00035521, 0.00104124,
+       0.00022112, 0.00119311, 0.00060483, 0.00089334, 0.00178355])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot shap values without specifying shap_dict</span>
+<span class="n">slearner</span><span class="o">.</span><span class="n">plot_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_24_0.png" src="../../_images/feature_interpretations_example_24_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot shap values WITH specifying shap_dict</span>
+<span class="n">slearner</span><span class="o">.</span><span class="n">plot_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">shap_dict</span><span class="o">=</span><span class="n">shap_slearner</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_25_0.png" src="../../_images/feature_interpretations_example_25_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># interaction_idx set to None (no color coding for interaction effects)</span>
+<span class="n">slearner</span><span class="o">.</span><span class="n">plot_shap_dependence</span><span class="p">(</span><span class="n">treatment_group</span><span class="o">=</span><span class="s1">&#39;treatment_A&#39;</span><span class="p">,</span>
+                              <span class="n">feature_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                              <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span>
+                              <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">,</span>
+                              <span class="n">interaction_idx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                              <span class="n">shap_dict</span><span class="o">=</span><span class="n">shap_slearner</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_26_0.png" src="../../_images/feature_interpretations_example_26_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># interaction_idx set to &#39;auto&#39; (searches for feature with greatest approximate interaction)</span>
+<span class="c1"># specify feature names</span>
+<span class="n">slearner</span><span class="o">.</span><span class="n">plot_shap_dependence</span><span class="p">(</span><span class="n">treatment_group</span><span class="o">=</span><span class="s1">&#39;treatment_A&#39;</span><span class="p">,</span>
+                              <span class="n">feature_idx</span><span class="o">=</span><span class="s1">&#39;tiger&#39;</span><span class="p">,</span>
+                              <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span>
+                              <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">,</span>
+                              <span class="n">interaction_idx</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+                              <span class="n">shap_dict</span><span class="o">=</span><span class="n">shap_slearner</span><span class="p">,</span>
+                              <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_27_0.png" src="../../_images/feature_interpretations_example_27_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># interaction_idx set to specific index</span>
+<span class="n">slearner</span><span class="o">.</span><span class="n">plot_shap_dependence</span><span class="p">(</span><span class="n">treatment_group</span><span class="o">=</span><span class="s1">&#39;treatment_A&#39;</span><span class="p">,</span>
+                              <span class="n">feature_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                              <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span>
+                              <span class="n">tau</span><span class="o">=</span><span class="n">slearner_tau</span><span class="p">,</span>
+                              <span class="n">interaction_idx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                              <span class="n">shap_dict</span><span class="o">=</span><span class="n">shap_slearner</span><span class="p">,</span> 
+                              <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_28_0.png" src="../../_images/feature_interpretations_example_28_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="t-learner">
+<h1>T Learner<a class="headerlink" href="#t-learner" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tlearner</span> <span class="o">=</span> <span class="n">BaseTRegressor</span><span class="p">(</span><span class="n">LGBMRegressor</span><span class="p">(),</span> <span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">tlearner</span><span class="o">.</span><span class="n">estimate_ate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w_multi</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([0.5526554]), array([0.53763828]), array([0.56767251]))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tlearner_tau</span> <span class="o">=</span> <span class="n">tlearner</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w_multi</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h2>Feature Importance (method = <code class="docutils literal notranslate"><span class="pre">auto</span></code>)<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tlearner</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                        <span class="n">tau</span><span class="o">=</span><span class="n">tlearner_tau</span><span class="p">,</span> 
+                        <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> 
+                        <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: tiger         0.329522
+ stars         0.319934
+ quixotic      0.066615
+ merciful      0.043139
+ fireman       0.039397
+ wrap          0.015105
+ offer         0.013031
+ touch         0.012786
+ future        0.012633
+ clammy        0.012428
+ damp          0.011408
+ dependent     0.011313
+ adhesive      0.010930
+ change        0.010475
+ rain          0.010393
+ cute          0.009622
+ rigid         0.009564
+ barbarous     0.009170
+ nonchalant    0.009108
+ eight         0.008167
+ sweltering    0.007606
+ lip           0.007596
+ shelf         0.007189
+ lethal        0.006894
+ playground    0.005973
+ dtype: float64}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tlearner</span><span class="o">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                         <span class="n">tau</span><span class="o">=</span><span class="n">tlearner_tau</span><span class="p">,</span> 
+                         <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> 
+                         <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_34_0.png" src="../../_images/feature_interpretations_example_34_0.png" />
+</div>
+</div>
+</section>
+<section id="id2">
+<h2>Feature Importance (method = <code class="docutils literal notranslate"><span class="pre">permutation</span></code>)<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tlearner</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                        <span class="n">tau</span><span class="o">=</span><span class="n">tlearner_tau</span><span class="p">,</span> 
+                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;permutation&#39;</span><span class="p">,</span> 
+                        <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> 
+                        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: tiger         0.538136
+ stars         0.510393
+ quixotic      0.072974
+ merciful      0.038492
+ fireman       0.037728
+ wrap          0.012041
+ offer         0.008361
+ future        0.007785
+ clammy        0.006456
+ adhesive      0.006216
+ dependent     0.006018
+ touch         0.005865
+ damp          0.005544
+ nonchalant    0.005190
+ sweltering    0.005030
+ rain          0.004813
+ cute          0.004293
+ change        0.004053
+ lip           0.003858
+ rigid         0.003853
+ shelf         0.003634
+ eight         0.003334
+ barbarous     0.002836
+ lethal        0.002367
+ playground    0.000314
+ dtype: float64}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tlearner</span><span class="o">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                         <span class="n">tau</span><span class="o">=</span><span class="n">tlearner_tau</span><span class="p">,</span> 
+                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;permutation&#39;</span><span class="p">,</span> 
+                         <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> 
+                         <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_37_0.png" src="../../_images/feature_interpretations_example_37_0.png" />
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>Feature Importance (<code class="docutils literal notranslate"><span class="pre">sklearn.inspection.permutation_importance</span></code>)<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">tlearner_tau</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model_tau_fit</span> <span class="o">=</span> <span class="n">model_tau</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">perm_imp_test</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">model_tau_fit</span><span class="p">,</span> 
+    <span class="n">X</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> 
+    <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> 
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">importances_mean</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%s</span><span class="s2"> seconds&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 16.60052752494812 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tiger         0.538136
+stars         0.510393
+quixotic      0.072974
+merciful      0.038492
+fireman       0.037728
+wrap          0.012041
+offer         0.008361
+future        0.007785
+clammy        0.006456
+adhesive      0.006216
+dependent     0.006018
+touch         0.005865
+damp          0.005544
+nonchalant    0.005190
+sweltering    0.005030
+rain          0.004813
+cute          0.004293
+change        0.004053
+lip           0.003858
+rigid         0.003853
+shelf         0.003634
+eight         0.003334
+barbarous     0.002836
+lethal        0.002367
+playground    0.000314
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Test Set Permutation Importances&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Test Set Permutation Importances&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/feature_interpretations_example_41_1.png" src="../../_images/feature_interpretations_example_41_1.png" />
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>Shapley Values<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shap_tlearner</span> <span class="o">=</span> <span class="n">tlearner</span><span class="o">.</span><span class="n">get_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="n">tlearner_tau</span><span class="p">)</span>
+<span class="n">shap_tlearner</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: array([[ 0.03170431, -0.02653401, -0.04181033, ..., -0.00420727,
+         -0.00209201,  0.0116853 ],
+        [-0.09827316,  0.02655629, -0.02626074, ..., -0.00074733,
+          0.00907333,  0.0007965 ],
+        [ 0.05350246, -0.01205391,  0.00787274, ...,  0.00092083,
+          0.01316705,  0.01219494],
+        ...,
+        [ 0.29451126,  0.07890184, -0.00674396, ..., -0.003012  ,
+          0.01859159, -0.0096335 ],
+        [-0.2375042 , -0.00485028, -0.00101973, ...,  0.00079727,
+          0.01883852,  0.00980794],
+        [-0.05199902,  0.1479534 , -0.09951596, ...,  0.01449447,
+          0.01699256, -0.01394553]])}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot shap values without specifying shap_dict</span>
+<span class="n">tlearner</span><span class="o">.</span><span class="n">plot_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="n">tlearner_tau</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_44_0.png" src="../../_images/feature_interpretations_example_44_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot shap values WITH specifying shap_dict</span>
+<span class="n">tlearner</span><span class="o">.</span><span class="n">plot_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">shap_dict</span><span class="o">=</span><span class="n">shap_tlearner</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_45_0.png" src="../../_images/feature_interpretations_example_45_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="x-learner">
+<h1>X Learner<a class="headerlink" href="#x-learner" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xlearner</span> <span class="o">=</span> <span class="n">BaseXRegressor</span><span class="p">(</span><span class="n">LGBMRegressor</span><span class="p">(),</span> <span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">xlearner</span><span class="o">.</span><span class="n">estimate_ate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w_multi</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">e_multi</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([0.51497605]), array([0.50079629]), array([0.52915581]))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xlearner_tau</span> <span class="o">=</span> <span class="n">xlearner</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w_multi</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">e_multi</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id5">
+<h2>Feature Importance (method = <code class="docutils literal notranslate"><span class="pre">auto</span></code>)<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xlearner</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                        <span class="n">tau</span><span class="o">=</span><span class="n">xlearner_tau</span><span class="p">,</span> 
+                        <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> 
+                        <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: stars         0.396410
+ tiger         0.387525
+ merciful      0.023992
+ quixotic      0.020416
+ wrap          0.013560
+ future        0.012550
+ fireman       0.012385
+ dependent     0.012259
+ adhesive      0.010841
+ rain          0.009530
+ clammy        0.009327
+ offer         0.008513
+ lip           0.008454
+ touch         0.008432
+ rigid         0.008281
+ damp          0.007743
+ shelf         0.007601
+ nonchalant    0.007137
+ barbarous     0.006748
+ eight         0.006329
+ cute          0.005616
+ lethal        0.004837
+ change        0.004130
+ sweltering    0.004092
+ playground    0.003290
+ dtype: float64}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xlearner</span><span class="o">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                         <span class="n">tau</span><span class="o">=</span><span class="n">xlearner_tau</span><span class="p">,</span> 
+                         <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> 
+                         <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_51_0.png" src="../../_images/feature_interpretations_example_51_0.png" />
+</div>
+</div>
+</section>
+<section id="id6">
+<h2>Feature Importance (method = <code class="docutils literal notranslate"><span class="pre">permutation</span></code>)<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xlearner</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                        <span class="n">tau</span><span class="o">=</span><span class="n">xlearner_tau</span><span class="p">,</span> 
+                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;permutation&#39;</span><span class="p">,</span> 
+                        <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> 
+                        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: stars         0.759553
+ tiger         0.745122
+ merciful      0.031355
+ quixotic      0.027350
+ dependent     0.018033
+ fireman       0.017579
+ future        0.015751
+ wrap          0.015741
+ adhesive      0.011913
+ rain          0.011430
+ lip           0.010565
+ clammy        0.010158
+ offer         0.008963
+ shelf         0.007556
+ touch         0.007548
+ damp          0.006499
+ barbarous     0.006480
+ rigid         0.006472
+ nonchalant    0.006457
+ lethal        0.006313
+ eight         0.004812
+ cute          0.004193
+ change        0.003709
+ sweltering    0.003384
+ playground    0.001421
+ dtype: float64}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xlearner</span><span class="o">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                         <span class="n">tau</span><span class="o">=</span><span class="n">xlearner_tau</span><span class="p">,</span> 
+                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;permutation&#39;</span><span class="p">,</span> 
+                         <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> 
+                         <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_54_0.png" src="../../_images/feature_interpretations_example_54_0.png" />
+</div>
+</div>
+</section>
+<section id="id7">
+<h2>Feature Importance (<code class="docutils literal notranslate"><span class="pre">sklearn.inspection.permutation_importance</span></code>)<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">xlearner_tau</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model_tau_fit</span> <span class="o">=</span> <span class="n">model_tau</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">perm_imp_test</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">model_tau_fit</span><span class="p">,</span> 
+    <span class="n">X</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> 
+    <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> 
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">importances_mean</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%s</span><span class="s2"> seconds&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 13.757911920547485 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stars         0.759553
+tiger         0.745122
+merciful      0.031355
+quixotic      0.027350
+dependent     0.018033
+fireman       0.017579
+future        0.015751
+wrap          0.015741
+adhesive      0.011913
+rain          0.011430
+lip           0.010565
+clammy        0.010158
+offer         0.008963
+shelf         0.007556
+touch         0.007548
+damp          0.006499
+barbarous     0.006480
+rigid         0.006472
+nonchalant    0.006457
+lethal        0.006313
+eight         0.004812
+cute          0.004193
+change        0.003709
+sweltering    0.003384
+playground    0.001421
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Test Set Permutation Importances&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Test Set Permutation Importances&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/feature_interpretations_example_58_1.png" src="../../_images/feature_interpretations_example_58_1.png" />
+</div>
+</div>
+</section>
+<section id="id8">
+<h2>Shapley Values<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shap_xlearner</span> <span class="o">=</span> <span class="n">xlearner</span><span class="o">.</span><span class="n">get_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="n">xlearner_tau</span><span class="p">)</span>
+<span class="n">shap_xlearner</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: array([[ 0.05905145, -0.01813719, -0.00228681, ...,  0.00163275,
+          0.000808  ,  0.01982337],
+        [-0.09223067,  0.03460351, -0.00243063, ..., -0.00886324,
+          0.00251886, -0.00680032],
+        [ 0.07817859, -0.01975654,  0.00473035, ..., -0.00076119,
+          0.0218636 ,  0.01243895],
+        ...,
+        [ 0.30115384,  0.09553369, -0.00154573, ..., -0.00331466,
+          0.00920979, -0.0128445 ],
+        [-0.21004379, -0.03674163, -0.00241997, ...,  0.00449733,
+          0.01845317,  0.01552738],
+        [-0.11479351,  0.06604962, -0.14693142, ...,  0.00789741,
+          0.00943036, -0.01086603]])}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># shap_dict not specified</span>
+<span class="n">xlearner</span><span class="o">.</span><span class="n">plot_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="n">xlearner_tau</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_61_0.png" src="../../_images/feature_interpretations_example_61_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># shap_dict specified</span>
+<span class="n">xlearner</span><span class="o">.</span><span class="n">plot_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">shap_dict</span><span class="o">=</span><span class="n">shap_xlearner</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_62_0.png" src="../../_images/feature_interpretations_example_62_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="r-learner">
+<h1>R Learner<a class="headerlink" href="#r-learner" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rlearner</span> <span class="o">=</span> <span class="n">BaseRRegressor</span><span class="p">(</span><span class="n">LGBMRegressor</span><span class="p">(),</span> <span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">rlearner_tau</span> <span class="o">=</span> <span class="n">rlearner</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w_multi</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">e_multi</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id9">
+<h2>Feature Importance (method = <code class="docutils literal notranslate"><span class="pre">auto</span></code>)<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rlearner</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                        <span class="n">tau</span><span class="o">=</span><span class="n">rlearner_tau</span><span class="p">,</span> 
+                        <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> 
+                        <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: stars         0.228704
+ tiger         0.225389
+ barbarous     0.039622
+ future        0.033504
+ wrap          0.032853
+ quixotic      0.030002
+ touch         0.029991
+ damp          0.028726
+ fireman       0.027299
+ dependent     0.027245
+ offer         0.026600
+ shelf         0.025857
+ merciful      0.024646
+ lethal        0.022051
+ clammy        0.021187
+ rigid         0.020775
+ nonchalant    0.020411
+ change        0.019242
+ eight         0.018544
+ sweltering    0.018139
+ rain          0.018029
+ adhesive      0.016737
+ cute          0.016656
+ playground    0.014999
+ lip           0.012792
+ dtype: float64}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rlearner</span><span class="o">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                         <span class="n">tau</span><span class="o">=</span><span class="n">rlearner_tau</span><span class="p">,</span> 
+                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> 
+                         <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_67_0.png" src="../../_images/feature_interpretations_example_67_0.png" />
+</div>
+</div>
+</section>
+<section id="id10">
+<h2>Feature Importance (method = <code class="docutils literal notranslate"><span class="pre">permutation</span></code>)<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rlearner</span><span class="o">.</span><span class="n">get_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                        <span class="n">tau</span><span class="o">=</span><span class="n">rlearner_tau</span><span class="p">,</span> 
+                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;permutation&#39;</span><span class="p">,</span> 
+                        <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> 
+                        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: tiger         0.333106
+ stars         0.317470
+ barbarous     0.030943
+ future        0.026448
+ wrap          0.023439
+ quixotic      0.022111
+ merciful      0.018122
+ offer         0.017440
+ clammy        0.015891
+ touch         0.015746
+ fireman       0.015017
+ shelf         0.013932
+ damp          0.013886
+ dependent     0.013519
+ rain          0.013181
+ adhesive      0.012412
+ eight         0.010187
+ sweltering    0.010025
+ rigid         0.008814
+ lethal        0.008810
+ playground    0.008513
+ nonchalant    0.008323
+ change        0.006865
+ lip           0.005458
+ cute          0.004243
+ dtype: float64}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rlearner</span><span class="o">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                         <span class="n">tau</span><span class="o">=</span><span class="n">rlearner_tau</span><span class="p">,</span> 
+                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;permutation&#39;</span><span class="p">,</span> 
+                         <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span> 
+                         <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_70_0.png" src="../../_images/feature_interpretations_example_70_0.png" />
+</div>
+</div>
+</section>
+<section id="id11">
+<h2>Feature Importance (<code class="docutils literal notranslate"><span class="pre">sklearn.inspection.permutation_importance</span></code>)<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">rlearner_tau</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model_tau_fit</span> <span class="o">=</span> <span class="n">model_tau</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">perm_imp_test</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">model_tau_fit</span><span class="p">,</span> 
+    <span class="n">X</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> 
+    <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> 
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">importances_mean</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%s</span><span class="s2"> seconds&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 90.21177053451538 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tiger         0.333106
+stars         0.317470
+barbarous     0.030943
+future        0.026448
+wrap          0.023439
+quixotic      0.022111
+merciful      0.018122
+offer         0.017440
+clammy        0.015891
+touch         0.015746
+fireman       0.015017
+shelf         0.013932
+damp          0.013886
+dependent     0.013519
+rain          0.013181
+adhesive      0.012412
+eight         0.010187
+sweltering    0.010025
+rigid         0.008814
+lethal        0.008810
+playground    0.008513
+nonchalant    0.008323
+change        0.006865
+lip           0.005458
+cute          0.004243
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm_imp_test</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Test Set Permutation Importances&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Test Set Permutation Importances&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/feature_interpretations_example_74_1.png" src="../../_images/feature_interpretations_example_74_1.png" />
+</div>
+</div>
+</section>
+<section id="id12">
+<h2>Shapley Values<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shap_rlearner</span> <span class="o">=</span> <span class="n">rlearner</span><span class="o">.</span><span class="n">get_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="n">rlearner_tau</span><span class="p">)</span>
+<span class="n">shap_rlearner</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;treatment_A&#39;: array([[ 0.03538328, -0.01669669, -0.00440836, ..., -0.00239448,
+          0.00593215,  0.01938478],
+        [-0.10946828,  0.04119494, -0.00412831, ..., -0.00789067,
+          0.01280531, -0.00584103],
+        [ 0.05171293, -0.00447188,  0.00395468, ..., -0.00422879,
+          0.00992719,  0.00150335],
+        ...,
+        [ 0.31724012,  0.07934517,  0.00141576, ..., -0.0094692 ,
+          0.0169413 , -0.03495447],
+        [-0.20257113, -0.03005302, -0.00690099, ..., -0.00055628,
+          0.02064072,  0.0141801 ],
+        [-0.07420896,  0.10717246, -0.04564806, ...,  0.01367809,
+          0.01263303, -0.01483177]])}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># without providing shap_dict</span>
+<span class="n">rlearner</span><span class="o">.</span><span class="n">plot_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="n">rlearner_tau</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_77_0.png" src="../../_images/feature_interpretations_example_77_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># with providing shap_dict</span>
+<span class="n">rlearner</span><span class="o">.</span><span class="n">plot_shap_values</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">shap_dict</span><span class="o">=</span><span class="n">shap_rlearner</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature_interpretations_example_78_0.png" src="../../_images/feature_interpretations_example_78_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="uplift-tree-forest">
+<h1>Uplift Tree/Forest<a class="headerlink" href="#uplift-tree-forest" title="Permalink to this headline">#</a></h1>
+<p>Note that uplift trees/forests are only implemented for classification at the moment, hence the following section uses a different synthetic data generation process.</p>
+<section id="uplifttreeclassifier">
+<h2>UpliftTreeClassifier<a class="headerlink" href="#uplifttreeclassifier" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">causalml.dataset</span> <span class="kn">import</span> <span class="n">make_uplift_classification</span>
+
+<span class="n">df</span><span class="p">,</span> <span class="n">x_names</span> <span class="o">=</span> <span class="n">make_uplift_classification</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uplift_tree</span> <span class="o">=</span> <span class="n">UpliftTreeClassifier</span><span class="p">(</span><span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+
+<span class="n">uplift_tree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">x_names</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                <span class="n">treatment</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;conversion&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">uplift_tree</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">x_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7ff8f0e13e48&gt;
+</pre></div>
+</div>
+<img alt="../../_images/feature_interpretations_example_84_1.png" src="../../_images/feature_interpretations_example_84_1.png" />
+</div>
+</div>
+</section>
+<section id="upliftrandomforestclassifier">
+<h2>UpliftRandomForestClassifier<a class="headerlink" href="#upliftrandomforestclassifier" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uplift_rf</span> <span class="o">=</span> <span class="n">UpliftRandomForestClassifier</span><span class="p">(</span><span class="n">control_name</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+
+<span class="n">uplift_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">x_names</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+              <span class="n">treatment</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;treatment_group_key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+              <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;conversion&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">uplift_rf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">x_names</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7ff90d027358&gt;
+</pre></div>
+</div>
+<img alt="../../_images/feature_interpretations_example_87_1.png" src="../../_images/feature_interpretations_example_87_1.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "d2cml-ai/mgtecon634_python",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./causalml/examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Phd Susan Athey<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
