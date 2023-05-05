@@ -1,48 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>7. Tutorial to simulate data using WGANs &#8212; MGTECON 634 at Stanford (Python scripts)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,61 +64,93 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/8_WGANs_for_simulation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8. The surrogate index Athey, S., et al. (2019)." href="9_surrogate_py.html" />
+    <link rel="next" title="8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research." href="9_surrogate_py.html" />
     <link rel="prev" title="6. Policy Learning I - Binary Treatment" href="6_policy_learning_1.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../md/intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -115,498 +159,328 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Topics
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topics</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_introduction_1.html">
-   1. Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="2_introduction_to_machine_learning.html">
-   2. Introduction to Machine Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="3_average_treatment_effect_1.html">
-   3. ATE I: Binary treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="4_heterogeneous_treatment_effect_1.html">
-   4. HTE I: Binary treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="5_policy_evaluation_1.html">
-   5. Policy Evaluation I - Binary Treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_policy_learning_1.html">
-   6. Policy Learning I - Binary Treatment
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   7. Tutorial to simulate data using WGANs
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_surrogate_py.html">
-   8. The surrogate index Athey, S., et al. (2019).
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_introduction_1.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_introduction_to_machine_learning.html">2. Introduction to Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_average_treatment_effect_1.html">3. ATE I: Binary treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_heterogeneous_treatment_effect_1.html">4. HTE I: Binary treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_policy_evaluation_1.html">5. Policy Evaluation I - Binary Treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_policy_learning_1.html">6. Policy Learning I - Binary Treatment</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Tutorial to simulate data using WGANs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_surrogate_py.html">8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/8_WGANs_for_simulation.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/8_WGANs_for_simulation.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/8_WGANs_for_simulation.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/8_WGANs_for_simulation.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
 <button onclick="initThebeSBT()"
-  class="headerbtn headerbtn-launch-thebe"
-  data-toggle="tooltip"
-data-placement="left"
-title="Launch Thebe"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-play"></i>
   </span>
-<span class="headerbtn__text-container">Live Code</span>
+<span class="btn__text-container">Live Code</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/d2cml-ai/mgtecon634_python" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/8_WGANs_for_simulation.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/8_WGANs_for_simulation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/8_WGANs_for_simulation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/d2cml-ai/mgtecon634_python"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/8_WGANs_for_simulation.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/8_WGANs_for_simulation.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Edit this page"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-pencil-alt"></i>
-  </span>
-<span class="headerbtn__text-container">suggest edit</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/notebooks/8_WGANs_for_simulation.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simulating-data">
-   7.1. Simulating Data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#steps-0-3">
-     7.1.1. Steps 0-3
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#steps-4-5">
-     7.1.2. Steps 4 &amp; 5
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#steps-6-8">
-     7.1.3. Steps 6 &amp; 8
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#application-of-the-simulated-data-to-the-code-of-chapter-3">
-   7.2. Application of the simulated data to the code of chapter 3.
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#notation-and-definitions">
-     7.2.1. Notation and definitions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#difference-in-means-estimator">
-     7.2.2. Difference-in-means estimator
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#turning-an-experimental-dataset-into-an-observational-one">
-     7.2.3. Turning an experimental dataset into an observational one
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#direct-estimation">
-     7.2.4. Direct estimation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#inverse-propensity-weighted-estimator">
-     7.2.5. Inverse propensity-weighted estimator
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#augmented-inverse-propensity-weighted-aipw-estimator">
-   7.3. Augmented inverse propensity-weighted (AIPW) estimator
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#diagnostics">
-     7.3.1. Diagnostics
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#assessing-balance">
-     7.3.2. Assessing balance
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#assessing-overlap">
-       7.3.2.1. Assessing overlap
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Tutorial to simulate data using WGANs</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simulating-data">
-   7.1. Simulating Data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#steps-0-3">
-     7.1.1. Steps 0-3
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#steps-4-5">
-     7.1.2. Steps 4 &amp; 5
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#steps-6-8">
-     7.1.3. Steps 6 &amp; 8
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#application-of-the-simulated-data-to-the-code-of-chapter-3">
-   7.2. Application of the simulated data to the code of chapter 3.
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#notation-and-definitions">
-     7.2.1. Notation and definitions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#difference-in-means-estimator">
-     7.2.2. Difference-in-means estimator
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#turning-an-experimental-dataset-into-an-observational-one">
-     7.2.3. Turning an experimental dataset into an observational one
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#direct-estimation">
-     7.2.4. Direct estimation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#inverse-propensity-weighted-estimator">
-     7.2.5. Inverse propensity-weighted estimator
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#augmented-inverse-propensity-weighted-aipw-estimator">
-   7.3. Augmented inverse propensity-weighted (AIPW) estimator
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#diagnostics">
-     7.3.1. Diagnostics
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#assessing-balance">
-     7.3.2. Assessing balance
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#assessing-overlap">
-       7.3.2.1. Assessing overlap
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tutorial to simulate data using WGANs</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulating-data">7.1. Simulating Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-0-3">7.1.1. Steps 0-3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-4-5">7.1.2. Steps 4 &amp; 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-6-8">7.1.3. Steps 6 &amp; 8</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-of-the-simulated-data-to-the-code-of-chapter-3">7.2. Application of the simulated data to the code of chapter 3.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notation-and-definitions">7.2.1. Notation and definitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-in-means-estimator">7.2.2. Difference-in-means estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turning-an-experimental-dataset-into-an-observational-one">7.2.3. Turning an experimental dataset into an observational one</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-estimation">7.2.4. Direct estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-propensity-weighted-estimator">7.2.5. Inverse propensity-weighted estimator</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-inverse-propensity-weighted-aipw-estimator">7.3. Augmented inverse propensity-weighted (AIPW) estimator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics">7.3.1. Diagnostics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assessing-balance">7.3.2. Assessing balance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#assessing-overlap">7.3.2.1. Assessing overlap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="tutorial-to-simulate-data-using-wgans">
-<h1><span class="section-number">7. </span>Tutorial to simulate data using WGANs<a class="headerlink" href="#tutorial-to-simulate-data-using-wgans" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">7. </span>Tutorial to simulate data using WGANs<a class="headerlink" href="#tutorial-to-simulate-data-using-wgans" title="Permalink to this heading">#</a></h1>
 <p>Take into account the next notes if you run the code on Google colab.</p>
 <p><font color='dark'><strong>Note 1: If you care about speed, make sure your colab runtime uses a GPU. Do this by selecting ‘Runtime’ -&gt; ‘Change Runtime Type’ -&gt; ‘Hardware Accelerator’ -&gt; ‘GPU’ (the runtime will restart and you’ll have to re-run this section).</strong> </font></p>
 <p>We install the wgan package.</p>
@@ -645,9 +519,9 @@ Requirement already satisfied: pytz&gt;=2020.1 in c:\users\user\anaconda3\lib\si
 </div>
 <p>We want to simulate a rdata so we neeed pyreadr library.</p>
 <section id="simulating-data">
-<h2><span class="section-number">7.1. </span>Simulating Data<a class="headerlink" href="#simulating-data" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.1. </span>Simulating Data<a class="headerlink" href="#simulating-data" title="Permalink to this heading">#</a></h2>
 <p>The workflow for every single distribution you want to fit:</p>
-<ol class="simple">
+<ol class="arabic simple" start="0">
 <li><p>Load and prepare the data</p></li>
 <li><p>Initialize a <code class="docutils literal notranslate"><span class="pre">wgan.DataWrapper</span></code> object, which takes care of handling the data</p></li>
 <li><p>Initialize <code class="docutils literal notranslate"><span class="pre">wgan.Specifications</span></code> object given the <code class="docutils literal notranslate"><span class="pre">DataWrapper</span></code>, which summarizes hyperparameters, etc.</p></li>
@@ -661,7 +535,7 @@ Requirement already satisfied: pytz&gt;=2020.1 in c:\users\user\anaconda3\lib\si
 <p>Since <strong>we’re fitting two distributions</strong> (Y on X and w, as well as X on w), we’ll have to do all these steps twice.
 To keep the code concise, we will put the two versions of every obejct type into one list respectively. Watch out so you <strong>don’t get confused by that</strong>!</p>
 <section id="steps-0-3">
-<h3><span class="section-number">7.1.1. </span>Steps 0-3<a class="headerlink" href="#steps-0-3" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.1.1. </span>Steps 0-3<a class="headerlink" href="#steps-0-3" title="Permalink to this heading">#</a></h3>
 <p>First load a data file from our project repo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -750,7 +624,7 @@ settings: {&#39;optimizer&#39;: &lt;class &#39;torch.optim.adam.Adam&#39;&gt;, &
 </div>
 </section>
 <section id="steps-4-5">
-<h3><span class="section-number">7.1.2. </span>Steps 4 &amp; 5<a class="headerlink" href="#steps-4-5" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.1.2. </span>Steps 4 &amp; 5<a class="headerlink" href="#steps-4-5" title="Permalink to this heading">#</a></h3>
 <p>Next, we train the model. How long this will take depends on the batch_size, the size of your data set and the max_epochs you specified.</p>
 <p>You can also abort at any time, the model will keep its parameters at their most recent values during training. You can also resume the training, but this resets the optimizer state which basically means you might as well repeat at Step 3.</p>
 <div class="cell docutils container">
@@ -801,7 +675,7 @@ epoch 900 | step 4506 | WD_test 0.2 | WD_train 0.07 | sec passed 26 |
 </div>
 </section>
 <section id="steps-6-8">
-<h3><span class="section-number">7.1.3. </span>Steps 6 &amp; 8<a class="headerlink" href="#steps-6-8" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.1.3. </span>Steps 6 &amp; 8<a class="headerlink" href="#steps-6-8" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># simulate data with conditional WGANs</span>
@@ -845,8 +719,8 @@ marital       1.72      1.64
 sex           0.50      0.50
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_22_1.png" src="../_images/8_WGANs_for_simulation_22_1.png" />
-<img alt="../_images/8_WGANs_for_simulation_22_2.png" src="../_images/8_WGANs_for_simulation_22_2.png" />
+<img alt="../_images/40bd484e6cd17d578ab6a5fcb7b6686b66d05517d4e243079e7364b1d741700b.png" src="../_images/40bd484e6cd17d578ab6a5fcb7b6686b66d05517d4e243079e7364b1d741700b.png" />
+<img alt="../_images/f6e6752ab8cc80b4a9221a24193e063ae45a1c1c9002479796b92988c25b6241.png" src="../_images/f6e6752ab8cc80b4a9221a24193e063ae45a1c1c9002479796b92988c25b6241.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -872,7 +746,7 @@ sex           0.50      0.50
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f00e1297b90&gt;
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_23_1.png" src="../_images/8_WGANs_for_simulation_23_1.png" />
+<img alt="../_images/d782dd748a8f19729889400eb3cabe507145627bdab20633fc9d118094587010.png" src="../_images/d782dd748a8f19729889400eb3cabe507145627bdab20633fc9d118094587010.png" />
 </div>
 </div>
 <p>As we can observe, the means, standard error, correlation matrix and distributions (histograms) of the real and simulated data are pretty similar.</p>
@@ -886,7 +760,7 @@ sex           0.50      0.50
 </section>
 </section>
 <section id="application-of-the-simulated-data-to-the-code-of-chapter-3">
-<h2><span class="section-number">7.2. </span>Application of the simulated data to the code of chapter 3.<a class="headerlink" href="#application-of-the-simulated-data-to-the-code-of-chapter-3" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.2. </span>Application of the simulated data to the code of chapter 3.<a class="headerlink" href="#application-of-the-simulated-data-to-the-code-of-chapter-3" title="Permalink to this heading">#</a></h2>
 <p>Now we can use this new simulated data in the code from chapter 3 which evaluate the Average Treatment Effect (ATE) in Binary treatment. So we can first recall some of the notations and definitions from the original data because these new simulated data are supposed to have the same definitions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -946,7 +820,7 @@ sex           0.50      0.50
 </div>
 </div>
 <section id="notation-and-definitions">
-<h3><span class="section-number">7.2.1. </span>Notation and definitions<a class="headerlink" href="#notation-and-definitions" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.2.1. </span>Notation and definitions<a class="headerlink" href="#notation-and-definitions" title="Permalink to this heading">#</a></h3>
 <p>Let’s establish some notation. Each data point will be defined by the triple <span class="math notranslate nohighlight">\((X_i, W_i, Y_i)\)</span>. The vector <span class="math notranslate nohighlight">\(X_i\)</span> represents covariates that are observed for individual <span class="math notranslate nohighlight">\(i\)</span>. Treatment assignment is indicated by <span class="math notranslate nohighlight">\(W_i \in \{0, 1\}\)</span>, with 1 representing treatment, and 0 representing control. The scalar <span class="math notranslate nohighlight">\(Y_i\)</span> is the observed outcome, and it can be real or binary. Each observation is drawn independently and from the same distribution. We’ll be interested in assessing the causal effect of treatment on outcome.</p>
 <p>A difficulty in estimating causal quantities is that we observe each individual in only one treatment state: either they were treated, or they weren’t. However, it’s often useful to imagine that each individual is endowed with two random variables <span class="math notranslate nohighlight">\((Y_i(1), Y_i(0))\)</span>, where <span class="math notranslate nohighlight">\(Y_i(1)\)</span> represents the value of this individual’s outcome if they receive treatment, and <span class="math notranslate nohighlight">\(Y_i(0)\)</span> represents their outcome if they are not treated. These random variables are called  <strong>potential outcomes</strong>. The observed outcome <span class="math notranslate nohighlight">\(Y_i\)</span> corresponds to whichever potential outcome we got to see:</p>
 <div class="math notranslate nohighlight">
@@ -999,7 +873,7 @@ sex           0.50      0.50
 </div>
 </section>
 <section id="difference-in-means-estimator">
-<h3><span class="section-number">7.2.2. </span>Difference-in-means estimator<a class="headerlink" href="#difference-in-means-estimator" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.2.2. </span>Difference-in-means estimator<a class="headerlink" href="#difference-in-means-estimator" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only valid in the randomized setting. Do not use in observational settings.</span>
@@ -1059,14 +933,14 @@ sex           0.50      0.50
       <button class="colab-df-convert" onclick="convertToInteractive('df-2bdfe4a1-3a66-4f17-a73d-dc09f3df129f')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
-
+        
   <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
        width="24px">
     <path d="M0 0h24v24H0V0z" fill="none"/>
     <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
   </svg>
       </button>
-
+      
   <style>
     .colab-df-container {
       display:flex;
@@ -1131,7 +1005,7 @@ sex           0.50      0.50
       </script>
     </div>
   </div>
-</div></div>
+  </div></div>
 </div>
 <p>And this are the results from original data in chapter 3.</p>
 <table border="1" class="dataframe">
@@ -1213,14 +1087,14 @@ sex           0.50      0.50
       <button class="colab-df-convert" onclick="convertToInteractive('df-c589876e-a96a-4dc5-ac3e-ee552571b812')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
-
+        
   <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
        width="24px">
     <path d="M0 0h24v24H0V0z" fill="none"/>
     <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
   </svg>
       </button>
-
+      
   <style>
     .colab-df-container {
       display:flex;
@@ -1285,7 +1159,7 @@ sex           0.50      0.50
       </script>
     </div>
   </div>
-</div></div>
+  </div></div>
 </div>
 <p>This are the original results</p>
 <table border="1" class="dataframe">
@@ -1373,14 +1247,14 @@ sex           0.50      0.50
       <button class="colab-df-convert" onclick="convertToInteractive('df-18dff8b5-eb15-4f53-b22f-f361698501cd')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
-
+        
   <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
        width="24px">
     <path d="M0 0h24v24H0V0z" fill="none"/>
     <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
   </svg>
       </button>
-
+      
   <style>
     .colab-df-container {
       display:flex;
@@ -1445,7 +1319,7 @@ sex           0.50      0.50
       </script>
     </div>
   </div>
-</div></div>
+  </div></div>
 </div>
 <p>These are the original results</p>
 <table border="1" class="dataframe">
@@ -1476,7 +1350,7 @@ sex           0.50      0.50
 </table><p>As we can see, the results with synthetic data are pretty close to the original ones.</p>
 </section>
 <section id="turning-an-experimental-dataset-into-an-observational-one">
-<h3><span class="section-number">7.2.3. </span>Turning an experimental dataset into an observational one<a class="headerlink" href="#turning-an-experimental-dataset-into-an-observational-one" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.2.3. </span>Turning an experimental dataset into an observational one<a class="headerlink" href="#turning-an-experimental-dataset-into-an-observational-one" title="Permalink to this heading">#</a></h3>
 <p>In what follows we’ll purposely create a biased sample to show how the difference in means estimator fails in observational settings. We’ll focus on two covariates: <code class="docutils literal notranslate"><span class="pre">age</span></code> and political views (<code class="docutils literal notranslate"><span class="pre">polviews</span></code>). Presumably, younger or more liberal individuals are less affected by the change in wording in the question. So let’s see what happens when we make these individuals more prominent in our sample of treated individuals, and less prominent in our sample of untreated individuals.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1559,7 +1433,7 @@ WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RG
 WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* &amp; *y*.  Please use the *color* keyword-argument or provide a 2-D array with a single row if you intend to specify the same RGB or RGBA value for all points.
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_47_1.png" src="../_images/8_WGANs_for_simulation_47_1.png" />
+<img alt="../_images/2587324d5371e9fa972785cc0038667116ad56e7c627dc6fd77ec92dfd65f4a9.png" src="../_images/2587324d5371e9fa972785cc0038667116ad56e7c627dc6fd77ec92dfd65f4a9.png" />
 </div>
 </div>
 <p>On the other hand, this is what the modified dataset looks like. The treated population is much younger and more liberal, while the untreated population is older and more conservative.</p>
@@ -1600,7 +1474,7 @@ WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RG
 WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* &amp; *y*.  Please use the *color* keyword-argument or provide a 2-D array with a single row if you intend to specify the same RGB or RGBA value for all points.
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_49_1.png" src="../_images/8_WGANs_for_simulation_49_1.png" />
+<img alt="../_images/7afe0881f54bab14abeddde76a09a331c8aa65cc28a7f4d4f2c0124d799a343b.png" src="../_images/7afe0881f54bab14abeddde76a09a331c8aa65cc28a7f4d4f2c0124d799a343b.png" />
 </div>
 </div>
 <p>As we would expect the difference-in-means estimate is biased toward zero because in this new dataset we mostly treated individuals for which we expect the effect to be smaller.</p>
@@ -1669,14 +1543,14 @@ WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RG
       <button class="colab-df-convert" onclick="convertToInteractive('df-54d0c48c-836c-4828-9150-7a8e1cc5a15f')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
-
+        
   <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
        width="24px">
     <path d="M0 0h24v24H0V0z" fill="none"/>
     <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
   </svg>
       </button>
-
+      
   <style>
     .colab-df-container {
       display:flex;
@@ -1741,7 +1615,7 @@ WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RG
       </script>
     </div>
   </div>
-</div></div>
+  </div></div>
 </div>
 <p>These are the results with the original data</p>
 <table border="1" class="dataframe">
@@ -1779,10 +1653,10 @@ WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RG
 </table><p>Note that the dataset created above still satisfies unconfoundedness (3.3), since discrepancies in treatment assignment probability are described by observable covariates (<code class="docutils literal notranslate"><span class="pre">age</span></code> and <code class="docutils literal notranslate"><span class="pre">polviews</span></code>). Moreover, it also satisfies the overlap assumption (3.4), since never completely dropped all treated or all untreated observations in any region of the covariate space. This is important because, in what follows, we’ll consider different estimators of the ATE that are available in observational settings under unconfoundedness and overlap.</p>
 </section>
 <section id="direct-estimation">
-<h3><span class="section-number">7.2.4. </span>Direct estimation<a class="headerlink" href="#direct-estimation" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.2.4. </span>Direct estimation<a class="headerlink" href="#direct-estimation" title="Permalink to this heading">#</a></h3>
 <p>Our first estimator is suggested by the following decomposition of the ATE, which is possible due to unconfoundedness (3.3).</p>
-<div class="amsmath math notranslate nohighlight" id="equation-37c50965-a967-47af-a0e6-6f58e0ccd45c">
-<span class="eqno">(7.5)<a class="headerlink" href="#equation-37c50965-a967-47af-a0e6-6f58e0ccd45c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2a3ff8de-630f-4f61-89fc-c34c039cb466">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-2a3ff8de-630f-4f61-89fc-c34c039cb466" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \mathbf{E}[Y_i(1) - Y_i(0)]
   = \mathbf{E}[\mathbf{E}[Y_i | X_i, W_i=1]] - \mathbf{E}[\mathbf{E}[Y_i | X_i, W_i=0]]
 \end{equation}\]</div>
@@ -1790,13 +1664,13 @@ WARNING:matplotlib.axes._axes:*c* argument looks like a single numeric RGB or RG
 [Exercise: make sure you understand this. Where is the unconfoundedness assumption used?]
 </font>
 <p>The decomposition above suggests the following procedure, sometimes called the <strong>direct estimate</strong> of the ATE:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Estimate <span class="math notranslate nohighlight">\(\mu(x, w) := \mathbf{E}[Y_i|X_i = x,W_i=w]\)</span>, preferably using nonparametric methods.</p></li>
 <li><p>Predict <span class="math notranslate nohighlight">\(\hat{\mu}(X_i, 1)\)</span> and <span class="math notranslate nohighlight">\(\hat{\mu}(X_i, 0)\)</span> for each observation in the data.</p></li>
 <li><p>Average out the predictions and subtract them.</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-1ca7b21f-55dc-4cd2-8198-3b4417d621a5">
-<span class="eqno">(7.6)<a class="headerlink" href="#equation-1ca7b21f-55dc-4cd2-8198-3b4417d621a5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2249e9cb-82f2-4ca8-8fd1-3d3cf196df21">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-2249e9cb-82f2-4ca8-8fd1-3d3cf196df21" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \hat{\tau}^{DM} := \frac{1}{n} \sum_{i=1}^{n} \hat{\mu}(X_i, 1) - \hat{\mu}(X_i, 0)
 \end{equation}\]</div>
 <div class="cell docutils container">
@@ -1836,7 +1710,7 @@ From original data set:
 <p>A technical note. Step 1 above can be done by regressing <span class="math notranslate nohighlight">\(Y_i\)</span> on <span class="math notranslate nohighlight">\(X_i\)</span> using only treated observations to get an estimate <span class="math notranslate nohighlight">\(\hat{\mu}(x, 1)\)</span> first, and then repeating the same to obtain <span class="math notranslate nohighlight">\(\hat{\mu}(x, 0)\)</span> from the control observations. Or it can be done by regression <span class="math notranslate nohighlight">\(Y_i\)</span> on both covariates <span class="math notranslate nohighlight">\((X_i, W_i)\)</span> together and obtaining a function <span class="math notranslate nohighlight">\(\hat{\mu}(x, w)\)</span>. Both have advantages and disadvantages, and we refer to <a class="reference external" href="https://www.pnas.org/content/116/10/4156.short">Künzel, Sekhon, Bickel, Yu  (2019)</a> for a discussion.</p>
 </section>
 <section id="inverse-propensity-weighted-estimator">
-<h3><span class="section-number">7.2.5. </span>Inverse propensity-weighted estimator<a class="headerlink" href="#inverse-propensity-weighted-estimator" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.2.5. </span>Inverse propensity-weighted estimator<a class="headerlink" href="#inverse-propensity-weighted-estimator" title="Permalink to this heading">#</a></h3>
 <p>To understand this estimator, let’s first consider a toy problem. Suppose that we’d like to estimate the average effect of a certain learning intervention on students’ grades, measured on a scale of 0-100. We run two separate experiments in schools of type A and B. Suppose that, unknown to us, grades among treated students in schools of type A are approximately distributed as <span class="math notranslate nohighlight">\(Y_i(1) | A \sim N(60, 5^2)\)</span>, whereas in schools of type B they are distributed as <span class="math notranslate nohighlight">\(Y_i(1) | B \sim N(70, 5^2)\)</span>. Moreover, for simplicity both schools have the same number of students. If we could treat the same number of students in both types of schools, we’d get an unbiased estimate of the population mean grade among treated individuals: <span class="math notranslate nohighlight">\((1/2)60 + (1/2)70 = 75\)</span>.</p>
 <p>However, suppose that enrollment in the treatment is voluntary. In school A, only 5% enroll in the study, whereas in school B the number is 40%. Therefore, if we take an average of treated students’ grades without taking school membership into account, school B’s students would be over-represented, and therefore our estimate of treated student’s grades would be biased upward.</p>
 <div class="cell docutils container">
@@ -1887,7 +1761,7 @@ From original data set:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f008036edd0&gt;
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_58_1.png" src="../_images/8_WGANs_for_simulation_58_1.png" />
+<img alt="../_images/cfee5579ddce9f9eb3e0cc965552af3998402181eaf6c62b95c88a27eaf3c593.png" src="../_images/cfee5579ddce9f9eb3e0cc965552af3998402181eaf6c62b95c88a27eaf3c593.png" />
 </div>
 </div>
 <p>This is the graph of the original data</p>
@@ -1902,7 +1776,7 @@ From original data set:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_WGANs_for_simulation_60_0.png" src="../_images/8_WGANs_for_simulation_60_0.png" />
+<img alt="../_images/c5851a768bc61d3647641c94702ea07b27639134cb18e86e81e2df4425772053.png" src="../_images/c5851a768bc61d3647641c94702ea07b27639134cb18e86e81e2df4425772053.png" />
 </div>
 </div>
 <p>To solve this problem, we can consider each school separately, and then aggregate the results. Denote by <span class="math notranslate nohighlight">\(n_A\)</span> the number of students from school <span class="math notranslate nohighlight">\(A\)</span>, and <span class="math notranslate nohighlight">\(n_{A,1}\)</span> denote the number of treated students in that school. Likewise, denote by <span class="math notranslate nohighlight">\(n_B\)</span> and <span class="math notranslate nohighlight">\(n_{B,1}\)</span> the same quantities for school <span class="math notranslate nohighlight">\(B\)</span>. Then our aggregated means estimator can be written as:</p>
@@ -1972,7 +1846,7 @@ From original data set:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f63fbdd09d0&gt;
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_62_1.png" src="../_images/8_WGANs_for_simulation_62_1.png" />
+<img alt="../_images/3b8c1aa1d71854972e4730c0a5cf4f6bc0011fd7198f218da2c4305fb97397b7.png" src="../_images/3b8c1aa1d71854972e4730c0a5cf4f6bc0011fd7198f218da2c4305fb97397b7.png" />
 </div>
 </div>
 <p>This is the graph of the original data</p>
@@ -1987,7 +1861,7 @@ From original data set:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_WGANs_for_simulation_64_0.png" src="../_images/8_WGANs_for_simulation_64_0.png" />
+<img alt="../_images/b0cc82075c39d56ec33da055af2379943ea435009c17e87c4b731ad4d4c9153a.png" src="../_images/b0cc82075c39d56ec33da055af2379943ea435009c17e87c4b731ad4d4c9153a.png" />
 </div>
 </div>
 <p>Next, we’ll manipulate the expression <a class="reference internal" href="#equation-agg">(7.7)</a>. This next derivation can be a bit overwhelming, but please keep in mind that we’re simply doing algebraic manipulations, as well as establishing some common and useful notation. First, note that we can rewrite the average for school A in <a class="reference internal" href="#equation-agg">(7.7)</a> as</p>
@@ -2023,13 +1897,13 @@ From original data set:
   \widehat{\tau}^{IPW} := \frac{1}{n} \sum_{i=1}^{n} Y_i \frac{W_i}{\hat{e}(X_i)} - \frac{1}{n} \sum_{i=1}^{n} Y_i \frac{(1 - W_i) }{1-\hat{e}(X_i)}.
 \]</div>
 <p>The argument above suggests the following algorithm:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Estimate the propensity scores <span class="math notranslate nohighlight">\(e(X_i)\)</span> by regressing <span class="math notranslate nohighlight">\(W_i\)</span> on <span class="math notranslate nohighlight">\(X_i\)</span>, preferably using a non-parametric method.</p></li>
 <li><p>Compute the IPW estimator summand:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
 \[Z_i = Y_i \times \left(\frac{W_i}{\hat{e}(X_i)} - \frac{(1-W_i)}{(1-\hat{e}(X_i)} \right)\]</div>
-<ol class="simple">
+<ol class="arabic simple" start="3">
 <li><p>Compute the mean and standard error of the new variable <span class="math notranslate nohighlight">\(Z_i\)</span></p></li>
 </ol>
 <div class="cell docutils container">
@@ -2172,14 +2046,14 @@ From original data set:
       <button class="colab-df-convert" onclick="convertToInteractive('df-ca8f2bf0-b3ae-4a85-832d-f64bb5868b01')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
-
+        
   <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
        width="24px">
     <path d="M0 0h24v24H0V0z" fill="none"/>
     <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
   </svg>
       </button>
-
+      
   <style>
     .colab-df-container {
       display:flex;
@@ -2244,7 +2118,7 @@ From original data set:
       </script>
     </div>
   </div>
-</div></div>
+  </div></div>
 </div>
 <p>Results from the original data</p>
 <table border="1" class="dataframe">
@@ -2269,7 +2143,7 @@ From original data set:
 </table></section>
 </section>
 <section id="augmented-inverse-propensity-weighted-aipw-estimator">
-<h2><span class="section-number">7.3. </span>Augmented inverse propensity-weighted (AIPW) estimator<a class="headerlink" href="#augmented-inverse-propensity-weighted-aipw-estimator" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.3. </span>Augmented inverse propensity-weighted (AIPW) estimator<a class="headerlink" href="#augmented-inverse-propensity-weighted-aipw-estimator" title="Permalink to this heading">#</a></h2>
 <p>The next <strong>augmented inverse propensity-weighted estimator</strong> (AIPW) of the treatment effect is available under unconfoundedness <a class="reference internal" href="#equation-unconf-1">(7.3)</a> and overlap <a class="reference internal" href="#equation-overlap">(7.4)</a>:</p>
 <div class="math notranslate nohighlight" id="equation-aipw">
 <span class="eqno">(7.10)<a class="headerlink" href="#equation-aipw" title="Permalink to this equation">#</a></span>\[\begin{split}
@@ -2358,11 +2232,11 @@ From original data set:
 </div>
 <p>Finally, even when overlap holds, when the propensity score is small AIPW can have unstable performance. In that case, other estimators of the average treatment effect are available. For example, see the <em>approximate residual balancing</em> (ARB) method in <a class="reference external" href="https://arxiv.org/abs/1604.07125">Athey, Imbens and Wager (2016)</a> and its accompanying <code class="docutils literal notranslate"><span class="pre">R</span></code> package <a class="reference external" href="https://github.com/swager/balanceHD"><code class="docutils literal notranslate"><span class="pre">balanceHD</span></code></a>.</p>
 <section id="diagnostics">
-<h3><span class="section-number">7.3.1. </span>Diagnostics<a class="headerlink" href="#diagnostics" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.3.1. </span>Diagnostics<a class="headerlink" href="#diagnostics" title="Permalink to this heading">#</a></h3>
 <p>Here we show some basic diagnostics and best practices that should always be conducted. Although failing these tests should usually cause concern, passing them does not mean that the analysis is entirely free from issues. For example, even if our estimated propensity scores are bounded away from zero and one (and therefore seem to satisfy the overlap assumption), they may still be incorrect – for example, if we rely on modeling assumptions that are simply not true. Also, although we should expect to pass all the diagnostic tests below in randomized settings, it’s good practice to check them anyway, as one may find problems with the experimental design.</p>
 </section>
 <section id="assessing-balance">
-<h3><span class="section-number">7.3.2. </span>Assessing balance<a class="headerlink" href="#assessing-balance" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.3.2. </span>Assessing balance<a class="headerlink" href="#assessing-balance" title="Permalink to this heading">#</a></h3>
 <p>As we saw in Section (3.3), in observational settings the covariate distributions can be very different for treated and untreated individuals. Such discrepancies can lead to biased estimates of the ATE, but as hinted in Section (3.5), one would hope that by up- or down-weighting observations based on inverse propensity weights their averages should be similar. In fact, we should also expect that averages of basis functions of the covariates should be similar after reweighting. This property is called <strong>balance</strong>. One way to check it is as follows. Given some variable <span class="math notranslate nohighlight">\(Z_i\)</span> (e.g., a covariate <span class="math notranslate nohighlight">\(X_{i1}\)</span>, or an interaction between covariates <span class="math notranslate nohighlight">\(X_{i1}X_{i2}\)</span>, or a polynomial in covariates <span class="math notranslate nohighlight">\(X_{i1}^2\)</span>, etc), we can check the absolute standardized mean difference (ASMD) of <span class="math notranslate nohighlight">\(Z_i\)</span> between treated and untreated individuals in our data,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -2455,7 +2329,7 @@ From original data set:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Standardized absolute mean differences&#39;)
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_87_1.png" src="../_images/8_WGANs_for_simulation_87_1.png" />
+<img alt="../_images/8891a104fab36afe7dc4a36a045ce2906b59586b32e932dc792c90d482ab73b9.png" src="../_images/8891a104fab36afe7dc4a36a045ce2906b59586b32e932dc792c90d482ab73b9.png" />
 </div>
 </div>
 <p>This is the graph of the original data</p>
@@ -2470,7 +2344,7 @@ From original data set:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_WGANs_for_simulation_89_0.png" src="../_images/8_WGANs_for_simulation_89_0.png" />
+<img alt="../_images/8e260f4f9a1d0fe1108aee7cf0f1661959d476ca3f7a91b68c9a453034681ec1.png" src="../_images/8e260f4f9a1d0fe1108aee7cf0f1661959d476ca3f7a91b68c9a453034681ec1.png" />
 </div>
 </div>
 <p>Note above how in particular <code class="docutils literal notranslate"><span class="pre">age</span></code> and <code class="docutils literal notranslate"><span class="pre">polviews</span></code> – the variables we chose to introduce imbalance in Section (3.3) – are far from balanced before adjustment, as are other variables that correlate with them.</p>
@@ -2500,10 +2374,10 @@ From original data set:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f6408f91550&gt;
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_92_1.png" src="../_images/8_WGANs_for_simulation_92_1.png" />
-<img alt="../_images/8_WGANs_for_simulation_92_2.png" src="../_images/8_WGANs_for_simulation_92_2.png" />
-<img alt="../_images/8_WGANs_for_simulation_92_3.png" src="../_images/8_WGANs_for_simulation_92_3.png" />
-<img alt="../_images/8_WGANs_for_simulation_92_4.png" src="../_images/8_WGANs_for_simulation_92_4.png" />
+<img alt="../_images/976db3e765792c53f49d87d4c2000c14b0eebf4664c668c3c8059680397e3503.png" src="../_images/976db3e765792c53f49d87d4c2000c14b0eebf4664c668c3c8059680397e3503.png" />
+<img alt="../_images/fb95396680d04ff9daa8e0d49f5b3d9ce05ebb4b828a64f61f2ea241720bec9c.png" src="../_images/fb95396680d04ff9daa8e0d49f5b3d9ce05ebb4b828a64f61f2ea241720bec9c.png" />
+<img alt="../_images/652b69bfe451093ce411d3a7c2f26dd1e079dd00dc790fe9fc81b25b070a1027.png" src="../_images/652b69bfe451093ce411d3a7c2f26dd1e079dd00dc790fe9fc81b25b070a1027.png" />
+<img alt="../_images/b5772274ce6ff8a4c839bdcb86ccf369486c175a448b086e96bf7c77ab1b8201.png" src="../_images/b5772274ce6ff8a4c839bdcb86ccf369486c175a448b086e96bf7c77ab1b8201.png" />
 </div>
 </div>
 <p>This is the graph of the original data</p>
@@ -2518,7 +2392,7 @@ From original data set:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_WGANs_for_simulation_94_0.png" src="../_images/8_WGANs_for_simulation_94_0.png" />
+<img alt="../_images/f2e3c18b946d7556defb08b8521a847c53a911486af17f648f01cd5f68fa792c.png" src="../_images/f2e3c18b946d7556defb08b8521a847c53a911486af17f648f01cd5f68fa792c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2535,10 +2409,10 @@ From original data set:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f63e3a600d0&gt;
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_95_1.png" src="../_images/8_WGANs_for_simulation_95_1.png" />
-<img alt="../_images/8_WGANs_for_simulation_95_2.png" src="../_images/8_WGANs_for_simulation_95_2.png" />
-<img alt="../_images/8_WGANs_for_simulation_95_3.png" src="../_images/8_WGANs_for_simulation_95_3.png" />
-<img alt="../_images/8_WGANs_for_simulation_95_4.png" src="../_images/8_WGANs_for_simulation_95_4.png" />
+<img alt="../_images/2abab16c9666e95027f6cb0f86536cb240d0d880d2de30e87d146ed9aaef2929.png" src="../_images/2abab16c9666e95027f6cb0f86536cb240d0d880d2de30e87d146ed9aaef2929.png" />
+<img alt="../_images/81685426e68741c8a583113dc992836f9e1483a472d7d396add46d0d57329518.png" src="../_images/81685426e68741c8a583113dc992836f9e1483a472d7d396add46d0d57329518.png" />
+<img alt="../_images/c7670d1d72cf28127fb810909f3e1bb2bfa0e58206df778cbe82448503ed7a13.png" src="../_images/c7670d1d72cf28127fb810909f3e1bb2bfa0e58206df778cbe82448503ed7a13.png" />
+<img alt="../_images/b1b7cf89ad348135717b1eedac354e62f467281caf046ccf5d1b4c5e2b03fe0a.png" src="../_images/b1b7cf89ad348135717b1eedac354e62f467281caf046ccf5d1b4c5e2b03fe0a.png" />
 </div>
 </div>
 <p>This is the graph of the original data</p>
@@ -2553,12 +2427,12 @@ From original data set:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_WGANs_for_simulation_97_0.png" src="../_images/8_WGANs_for_simulation_97_0.png" />
+<img alt="../_images/54b37ca97416221a6f2634fa7d13c2b2932a081e9be94ae64252a43a7e42deae.png" src="../_images/54b37ca97416221a6f2634fa7d13c2b2932a081e9be94ae64252a43a7e42deae.png" />
 </div>
 </div>
 <p>There exist other types of balance checks. We recommend checking out the <code class="docutils literal notranslate"><span class="pre">R</span></code> package <code class="docutils literal notranslate"><span class="pre">cobalt</span></code>. This <a class="reference external" href="https://cran.r-project.org/web/packages/cobalt/vignettes/cobalt.html">vignette</a> is a good place to start.</p>
 <section id="assessing-overlap">
-<h4><span class="section-number">7.3.2.1. </span>Assessing overlap<a class="headerlink" href="#assessing-overlap" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">7.3.2.1. </span>Assessing overlap<a class="headerlink" href="#assessing-overlap" title="Permalink to this heading">#</a></h4>
 <p>It’s also important to check the estimated propensity scores. If they seem to cluster at zero or one, we should expect IPW and AIPW estimators to behave very poorly. Here, the propensity score is trimodal because of our sample modification procedure in Section (3.3): some observations are untouched and therefore remain with assignment probability <span class="math notranslate nohighlight">\(0.5\)</span>, some are dropped (kept) with probability 15% (85%).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2573,7 +2447,7 @@ From original data set:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Estimated propensity scores (causal forest)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/8_WGANs_for_simulation_100_1.png" src="../_images/8_WGANs_for_simulation_100_1.png" />
+<img alt="../_images/6f3dec569c136b14cbf85ae2891fa4e632d2a45e0334fe164e95ff47bc83bdcb.png" src="../_images/6f3dec569c136b14cbf85ae2891fa4e632d2a45e0334fe164e95ff47bc83bdcb.png" />
 </div>
 </div>
 <p>This is the graph of the original data</p>
@@ -2588,7 +2462,7 @@ From original data set:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_WGANs_for_simulation_102_0.png" src="../_images/8_WGANs_for_simulation_102_0.png" />
+<img alt="../_images/d5be4813d0c791286c1a51f9ac90a54baf4bfa69e29a2f49a4b348618413f1c5.png" src="../_images/d5be4813d0c791286c1a51f9ac90a54baf4bfa69e29a2f49a4b348618413f1c5.png" />
 </div>
 </div>
 <p>When overlap fails, the methods described above will not produce good estimates. In that case, one may consider changing the estimand and targeting the average treatment effect <em>on the treated</em> (ATT) <span class="math notranslate nohighlight">\(\mathbf{E}[Y_i(1) - Y_i(0) | W_i=1]\)</span>, or trimming the sample and focusing on some subgroup <span class="math notranslate nohighlight">\(G_i\)</span> with bounded propensity scores <span class="math notranslate nohighlight">\(\mathbf{E}[Y_i(1) - Y_i(0) | G_i]\)</span>, as discussed in<br />
@@ -2611,7 +2485,7 @@ From original data set:
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2619,49 +2493,119 @@ From original data set:
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="6_policy_learning_1.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6. </span>Policy Learning I - Binary Treatment</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="9_surrogate_py.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>The surrogate index Athey, S., et al. (2019).</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Phd Susan Athey<br/>
-  
-</p>
-        </footer>
-    </div>
-    
-</div>
 
-
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6_policy_learning_1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Policy Learning I - Binary Treatment</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="9_surrogate_py.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulating-data">7.1. Simulating Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-0-3">7.1.1. Steps 0-3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-4-5">7.1.2. Steps 4 &amp; 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-6-8">7.1.3. Steps 6 &amp; 8</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-of-the-simulated-data-to-the-code-of-chapter-3">7.2. Application of the simulated data to the code of chapter 3.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notation-and-definitions">7.2.1. Notation and definitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-in-means-estimator">7.2.2. Difference-in-means estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turning-an-experimental-dataset-into-an-observational-one">7.2.3. Turning an experimental dataset into an observational one</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-estimation">7.2.4. Direct estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-propensity-weighted-estimator">7.2.5. Inverse propensity-weighted estimator</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-inverse-propensity-weighted-aipw-estimator">7.3. Augmented inverse propensity-weighted (AIPW) estimator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics">7.3.1. Diagnostics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assessing-balance">7.3.2. Assessing balance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#assessing-overlap">7.3.2.1. Assessing overlap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Susan Athey. Translated into Python by Alexander Quispe
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

@@ -1,48 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>8. The surrogate index Athey, S., et al. (2019). &#8212; MGTECON 634 at Stanford (Python scripts)</title>
-    
+    <title>8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research. &#8212; MGTECON 634 at Stanford (Python scripts)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,60 +64,92 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/9_surrogate_py';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="7. Tutorial to simulate data using WGANs" href="8_WGANs_for_simulation.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../md/intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -114,577 +158,341 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Topics
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topics</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_introduction_1.html">
-   1. Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="2_introduction_to_machine_learning.html">
-   2. Introduction to Machine Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="3_average_treatment_effect_1.html">
-   3. ATE I: Binary treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="4_heterogeneous_treatment_effect_1.html">
-   4. HTE I: Binary treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="5_policy_evaluation_1.html">
-   5. Policy Evaluation I - Binary Treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_policy_learning_1.html">
-   6. Policy Learning I - Binary Treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="8_WGANs_for_simulation.html">
-   7. Tutorial to simulate data using WGANs
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   8. The surrogate index Athey, S., et al. (2019).
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_introduction_1.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_introduction_to_machine_learning.html">2. Introduction to Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_average_treatment_effect_1.html">3. ATE I: Binary treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_heterogeneous_treatment_effect_1.html">4. HTE I: Binary treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_policy_evaluation_1.html">5. Policy Evaluation I - Binary Treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_policy_learning_1.html">6. Policy Learning I - Binary Treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_WGANs_for_simulation.html">7. Tutorial to simulate data using WGANs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/9_surrogate_py.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/9_surrogate_py.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/9_surrogate_py.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/9_surrogate_py.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
 <button onclick="initThebeSBT()"
-  class="headerbtn headerbtn-launch-thebe"
-  data-toggle="tooltip"
-data-placement="left"
-title="Launch Thebe"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-play"></i>
   </span>
-<span class="headerbtn__text-container">Live Code</span>
+<span class="btn__text-container">Live Code</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/d2cml-ai/mgtecon634_python" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/9_surrogate_py.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/9_surrogate_py.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/9_surrogate_py.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/d2cml-ai/mgtecon634_python"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/9_surrogate_py.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/9_surrogate_py.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Edit this page"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-pencil-alt"></i>
-  </span>
-<span class="headerbtn__text-container">suggest edit</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/notebooks/9_surrogate_py.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setup">
-   8.1. Setup
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#identification">
-   8.2. Identification
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#unconfoundedness">
-     8.2.1. Unconfoundedness
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#surrogacy-and-the-surrogate-index">
-     8.2.2. Surrogacy and the Surrogate Index
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#deffinition-1">
-       8.2.2.1. Deffinition 1:
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#definition-2">
-       8.2.2.2. Definition 2
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#proposition-1">
-       8.2.2.3. Proposition 1
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#comparibility">
-   8.3. Comparibility
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#proposition-2">
-     8.3.1. Proposition 2
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#definition-3">
-     8.3.2. Definition 3
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     8.3.3. Identification
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-modules">
-   8.4. Import modules
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-wrangling">
-   8.5. Data Wrangling
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tables">
-   8.6. Tables
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#appendix-table-1">
-     8.6.1. Appendix Table 1
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#appendix-table-2">
-     8.6.2. Appendix Table 2
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figures">
-   8.7. Figures
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter">
-     8.7.1. Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years">
-     8.7.2. Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon">
-     8.7.3. Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index">
-     8.7.4. Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>The surrogate index Athey, S., et al. (2019).</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setup">
-   8.1. Setup
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#identification">
-   8.2. Identification
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#unconfoundedness">
-     8.2.1. Unconfoundedness
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#surrogacy-and-the-surrogate-index">
-     8.2.2. Surrogacy and the Surrogate Index
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#deffinition-1">
-       8.2.2.1. Deffinition 1:
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#definition-2">
-       8.2.2.2. Definition 2
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#proposition-1">
-       8.2.2.3. Proposition 1
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#comparibility">
-   8.3. Comparibility
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#proposition-2">
-     8.3.1. Proposition 2
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#definition-3">
-     8.3.2. Definition 3
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     8.3.3. Identification
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-modules">
-   8.4. Import modules
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-wrangling">
-   8.5. Data Wrangling
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tables">
-   8.6. Tables
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#appendix-table-1">
-     8.6.1. Appendix Table 1
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#appendix-table-2">
-     8.6.2. Appendix Table 2
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figures">
-   8.7. Figures
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter">
-     8.7.1. Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years">
-     8.7.2. Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon">
-     8.7.3. Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index">
-     8.7.4. Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Athey, S., Chetty, R., Imbens, G. W., & Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">8.1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identification">8.2. Identification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unconfoundedness">8.2.1. Unconfoundedness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surrogacy-and-the-surrogate-index">8.2.2. Surrogacy and the Surrogate Index</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deffinition-1">8.2.2.1. Deffinition 1:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-2">8.2.2.2. Definition 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proposition-1">8.2.2.3. Proposition 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparibility">8.3. Comparibility</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proposition-2">8.3.1. Proposition 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-3">8.3.2. Definition 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">8.3.3. Identification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules">8.4. Import modules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-wrangling">8.5. Data Wrangling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables">8.6. Tables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-table-1">8.6.1. Appendix Table 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-table-2">8.6.2. Appendix Table 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figures">8.7. Figures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter">8.7.1. Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years">8.7.2. Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon">8.7.3. Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index">8.7.4. Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
-  <section class="tex2jax_ignore mathjax_ignore" id="the-surrogate-index-athey-s-et-al-2019">
-<h1><span class="section-number">8. </span>The surrogate index Athey, S., et al. (2019).<a class="headerlink" href="#the-surrogate-index-athey-s-et-al-2019" title="Permalink to this headline">#</a></h1>
-<p><em>Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.</em></p>
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="athey-s-chetty-r-imbens-g-w-kang-h-2019-the-surrogate-index-combining-short-term-proxies-to-estimate-long-term-treatment-effects-more-rapidly-and-precisely-no-w26463-national-bureau-of-economic-research">
+<h1><span class="section-number">8. </span>Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.<a class="headerlink" href="#athey-s-chetty-r-imbens-g-w-kang-h-2019-the-surrogate-index-combining-short-term-proxies-to-estimate-long-term-treatment-effects-more-rapidly-and-precisely-no-w26463-national-bureau-of-economic-research" title="Permalink to this heading">#</a></h1>
 <p><a class="reference external" href="https://opportunityinsights.org/wp-content/uploads/2019/11/surrogate_paper.pdf">Reference_paper</a></p>
 <p><a class="reference external" href="https://github.com/OpportunityInsights/Surrogates-Replication-Code">Reference code</a></p>
 <section id="setup">
-<h2><span class="section-number">8.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
 <p>Consider a setting with two samples: an Experimental (<span class="math notranslate nohighlight">\(E\)</span>) sample and an Observational (<span class="math notranslate nohighlight">\(O\)</span>)
 sample. The experimental and observational sample contain observations on <span class="math notranslate nohighlight">\(N_E\)</span> and <span class="math notranslate nohighlight">\(N_O\)</span> units,
 respectively. It is convenient to view the data as consisting of a single sample of size <span class="math notranslate nohighlight">\(N =
@@ -728,7 +536,7 @@ average causal effect of the treatment on the surrogates, <span class="math notr
 interest only insofar as it aids in estimation of <span class="math notranslate nohighlight">\(\tau\)</span>.</p>
 </section>
 <section id="identification">
-<h2><span class="section-number">8.2. </span>Identification<a class="headerlink" href="#identification" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.2. </span>Identification<a class="headerlink" href="#identification" title="Permalink to this heading">#</a></h2>
 <p>In this section, we discuss three assumptions that together allow us to combine the observational
 and experimental samples and estimate the causal effect of the treatment on the primary outcome
 using a set of intermediate outcomes. The first assumption is unconfoundedness or ignorability,
@@ -741,7 +549,7 @@ After stating these three assumptions, we present our main identification result
 the ATE on the primary outcome can be identified by combining intermediate outcomes under
 these assumptions.</p>
 <section id="unconfoundedness">
-<h3><span class="section-number">8.2.1. </span>Unconfoundedness<a class="headerlink" href="#unconfoundedness" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.2.1. </span>Unconfoundedness<a class="headerlink" href="#unconfoundedness" title="Permalink to this heading">#</a></h3>
 <p>For the individuals in the experimental group, define the propensity score as the conditional
 probability of receiving the treatment: <span class="math notranslate nohighlight">\(e(x) = \mathrm{pr}\left(Wi = 1 | X_i = x, P_i = E\right)\)</span>. We assume that for individuals in the experimental group, treatment assignment is unconfounded and we have overlap in the distribution of pre-treatment variables between the treatment and control groups (Rosenbaum and Rubin 1983).</p>
 <p><strong>Assumption 1.</strong> (Unconfounded Treatment Assignment / Strong Ignorability)</p>
@@ -751,7 +559,7 @@ probability of receiving the treatment: <span class="math notranslate nohighligh
 effect of the treatment on the outcome <span class="math notranslate nohighlight">\(Y_i\)</span> by adjusting for pre-treatment variables, if the <span class="math notranslate nohighlight">\(Y_i\)</span> were measured.</p>
 </section>
 <section id="surrogacy-and-the-surrogate-index">
-<h3><span class="section-number">8.2.2. </span>Surrogacy and the Surrogate Index<a class="headerlink" href="#surrogacy-and-the-surrogate-index" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.2.2. </span>Surrogacy and the Surrogate Index<a class="headerlink" href="#surrogacy-and-the-surrogate-index" title="Permalink to this heading">#</a></h3>
 <p>Because the primary outcome is not measured in the experimental group, we exploit surrogates
 to identify the treatment effect of <span class="math notranslate nohighlight">\(W\)</span> on <span class="math notranslate nohighlight">\(Y\)</span> . The defining property of these surrogates <span class="math notranslate nohighlight">\(S_i\)</span> is the following condition</p>
 <p><strong>Assumption 2</strong> (Surrogacy)</p>
@@ -792,7 +600,7 @@ through <span class="math notranslate nohighlight">\(S\)</span>.</p>
 <p>We exploit the availability of multiple intermediate outcomes by defining two concepts: the
 surrogate index and surrogate score.</p>
 <section id="deffinition-1">
-<h4><span class="section-number">8.2.2.1. </span>Deffinition 1:<a class="headerlink" href="#deffinition-1" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">8.2.2.1. </span>Deffinition 1:<a class="headerlink" href="#deffinition-1" title="Permalink to this heading">#</a></h4>
 <p>The surrogate Index: <em>The surrogate index is the conditional expectation
 of the primary outcome given the surrogate outcomes and the pre-treatment variables in the
 observational sample:</em></p>
@@ -803,7 +611,7 @@ h_0(s, x) = \mathbb{E}[Y_i|S_i = s, X_i = x, P_i = O]
 <p>The surrogate index <span class="math notranslate nohighlight">\(h_0(s, x)\)</span> is estimable because we observe the triple <span class="math notranslate nohighlight">\(\left(Y_i, S_i, X_i\right)\)</span> in the observational sample. In a linear model, the surrogate index is simply a linear combination of the individual intermediate outcomes – the predicted value from a regression of the primary outcome on the intermediate outcomes.</p>
 </section>
 <section id="definition-2">
-<h4><span class="section-number">8.2.2.2. </span>Definition 2<a class="headerlink" href="#definition-2" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">8.2.2.2. </span>Definition 2<a class="headerlink" href="#definition-2" title="Permalink to this heading">#</a></h4>
 <p>The Surrogate Score: <em>The surrogate score is the conditional probability of
 having received the treatment given the value for the surrogate outcomes and the covariates:</em></p>
 <div class="math notranslate nohighlight">
@@ -815,7 +623,7 @@ only for scalar differences in other variables, irrespective of the dimension of
 surrogates.</p>
 </section>
 <section id="proposition-1">
-<h4><span class="section-number">8.2.2.3. </span>Proposition 1<a class="headerlink" href="#proposition-1" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">8.2.2.3. </span>Proposition 1<a class="headerlink" href="#proposition-1" title="Permalink to this heading">#</a></h4>
 <p>Surrogate Score: <em>Suppose Assumption 2 holds. Then:</em></p>
 <div class="math notranslate nohighlight">
 \[
@@ -825,7 +633,7 @@ W_i \perp Y_i \mid r(S_i, X_i, P_i) = \mathrm{E}
 </section>
 </section>
 <section id="comparibility">
-<h2><span class="section-number">8.3. </span>Comparibility<a class="headerlink" href="#comparibility" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.3. </span>Comparibility<a class="headerlink" href="#comparibility" title="Permalink to this heading">#</a></h2>
 <p>Surrogacy and unconfoundedness by themselves are not sufficient for consistent estimation of <span class="math notranslate nohighlight">\(\tau\)</span>
 by itself because they do not place restrictions on how the relationship between <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(S\)</span> in the
 observational sample compares to that in the experimental sample. The final assumption we
@@ -860,7 +668,7 @@ to take the relationship between <span class="math notranslate nohighlight">\(Y\
 the experimental sample. In effect, comparability and surrogacy together allow us to impute the
 missing primary outcomes in the experimental sample, as shown by the following proposition.</p>
 <section id="proposition-2">
-<h3><span class="section-number">8.3.1. </span>Proposition 2<a class="headerlink" href="#proposition-2" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.3.1. </span>Proposition 2<a class="headerlink" href="#proposition-2" title="Permalink to this heading">#</a></h3>
 <p>Surrogate Index:</p>
 <p><em>(i) Suppose Assumption 2 holds. Then:</em></p>
 <div class="math notranslate nohighlight">
@@ -885,7 +693,7 @@ Let <span class="math notranslate nohighlight">\(q = N_E/(N_E + N_O)\)</span> de
 be in the experimental sample <span class="math notranslate nohighlight">\(P_i = E\)</span> as follows:</p>
 </section>
 <section id="definition-3">
-<h3><span class="section-number">8.3.2. </span>Definition 3<a class="headerlink" href="#definition-3" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.3.2. </span>Definition 3<a class="headerlink" href="#definition-3" title="Permalink to this heading">#</a></h3>
 <p>Sampling Score</p>
 <div class="math notranslate nohighlight">
 \[
@@ -903,7 +711,7 @@ t(s, x) = \mathrm{pr}\left(P_ = E| S_i = s, X_i = x\right) = \frac{
 \[t(s, x) &lt; 1 \text{ for all } x \in \mathbb{S} \text{ and } x \in \mathbb{X}\]</div>
 </section>
 <section id="id1">
-<h3><span class="section-number">8.3.3. </span>Identification<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.3.3. </span>Identification<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>We now present our central identification result. We present three different representations of the
 average treatment effect that lead to three estimation strategies. The motivation for developing
 the different representations is that estimators corresponding to those different representations
@@ -970,7 +778,7 @@ score can be used to obtain efficient estimators for <span class="math notransla
 </section>
 </section>
 <section id="import-modules">
-<h2><span class="section-number">8.4. </span>Import modules<a class="headerlink" href="#import-modules" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.4. </span>Import modules<a class="headerlink" href="#import-modules" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data wrangling</span>
@@ -990,7 +798,7 @@ score can be used to obtain efficient estimators for <span class="math notransla
 </div>
 </section>
 <section id="data-wrangling">
-<h2><span class="section-number">8.5. </span>Data Wrangling<a class="headerlink" href="#data-wrangling" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.5. </span>Data Wrangling<a class="headerlink" href="#data-wrangling" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import Data</span>
@@ -1242,9 +1050,9 @@ score can be used to obtain efficient estimators for <span class="math notransla
 </div>
 </section>
 <section id="tables">
-<h2><span class="section-number">8.6. </span>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.6. </span>Tables<a class="headerlink" href="#tables" title="Permalink to this heading">#</a></h2>
 <section id="appendix-table-1">
-<h3><span class="section-number">8.6.1. </span>Appendix Table 1<a class="headerlink" href="#appendix-table-1" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.6.1. </span>Appendix Table 1<a class="headerlink" href="#appendix-table-1" title="Permalink to this heading">#</a></h3>
 <p>Estimates of Treatment Effects on Employment and Earnings Over Nine Years,
 Varying Quarters of Data Used to Construct Surrogate Index</p>
 <div class="cell docutils container">
@@ -1358,7 +1166,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </section>
 <section id="appendix-table-2">
-<h3><span class="section-number">8.6.2. </span>Appendix Table 2<a class="headerlink" href="#appendix-table-2" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.6.2. </span>Appendix Table 2<a class="headerlink" href="#appendix-table-2" title="Permalink to this heading">#</a></h3>
 <p>Estimates of Treatment Effects on Employment and Earnings Over Nine Years,
 Varying Quarters of Data Used to Construct Surrogate Index</p>
 <div class="cell docutils container">
@@ -1453,7 +1261,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </section>
 </section>
 <section id="figures">
-<h2><span class="section-number">8.7. </span>Figures<a class="headerlink" href="#figures" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.7. </span>Figures<a class="headerlink" href="#figures" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Colours</span>
@@ -1464,7 +1272,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </div>
 <section id="figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter">
-<h3><span class="section-number">8.7.1. </span>Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter<a class="headerlink" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.7.1. </span>Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter<a class="headerlink" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -1501,12 +1309,12 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9_surrogate_py_19_0.png" src="../_images/9_surrogate_py_19_0.png" />
+<img alt="../_images/f6ccd4ae133be3224bd8462e34dd0c891d3809ff0d8467226b1c626820ad172e.png" src="../_images/f6ccd4ae133be3224bd8462e34dd0c891d3809ff0d8467226b1c626820ad172e.png" />
 </div>
 </div>
 </section>
 <section id="figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years">
-<h3><span class="section-number">8.7.2. </span>Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years<a class="headerlink" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.7.2. </span>Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years<a class="headerlink" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
@@ -1554,12 +1362,12 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;B. Using Employment Rate in a Single Quarter as a Surrogate\n&#39;)
 </pre></div>
 </div>
-<img alt="../_images/9_surrogate_py_21_1.png" src="../_images/9_surrogate_py_21_1.png" />
+<img alt="../_images/442ffba839cc34c288ff6f6b43595417902b93df51b476cb5d0b049ae9b19d3e.png" src="../_images/442ffba839cc34c288ff6f6b43595417902b93df51b476cb5d0b049ae9b19d3e.png" />
 </div>
 </div>
 </section>
 <section id="figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon">
-<h3><span class="section-number">8.7.3. </span>Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon<a class="headerlink" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.7.3. </span>Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon<a class="headerlink" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Estimated treatment effect six tweleve</span>
@@ -1616,12 +1424,12 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9_surrogate_py_24_0.png" src="../_images/9_surrogate_py_24_0.png" />
+<img alt="../_images/8d8cd3df8a158a86261246132b2d7f6a83c82249b633f29caaafa8c227038ac7.png" src="../_images/8d8cd3df8a158a86261246132b2d7f6a83c82249b633f29caaafa8c227038ac7.png" />
 </div>
 </div>
 </section>
 <section id="figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index">
-<h3><span class="section-number">8.7.4. </span>Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index<a class="headerlink" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">8.7.4. </span>Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index<a class="headerlink" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Bias</span>
@@ -1682,7 +1490,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9_surrogate_py_28_0.png" src="../_images/9_surrogate_py_28_0.png" />
+<img alt="../_images/d212dcf95e68038c47ba536e15c9d5cfeaebe89e06dfb59ec7e11d860734e6ab.png" src="../_images/d212dcf95e68038c47ba536e15c9d5cfeaebe89e06dfb59ec7e11d860734e6ab.png" />
 </div>
 </div>
 </section>
@@ -1701,7 +1509,7 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -1709,42 +1517,119 @@ Varying Quarters of Data Used to Construct Surrogate Index</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="8_WGANs_for_simulation.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">7. </span>Tutorial to simulate data using WGANs</p>
-        </div>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Phd Susan Athey<br/>
-  
-</p>
-        </footer>
-    </div>
-    
-</div>
 
-
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="8_WGANs_for_simulation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Tutorial to simulate data using WGANs</p>
       </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">8.1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identification">8.2. Identification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unconfoundedness">8.2.1. Unconfoundedness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surrogacy-and-the-surrogate-index">8.2.2. Surrogacy and the Surrogate Index</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deffinition-1">8.2.2.1. Deffinition 1:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-2">8.2.2.2. Definition 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proposition-1">8.2.2.3. Proposition 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparibility">8.3. Comparibility</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proposition-2">8.3.1. Proposition 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-3">8.3.2. Definition 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">8.3.3. Identification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules">8.4. Import modules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-wrangling">8.5. Data Wrangling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables">8.6. Tables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-table-1">8.6.1. Appendix Table 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-table-2">8.6.2. Appendix Table 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figures">8.7. Figures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-2-employment-rates-in-riverside-gain-treatment-vs-control-group-by-quarter">8.7.1. Figure 2: Employment Rates in Riverside GAIN Treatment vs. Control Group, by Quarter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-3-estimates-of-treatment-effect-on-mean-employment-rates-over-nine-years">8.7.2. Figure 3: Estimates of Treatment Effect on Mean Employment Rates Over Nine Years</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-4-validation-of-six-quarter-surrogate-index-estimates-of-treatment-effects-on-mean-employment-rates-varying-outcome-horizon">8.7.3. Figure 4 : Validation of Six-Quarter Surrogate Index: Estimates of Treatment Effects on Mean Employment Rates, Varying Outcome Horizon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-5-bounds-on-mean-treatment-effect-on-employment-rates-over-nine-years-varying-number-of-quarters-used-to-construct-surrogate-index">8.7.4. Figure 5: Bounds on Mean Treatment Effect on Employment Rates Over Nine Years, Varying Number of Quarters Used to Construct Surrogate Index</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Susan Athey. Translated into Python by Alexander Quispe
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

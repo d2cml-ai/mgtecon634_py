@@ -1,48 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>2. Introduction to Machine Learning &#8212; MGTECON 634 at Stanford (Python scripts)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,61 +64,93 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/2_introduction_to_machine_learning';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3. ATE I: Binary treatment" href="3_average_treatment_effect_1.html" />
     <link rel="prev" title="1. Introduction" href="1_introduction_1.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../md/intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">MGTECON 634 at Stanford (Python scripts)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -115,406 +159,314 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Topics
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Topics</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_introduction_1.html">
-   1. Introduction
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   2. Introduction to Machine Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="3_average_treatment_effect_1.html">
-   3. ATE I: Binary treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="4_heterogeneous_treatment_effect_1.html">
-   4. HTE I: Binary treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="5_policy_evaluation_1.html">
-   5. Policy Evaluation I - Binary Treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_policy_learning_1.html">
-   6. Policy Learning I - Binary Treatment
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="8_WGANs_for_simulation.html">
-   7. Tutorial to simulate data using WGANs
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_surrogate_py.html">
-   8. The surrogate index Athey, S., et al. (2019).
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_introduction_1.html">1. Introduction</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Introduction to Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_average_treatment_effect_1.html">3. ATE I: Binary treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_heterogeneous_treatment_effect_1.html">4. HTE I: Binary treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_policy_evaluation_1.html">5. Policy Evaluation I - Binary Treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_policy_learning_1.html">6. Policy Learning I - Binary Treatment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_WGANs_for_simulation.html">7. Tutorial to simulate data using WGANs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_surrogate_py.html">8. Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely (No. w26463). National Bureau of Economic Research.</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/2_introduction_to_machine_learning.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/d2cml-ai/mgtecon634_python/master?urlpath=tree/_build/jupyter_execute/notebooks/2_introduction_to_machine_learning.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/2_introduction_to_machine_learning.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/d2cml-ai/mgtecon634_python/blob/master/_build/jupyter_execute/notebooks/2_introduction_to_machine_learning.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
 <button onclick="initThebeSBT()"
-  class="headerbtn headerbtn-launch-thebe"
-  data-toggle="tooltip"
-data-placement="left"
-title="Launch Thebe"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-play"></i>
   </span>
-<span class="headerbtn__text-container">Live Code</span>
+<span class="btn__text-container">Live Code</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/d2cml-ai/mgtecon634_python" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/2_introduction_to_machine_learning.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/2_introduction_to_machine_learning.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/2_introduction_to_machine_learning.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/d2cml-ai/mgtecon634_python"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/d2cml-ai/mgtecon634_python/issues/new?title=Issue%20on%20page%20%2Fnotebooks/2_introduction_to_machine_learning.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/d2cml-ai/mgtecon634_python/edit/master/_build/jupyter_execute/notebooks/2_introduction_to_machine_learning.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Edit this page"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-pencil-alt"></i>
-  </span>
-<span class="headerbtn__text-container">suggest edit</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/notebooks/2_introduction_to_machine_learning.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#key-concepts">
-   2.1. Key concepts
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#common-machine-learning-algorithms">
-   2.2. Common machine learning algorithms
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#generalized-linear-models">
-     2.2.1. Generalized linear models
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#decision-tree">
-     2.2.2. Decision Tree
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#forest">
-     2.2.3. Forest
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#further-reading">
-   2.3. Further reading
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Introduction to Machine Learning</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#key-concepts">
-   2.1. Key concepts
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#common-machine-learning-algorithms">
-   2.2. Common machine learning algorithms
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#generalized-linear-models">
-     2.2.1. Generalized linear models
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#decision-tree">
-     2.2.2. Decision Tree
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#forest">
-     2.2.3. Forest
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#further-reading">
-   2.3. Further reading
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Machine Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">2.1. Key concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-machine-learning-algorithms">2.2. Common machine learning algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalized-linear-models">2.2.1. Generalized linear models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">2.2.2. Decision Tree</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forest">2.2.3. Forest</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">2.3. Further reading</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-machine-learning">
-<h1><span class="section-number">2. </span>Introduction to Machine Learning<a class="headerlink" href="#introduction-to-machine-learning" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">2. </span>Introduction to Machine Learning<a class="headerlink" href="#introduction-to-machine-learning" title="Permalink to this heading">#</a></h1>
 <p>In this chapter, we’ll briefly review machine learning concepts that will be relevant later. We’ll focus in particular on the problem of <strong>prediction</strong>, that is, to model some output variable as a function of observed input covariates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -551,9 +503,6 @@ title="Print to PDF"
 
 <span class="c1"># collecting observations in a data.frame object</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -562,22 +511,25 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Ground truth E[Y|X = x]&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Data&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Ground truth E[Y|X=x]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Outcome y&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Outcome y&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2_introduction_to_machine_learning_6_0.png" src="../_images/2_introduction_to_machine_learning_6_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome y&#39;)
+</pre></div>
+</div>
+<img alt="../_images/02a2253c0bb2962d467b1be69c69ae3ea787a8c1b12946cc6645e2104f4025b7.png" src="../_images/02a2253c0bb2962d467b1be69c69ae3ea787a8c1b12946cc6645e2104f4025b7.png" />
 </div>
 </div>
 <p>Note: If you’d like to run the code below on a different dataset, you can replace the dataset above with another <code class="docutils literal notranslate"><span class="pre">data.frame</span></code> of your choice, and redefine the key variable identifiers (<code class="docutils literal notranslate"><span class="pre">outcome</span></code>, <code class="docutils literal notranslate"><span class="pre">covariates</span></code>) accordingly. Although we try to make the code as general as possible, you may also need to make a few minor changes to the code below; read the comments carefully.</p>
 <section id="key-concepts">
-<h2><span class="section-number">2.1. </span>Key concepts<a class="headerlink" href="#key-concepts" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.1. </span>Key concepts<a class="headerlink" href="#key-concepts" title="Permalink to this heading">#</a></h2>
 <p>The prediction problem is to accurately guess the value of some output variable <span class="math notranslate nohighlight">\(Y_i\)</span> from input variables <span class="math notranslate nohighlight">\(X_i\)</span>. For example, we might want to predict “house prices given house characteristics such as the number of rooms, age of the building, and so on. The relationship between input and output is modeled in very general terms by some function</p>
 <div class="math notranslate nohighlight" id="equation-true-model">
 <span class="eqno">(2.1)<a class="headerlink" href="#equation-true-model" title="Permalink to this equation">#</a></span>\[
@@ -635,7 +587,7 @@ title="Print to PDF"
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xgrid</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Estimate&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Example of overfitting&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Outcome y&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Outcome y&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -643,7 +595,7 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome y&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_10_1.png" src="../_images/2_introduction_to_machine_learning_10_1.png" />
+<img alt="../_images/e56bc38ff2050d035bc206d68a87152c2e2f2440ca26e4ee7381982553e70785.png" src="../_images/e56bc38ff2050d035bc206d68a87152c2e2f2440ca26e4ee7381982553e70785.png" />
 </div>
 </div>
 <p>On the other hand, when <span class="math notranslate nohighlight">\(q\)</span> is too small relative to our data, we permit only very simple models and may suffer from misspecification bias. We call this <strong>underfitting</strong>. The main feature of underfitting is <strong>high bias</strong> – the selected model just isn’t complex enough to accurately capture the relationship between input and output variables.</p>
@@ -675,7 +627,7 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome y&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_12_1.png" src="../_images/2_introduction_to_machine_learning_12_1.png" />
+<img alt="../_images/5cae509a205e6f95f648c37274cedd544dd8b9037ef23a9449cfbf7a38c2a96d.png" src="../_images/5cae509a205e6f95f648c37274cedd544dd8b9037ef23a9449cfbf7a38c2a96d.png" />
 </div>
 </div>
 <p>This tension is called the <strong>bias-variance trade-off</strong>: simpler models underfit and have more bias, more complex models overfit and have more variance.</p>
@@ -730,7 +682,7 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(7, 1.3, &#39;High bias \n Low Variance&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_15_1.png" src="../_images/2_introduction_to_machine_learning_15_1.png" />
+<img alt="../_images/09653ad9c7d8053ebe59360935e9841ccfd8160a9a7807685ce91d50e13dc3fa.png" src="../_images/09653ad9c7d8053ebe59360935e9841ccfd8160a9a7807685ce91d50e13dc3fa.png" />
 </div>
 </div>
 <p>To make better use of the data we will often divide the data into <span class="math notranslate nohighlight">\(K\)</span> subsets, or <em>folds</em>. Then one fits <span class="math notranslate nohighlight">\(K\)</span> models, each using  <span class="math notranslate nohighlight">\(K-1\)</span> folds and then evaluation the fitted model on the remaining fold. This is called <strong>k-fold cross-validation</strong>.</p>
@@ -773,7 +725,7 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;MSE estimate (K-fold cross validation)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_18_1.png" src="../_images/2_introduction_to_machine_learning_18_1.png" />
+<img alt="../_images/3f96e9cfbb4f4feae057e188dc0ff976d28f66f6c6377945eaadaccdeb270b0e.png" src="../_images/3f96e9cfbb4f4feae057e188dc0ff976d28f66f6c6377945eaadaccdeb270b0e.png" />
 </div>
 </div>
 <p>A final remark is that, in machine learning applications, the complexity of the model often is allowed to increase with the available data. In the example above, even though we weren’t very successful when fitting a high-dimensional model on very little data, if we had much more data perhaps such a model would be appropriate. The next figure again fits a high order polynomial model, but this time on many data points. Note how, at least in data-rich regions, the model is much better behaved, and tracks the average outcome reasonably well without trying to interpolate wildly of the data points.</p>
@@ -818,14 +770,14 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Outcome&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_20_1.png" src="../_images/2_introduction_to_machine_learning_20_1.png" />
+<img alt="../_images/efff0224b311080970c68d38be446938215c29f2524742a810461d24488ad3c4.png" src="../_images/efff0224b311080970c68d38be446938215c29f2524742a810461d24488ad3c4.png" />
 </div>
 </div>
 <p>This is one of the benefits of using machine learning-based models: more data implies more flexible modeling, and therefore potentially better predictive power – provided that we carefully avoid overfitting.</p>
 <p>The example above based on polynomial regression was used mostly for illustration. In practice, there are often better-performing algorithms. We’ll see some of them next.</p>
 </section>
 <section id="common-machine-learning-algorithms">
-<h2><span class="section-number">2.2. </span>Common machine learning algorithms<a class="headerlink" href="#common-machine-learning-algorithms" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.2. </span>Common machine learning algorithms<a class="headerlink" href="#common-machine-learning-algorithms" title="Permalink to this heading">#</a></h2>
 <p>Next, we’ll introduce three machine learning algorithms: (regularized) linear models, trees, and forests. Although this isn’t an exhaustive list, these algorithms are common enough that every machine learning practitioner should know about them. They also have convenient <code class="docutils literal notranslate"><span class="pre">R</span></code> packages that allow for easy coding.</p>
 <p>In this tutorial, we’ll focus heavily on how to <strong>interpret</strong> the output of machine learning models – or, at least, how not to <em>mis</em>-interpret it. However, in this chapter we won’t be making any causal claims about the relationships between variables yet. But please hang tight, as estimating causal effects will be one of the main topics presented in the next chapters.</p>
 <p>For the remainder of the chapter we will use a real dataset. Each row in this data set represents the characteristics of a owner-occupied housing unit. Our goal is to predict the (log) price of the housing unit (<code class="docutils literal notranslate"><span class="pre">LOGVALUE</span></code>, our outcome variable) from features such as the size of the lot (<code class="docutils literal notranslate"><span class="pre">LOT</span></code>) and square feet area (<code class="docutils literal notranslate"><span class="pre">UNITSF</span></code>), number of bedrooms (<code class="docutils literal notranslate"><span class="pre">BEDRMS</span></code>) and bathrooms (<code class="docutils literal notranslate"><span class="pre">BATHS</span></code>), year in which it was built (<code class="docutils literal notranslate"><span class="pre">BUILT</span></code>) etc. This dataset comes from the American Housing Survey and was used in <a class="reference external" href="https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87">Mullainathan and Spiess (2017, JEP)</a>. In addition, we will append to this data columns that are pure noise. Ideally, our fitted model should not take them into acccount.</p>
@@ -999,7 +951,7 @@ title="Print to PDF"
 </div></div></div>
 </div>
 <section id="generalized-linear-models">
-<h3><span class="section-number">2.2.1. </span>Generalized linear models<a class="headerlink" href="#generalized-linear-models" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.2.1. </span>Generalized linear models<a class="headerlink" href="#generalized-linear-models" title="Permalink to this heading">#</a></h3>
 <p>This class of models extends common methods such as linear and logistic regression by adding a penalty to the magnitude of the coefficients. <strong>Lasso</strong> penalizes the absolute value of slope coefficients. For regression problems, it becomes</p>
 <div class="math notranslate nohighlight" id="equation-lasso">
 <span class="eqno">(2.2)<a class="headerlink" href="#equation-lasso" title="Permalink to this equation">#</a></span>\[
@@ -1082,7 +1034,7 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1e-08, 0.1)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_33_1.png" src="../_images/2_introduction_to_machine_learning_33_1.png" />
+<img alt="../_images/69a229e9b6f600da4d05644c2c500fec5c457d9930aa54dcc4feff9c4eb78ff1.png" src="../_images/69a229e9b6f600da4d05644c2c500fec5c457d9930aa54dcc4feff9c4eb78ff1.png" />
 </div>
 </div>
 <p>Here are the first few estimated coefficients at the <span class="math notranslate nohighlight">\(\lambda\)</span> value that minimizes cross-validated MSE. Note that many estimated coefficients them are exactly zero.</p>
@@ -1197,7 +1149,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2_introduction_to_machine_learning_41_0.png" src="../_images/2_introduction_to_machine_learning_41_0.png" />
+<img alt="../_images/7f72e1a875e82c54ff9de7663ad13201328f3d325fc9a5d08884a43bc928b4ca.png" src="../_images/7f72e1a875e82c54ff9de7663ad13201328f3d325fc9a5d08884a43bc928b4ca.png" />
 </div>
 </div>
 <p>It’s tempting to try to interpret the coefficients obtained via Lasso. Unfortunately, that can be very difficult, because by dropping covariates Lasso introduces a form of <strong>omitted variable bias</strong> (<a class="reference external" href="https://en.wikipedia.org/wiki/Omitted-variable_bias">wikipedia</a>). To understand this form of bias, consider the following toy example. We have two positively correlated independent variables, <code class="docutils literal notranslate"><span class="pre">x.1</span></code> and <code class="docutils literal notranslate"><span class="pre">x.2</span></code>, that are linearly related to the outcome <code class="docutils literal notranslate"><span class="pre">y</span></code>. Linear regression of <code class="docutils literal notranslate"><span class="pre">y</span></code> on <code class="docutils literal notranslate"><span class="pre">x1</span></code> and <code class="docutils literal notranslate"><span class="pre">x2</span></code> gives us the correct coefficients. However, if we <em>omit</em> <code class="docutils literal notranslate"><span class="pre">x2</span></code> from the estimation model, the coefficient on <code class="docutils literal notranslate"><span class="pre">x1</span></code> increases. This is because <code class="docutils literal notranslate"><span class="pre">x1</span></code> is now “picking up” the effect of the variable that was left out. In other words, the effect of <code class="docutils literal notranslate"><span class="pre">x1</span></code> seems stronger because we aren’t controlling for some other confounding variable. Note that the second model this still works for prediction, but we cannot interpret the coefficient as a measure of strength of the causal relationship between <code class="docutils literal notranslate"><span class="pre">x1</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
@@ -1360,7 +1312,7 @@ Notes:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;lambda&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_47_1.png" src="../_images/2_introduction_to_machine_learning_47_1.png" />
+<img alt="../_images/9ab68df0fb7df6e853d77d126dc13cda36b0f5684524ecab851262c626d9fd0c.png" src="../_images/9ab68df0fb7df6e853d77d126dc13cda36b0f5684524ecab851262c626d9fd0c.png" />
 </div>
 </div>
 <p>The OLS coefficients are not penalized, so they remain constant. Ridge estimates decrease monotonically as <span class="math notranslate nohighlight">\(\lambda\)</span> grows. Also, for this dataset, Lasso estimates first increase and then decrease. Meanwhile, the post-lasso coefficient estimates seem to behave somewhat erratically with <span class="math notranslate nohighlight">\(lambda\)</span>. To understand this behavior, let’s see what happens to the magnitude of other selected variables that are correlated with <code class="docutils literal notranslate"><span class="pre">BATHS</span></code>.</p>
@@ -1396,7 +1348,7 @@ Notes:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;lambda&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_50_1.png" src="../_images/2_introduction_to_machine_learning_50_1.png" />
+<img alt="../_images/33121ab23ad85c9fc1e9e5b487d9cf837cccdc7136d0e6abbf8321ff4dd5c4e1.png" src="../_images/33121ab23ad85c9fc1e9e5b487d9cf837cccdc7136d0e6abbf8321ff4dd5c4e1.png" />
 </div>
 </div>
 <p>Note how the discrete jumps in magnitude for the <code class="docutils literal notranslate"><span class="pre">BATHS</span></code> coefficient in the first coincide with, for example, variables <code class="docutils literal notranslate"><span class="pre">DINING</span></code> and <code class="docutils literal notranslate"><span class="pre">BEDRMS</span></code> being exactly zero. As these variables got dropped from the model, the coefficient on <code class="docutils literal notranslate"><span class="pre">BATHS</span></code> increased to pick up their effect.</p>
@@ -2606,14 +2558,14 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2_introduction_to_machine_learning_64_0.png" src="../_images/2_introduction_to_machine_learning_64_0.png" />
+<img alt="../_images/e5dbdc9e20825abe5c1ca4c6e45caf5ed81e16300328e16f96e4e2617561770e.png" src="../_images/e5dbdc9e20825abe5c1ca4c6e45caf5ed81e16300328e16f96e4e2617561770e.png" />
 </div>
 </div>
 <p>As we just saw above, houses that have, e.g., been built more recently (<code class="docutils literal notranslate"><span class="pre">BUILT</span></code>), have more baths (<code class="docutils literal notranslate"><span class="pre">BATHS</span></code>) are associated with larger price predictions.</p>
 <p>This sort of interpretation exercise did not rely on reading any coefficients, and in fact it could also be done using any other flexible method, including decisions trees and forests.</p>
 </section>
 <section id="decision-tree">
-<h3><span class="section-number">2.2.2. </span>Decision Tree<a class="headerlink" href="#decision-tree" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.2.2. </span>Decision Tree<a class="headerlink" href="#decision-tree" title="Permalink to this heading">#</a></h3>
 <p>This next class of algorithms divides the covariate space into “regions” and estimates a constant prediction within each region.</p>
 <p>To estimate a decision tree, we following a recursive partition algorithm. At each stage, we select one variable <span class="math notranslate nohighlight">\(j\)</span> and one split point
 <span class="math notranslate nohighlight">\(s\)</span>, and divide the observations into “left” and “right” subsets, depending on whether <span class="math notranslate nohighlight">\(X_{ij} \leq s\)</span> or <span class="math notranslate nohighlight">\(X_{ij} &gt; s\)</span>. For regression problems, the variable and split points are often selected so that the sum of the variances of the outcome variable in each “child” subset is smallest. For classification problems, we split to separate the classes. Then, for each child, we separately repeat the process of finding variables and split points. This continues until a minimum subset size is reached, or improvement falls below some threshold.</p>
@@ -2671,7 +2623,7 @@ Notes:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3679,7 +3631,7 @@ Notes:
  ...]
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_73_1.png" src="../_images/2_introduction_to_machine_learning_73_1.png" />
+<img alt="../_images/7fff92d002c713b1a21a25efce99a0ff7f962ebf48452b2e5e73e058c7657e69.png" src="../_images/7fff92d002c713b1a21a25efce99a0ff7f962ebf48452b2e5e73e058c7657e69.png" />
 </div>
 </div>
 <p>To reduce the complexity of the tree, we <strong>prune</strong> the tree: we collapse its leaves, permitting bias to increase but forcing variance to decrease until the desired trade-off is achieved. In <code class="docutils literal notranslate"><span class="pre">rpart</span></code>, this is done by considering a modified loss function that takes into account the number of terminal nodes (i.e., the number of regions in which the original data was partitioned). Somewhat heuristically, if we denote tree predictions by <span class="math notranslate nohighlight">\(T(x)\)</span> and its number of terminal nodes by  <span class="math notranslate nohighlight">\(|T|\)</span>, the modified regression problem can be written as:</p>
@@ -3811,7 +3763,7 @@ Notes:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x229901244c0&gt;
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_78_1.png" src="../_images/2_introduction_to_machine_learning_78_1.png" />
+<img alt="../_images/3e2bc942bd7661701e90b9e3f63ffdcba384b7f074608a61b35850df71266dcb.png" src="../_images/3e2bc942bd7661701e90b9e3f63ffdcba384b7f074608a61b35850df71266dcb.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3885,7 +3837,7 @@ Notes:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x229926aff40&gt;
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_81_1.png" src="../_images/2_introduction_to_machine_learning_81_1.png" />
+<img alt="../_images/576105911cb66b54665077aa71f87625db0185c22488bd7f0dbad2747cfe0d22.png" src="../_images/576105911cb66b54665077aa71f87625db0185c22488bd7f0dbad2747cfe0d22.png" />
 </div>
 </div>
 <p>The following code retrieves the optimal parameter and prunes the tree. Here, instead of choosing the parameter that minimizes the mean-squared-error, we’re following another common heuristic: we will choose the most regularized model whose error is within one standard error of the minimum error.</p>
@@ -3907,9 +3859,35 @@ Notes:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rounded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">feature_names</span> <span class="o">=</span> <span class="n">XX</span><span class="o">.</span><span class="n">columns</span><span class="p">);</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rounded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">feature_names</span> <span class="o">=</span> <span class="n">XX</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.65, 0.9, &#39;NUNIT2 &lt;= 3.5\nsquared_error = 1.01\nsamples = 20108\nvalue = 11.812&#39;),
+ Text(0.4, 0.7, &#39;UNITSF &lt;= 2436.5\nsquared_error = 0.823\nsamples = 19378\nvalue = 11.884&#39;),
+ Text(0.2, 0.5, &#39;BATHS &lt;= 1.5\nsquared_error = 0.698\nsamples = 13909\nvalue = 11.68&#39;),
+ Text(0.1, 0.3, &#39;KITCH &lt;= 0.5\nsquared_error = 0.782\nsamples = 5112\nvalue = 11.38&#39;),
+ Text(0.05, 0.1, &#39;squared_error = 0.0\nsamples = 1\nvalue = 0.0&#39;),
+ Text(0.15, 0.1, &#39;squared_error = 0.757\nsamples = 5111\nvalue = 11.382&#39;),
+ Text(0.3, 0.3, &#39;UNITSF &lt;= 1692.0\nsquared_error = 0.567\nsamples = 8797\nvalue = 11.854&#39;),
+ Text(0.25, 0.1, &#39;squared_error = 0.533\nsamples = 3227\nvalue = 11.684&#39;),
+ Text(0.35, 0.1, &#39;squared_error = 0.56\nsamples = 5570\nvalue = 11.953&#39;),
+ Text(0.6, 0.5, &#39;BATHS &lt;= 2.5\nsquared_error = 0.768\nsamples = 5469\nvalue = 12.402&#39;),
+ Text(0.5, 0.3, &#39;BATHS &lt;= 1.5\nsquared_error = 0.739\nsamples = 2839\nvalue = 12.156&#39;),
+ Text(0.45, 0.1, &#39;squared_error = 1.112\nsamples = 328\nvalue = 11.625&#39;),
+ Text(0.55, 0.1, &#39;squared_error = 0.649\nsamples = 2511\nvalue = 12.225&#39;),
+ Text(0.7, 0.3, &#39;UNITSF &lt;= 3999.0\nsquared_error = 0.664\nsamples = 2630\nvalue = 12.667&#39;),
+ Text(0.65, 0.1, &#39;squared_error = 0.538\nsamples = 1645\nvalue = 12.495&#39;),
+ Text(0.75, 0.1, &#39;squared_error = 0.742\nsamples = 985\nvalue = 12.954&#39;),
+ Text(0.9, 0.7, &#39;MOBILTYP &lt;= 1.5\nsquared_error = 2.186\nsamples = 730\nvalue = 9.901&#39;),
+ Text(0.85, 0.5, &#39;UNITSF &lt;= 15977.5\nsquared_error = 2.4\nsamples = 417\nvalue = 9.372&#39;),
+ Text(0.8, 0.3, &#39;squared_error = 2.194\nsamples = 416\nvalue = 9.394&#39;),
+ Text(0.9, 0.3, &#39;squared_error = -0.0\nsamples = 1\nvalue = 0.0&#39;),
+ Text(0.95, 0.5, &#39;squared_error = 1.031\nsamples = 313\nvalue = 10.606&#39;)]
+</pre></div>
+</div>
+<img alt="../_images/5e8692e10c3614e6e137d189e38729cac7837e2bc1fa9962409ca4b98a7d262d.png" src="../_images/5e8692e10c3614e6e137d189e38729cac7837e2bc1fa9962409ca4b98a7d262d.png" />
 </div>
 </div>
 <p>Finally, here’s how to extract predictions and mse estimates from the pruned tree.</p>
@@ -4521,12 +4499,12 @@ Std.Err.  0.008697  0.010667  0.015243
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Average covariate values within leaf&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_92_1.png" src="../_images/2_introduction_to_machine_learning_92_1.png" />
+<img alt="../_images/7fe8e1614f6607cdb429babcaffe16686a39caacebfe9c3299f8c07b0355ec50.png" src="../_images/7fe8e1614f6607cdb429babcaffe16686a39caacebfe9c3299f8c07b0355ec50.png" />
 </div>
 </div>
 </section>
 <section id="forest">
-<h3><span class="section-number">2.2.3. </span>Forest<a class="headerlink" href="#forest" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.2.3. </span>Forest<a class="headerlink" href="#forest" title="Permalink to this heading">#</a></h3>
 <p>Forests are a type of <strong>ensemble</strong> estimators: they aggregate information about many decision trees to compute a new estimate that typically has much smaller variance.</p>
 <p>At a high level, the process of fitting a (regression) forest consists of fitting many decision trees, each on a different subsample of the data. The forest prediction for a particular point <span class="math notranslate nohighlight">\(x\)</span> is the average of all tree predictions for that point.</p>
 <p>One interesting aspect of forests and many other ensemble methods is that cross-validation can be built into the algorithm itself. Since each tree only uses a subset of the data, the remaining subset is effectively a test set for that tree. We call these observations <strong>out-of-bag</strong> (there were not in the “bag” of training observations). They can be used to evaluate the performance of that tree, and the average of out-of-bag evaluations is evidence of the performance of the forest itself.</p>
@@ -4633,14 +4611,14 @@ Std.Err.  0.008697  0.010667  0.015243
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Variable Importance&#39;)
 </pre></div>
 </div>
-<img alt="../_images/2_introduction_to_machine_learning_99_1.png" src="../_images/2_introduction_to_machine_learning_99_1.png" />
+<img alt="../_images/63af83f81581f649d0b3bb620fd00fced63749857610101d7c66acc22632d187.png" src="../_images/63af83f81581f649d0b3bb620fd00fced63749857610101d7c66acc22632d187.png" />
 </div>
 </div>
 <p>All the caveats about interpretation that we mentioned above apply in a similar to forest output.</p>
 </section>
 </section>
 <section id="further-reading">
-<h2><span class="section-number">2.3. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.3. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
 <p>In this tutorial we briefly reviewed some key concepts that we recur later in this tutorial. For readers who are entirely new to this field or interested in learning about it more depth, the first few chapters of the following textbook are an acccessible introduction:</p>
 <p>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2013). An introduction to statistical learning (Vol. 112, p. 18). New York: springer. Available for free at <a class="reference external" href="https://www.statlearning.com/">the authors’ website</a>.</p>
 <p>Some of the discussion in the Lasso section in particular was drawn from <a class="reference external" href="https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87">Mullainathan and Spiess (JEP, 2017)</a>, which contains a good discussion of the interpretability issues discussed here.</p>
@@ -4660,7 +4638,7 @@ Std.Err.  0.008697  0.010667  0.015243
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -4668,49 +4646,105 @@ Std.Err.  0.008697  0.010667  0.015243
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="1_introduction_1.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">1. </span>Introduction</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1_introduction_1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Introduction</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="3_average_treatment_effect_1.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="3_average_treatment_effect_1.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title"><span class="section-number">3. </span>ATE I: Binary treatment</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Phd Susan Athey<br/>
-  
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">2.1. Key concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-machine-learning-algorithms">2.2. Common machine learning algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalized-linear-models">2.2.1. Generalized linear models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">2.2.2. Decision Tree</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forest">2.2.3. Forest</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">2.3. Further reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Susan Athey. Translated into Python by Alexander Quispe
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
